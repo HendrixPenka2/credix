@@ -1,0 +1,72 @@
+{
+    "demande_id": "7dd5708f-d9af-4968-8331-bc98f9b52052",
+    "client_id": "HC-100001",
+    "pd_c": 0.290185,
+    "score_pdo": 541,
+    "decision": "REVUE_MANUELLE",
+    "rho_c": 1.0,
+    "shap_top5": [
+        {
+            "feature": "EXT_SOURCE_3",
+            "libelle_agent": "Indice de Fiabilit\u00e9 Externe 3",
+            "shap_value": 1.0286,
+            "direction": "aggravant",
+            "valeur_brute": 0.1595195404777181,
+            "poids_pct": 37.9,
+            "explication_naturelle": "Indice de Fiabilit\u00e9 Externe 3 : Inf\u00e9rieur au 25\u00e8me percentile (Risque tr\u00e8s \u00e9lev\u00e9) (0.16) \u2014 ce facteur fortement augmente le risque estim\u00e9 \u2014 37.9% de l'explication."
+        },
+        {
+            "feature": "EXT_SOURCE_2",
+            "libelle_agent": "Indice de Solvabilit\u00e9 Externe 2",
+            "shap_value": -0.6455,
+            "direction": "attenuant",
+            "valeur_brute": 0.7896543511176771,
+            "poids_pct": 23.8,
+            "explication_naturelle": "Indice de Solvabilit\u00e9 Externe 2 : tr\u00e8s bon (0.79) \u2014 ce facteur fortement r\u00e9duit le risque estim\u00e9 \u2014 23.8% de l'explication."
+        },
+        {
+            "feature": "EXT_SOURCE_1",
+            "libelle_agent": "Indice de Fiabilit\u00e9 du Cr\u00e9dit Externe",
+            "shap_value": -0.5952,
+            "direction": "attenuant",
+            "valeur_brute": 0.7526144906031748,
+            "poids_pct": 21.9,
+            "explication_naturelle": "Indice de Fiabilit\u00e9 du Cr\u00e9dit Externe : Bonne Fiabilit\u00e9 (0.75) \u2014 ce facteur fortement r\u00e9duit le risque estim\u00e9 \u2014 21.9% de l'explication."
+        },
+        {
+            "feature": "pos_avg_dpd_all",
+            "libelle_agent": "Retard moyen de paiement POS (jours)",
+            "shap_value": 0.2234,
+            "direction": "aggravant",
+            "valeur_brute": 0.7777777777777778,
+            "poids_pct": 8.2,
+            "explication_naturelle": "Retard moyen de paiement POS (jours) (0.78) \u2014 ce facteur fortement augmente le risque estim\u00e9 \u2014 8.2% de l'explication."
+        },
+        {
+            "feature": "history_length_days",
+            "libelle_agent": "Anciennet\u00e9 du client",
+            "shap_value": -0.2203,
+            "direction": "attenuant",
+            "valeur_brute": 2916.0,
+            "poids_pct": 8.1,
+            "explication_naturelle": "Anciennet\u00e9 du client : Plus de 8 ans (2916.00) \u2014 ce facteur fortement r\u00e9duit le risque estim\u00e9 \u2014 8.1% de l'explication."
+        }
+    ],
+    "recommandation_rho": {
+        "afficher": false
+    },
+    "percentile": {
+        "percentile": 81,
+        "score_client": 541,
+        "nb_dossiers_reference": 83,
+        "message": "Ce client est dans le top 19% des dossiers examin\u00e9s ce mois.",
+        "qualification": "excellents"
+    },
+    "model_version": "d004a093-f5c2-475f-abc6-048ef9476b64",
+    "timestamp": "2026-06-30T09:23:07.156482+00:00",
+    "decision_initiale": null,
+    "anomaly_score": 1.34849,
+    "is_anomaly": true,
+    "if_escalade": false,
+    "if_seuil": 0.42896698359495145
+}

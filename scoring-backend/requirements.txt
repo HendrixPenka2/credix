@@ -1,0 +1,41 @@
+# Framework
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+python-multipart==0.0.9
+
+# Base de données
+motor==3.4.0
+pymongo==4.7.2
+
+# ML Pipeline
+lightgbm==4.3.0
+scikit-learn==1.6.1
+shap==0.45.1
+optbinning==0.21.0
+pandas==2.2.2
+numpy==1.26.4
+joblib==1.4.2
+
+# Sécurité
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+
+# Validation
+pydantic==2.7.1
+pydantic-settings==2.3.0
+
+# LLM (generate_metadata.py)
+google-generativeai==0.7.2
+anthropic==0.28.0
+
+# HTTP client (appel pdf-worker)
+httpx==0.27.0
+
+# PDF
+fpdf2==2.7.9
+
+# Utilitaires
+python-dotenv==1.0.1
+pyyaml==6.0.2
+tensorflow-cpu

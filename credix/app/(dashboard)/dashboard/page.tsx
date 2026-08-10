@@ -1,0 +1,124 @@
+'use client';
+
+import { useState, useEffect, useCallback } from 'react';
+import { Loader2, LayoutDashboard } from 'lucide-react';
+import { DashboardStatistics, ScoreDistribution, AnomalyStatistics } from '@/lib/types';
+import { dashboardRepository } from '@/lib/repositories/dashboard.repository';
+import { StatCards } from '@/components/dashboard/StatCards';
+import { VolumeChart } from '@/components/dashboard/VolumeChart';
+import { QuickActions } from '@/components/dashboard/QuickActions';
+import { RecentScorings } from '@/components/dashboard/RecentScorings';
+import { AnomalyInsights } from '@/components/dashboard/AnomalyInsights';
+import { ThinFileWatch } from '@/components/dashboard/ThinFileWatch';
+import { Card } from '@/components/ui/card';
+import { ErrorState } from '@/components/ui/error-state';
+import { cn } from '@/lib/utils';
+
+type Periode = '7j' | '30j' | '90j';
+
+const PERIODE_LABELS: Record<Periode, string> = {
+  '7j': '7 jours', '30j': '30 jours', '90j': '90 jours',
+};
+
+export default function DashboardPage() {
+  const [periode, setPeriode]   = useState<Periode>('30j');
+  const [stats, setStats]       = useState<DashboardStatistics | null>(null);
+  const [dist,  setDist]        = useState<ScoreDistribution | null>(null);
+  const [anomaly, setAnomaly]   = useState<AnomalyStatistics | null>(null);
+  const [loading, setLoading]   = useState(true);
+  const [error,   setError]     = useState<string | null>(null);
+
+  const load = useCallback(async (p: Periode) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [s, d, a] = await Promise.all([
+        dashboardRepository.getStatistics(p),
+        dashboardRepository.getScoreDistribution(p),
+        dashboardRepository.getAnomalyStatistics(p),
+      ]);
+      setStats(s);
+      setDist(d);
+      setAnomaly(a);
+    } catch {
+      setError('Impossible de charger les statistiques. Vérifiez que le backend tourne sur le port 8080.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { load(periode); }, [periode, load]);
+
+  return (
+    <div className="w-full space-y-6">
+
+      {/* ── Header ── */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700/40 flex items-center justify-center shrink-0">
+            <LayoutDashboard className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight">
+              Tableau de bord
+            </h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+              Vue d'ensemble de l'activité de scoring
+            </p>
+          </div>
+        </div>
+
+        {/* Sélecteur période */}
+        <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+          {(Object.keys(PERIODE_LABELS) as Periode[]).map(p => (
+            <button
+              key={p}
+              onClick={() => setPeriode(p)}
+              className={cn(
+                'px-3.5 py-1.5 text-xs font-semibold rounded-md transition-all',
+                periode === p
+                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+              )}
+            >
+              {PERIODE_LABELS[p]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Accès rapides — toujours visibles, indépendants de la période ── */}
+      <QuickActions />
+
+      {/* ── Erreur stats ── */}
+      {error && !loading && (
+        <Card><ErrorState message={error} onRetry={() => load(periode)} /></Card>
+      )}
+
+      {/* ── Loading stats ── */}
+      {loading && (
+        <div className="flex items-center justify-center py-16 gap-3">
+          <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+          <span className="text-sm text-slate-400 dark:text-slate-500">Chargement des statistiques…</span>
+        </div>
+      )}
+
+      {/* ── Stats + Anomalie + Volume + Derniers scorings + Thin-file ── */}
+      {!loading && !error && stats && (
+        <>
+          <StatCards stats={stats} />
+
+          {/* Détection d'anomalie — argument fort du projet, placé en évidence */}
+          {anomaly && <AnomalyInsights stats={anomaly} />}
+
+          {dist && <VolumeChart distribution={dist} />}
+
+          <div className="grid grid-cols-2 gap-5 items-start">
+            <RecentScorings />
+            <ThinFileWatch />
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

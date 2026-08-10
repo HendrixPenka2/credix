@@ -1,0 +1,28 @@
+# Environnement
+.env
+*.env
+
+# Artefacts ML (ne pas versionner)
+artefacts/*.pkl
+artefacts/*.csv
+artefacts/*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Docker volumes
+data/
+mlruns/
+
+# Logs
+*.log

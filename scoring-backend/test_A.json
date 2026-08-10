@@ -1,0 +1,72 @@
+{
+    "demande_id": "a70e11cd-0435-4f95-abb7-33383c585d84",
+    "client_id": "HC-100001",
+    "pd_c": 0.258661,
+    "score_pdo": 545,
+    "decision": "REVUE_MANUELLE",
+    "rho_c": 1.0,
+    "shap_top5": [
+        {
+            "feature": "EXT_SOURCE_3",
+            "libelle_agent": "Indice de Fiabilit\u00e9 Externe 3",
+            "shap_value": 1.0715,
+            "direction": "aggravant",
+            "valeur_brute": 0.1595195404777181,
+            "poids_pct": 37.1,
+            "explication_naturelle": "Indice de Fiabilit\u00e9 Externe 3 : Inf\u00e9rieur au 25\u00e8me percentile (Risque tr\u00e8s \u00e9lev\u00e9) (0.16) \u2014 ce facteur fortement augmente le risque estim\u00e9 \u2014 37.1% de l'explication."
+        },
+        {
+            "feature": "EXT_SOURCE_2",
+            "libelle_agent": "Indice de Solvabilit\u00e9 Externe 2",
+            "shap_value": -0.573,
+            "direction": "attenuant",
+            "valeur_brute": 0.7896543511176771,
+            "poids_pct": 19.8,
+            "explication_naturelle": "Indice de Solvabilit\u00e9 Externe 2 : tr\u00e8s bon (0.79) \u2014 ce facteur fortement r\u00e9duit le risque estim\u00e9 \u2014 19.8% de l'explication."
+        },
+        {
+            "feature": "EXT_SOURCE_1",
+            "libelle_agent": "Indice de Fiabilit\u00e9 du Cr\u00e9dit Externe",
+            "shap_value": -0.5165,
+            "direction": "attenuant",
+            "valeur_brute": 0.7526144906031748,
+            "poids_pct": 17.9,
+            "explication_naturelle": "Indice de Fiabilit\u00e9 du Cr\u00e9dit Externe : Bonne Fiabilit\u00e9 (0.75) \u2014 ce facteur fortement r\u00e9duit le risque estim\u00e9 \u2014 17.9% de l'explication."
+        },
+        {
+            "feature": "annuity_to_credit",
+            "libelle_agent": "Taux d'endettement potentiel sur le cr\u00e9dit",
+            "shap_value": -0.4025,
+            "direction": "attenuant",
+            "valeur_brute": 0.1,
+            "poids_pct": 13.9,
+            "explication_naturelle": "Taux d'endettement potentiel sur le cr\u00e9dit : Charge de remboursement \u00e9lev\u00e9e (0.10) \u2014 ce facteur fortement r\u00e9duit le risque estim\u00e9 \u2014 13.9% de l'explication."
+        },
+        {
+            "feature": "pos_avg_dpd_all",
+            "libelle_agent": "Retard moyen de paiement POS (jours)",
+            "shap_value": 0.3262,
+            "direction": "aggravant",
+            "valeur_brute": 0.7777777777777778,
+            "poids_pct": 11.3,
+            "explication_naturelle": "Retard moyen de paiement POS (jours) (0.78) \u2014 ce facteur fortement augmente le risque estim\u00e9 \u2014 11.3% de l'explication."
+        }
+    ],
+    "recommandation_rho": {
+        "afficher": false
+    },
+    "percentile": {
+        "percentile": 83,
+        "score_client": 545,
+        "nb_dossiers_reference": 82,
+        "message": "Ce client est dans le top 17% des dossiers examin\u00e9s ce mois.",
+        "qualification": "excellents"
+    },
+    "model_version": "d004a093-f5c2-475f-abc6-048ef9476b64",
+    "timestamp": "2026-06-30T09:23:06.811749+00:00",
+    "decision_initiale": null,
+    "anomaly_score": 0.469577,
+    "is_anomaly": true,
+    "if_escalade": false,
+    "if_seuil": 0.42896698359495145
+}

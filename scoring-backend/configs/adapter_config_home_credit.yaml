@@ -1,0 +1,229 @@
+# ============================================================================
+# adapter_config_home_credit.yaml
+# Configuration GenericAdapter pour le dataset Home Credit Default Risk
+#
+# Ce fichier est la "recette" qui décrit comment calculer les 27 features NAP
+# depuis les CSV Home Credit. Changer d'institution = fournir un nouveau YAML.
+# Le code GenericAdapter ne change pas.
+#
+# STRUCTURE :
+#   adapter    : métadonnées (clé de jointure, préfixe client, table primaire)
+#   sources    : mapping nom logique → nom de fichier CSV
+#   features   : les 27 features NAP avec leur règle de calcul
+#
+# TYPES D'OPÉRATIONS :
+#   Table primaire (application) :
+#     direct               : lire colonne directement
+#     abs_divide           : abs(column) / divisor
+#     abs_divide_sentinel  : abs(column) / divisor, None si column == sentinel_value
+#     binary_encode        : 1.0 si column == true_value, sinon 0.0
+#     safe_ratio           : numerator / denominator (None si denominator <= 0)
+#
+#   Tables secondaires (agrégées par SK_ID_CURR) :
+#     agg_sum              : sum(column)
+#     agg_mean             : mean(column)
+#     agg_count_where      : sum((condition_column == condition_equals).astype(int))
+#     agg_mean_flag        : mean((condition_column == condition_equals).astype(int))
+#     agg_max_flag         : max((col_a - col_b > threshold).astype(int))
+#     agg_mean_safe_ratio  : mean(numerator/denominator où denominator > 0)
+#     agg_std_safe_ratio   : std(numerator/denominator où denominator > 0)
+#     agg_mean_diff        : mean(col_a - col_b)
+#     agg_abs_min          : abs(min(column))
+#
+# SOURCE DE VÉRITÉ : nap_features.pkl (27 features exactes sélectionnées par NAP)
+# ============================================================================
+
+adapter:
+  name: "Home Credit Default Risk"
+  version: "1.0"
+  join_key: "SK_ID_CURR"
+  client_id_prefix: "HC-"
+  primary_table: "application"
+
+sources:
+  application:  "application_test.csv"
+  bureau:       "bureau.csv"
+  pos:          "POS_CASH_balance.csv"
+  installments: "installments_payments.csv"
+  previous:     "previous_application.csv"
+
+# ============================================================================
+# LES 27 FEATURES NAP
+# ============================================================================
+features:
+
+  # ── BLOC 1 : application_test.csv (17 features) ──────────────────────────
+
+  # F2 — Identité temporelle
+  # DAYS_* sont négatifs dans Home Credit (jours depuis aujourd'hui)
+  # DAYS_EMPLOYED = 365243 est une valeur sentinelle signifiant "sans emploi"
+
+  age_years:
+    source: application
+    type: abs_divide
+    column: DAYS_BIRTH
+    divisor: 365.25
+
+  employment_years:
+    source: application
+    type: abs_divide_sentinel
+    column: DAYS_EMPLOYED
+    divisor: 365.25
+    sentinel_value: 365243      # Sentinelle Home Credit = "sans emploi" → None
+
+  registration_years:
+    source: application
+    type: abs_divide
+    column: DAYS_REGISTRATION
+    divisor: 365.25
+
+  # F7 — Genre binaire encodé
+  CODE_GENDER_bin:
+    source: application
+    type: binary_encode
+    column: CODE_GENDER
+    true_value: "M"             # M → 1.0,  F → 0.0
+
+  # F8 — Ratios financiers
+  annuity_to_credit:
+    source: application
+    type: safe_ratio
+    numerator: AMT_ANNUITY
+    denominator: AMT_CREDIT
+
+  goods_to_credit:
+    source: application
+    type: safe_ratio
+    numerator: AMT_GOODS_PRICE
+    denominator: AMT_CREDIT
+
+  # F9 — Variables catégorielles multi-modalités
+  NAME_CONTRACT_TYPE:
+    source: application
+    type: direct
+    column: NAME_CONTRACT_TYPE
+
+  NAME_INCOME_TYPE:
+    source: application
+    type: direct
+    column: NAME_INCOME_TYPE
+
+  NAME_EDUCATION_TYPE:
+    source: application
+    type: direct
+    column: NAME_EDUCATION_TYPE
+
+  OCCUPATION_TYPE:
+    source: application
+    type: direct
+    column: OCCUPATION_TYPE
+
+  ORGANIZATION_TYPE:
+    source: application
+    type: direct
+    column: ORGANIZATION_TYPE
+
+  # Variables catégorielles individuelles
+  CODE_GENDER:
+    source: application
+    type: direct
+    column: CODE_GENDER
+
+  EMERGENCYSTATE_MODE:
+    source: application
+    type: direct
+    column: EMERGENCYSTATE_MODE
+
+  REGION_RATING_CLIENT:
+    source: application
+    type: direct
+    column: REGION_RATING_CLIENT
+
+  # Scores externes (bureau de crédit externe)
+  EXT_SOURCE_1:
+    source: application
+    type: direct
+    column: EXT_SOURCE_1
+
+  EXT_SOURCE_2:
+    source: application
+    type: direct
+    column: EXT_SOURCE_2
+
+  EXT_SOURCE_3:
+    source: application
+    type: direct
+    column: EXT_SOURCE_3
+
+  # ── BLOC 2 : bureau.csv (2 features) ─────────────────────────────────────
+
+  bureau_active_count:
+    source: bureau
+    type: agg_count_where
+    condition_column: CREDIT_ACTIVE
+    condition_equals: "Active"
+
+  bureau_debt_total:
+    source: bureau
+    type: agg_sum
+    column: AMT_CREDIT_SUM_DEBT
+
+  # ── BLOC 3 : POS_CASH_balance.csv (1 feature) ────────────────────────────
+
+  pos_avg_dpd_all:
+    source: pos
+    type: agg_mean
+    column: SK_DPD
+
+  # ── BLOC 4 : installments_payments.csv (5 features) ──────────────────────
+  #
+  # Note sur les colonnes dérivées partagées :
+  #   avg_payment_ratio ET std_payment_ratio utilisent la même colonne dérivée
+  #   _ratio_AMT_PAYMENT_AMT_INSTALMENT — créée une seule fois par GenericAdapter.
+  #
+  #   inst_ever_late ET avg_payment_diff utilisent toutes deux DAYS_ENTRY_PAYMENT
+  #   et DAYS_INSTALMENT mais via des opérations différentes.
+
+  inst_ever_late:
+    source: installments
+    type: agg_max_flag
+    col_a: DAYS_ENTRY_PAYMENT
+    col_b: DAYS_INSTALMENT
+    threshold: 0                # delay_days = col_a - col_b ; flag si > 0
+
+  avg_payment_ratio:
+    source: installments
+    type: agg_mean_safe_ratio
+    numerator: AMT_PAYMENT
+    denominator: AMT_INSTALMENT
+
+  avg_payment_diff:
+    source: installments
+    type: agg_mean_diff
+    col_a: AMT_PAYMENT
+    col_b: AMT_INSTALMENT
+
+  std_payment_ratio:
+    source: installments
+    type: agg_std_safe_ratio
+    numerator: AMT_PAYMENT      # Même paire que avg_payment_ratio
+    denominator: AMT_INSTALMENT # → colonne dérivée réutilisée, non recréée
+
+  history_length_days:
+    source: installments
+    type: agg_abs_min
+    column: DAYS_INSTALMENT
+    default_if_missing: 0       # 0 si pas d'historique (pas None — cohérent HC)
+
+  # ── BLOC 5 : previous_application.csv (2 features) ───────────────────────
+
+  prev_refused_ratio:
+    source: previous
+    type: agg_mean_flag
+    condition_column: NAME_CONTRACT_STATUS
+    condition_equals: "Refused"
+
+  prev_avg_down_payment:
+    source: previous
+    type: agg_mean
+    column: AMT_DOWN_PAYMENT

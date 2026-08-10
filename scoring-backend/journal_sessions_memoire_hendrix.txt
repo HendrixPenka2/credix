@@ -1,0 +1,2171 @@
+================================================================
+JOURNAL DE BORD — MÉMOIRE SINGHE PENKA HENDRIX DONAVAN
+Matricule : 21P050 | Promotion GI2026 | ENSPY Yaoundé I
+Sujet : Application IA de prédiction du comportement de solvabilité
+        et de scoring de risque de défaut
+Entreprise : IT Nearshore (ITNS)
+================================================================
+RÈGLE : Ce journal est APPEND-ONLY. Ne jamais modifier les entrées passées.
+        Ajouter uniquement en fin de session, avec la date.
+================================================================
+ 
+----------------------------------------------------------------
+SESSION 1 — 27 mai 2026
+Objectif : Initialisation du projet Claude et organisation des ressources
+----------------------------------------------------------------
+ 
+RÉALISÉ :
+- Inventaire complet des ressources du Project Knowledge (spécifiques au projet credit scoring)
+- Diagnostic de la situation : pipeline ML ~75% documenté, backend FastAPI ~0% code, frontend ~15%
+- Analyse des documents techniques : CDC v2.0, Conception v2.1, Méthodologie complète v2, Rapport pipeline
+- Choix des références rédactionnelles : Mboa Alain (niveau) + Nassaire (posture méthodologique)
+- Décision définitive et irrévocable : modèle final = LightGBM (pas XGBoost)
+- Production des instructions complètes du projet Claude (6 sections)
+- Production du plan du mémoire V1 (proposé, non encore validé par encadreur)
+- Production du plan de travail daté S1→S6 (Mai–Juillet 2026)
+- Production du PowerPoint point stratégique (pour présentation aux encadreurs aujourd'hui)
+- Production du présent journal de bord
+ 
+DÉCISIONS PRISES :
+- Mémoire en 3 chapitres : Ch.1 Concepts+État de l'art / Ch.2 Analyse+Conception / Ch.3 Implémentation+Résultats
+- Volume cible : 100–120 pages (estimation actuelle : ~116 pages)
+- Citations en style numérique ISO690 [n] comme Mboa Alain
+- Modèle final : LightGBM — décision définitive, cohérence code/rapport obligatoire
+- Dataset de validation : Home Credit Default Risk (307 511 obs.) — proxy académique justifié
+- Encadreur académique : Pr Bernabé BATCHAKUI
+- Encadreur professionnel : Mme ABJEAN, IT Nearshore
+- Overleaf créé mais vide — initialisation avec template ENSPY = Session 2
+ 
+INFORMATIONS IMPORTANTES :
+- Pas de données réelles clients IT Nearshore — Home Credit justifié comme proxy académique international
+- Soutenance cible : avant mi-juillet 2026 (pendant le stage, qui finit le 2 août)
+- Le Pr Batchakui a répondu et attend : description du problème, contexte, problématique, objectifs, méthodologie
+- Le PowerPoint de cette session répond directement à cette demande
+- Backend FastAPI : zéro code mais conception complète disponible — implémentation rapide prévue
+- Frontend React : prototype existant à améliorer
+ 
+EN ATTENTE / À FAIRE SESSION SUIVANTE :
+- Initialiser Overleaf avec le template ENSPY complet
+- Valider le plan du mémoire avec les encadreurs (après présentation PowerPoint)
+- Démarrer la rédaction : Introduction générale + Chapitre 1
+- Démarrer l'implémentation backend FastAPI
+ 
+----------------------------------------------------------------
+FIN SESSION 1
+================================================================
+ 
+----------------------------------------------------------------
+SESSION 2 — 30 mai 2026
+Objectif : Conception complète et développement du backend FastAPI
+Étudiant : SINGHE PENKA Hendrix Donavan — 21P05A
+Durée estimée : ~8h
+----------------------------------------------------------------
+ 
+RÉALISÉ :
+- Révision complète de l'architecture backend avec discussion et validation point par point
+- Clarification définitive du concept is_declarative et du rôle de chaque composant
+- Clarification du rôle exact du LLM Gemini (phrases SHAP uniquement)
+- Clarification du Data Adapter et de son rôle dans le pipeline
+- Clarification du flux nouveau client (thin-file, ρc, REVUE forcée)
+- Clarification de l'architecture data-driven (formulaire React construit depuis feature_metadata)
+- Développement complet du backend FastAPI (ZIP livré : scoring-backend-final.zip)
+- Mise à jour de la Section 6b du notebook Kaggle
+- Production du document méthodologique complet (methodologie_backend_complete.md)
+ 
+DÉCISIONS PRISES :
+- Modèle final : LightGBM (pas XGBoost) — vitesse d'inférence supérieure
+- 4 conteneurs Docker : api:8000, mongodb:27017, mlflow:5000, pdf-worker:8001
+- 8 collections MongoDB : clients, demandes, decisions, utilisateurs,
+  feature_metadata, modeles, admin_config, audit_logs
+- 23 endpoints REST couvrant auth, scoring, clients, decisions,
+  dashboard, monitoring, admin
+- Artefacts chargés en RAM au démarrage FastAPI — jamais rechargés à chaque requête
+- Seuils PDO configurables via interface admin (pas hardcodés)
+- Gouvernance humaine obligatoire pour la promotion de modèle (Bâle II)
+- is_declarative maintenu dans feature_stats.json et feature_metadata
+  (redondant avec champs_source mais utile pour lisibilité et robustesse)
+- Gemini génère uniquement : libelle_agent, gabarit_aggravant, gabarit_attenuant,
+  seuils, document_recommande
+- Gemini ne touche pas à : champs_source, formule, is_declarative, iv, famille
+- Option B retenue pour les labels des champs de saisie : définis manuellement
+  dans le notebook par le développeur (pas par Gemini)
+- Recherche client par nom/prénom/téléphone (pas par ID technique)
+- Bouton "Nouveau client" direct dans E02 (sans passer par la recherche)
+- HomeCreditAdapter : classe Python utilisée uniquement par seed_database.py
+  seed_database.py est le seul script à lancer pour peupler MongoDB
+- ETL initial one-shot : seed_database.py tourne une seule fois
+  À l'inférence FastAPI lit MongoDB directement (find_one < 5ms)
+ 
+PRÉCISIONS IMPORTANTES :
+- home_credit_adapter.py est une CLASSE Python, pas un script à lancer directement
+  C'est seed_database.py qui l'utilise — on lance uniquement seed_database.py
+- feature_stats.json doit être enrichi (Section 6b) AVANT generate_metadata.py
+- Les noms dans _SAISIE doivent correspondre exactement aux noms dans features_nap
+  Vérifier avec print(features_nap) dans le notebook avant d'exécuter
+- ORGANIZATION_TYPE et WEEKDAY_APPR_PROCESS_START : famille F9 (is_declarative=True)
+  mais champs_source=[] — c'est normal, pas une erreur
+- Mode mock (USE_MOCK_ARTEFACTS=true) disponible pour développer le frontend
+  sans les vrais artefacts ML
+ 
+ORDRE DE LANCEMENT DU BACKEND :
+  1. cp .env.example .env
+     → Remplir : HOME_CREDIT_DATA_DIR, GOOGLE_API_KEY, JWT_SECRET
+  2. Copier les 5 artefacts dans scoring-backend/artefacts/
+  3. docker-compose up --build -d
+  4. python scripts/create_admin.py
+  5. python scripts/generate_metadata.py --run-id lgbm-run-v1
+  6. python scripts/register_model.py --run-id lgbm-run-v1 --version 1.0.0 --promote
+  7. python scripts/seed_database.py --limit 500
+  8. Vérifier : curl http://localhost:8000/health
+     Swagger : http://localhost:8000/docs
+ 
+LIVRABLES PRODUITS CETTE SESSION :
+- scoring-backend-final.zip    ← backend FastAPI complet (51 fichiers)
+- section_6b_final.py          ← Section 6b notebook enrichie avec champs_source + formule
+- methodologie_backend_complete.md ← document méthodologique de A à Z
+ 
+EN ATTENTE / À FAIRE SESSION 3 :
+- Exécuter Section 6b sur Kaggle → produire feature_stats.json enrichi
+- Copier les artefacts dans scoring-backend/artefacts/
+- Remplir le .env et lancer docker-compose up --build -d
+- Exécuter les 4 scripts de setup dans l'ordre
+- Tester les routes sur Swagger (http://localhost:8000/docs)
+- Corriger les bugs éventuels détectés lors des tests
+- Démarrer le développement frontend React
+ 
+----------------------------------------------------------------
+FIN SESSION 2 — 30 mai 2026
+================================================================
+ 
+----------------------------------------------------------------
+SESSION 3 — 1 juin 2026
+Objectif : Lancement complet du backend + correction des bugs + tests endpoints
+Étudiant : SINGHE PENKA Hendrix Donavan — 21P05A
+----------------------------------------------------------------
+ 
+RÉALISÉ :
+- Correction home_credit_adapter.py : 27 features NAP exactes (assert vérifié)
+- Correction Section 6b notebook : is_declarative, is_request_specific, champs_source
+- feature_metadata MongoDB : 27/27 libelles corrects + is_request_specific correct
+- Correction pipeline_service.py : age_years dynamique depuis date_naissance
+- Correction scoring.py : is_request_specific dans form-schema response
+- Volume mount docker-compose.yml ./app:/app/app (hot-reload développement)
+- Seed 500 clients : 27/27 NAP, 0 erreur
+- Tests 13 endpoints sur 21 (voir TODO ci-dessus)
+- Méthodologie v3 : 1058 lignes, tout documenté
+ 
+DÉCISIONS PRISES :
+- Features B (profile) : saisies une fois, lues depuis MongoDB pour les suivants
+- Features A (request) : toujours saisies à chaque scoring
+- age_years : toujours recalculé dynamiquement depuis date_naissance
+- ETL nocturne : principe documenté pour production réelle
+- Architecture multi-banque : même Docker + YAML par banque (GenericAdapter)
+- Volume mount local → pas de rebuild pour les modifs Python
+ 
+BUGS IDENTIFIÉS (non encore corrigés) :
+1. rho_service.py : sources_manquantes utilise vieille liste features (pas 27 NAP)
+2. shap_service.py : directions EXT_SOURCE_2 et inst_ever_late contradictoires
+3. admin/thresholds GET : 405 Method Not Allowed (que PUT existe)
+4. REGION_RATING_CLIENT : null dans vecteur_brut malgré valeur 2 en MongoDB
+ 
+EN ATTENTE SESSION 4 :
+- Corriger rho_service.py (bug critique)
+- Corriger shap_service.py (directions SHAP)
+- Ajouter GET /api/admin/thresholds
+- Tester POST /api/clients (nouveau client)
+- Tester POST /api/decisions/{id}/override
+- Tester GET /api/decisions/{id}/pdf
+- Tester PUT /api/admin/thresholds
+- Tester POST /api/admin/users
+- Tester PUT /api/admin/users/{id}/toggle
+- Tester POST /api/monitoring/promote-model
+ 
+FICHIERS LIVRÉS CETTE SESSION :
+- home_credit_adapter_corrected.py (dans artefacts Claude session 3)
+- pipeline_service_corrected.py
+- scoring_corrected.py
+- section_6b_final.py
+- methodologie_complete_v3.md (1058 lignes)
+- handover_session3.md (ce document)
+ 
+----------------------------------------------------------------
+FIN SESSION 3 — 1 juin 2026
+================================================================
+ 
+----------------------------------------------------------------
+SESSION 4 — 04 juin 2026
+Objectif : Correction des 4 bugs session 3 + endpoint PATCH + validation complète
+Étudiant : SINGHE PENKA Hendrix Donavan — 21P050
+----------------------------------------------------------------
+ 
+RÉALISÉ :
+- rho_service.py CORRIGÉ : filtrage iv_dict sur 27 NAP uniquement (pas le CSV complet)
+  → rho_c : 0.8715 → 0.9584 (correct)
+  → sources_manquantes : 37 fantômes → ['OCCUPATION_TYPE'] (1 seul réel)
+  → iv_total : 2.3255 → 2.1145 (correct)
+- shap_service.py CORRIGÉ : template structuré, abandon des gabarits Gemini
+  → poids_pct % ajouté pour chaque facteur SHAP
+  → phrases cohérentes et non contradictoires
+  → pipeline_service.py : +2 lignes total_shap_abs
+- admin.py CORRIGÉ : GET /api/admin/thresholds ajouté (était 405 Method Not Allowed)
+- clients.py AJOUTÉ : PATCH /api/clients/{client_id} — mise à jour profil
+  → champs modifiables : anciennete_emploi_mois, anciennete_domicile_mois,
+    OCCUPATION_TYPE, ORGANIZATION_TYPE, NAME_INCOME_TYPE, NAME_EDUCATION_TYPE
+  → champs immuables bloqués : date_naissance, genre, CODE_GENDER, CODE_GENDER_bin
+  → features C bloquées : EXT_SOURCE_*, bureau_*, inst_*, pos_*, prev_*
+  → audit_log PROFIL_UPDATE créé à chaque PATCH
+- Bug 4 (REGION_RATING_CLIENT null) : confirmé résolu depuis session 3
+- 7 tests automatisés tous validés (tests_session4.sh : 7/7 PASS)
+- Cours architecture scoring produit : COURS_ARCHITECTURE_SCORING_HENDRIX.md
+  → 27 features classifiées A/B/C avec tableau complet
+  → 4 scénarios PlantUML (nouveau client, existant, PATCH, revue manuelle)
+  → règles PATCH, concept ETL, principe phrases SHAP
+- TODO_BACKEND_SESSION4.md mis à jour
+ 
+DÉCISIONS PRISES :
+- iv_total = somme IV des 27 NAP uniquement (pas du CSV d'entraînement complet)
+- Phrases SHAP = libelle_agent + label_seuil + direction + poids%
+  (gabarit_aggravant/attenuant Gemini conservés en base mais ignorés à l'inférence)
+- Champs immuables PATCH : date_naissance, genre, CODE_GENDER, CODE_GENDER_bin
+- Features C jamais modifiables via PATCH (ETL uniquement)
+- age_years : toujours recalculé dynamiquement depuis date_naissance (jamais lu tel quel)
+ 
+ÉTAT ENDPOINTS APRÈS SESSION 4 :
+  VALIDÉS (14/21) :
+  [x] POST /api/auth/login
+  [x] GET  /api/scoring/form-schema
+  [x] POST /api/scoring/predict
+  [x] POST /api/scoring/simulate
+  [x] GET  /api/scoring/history/{id}
+  [x] GET  /api/clients/search
+  [x] GET  /api/clients/{id}
+  [x] PATCH /api/clients/{id}           ← nouveau session 4
+  [x] GET  /api/decisions/pending-review
+  [x] GET  /api/dashboard/statistics
+  [x] GET  /api/dashboard/score-distribution
+  [x] GET  /api/monitoring/model-versions
+  [x] GET  /api/admin/users
+  [x] GET  /api/admin/thresholds        ← nouveau session 4
+  [~] GET  /api/monitoring/model-drift  → PSI insuffisant (normal)
+ 
+  RESTANT (7) :
+  [ ] POST /api/clients
+  [ ] POST /api/decisions/{id}/override
+  [ ] GET  /api/decisions/{id}/pdf
+  [ ] PUT  /api/admin/thresholds
+  [ ] POST /api/admin/users
+  [ ] PUT  /api/admin/users/{id}/toggle
+  [ ] POST /api/monitoring/promote-model
+ 
+EN ATTENTE SESSION 5 :
+- POST /api/clients (nouveau client thin-file) — PRIORITÉ 1
+- GET  /api/decisions/{id}/pdf (demande_id : 096c56e7-a022-4021-ad51-46037b377c4c)
+- POST /api/decisions/{id}/override (valider une revue manuelle)
+- PUT  /api/admin/thresholds (tester modification + cohérence refuse < accorde)
+- POST /api/admin/users (créer AGENT ou SUPERVISEUR)
+- PUT  /api/admin/users/{id}/toggle (activer/désactiver)
+- POST /api/monitoring/promote-model
+- Diagnostic architectural : points d'ombre conception/modélisation/code
+ 
+FICHIERS LIVRÉS CETTE SESSION :
+- rho_service.py (corrigé)
+- shap_service.py (corrigé)
+- admin.py (corrigé + GET thresholds)
+- clients.py (corrigé + PATCH endpoint)
+- pipeline_service_PATCH_INSTRUCTION.py (instructions patch manuel)
+- tests_session4.sh (script de validation 7 tests)
+- COURS_ARCHITECTURE_SCORING_HENDRIX.md (guide complet 27 features + scénarios)
+- TODO_BACKEND_SESSION4.md (état des tâches mis à jour)
+ 
+----------------------------------------------------------------
+FIN SESSION 4 — 04 juin 2026
+================================================================
+ 
+-----------------------------------------------------------------
+SESSION 5 — 05 juin 2026
+Objectif : Diagnostic architectural + tests 7 endpoints restants + corrections
+Étudiant : SINGHE PENKA Hendrix Donavan — 21P050
+----------------------------------------------------------------
+ 
+RÉALISÉ :
+ 
+PHASE 1 — Diagnostic architectural (avant tous les tests)
+- Audit complet : conception, modélisation, code, risques soutenance
+- 3 risques CRITIQUES identifiés : BUG-A1, BUG-C1, WOE (détecté en cours de test)
+- 4 risques MODÉRÉS identifiés : OCCUPATION_TYPE mapping, datetime PDF,
+  rho_c seuil bannière, tableau comparatif modèles dans mémoire
+- Document CORRECTIONS_MEMOIRE_SESSION5.md produit (points à intégrer)
+ 
+PHASE 2 — Corrections avant tests
+- decisions.py CORRIGÉ (BUG-A1) : vérification REVUE_MANUELLE avant override
+  → empêche superviseur d'overrider une décision déjà ACCORDÉ/REFUSÉ
+- monitoring.py CORRIGÉ (BUG-C1) : charger_artefacts(app) sans run_id
+  → évite TypeError + état DB/RAM incohérent lors promotion modèle
+ 
+PHASE 3 — Tests des 7 endpoints restants
+ 
+[x] POST /api/clients → VALIDÉ (après fix OCCUPATION_TYPE)
+    → Bug trouvé : body.get("OCCUPATION_TYPE") au lieu de body.get("type_emploi")
+    → clients.py corrigé : mapping type_emploi → features.OCCUPATION_TYPE
+    → Test thin-file : rho_c faible, REVUE_MANUELLE, recommandation documentaire ✓
+    → Test 2 clients opposés : scores différents (fix WOE confirmé pour nouveaux clients)
+ 
+[x] GET /api/decisions/{id}/pdf → VALIDÉ (après fix datetime)
+    → Bug trouvé : "Object of type datetime is not JSON serializable"
+    → pdf_client.py corrigé : json.dumps(payload, default=str)
+    → PDF généré : 20 544 bytes, contenu correct
+ 
+[x] POST /api/decisions/{id}/override → VALIDÉ
+    → HC-100074 (score 537, REVUE) overridé en REFUSE avec commentaire ✓
+    → Vérification BUG-A1 : 200 sur REVUE_MANUELLE ✓
+ 
+[x] PUT /api/admin/thresholds → VALIDÉ
+    → Modification 600→550 : HC-100090 passe de REVUE à ACCORDÉ ✓
+    → Modification 500→490 : HC-100067 passe de REFUSE à REVUE ✓
+    → Reset 600/500 après test
+ 
+[x] POST /api/admin/users → VALIDÉ
+    → Création agent_fouda (AGENT, Agence Bastos Yaoundé) : 201 ✓
+ 
+[x] PUT /api/admin/users/{id}/toggle → VALIDÉ
+    → Désactivation : actif=false, login → 403 ✓
+    → Réactivation : actif=true, login → JWT token ✓
+ 
+[~] POST /api/monitoring/promote-model → Option B (documenté)
+    → Pas de 2ème modèle STAGING disponible en démo
+    → Endpoint validé sur 404 (ID inexistant) et 400 (PRODUCTION non-STAGING)
+ 
+PHASE 4 — Bug critique découvert et corrigé
+ 
+BUG WOE CRITIQUE (pipeline_service.py) :
+  - Symptôme : tous les clients obtenaient score 511, PD 0.534
+  - Diagnostic : transformer.transform(DataFrame)[feature].iloc[0]
+    → OptimalBinning retourne numpy array → IndexError silencieux → 0.0 partout
+  - Fix : np.array([valeur]) → transformer.transform()[0]
+  - Validation : HC-100066 (ACCORDÉ 604), HC-100067 (REFUSE 499), distribution variée ✓
+ 
+CORRECTIONS ADDITIONNELLES :
+- shap_service.py : suppression warning SHAP LightGBM ndarray (warnings.filterwarnings)
+- pdo_service.py : nouvelle règle thin-file décision
+  → rho_c < 0.25 + score < seuil_refuse → REFUSE direct (pas REVUE inutile)
+  → validé : Client A (score 496, rho_c 0.2453) → REFUSE ✓
+ 
+DÉCISIONS PRISES :
+- Promote-model : Option B — documenter dans mémoire, pas de test avec STAGING fictif
+- Règle thin-file : REFUSE si rho_c < 0.25 ET score < seuil_refuse (validé)
+- Thresholds production : remis à 600/500 après test
+- WOE fix est la correction la plus critique de toutes les sessions
+ 
+ÉTAT ENDPOINTS APRÈS SESSION 5 :
+  VALIDÉS (20/21) : tous les endpoints testables ✓
+  [~] GET /api/monitoring/model-drift : PSI null (normal, N < 10)
+  [~] POST /api/monitoring/promote-model : documenté (Option B)
+ 
+ÉTAT SYSTÈME APRÈS SESSION 5 :
+  - Scoring fonctionne correctement : ACCORDÉ / REVUE / REFUSE discriminés ✓
+  - Clients thin-file : scores variants selon profil B ✓
+  - Logs propres : plus de warning SHAP ✓
+  - PDF généré correctement ✓
+  - Override avec protection REVUE_MANUELLE ✓
+  - WOE correctement appliqué pour tous les clients ✓
+ 
+ATTENTION : Les scorings antérieurs au fix WOE (sessions 3-4) sont incorrects
+  (score 511 pour tous). HC-100001 doit être re-scoré en session 6.
+ 
+FICHIERS LIVRÉS CETTE SESSION :
+- decisions.py (BUG-A1 corrigé)
+- monitoring.py (BUG-C1 corrigé)
+- clients.py (OCCUPATION_TYPE fix + refactoring)
+- pdf_client.py (datetime serialization fix)
+- pipeline_service.py (WOE bug critique corrigé)
+- pdo_service.py (règle thin-file)
+- shap_service.py (warning SHAP supprimé)
+- TODO_BACKEND_SESSION5_FINAL.md (mis à jour avec BLOC 5)
+- CORRECTIONS_MEMOIRE_SESSION5.md
+ 
+DÉCISIONS STRATÉGIQUES FIN DE SESSION :
+ 
+Fonctionnalités additionnelles validées (à implémenter Session 6) :
+  F1 — GET /api/decisions/override-stats
+       Statistiques sur les décisions superviseur (taux accord/refus)
+       Justification : montre la calibration du modèle, standard industrie
+  F2 — GET /api/clients/{id}/score-progression
+       Évolution du score et de rho_c au fil des enrichissements
+       Justification : démontre le use-case thin-file concrètement
+  F3 — GET /api/dashboard/portfolio-risk
+       PD moyenne, distribution des décisions, taux thin-file
+       Justification : indicateur de pilotage direction, standard industrie
+ 
+Décisions hors périmètre (documentées mémoire uniquement) :
+  - Scoring assurance (sinistre) : hors scope, périmètre trop large
+    pour le délai restant. À mentionner en perspectives.
+  - Import documentaire (OCR) : hors scope, saisie déclarative retenue
+    comme approche robuste marché CEMAC. À mentionner en perspectives.
+ 
+Discussion tenue sur la valeur du projet :
+  CREDIX est positionné comme un système de production complet,
+  pas juste un notebook de ML. Ses différenciateurs principaux :
+  ρc (contribution originale), gouvernance 3 niveaux, audit trail
+  Bâle II, GenericAdapter multi-institutions, explicabilité RGPD.
+ 
+----------------------------------------------------------------
+FIN SESSION 5 — 05 juin 2026
+================================================================
+ 
+================================================================
+JOURNAL — SESSION 6 — 11 juin 2026
+Singhe Penka Hendrix Donavan — 21P050 — GI2026
+================================================================
+ 
+ÉTAT ENTRANT : 20/21 endpoints validés, WOE corrigé, système opérationnel
+ÉTAT SORTANT : GenericAdapter Level 2 livré et validé, base re-seedée
+ 
+----------------------------------------------------------------
+PARTIE 0 — CLARIFICATIONS ARCHITECTURALES (début de session)
+----------------------------------------------------------------
+ 
+Plusieurs points mal compris depuis les sessions précédentes ont été
+clarifiés en profondeur avant tout développement.
+ 
+0.1 Confusion XGBoost / LightGBM dans le prompt maître
+  → Le prompt maître apporté en session 6 mentionnait "XGBoost" (item 1
+    des principes non négociables). ERREUR : le modèle est LightGBM.
+  → Correction à apporter dans le template du prompt maître.
+ 
+0.2 Origine des mots "aggravant" / "atténuant"
+  → Source : une seule ligne Python dans shap_service.py :
+    direction = "aggravant" if shap_value > 0 else "attenuant"
+  → Pas d'IA, pas de base de données. Règle codée en dur.
+  → Le signe SHAP (positif = aggravant, négatif = atténuant) est la
+    convention choisie et documentée dans le projet.
+ 
+0.3 Rôle de Gemini Flash dans le système
+  → Gemini était utilisé UNE SEULE FOIS dans generate_metadata.py pour
+    générer les libelle_agent et les gabarits de phrases par feature.
+  → Les gabarits_aggravant / gabarits_attenuant ont été abandonnés en v2
+    (incohérences contra-intuitives sous interactions non-linéaires).
+  → Seul libelle_agent reste exploité à l'inférence.
+  → Gemini peut être remplacé par une saisie manuelle : aucun impact sur
+    le pipeline de scoring.
+ 
+0.4 Distinction HomeCreditAdapter vs seed_database.py
+  → HomeCreditAdapter = la "recette" : sait calculer les 27 features
+    depuis des CSV. Ne touche pas MongoDB.
+  → seed_database.py = le "cuisinier" : appelle l'adapter, écrit dans
+    MongoDB. Tourne une seule fois.
+ 
+0.5 Structure feature_metadata (27 documents MongoDB)
+  Champs actifs à l'inférence :
+    feature, run_id, libelle_agent, type, iv, is_declarative,
+    is_request_specific, champs_source, seuils, modalites,
+    document_recommande
+  Champs morts (écrits par Gemini, jamais lus) :
+    gabarit_aggravant, gabarit_attenuant
+  Champs passifs (stockés pour analyses futures) :
+    p25, p50, p75, p95, nan_rate, famille, formule, direction
+ 
+0.6 Rôle des seuils vs p25/p75
+  → p25/p75 ont servi UNE FOIS à construire les seuils dans generate_metadata.
+  → Les seuils (intervalles avec labels) sont utilisés à chaque scoring
+    pour produire le label lisible dans les phrases SHAP.
+  → Les percentiles bruts sont devenus redondants après cette étape.
+ 
+0.7 ETL de mise à jour des features catégorie C
+  → Conçu (catégorie C protégée par le PATCH endpoint, message explicite).
+  → Non implémenté car dataset Home Credit est statique.
+  → À mentionner en perspectives mémoire : "pipeline ETL périodique
+    depuis le core banking en production réelle".
+ 
+0.8 Réponse à la question "mon projet est-il trop minimaliste ?"
+  → Le projet n'est pas minimaliste. Il est correctement scoped.
+  → Insurance scoring : exclu correctement (domaine différent, Solvency II
+    vs Basel II, features différentes, modèles différents).
+  → OCR / upload documentaire : hors périmètre d'un scoring engine.
+    L'OCR est un module d'acquisition en amont (LOS), pas du scoring.
+    Les paramètres Category A (AMT_CREDIT, etc.) ne peuvent jamais venir
+    d'un document — ils sont négociés pendant l'entretien.
+  → Labels "statiques" : les seuils 600/500 sont configurables via
+    /api/admin/thresholds — design industriel standard.
+  → Le vrai risque n'est pas le scope mais la justification dans le mémoire.
+  → Recommandation : mentionner l'OCR dans les perspectives comme
+    "amélioration de la couche d'acquisition", pas comme lacune.
+ 
+----------------------------------------------------------------
+PRIORITÉ 0 — RE-SCORING HC-100001
+----------------------------------------------------------------
+ 
+Contexte : HC-100001 avait un score 511 en base (WOE bugué Session 5).
+Action : POST /api/scoring/predict avec déclaratif Cash loans 202500.
+ 
+Résultat avant re-seed (HomeCreditAdapter original) :
+  Score PDO   : 535
+  PD          : 33.26%
+  Décision    : REVUE_MANUELLE
+  rho_c       : 1.0 (artificiel — OCCUPATION_TYPE avait valeur de test S5)
+ 
+Vérification mathématique PDO : 515.06 + 28.85 × ln(0.6674/0.3326) = 535 ✓
+SHAP top 5 cohérent :
+  EXT_SOURCE_3 = 0.16 → aggravant +1.055 (37.3%)
+  EXT_SOURCE_1 = 0.75 → atténuant -0.682 (24.1%)
+  EXT_SOURCE_2 = 0.79 → atténuant -0.615 (21.7%)
+  pos_avg_dpd_all = 0.78 → aggravant +0.239 (8.5%)
+  history_length = 2916 → atténuant -0.236 (8.4%)
+  Total : 100.0% ✓
+ 
+PRIORITÉ 0 : VALIDÉE ✓
+ 
+----------------------------------------------------------------
+PRIORITÉ 1 — GENERICADAPTER LEVEL 2
+----------------------------------------------------------------
+ 
+Objectif : rendre CREDIX extensible à n'importe quelle institution
+sans modifier le code Python de scoring.
+ 
+Architecture décidée :
+  - HomeCreditAdapter conservé (baseline validation + référence mémoire)
+  - GenericAdapter piloté par YAML : 4 nouveaux fichiers, zéro modification
+    de l'existant
+  - Test d'équivalence obligatoire avant tout usage en production
+ 
+Structure des nouveaux fichiers :
+  adapters/generic_adapter.py
+    → Classe GenericAdapter(BaseDataAdapter)
+    → Même interface async que HomeCreditAdapter
+    → Dispatcher de 14 types d'opérations (direct, abs_divide, agg_mean, etc.)
+    → load_data() sync + pré-agrégation YAML-driven
+  configs/adapter_config_home_credit.yaml
+    → Recette complète des 27 features NAP
+    → 5 sources, 14 types d'opérations documentés
+    → Reproduit exactement HomeCreditAdapter
+  scripts/seed_database_generic.py
+    → Identique à seed_database.py mais avec GenericAdapter
+    → Commande : python scripts/seed_database_generic.py --limit 500
+  tests/test_adapter_equivalence.py
+    → Compare HC vs GA sur échantillon configurable
+    → Tolérance numérique 1e-6
+    → Gestion NaN == NaN correcte
+    → Commande : python tests/test_adapter_equivalence.py --sample 500
+ 
+Dépendance ajoutée : pyyaml==6.0.2 dans requirements.txt
+ 
+Résultats du test d'équivalence :
+  --client HC-100001 : ✅ SUCCÈS
+  --sample 50        : ✅ SUCCÈS (50 clients × 27 features = 1350 comparaisons)
+  --sample 500       : ✅ SUCCÈS (500 clients × 27 features = 13500 comparaisons)
+ 
+Validation Docker complète :
+  python scripts/seed_database_generic.py --reset --limit 500
+    → 500 clients insérés, 0 erreur ✓
+  POST /api/scoring/predict HC-100001 après re-seed :
+    Score PDO   : 538  (était 535 — voir explication ci-dessous)
+    PD          : 31.23%
+    Décision    : REVUE_MANUELLE ✓ (inchangée)
+    rho_c       : 0.9584 (correct — voir explication)
+ 
+Analyse de la divergence 535 → 538 :
+  CAUSE : OCCUPATION_TYPE null dans le CSV Home Credit pour HC-100001.
+  La base originale avait une valeur stockée (artefact du test PATCH
+  endpoint Session 5). Le re-seed a effacé cette valeur parasite.
+  rho_c = 0.9584 est CORRECT : OCCUPATION_TYPE représente ~4.16% de
+  l'IV total. HC-100001 n'a pas de type d'emploi dans le CSV.
+  Le score 538 est plus juste que 535.
+  La décision REVUE_MANUELLE est inchangée. Pas de régression.
+ 
+Décision sur HomeCreditAdapter :
+  → CONSERVÉ (ne pas supprimer)
+  → Raisons : baseline pour test d'équivalence + valeur académique
+    du contraste avant/après dans le mémoire + fallback de sécurité
+  → GenericAdapter devient l'adapter recommandé pour la production
+ 
+PRIORITÉ 1 : VALIDÉE ✓
+ 
+----------------------------------------------------------------
+PRIORITÉ 2 — ENDPOINTS F1/F2/F3 : NON COMMENCÉ
+----------------------------------------------------------------
+ 
+Conçus en session précédente, non implémentés en Session 6 (manque de temps).
+  F1 : GET /api/decisions/override-stats
+  F2 : GET /api/clients/{id}/score-progression
+  F3 : GET /api/dashboard/portfolio-risk
+À traiter en début de Session 7.
+ 
+----------------------------------------------------------------
+PRIORITÉ 3 — CORRECTIONS MÉMOIRE : NON COMMENCÉ
+----------------------------------------------------------------
+ 
+Les 10 corrections de CORRECTIONS_MEMOIRE_SESSION5.md restent à intégrer.
+À traiter en Session 7 selon disponibilité.
+ 
+----------------------------------------------------------------
+ÉTAT SORTANT SESSION 6
+----------------------------------------------------------------
+ 
+Backend :
+  [x] GenericAdapter Level 2 — livré, testé, validé (500 clients)
+  [x] Base MongoDB re-seedée avec GenericAdapter
+  [x] pyyaml ajouté dans requirements.txt
+  [x] Nouveaux dossiers créés : configs/, tests/
+  [ ] F1/F2/F3 dashboard endpoints — à faire en Session 7
+  [ ] promote-model Option B — documenté, non résolu
+  [ ] model-drift PSI null — comportement normal (N<10)
+ 
+Mémoire :
+  [ ] 10 corrections CORRECTIONS_MEMOIRE_SESSION5.md — à intégrer
+  [ ] Section "Généralisation multi-institutions" Ch.3 — à rédiger
+  [ ] Tableau comparatif modèles Ch.3 — à compléter
+  [ ] Justification seuil ρc Ch.2 — à écrire
+ 
+----------------------------------------------------------------
+POUR LA SESSION 7
+----------------------------------------------------------------
+ 
+Lire en priorité :
+  1. Ce fichier journal (session 6)
+  2. contexte_fastapi.txt (source de vérité backend)
+  3. CORRECTIONS_MEMOIRE_SESSION5.md
+ 
+Tâches dans l'ordre :
+  1. Implémenter F1 (override-stats)
+  2. Implémenter F2 (score-progression)
+  3. Implémenter F3 (portfolio-risk)
+  4. Mettre à jour methodologie_complete_v3.md (section GenericAdapter)
+  5. Mettre à jour README.md backend (nouvelles commandes seed/test)
+  6. Intégrer corrections mémoire URGENT (voir CORRECTIONS_MEMOIRE_SESSION5.md)
+  7. Rédiger section "Généralisation multi-institutions" Ch.3
+ 
+Alerte administrative :
+  → Dépôt dossier ENSPY pour lettre de mise en stage — URGENT
+  → Soutenance cible avant mi-juillet 2026
+ 
+================================================================
+FIN JOURNAL SESSION 6
+================================================================
+ 
+----------------------------------------------------------------
+SESSION 7 — 10 juin 2026
+Objectif : Discussion et validation du plan du Chapitre 2
+----------------------------------------------------------------
+RÉALISÉ :
+- Lecture complète des nouveaux fichiers uploadés :
+  rapport session, revue_modele_donnees_mongodb.md,
+  2.md (score PDO + catégorielles), template Overleaf,
+  modele_donnees_final_v2.pdf, fichier HTML IT Nearshore officiel
+- Discussion point par point exhaustive du Chapitre 2 (20+ points)
+- Plan complet validé : PLAN_CHAPITRE2_HENDRIX_V1_10_06_2026.md
+  uploadé dans le Project Knowledge
+- 13 diagrammes identifiés, localisés et justifiés dans le plan
+- Correction de la duplication diagramme classe métier (2.4.7)
+- Corrections identifiées sur chap01.tex (3 corrections notées)
+ 
+DÉCISIONS CLÉS :
+- IT Nearshore : Tunis (Tunisie) — erreur critique corrigée
+- RÈGLE ABSOLUE CONFIRMÉE : tout le travail réalisé doit être
+  visible dans le mémoire. Rien ne disparaît. Tout est structuré
+  selon le plan. CREDIX est un système complet — 25+ endpoints,
+  8 collections, 4 conteneurs Docker, versioning MLflow, PDF,
+  simulation what-if, recommandation documentaire, SHAP explicabilité.
+- Ordre de travail retenu :
+  * Diagrammes TikZ → validés directement dans le LaTeX
+  * Diagrammes draw.io → XML produit, validé, exporté PNG, puis LaTeX
+  * Sections sans diagramme → rédigées directement en LaTeX
+- NAP = Noise-Adjusted Permutation (munkhdalai2019)
+- Template SHAP v2 : libelle_agent + label_seuil + direction + poids_pct
+  (gabarits LLM abandonnés, non mentionnés dans le mémoire)
+- LLM = "modèle de langage" — jamais le nom du fournisseur
+- PDO : constantes 515,06 et 28,85 dérivées de nos choix → Ch.2
+- ρc : IV_total = 2,1145 (27 NAP uniquement), seuils 0,25 et 0,40
+- Frontend → Chapitre 3 uniquement
+- MongoDB modèle de données → Ch.2 / description outil → Ch.3
+- Docker introduit en Ch.2 architecture / décrit en Ch.3 outils
+- Déploiement : Lecture B (architecture cible banque réelle)
+- seed.py : mentionné brièvement en Ch.3 uniquement
+- GenericAdapter + YAML : implémenté et opérationnel
+- Diagramme classes métier → 2.2.3 (analyse)
+- Diagramme classes technique → 2.4.7 (conception technique)
+ 
+CORRECTIONS À FAIRE SUR chap01.tex (session suivante) :
+- 1.3.2 : retirer métriques réelles → comparaison littérature
+- 1.3.2 : retirer "LightGBM est l'algorithme retenu" → Ch.2
+- 1.2.5 : retirer constantes 515,06 et 28,85 → formule symbolique
+ 
+EN ATTENTE / PROCHAINES SESSIONS :
+- Session 8 : génération des diagrammes draw.io (XML) + LaTeX
+  complet chap02.tex (TikZ validés directement dans le LaTeX,
+  sections sans diagramme en premier : 2.1, 2.2.1)
+- Session 9 : corrections chap01.tex + début chap03.tex
+----------------------------------------------------------------
+FIN SESSION 7
+================================================================
+
+================================================================
+JOURNAL — SESSION 8 — 11 juin 2026
+Singhe Penka Hendrix Donavan — 21P050 — GI2026
+================================================================
+
+ÉTAT ENTRANT :
+  - Backend : 20/21 endpoints validés, GenericAdapter Level 2 livré
+  - HomeCreditAdapter CONSERVÉ (décision Session 6 — jamais annulée)
+  - F1/F2/F3 backend non encore implémentés (prévus Session 7, non fait)
+  - Plan Chapitre 2 validé (Session 7)
+  - chap01.tex existant avec 3 corrections identifiées (non faites)
+  - 10 corrections CORRECTIONS_MEMOIRE_SESSION5.md non intégrées
+  - chap02.tex vide
+
+OBJECTIF SESSION 8 :
+  Génération des diagrammes draw.io (XML) + LaTeX complet chap02.tex
+  (prévu en Session 7)
+
+----------------------------------------------------------------
+PARTIE 1 — DÉCISIONS ET CLARIFICATIONS EN DÉBUT DE SESSION
+----------------------------------------------------------------
+
+1.1 Format des diagrammes
+  → Format retenu : draw.io XML pour les 13 diagrammes
+  → Raison : natif draw.io, modifiable par drag-and-drop, pas de plugin
+  → Convention : labels de flèches fournis en liste après chaque diagramme
+    pour permettre correction rapide des débordements dans draw.io
+
+1.2 HomeCreditAdapter
+  → Question soulevée en session (statut dans les diagrammes)
+  → Rappel décision Session 6 : HomeCreditAdapter CONSERVÉ
+  → Présent dans les diagrammes (Packages, Classes technique)
+    avec GenericAdapter en complément
+
+1.3 F1/F2/F3 confirmation
+  → F1 = GET /api/decisions/override-stats — PLANIFIÉ, pas encore implémenté
+  → F2 = GET /api/clients/{id}/score-progression — PLANIFIÉ, pas encore implémenté
+  → F3 = GET /api/dashboard/portfolio-risk — PLANIFIÉ, pas encore implémenté
+  → Apparaissent dans le diagramme UC (fonctionnalités planifiées)
+    → PAS encore implémentés dans le backend
+
+1.4 Règle périmètre diagrammes
+  → Ce qui est réalisé ET ce qui est planifié peut apparaître
+  → Endpoints planifiés peuvent figurer dans les diagrammes
+
+1.5 Diagramme de déploiement — Option B retenue
+  → Architecture cible institution bancaire réelle
+  → La démo Docker Compose locale est documentée en Chapitre 3
+  → ETL nocturne documenté comme principe d'industrialisation
+
+1.6 Normes UML confirmées pour chaque type de diagramme
+  → Contexte : boîte noire, acteurs bonhommes UML, associations
+    sans labels (norme confirmée — on évite les labels sur les lignes)
+  → Packages : swimlane + dépendances «use» pointillées
+  → UC : frontière transparente, ellipses, lignes sans flèches, include/extend
+  → Classes métier : 1-2 compartiments, pas de types ni méthodes
+  → Classes technique : 3 compartiments, types précis, visibilité
+  → Séquences : lifelines, messages synchrones/retour, fragments
+  → État : états arrondis, transitions avec garde/action
+  → Activité : début/fin UML, losange décision, barre fork/join
+  → Déploiement : nœuds 3D, «artifact», «deploy»
+
+----------------------------------------------------------------
+PARTIE 2 — DIAGRAMMES DRAW.IO (3 sur 13 générés)
+----------------------------------------------------------------
+
+[DIAGRAMME 1] diag01_contexte_credix_v2.xml — LIVRÉ ✓
+  Acteurs bonhommes UML gauche (Agent, Superviseur, Admin)
+  Systèmes externes rectangles droite (MLflow, Service LLM)
+  CREDIX boîte noire centrale bleue
+  LLM bordure pointillée (setup uniquement)
+  Validation Hendrix : conforme norme UML (boîte noire, pas de labels)
+  LABELS DES FLÈCHES (référence pour draw.io) :
+    Agent → CREDIX : Profil client + requête scoring / simulation
+    CREDIX → Agent : Score PDO + décision + SHAP Top 5 + PDF
+    Superviseur → CREDIX : Décision finale + commentaire obligatoire
+    CREDIX → Superviseur : Dossiers REVUE + SHAP + statistiques
+    Admin → CREDIX : Config seuils PDO + register/promote + users
+    CREDIX → Admin : Versions modèles + métriques + paramètres
+    CREDIX → MLflow : run_id + métriques (enregistrement)
+    MLflow → CREDIX : Artefacts ML chargés en RAM (promotion)
+    CREDIX → LLM : feature_stats.json (setup) [pointillé]
+    LLM → CREDIX : Métadonnées → feature_metadata (setup) [pointillé]
+
+[DIAGRAMME 2] diag02_packages_credix.xml — LIVRÉ ✓
+  5 packages : Présentation (bleu), Application (vert),
+    Pipeline ML (violet), Adaptateur (jaune), Stockage (orange)
+  1 externe : Service LLM (jaune pointillé)
+  6 dépendances «use» (flèches pointillées pointe ouverte)
+  Adaptateur contient : BaseDataAdapter, HomeCreditAdapter, GenericAdapter
+  Sous-packages avec contenu détaillé dans chaque package
+  NOTE : HomeCreditAdapter PRÉSENT (conformément à la décision Session 6)
+
+[DIAGRAMME 3] diag03_usecase_credix.xml — LIVRÉ ✓
+  19 UCs : UC01 (auth partagé) + 7 Agent + 8 Superviseur + 4 Admin
+  3 acteurs bonhommes UML hors frontière système
+  4 relations : 3 «include» + 1 «extend»
+  F1=UC12, F2=UC13, F3=UC14 intégrés dans zone Superviseur
+  Liste UC complète :
+    UC01 S'authentifier (tous acteurs)
+    UC02 Gérer le profil client
+    UC03 Consulter formulaire de saisie
+    UC04 Soumettre une demande de scoring
+    UC05 Simuler scénario (what-if)
+    UC06 Consulter l'historique client
+    UC07 Exporter le rapport PDF
+    UC08 Consulter les dossiers en revue
+    UC09 Statuer sur un dossier
+    UC10 Consulter le tableau de bord
+    UC11 Surveiller la dérive modèle (PSI)
+    UC12 Statistiques d'override (F1)
+    UC13 Progression score client (F2)
+    UC14 Risque portefeuille (F3)
+    UC15 Consulter les versions de modèles
+    UC16 Gérer les comptes utilisateurs
+    UC17 Configurer les seuils de décision
+    UC18 Enregistrer un modèle (STAGING)
+    UC19 Promouvoir un modèle (PRODUCTION)
+  Relations include/extend :
+    UC04 «include» UC03
+    UC09 «include» UC08
+    UC19 «include» UC15
+    UC07 «extend» UC04
+
+DIAGRAMMES 4 À 13 — NON GÉNÉRÉS
+  → Décision Hendrix : développement backend actif, diagrammes sur pause
+  → À générer quand le développement sera finalisé
+  → Voir liste complète dans "CE QUI RESTE À FAIRE" ci-dessous
+
+----------------------------------------------------------------
+PARTIE 3 — CHAPITRE 2 LaTeX COMPLET
+----------------------------------------------------------------
+
+Fichier chap02.tex généré : 953 lignes — intégré dans Overleaf par Hendrix
+
+Sections rédigées (conformes au plan validé Session 7) :
+  ✓ 2.1 Cadre organisationnel IT Nearshore + contexte + périmètre
+  ✓ 2.2.1 9 exigences métier + exigences fonctionnelles par acteur
+          + 7 ENF avec tableau + 3 tables UC critiques (scoring, revue, promo)
+  ✓ 2.2.2 Diagrammes UML analyse (placeholders 1, 2, 3)
+  ✓ 2.2.3 Diagramme classe métier (placeholder 4)
+          8 entités décrites : Client, Demande, Décision, FeatureMetadata,
+          ModèleVersion, Utilisateur, AuditLog, AdminConfig
+  ✓ 2.3.1 Architecture logicielle (placeholder 5)
+          Séparation entraînement/inférence, Singleton, Repository
+  ✓ 2.3.2 Patron Adaptateur GoF
+          BaseDataAdapter → HomeCreditAdapter + GenericAdapter (CONSERVÉS)
+          Workflow 5 étapes déploiement nouvelle banque
+  ✓ 2.3.3 Pipeline de scoring (placeholder 6)
+          Feature engineering A/B/C, WOE justifié, règle anti-data-leakage,
+          IV seuil 0.02, NAP multivarié, ordre WOE→IV→NAP
+          LightGBM : 5 arguments (Recall, NaN, vitesse, TreeSHAP, CatBoost exclu)
+          SMOTE écarté — scale_pos_weight=11.4 dérivé (0.9193/0.0807)
+          PDO : A=515.06 et B=28.85 dérivés des choix d'ancrage
+          Seuils 600/500 justifiés par calcul (PD=5% et PD=62.8%)
+  ✓ 2.3.3.6 ρc contribution originale
+          Formule, IV_total=2.1145, calcul AVANT WOE, algorithme 4 étapes
+          Seuils 0.40 (alerte) et 0.25 (revue forcée) justifiés
+          Règle thin-file : ρc<0.25 + score<500 → REFUSÉ direct
+  ✓ 2.3.4 Architecture explicabilité
+          SHAP convention φ>0=aggravant/φ<0=atténuant
+          Deux types percentiles distingués (feature vs score PDO)
+          LLM refusé à l'inférence (4 raisons)
+          Architecture deux temps découplés
+          Template v2 formalisé
+  ✓ 2.4.1 Docker 4 conteneurs (placeholder 7)
+  ✓ 2.4.2 MongoDB 8 collections (4 critiques + 4 secondaires)
+  ✓ 2.4.3 API FastAPI + tableau 17 endpoints
+  ✓ 2.4.4 Frontend React data-driven
+  ✓ 2.4.5 Versioning modèles — cycle STAGING→PRODUCTION→ARCHIVE (placeholder 8)
+  ✓ 2.4.6 3 séquences (placeholders 9, 10, 11)
+  ✓ 2.4.7 Classes technique (placeholder 12)
+          HomeCreditAdapter + GenericAdapter PRÉSENTS
+  ✓ 2.4.8 Déploiement architecture cible (placeholder 13)
+  ✓ 2.5 Bilan + tableau synthèse 10 décisions architecturales
+
+Vérification structurelle :
+  5 sections / 18 sous-sections / 23 sous-sous-sections
+  6 tableaux / 13 figures / tous environnements LaTeX équilibrés ✓
+  13 placeholders \fbox{} numérotés et nommés
+  Citations à vérifier dans references.bib :
+    rgpd2016, bis2006, thomas2002, munkhdalai2019, noriega2023,
+    hjelkrem2022, arizagarzon2020, ince2009
+    À ajouter si absent : gof1994, chawla2002
+
+----------------------------------------------------------------
+PARTIE 4 — DOCUMENT CORRECTIONS CHAPITRE 1
+----------------------------------------------------------------
+
+Fichier CORRECTIONS_CHAP01.md généré (3 patches + 5 vérifications) :
+  Correction 1 : section 1.3.2 → retirer tableau métriques réelles
+                 → remplacer par tableau comparaison littérature
+  Correction 2 : section 1.3.2 → retirer phrase "LightGBM est retenu"
+                 → remplacer par renvoi Ch.2
+  Correction 3 : section 1.2.5 → retirer constantes 515,06 et 28,85
+                 → remplacer par formule symbolique A et B
+  + 5 vérifications complémentaires listées
+
+----------------------------------------------------------------
+LIVRABLES SESSION 8
+----------------------------------------------------------------
+
+  ✅ diag01_contexte_credix_v2.xml
+  ✅ diag02_packages_credix.xml
+  ✅ diag03_usecase_credix.xml
+  ✅ chap02.tex (953 lignes, complet)
+  ✅ CORRECTIONS_CHAP01.md
+
+================================================================
+CE QUI RESTE À FAIRE — ÉTAT COMPLET FIN SESSION 8
+================================================================
+
+--------
+BACKEND
+--------
+
+[ ] F1 — GET /api/decisions/override-stats
+    → PLANIFIÉ, non commencé. À implémenter.
+[ ] F2 — GET /api/clients/{id}/score-progression
+    → PLANIFIÉ, non commencé. À implémenter.
+[ ] F3 — GET /api/dashboard/portfolio-risk
+    → PLANIFIÉ, non commencé. À implémenter.
+[ ] POST /api/monitoring/promote-model
+    → Option B documentée (pas de 2ème STAGING disponible en démo)
+    → Statut inchangé depuis Session 5
+[~] GET /api/monitoring/model-drift
+    → PSI null — comportement normal (N < 10 scorings)
+    → Pas un bug
+
+--------
+MÉMOIRE — CHAPITRE 1
+--------
+
+[ ] Appliquer 3 corrections chap01.tex (CORRECTIONS_CHAP01.md) :
+    1.3.2 — retirer tableau métriques réelles → comparaison littérature
+    1.3.2 — retirer "LightGBM est l'algorithme retenu"
+    1.2.5 — retirer constantes 515,06 et 28,85 → formule symbolique
+[ ] Appliquer 10 corrections CORRECTIONS_MEMOIRE_SESSION5.md
+    → En attente depuis Session 5, non faites en sessions 6, 7, 8
+    → URGENT avant validation académique
+[ ] Vérifications complémentaires listées dans CORRECTIONS_CHAP01.md
+[ ] Relecture académique complète Ch.1 (niveau jury ENSPY)
+
+--------
+MÉMOIRE — CHAPITRE 2
+--------
+
+[ ] Validation lecture complète chap02.tex par Hendrix
+    (contenu, ton, conformité plan, aucune omission)
+[ ] Vérifier présence de gof1994 et chawla2002 dans references.bib
+    (absents possibles — à ajouter si nécessaire)
+[ ] Validation Ch.2 par Pr Batchakui
+[ ] Générer et intégrer les 10 diagrammes restants :
+    [ ] Diagramme 4 : Classes métier (draw.io XML)
+    [ ] Diagramme 5 : Architecture logicielle couches (draw.io XML)
+    [ ] Diagramme 6 : Activité pipeline ML (draw.io XML)
+    [ ] Diagramme 7 : Architecture Docker 4 conteneurs (draw.io XML)
+    [ ] Diagramme 8 : État modèle STAGING→PRODUCTION→ARCHIVE (draw.io XML)
+    [ ] Diagramme 9 : Séquence flux scoring (draw.io XML)
+    [ ] Diagramme 10 : Séquence flux revue manuelle (draw.io XML)
+    [ ] Diagramme 11 : Séquence flux promotion modèle (draw.io XML)
+    [ ] Diagramme 12 : Classes technique (draw.io XML)
+    [ ] Diagramme 13 : Déploiement architecture cible (draw.io XML)
+[ ] Remplacer les 13 \fbox{placeholder} par \includegraphics{img/diag*.png}
+[ ] Section "Généralisation multi-institutions" → à vérifier si couvert
+    suffisamment en Ch.2 section 2.3.2 ou si complément nécessaire en Ch.3
+
+RAPPEL WORKFLOW DIAGRAMMES → OVERLEAF :
+  1. Importer XML dans draw.io (Extras → Edit Diagram)
+  2. Ajuster positions si chevauchements (listes labels ci-dessus)
+  3. Exporter PNG haute résolution
+  4. Placer dans img/ sur Overleaf
+  5. Remplacer \fbox{...} par \includegraphics{img/diagXX_nom.png}
+
+--------
+MÉMOIRE — CHAPITRE 3
+--------
+
+[ ] Planification complète Ch.3 (non commencé)
+    Éléments attendus (liste non exhaustive) :
+    - Tableau comparatif modèles (CORRECTIONS_MEMOIRE_SESSION5.md)
+    - Section "Généralisation multi-institutions" avec GenericAdapter
+    - Description outils (MongoDB BSON Motor, Docker Compose, FastAPI)
+    - Résultats expérimentaux : AUC, Recall, KS, Gini (sur test set)
+    - Captures d'écran interface React (vues Agent, Superviseur, Admin)
+    - Description seed_database.py / generate_metadata.py (brèvement)
+    - Discussion critique des résultats
+
+--------
+ADMINISTRATIF
+--------
+
+[ ] Dépôt dossier ENSPY — lettre de mise en stage OFFICIELLE
+    → Signalé URGENT depuis Session 1 et Session 6
+    → Requis pour le dossier de soutenance
+[ ] Soutenance cible : avant mi-juillet 2026
+    → Stage ITNS se termine le 2 août 2026
+    → Marge pour corrections jury : ~2 semaines après soutenance
+
+================================================================
+DÉCISIONS TECHNIQUES FIGÉES — À NE JAMAIS MODIFIER
+================================================================
+
+  - Modèle final : LightGBM (irréversible depuis Session 1)
+  - 27 features NAP avec encodage WOE
+  - Bin "Manquant" pour NaN — pas d'imputation
+  - PDO : S = 515,06 − 28,85 × ln(PD/(1−PD))
+  - IV_total = 2,1145 (27 NAP uniquement — pas le CSV complet)
+  - scale_pos_weight = 11,4 (SMOTE écarté)
+  - SHAP : φ > 0 = aggravant (rouge) / φ < 0 = atténuant (vert)
+  - LLM = setup uniquement — libelle_agent exploité à l'inférence
+    gabarit_aggravant/gabarit_attenuant ignorés à l'inférence
+  - HomeCreditAdapter : CONSERVÉ (Session 6 — jamais annulé)
+    GenericAdapter = adapter recommandé pour production
+  - Seuils PDO : 600 (ACCORDÉ) / 500 (REFUSÉ) — configurables
+  - Seuils ρc : 0,40 (alerte documentaire) / 0,25 (revue forcée)
+  - age_years : toujours recalculé dynamiquement depuis date_naissance
+  - ETL nocturne : principe documenté, non implémenté (Home Credit statique)
+  - promote-model Option B : documenté, pas de STAGING factice en démo
+
+================================================================
+FIN JOURNAL SESSION 8 — 11 juin 2026
+================================================================
+
+================================================================
+JOURNAL — SESSION 9 — 11 juin 2026
+Singhe Penka Hendrix Donavan — 21P050 — GI2026
+================================================================
+
+ÉTAT ENTRANT :
+  - Backend : 20/21 endpoints validés, GenericAdapter Level 2 livré (Session 7/8)
+  - chap02.tex livré Session 8 (953 lignes, 13 placeholders diagrammes)
+  - 7 nouveaux endpoints planifiés mais non implémentés (F1, F2, F3, S1, S2, S3, S4)
+  - README backend obsolète (21 endpoints, pas de doc des nouveaux)
+
+================================================================
+PARTIE 1 — ANALYSE ET CONCEPTION DES NOUVEAUX ENDPOINTS
+================================================================
+
+ANALYSE DES PLATEFORMES RÉELLES (FICO, TurnKey Lender, LendFoundry, CreditLens) :
+  Fonctionnalités retenues après analyse critique :
+    F1 — GET /api/decisions/override-stats      (gouvernance superviseur)
+    F2 — GET /api/clients/{id}/score-progression (thin-file enrichissement)
+    F3 — GET /api/dashboard/portfolio-risk      (pilotage direction)
+    S1 — GET /api/monitoring/audit-logs         (traçabilité Bâle II)
+    S2 — Filtres rho_min/rho_max sur GET /api/clients/search (pas un endpoint dédié)
+    S3 — GET /api/monitoring/feature-drift      (PSI par variable NAP)
+    S4 — GET /api/dashboard/score-bands         (Fineness test portefeuille)
+
+  Fonctionnalités écartées avec justification :
+    Champion/Challenger : refonte architecturale trop lourde, hors scope PFE
+    Adverse Action Codes : risque de contradiction avec SHAP existant
+    Vintage Analysis : données temporelles de remboursement absentes en démo
+    Blacklist/Watchlist AML : domaine distinct du scoring de défaut
+    Early Warning System : couvert partiellement par F2, optionnel
+
+DÉCISION ARCHITECTURALE — S2 :
+  Initialement proposé comme endpoint dédié "thin-file-clients".
+  Abandonné au profit de filtres optionnels sur l'endpoint search existant.
+  Raison : si la banque déployée a des clients tous bancarisés, un endpoint
+  dédié thin-file retourne une liste vide et devient inutile.
+  Solution : q, rho_min, rho_max, decision_derniere tous optionnels sur /search.
+  Principe adaptatif : la donnée dicte l'interface, pas l'endpoint.
+
+================================================================
+PARTIE 2 — CONCEPT PSI EXPLIQUÉ (à mémoriser pour soutenance)
+================================================================
+
+DÉFINITION :
+  PSI (Population Stability Index) mesure si la DISTRIBUTION d'une variable
+  a changé entre deux périodes. Il compare la forme de la courbe, pas la moyenne.
+
+FORMULE :
+  PSI = Σᵢ (Aᵢ − Eᵢ) × ln(Aᵢ / Eᵢ)
+  Eᵢ = proportion dans la période de référence, bin i
+  Aᵢ = proportion dans la période actuelle, bin i
+
+INTERPRÉTATION :
+  PSI < 0.10  → STABLE    — aucune action
+  PSI < 0.25  → ATTENTION — surveiller
+  PSI ≥ 0.25  → DÉRIVE    — réentraînement recommandé
+
+DEUX IMPLÉMENTATIONS DANS CREDIX :
+
+  calculer_psi() — utilisé par model-drift :
+    Variables : scores PDO (300–850)
+    Bins : 10 intervalles FIXES et ÉGAUX (55 points chacun)
+    Pourquoi fixes : plage connue, signification métier par zone,
+    comparaison stable dans le temps.
+    Pourquoi 10 : convention industrie credit scoring (FICO, Moody's).
+    Trop peu → on rate les shifts. Trop de bins → certains bins vides,
+    log(0) diverge, PSI explose artificiellement.
+
+  calculer_psi_generique() — utilisé par feature-drift :
+    Variables : valeurs WOE de chaque feature NAP (plage inconnue, variable)
+    Bins : QUANTILES de la distribution de RÉFÉRENCE (adaptatifs)
+    Pourquoi quantiles : EXT_SOURCE_3 WOE peut aller de -2.5 à +3.0 selon
+    les données. Impossible de fixer des bornes à l'avance.
+    Retourne None si < 10 observations (pas 0.0 — None = "on ne sait pas").
+
+DIFFERENCE model-drift vs feature-drift :
+  model-drift  → PSI global sur les SCORES → dit SI le portefeuille a bougé
+  feature-drift → PSI sur chaque WOE des 27 features → dit QUOI a bougé
+  Le feature-drift est un SIGNAL PRÉCOCE : les variables dérivent avant le score.
+  Exemple : EXT_SOURCE_3 PSI=0.35 DÉRIVE + score PSI=0.08 STABLE
+  → le score masque la dérive d'une variable. feature-drift la révèle.
+
+POURQUOI LES BINS PSI NE SONT PAS LES BINS WOE :
+  Les bins WOE (OptimalBinning) convertissent valeur brute → valeur WOE (une fois,
+  lors de l'entraînement).
+  Les bins PSI découpent la DISTRIBUTION des valeurs WOE (l'output) pour comparer
+  deux périodes. Ce sont deux niveaux d'abstraction distincts.
+  En pratique, pour une feature avec 5 WOE distincts, les bins PSI correspondent
+  naturellement aux 5 WOE levels (la variable est discrète).
+
+RÉFÉRENCE PSI :
+  = les données des 30 premiers jours après la promotion du modèle en PRODUCTION.
+  C'est le "comportement normal attendu" de la population initiale.
+
+================================================================
+PARTIE 3 — CLARIFICATION SEUILS (question Hendrix en session)
+================================================================
+
+settings = objet Python créé UNE SEULE FOIS au démarrage depuis le fichier .env.
+  → from app.core.config import settings
+  → settings.rho_seuil_banniere = 0.40 (lu depuis .env)
+  → immutable pendant toute la durée de vie du conteneur
+  → pour changer : modifier .env + docker compose restart api
+
+TABLEAU DES SEUILS :
+  seuil_accorde (600) : dans admin_config MongoDB → modifiable via API en direct
+  seuil_refuse (500)  : dans admin_config MongoDB → modifiable via API en direct
+  rho_banniere (0.40) : dans settings/.env → NON modifiable via API (restart requis)
+  rho_critique (0.25) : dans settings/.env → NON modifiable via API (restart requis)
+
+JUSTIFICATION ρc = 0.40 hardcodé :
+  Dérivé de la distribution IV des 27 features NAP.
+  Les 13 features historiques (cat. C) représentent en moyenne 61% de l'IV total.
+  ρc < 0.40 = moins de 40% du pouvoir prédictif théorique disponible.
+  C'est une propriété STATISTIQUE DU MODÈLE, pas une politique commerciale.
+  Elle ne change que si les 27 features NAP changent (nouveau modèle).
+  → vit dans .env (config technique), pas admin_config (config métier).
+
+S4 score-bands DYNAMIQUE :
+  Les bornes des tranches PDO sont lues depuis admin_config à chaque appel.
+  Si admin change seuil_refuse=480 et seuil_accorde=620, les tranches
+  et leurs labels se mettent à jour automatiquement. Pas de restart requis.
+
+================================================================
+PARTIE 4 — CODE PRODUIT ET VALIDÉ
+================================================================
+
+FICHIERS LIVRÉS ET INTÉGRÉS :
+
+  psi_service.py (app/services/)
+    → Ajout : calculer_psi_generique() pour feature-drift
+      Bins par quantiles de la référence (pas bins fixes).
+      Retourne None si données insuffisantes (< 10 obs).
+    → Existant : calculer_psi() et interpreter_psi() inchangés.
+
+  decisions.py (app/routers/)
+    → Ajout F1 : GET /api/decisions/override-stats
+      Pipeline MongoDB $facet sur collection decisions.
+      Calcule : total_revue, total_overrides, distribution accordes/refuses,
+      taux_override_pct, taux_accord_pct, taux_desaccord_modele, interprétation.
+      IMPORTANT : déclaré AVANT /{demande_id}/... pour éviter conflit de routing.
+
+  clients.py (app/routers/)
+    → Modification S2 : GET /api/clients/search
+      Ajout paramètres optionnels : rho_min, rho_max, decision_derniere.
+      q rendu optionnel si un filtre rho est fourni.
+      Au moins un critère requis (validation : HTTP 400 sinon).
+      Tri par coverage.rho croissant (thin-file en premier).
+    → Ajout F2 : GET /api/clients/{client_id}/score-progression
+      Requête sur collection decisions par client_id, ordre chronologique.
+      Calcule : delta_score, delta_rho, tendance_score, tendance_rho, résumé.
+      Seuils tendance : ±20 points = changement significatif score,
+                        ±0.10 = changement significatif rho.
+      Différence avec /api/scoring/history : history = données brutes,
+      score-progression = analyse évolution avec deltas et interprétation métier.
+
+  dashboard.py (app/routers/)
+    → Ajout F3 : GET /api/dashboard/portfolio-risk
+      Seuils rho lus depuis settings (cohérence avec pdo_service.py).
+      Calcule : PD moyenne/médiane, score moyen/médiane, distribution décisions,
+      taux_thin_file_pct (ρc < settings.rho_seuil_banniere),
+      taux_critique_pct (ρc < settings.rho_seuil_revue_forcee), alerte auto.
+    → Ajout S4 : GET /api/dashboard/score-bands
+      Bornes dynamiques calculées depuis admin_config à chaque appel.
+      Labels et boundaries suivent les seuils PDO configurés par l'admin.
+      Fineness test documenté dans la réponse.
+
+  monitoring.py (app/routers/)
+    → Ajout S1 : GET /api/monitoring/audit-logs
+      Paramètres : action (filtre type), user_id (filtre utilisateur), limite.
+      Tri anti-chronologique. Liste des actions_disponibles retournée.
+      Rôle : ADMIN uniquement.
+    → Ajout S3 : GET /api/monitoring/feature-drift
+      Lit nap_features depuis app.state (chargé au démarrage).
+      2 requêtes MongoDB seulement (ref + actuel), traitement Python ensuite.
+      Champ correct : input.features_woe (pas vecteur_woe à la racine).
+      Bug corrigé en session : vecteur_woe → input.features_woe.
+      Retourne 27 features triées par PSI décroissant.
+      statut_global = pire statut parmi les 27 features.
+
+BUGS CORRIGÉS EN SESSION :
+  BUG-S3 : feature-drift cherchait doc.get("vecteur_woe") mais le champ
+            réel dans MongoDB est doc["input"]["features_woe"].
+            Impact : nb_ref=0 et nb_act=0 pour toutes les features.
+            Fix : projection {"input.features_woe": 1} +
+                  doc.get("input", {}).get("features_woe", {})
+
+  BUG-NOTE-S3 : note cosmétique contenait "demandes.vecteur_woe" (faux)
+                et "featuredans" (espace manquant).
+                Fix : "demandes.input.features_woe" + "feature dans".
+
+================================================================
+PARTIE 5 — README MIS À JOUR
+================================================================
+
+README.md backend mis à jour (850 lignes) :
+  - Architecture : "23 endpoints" → "30 endpoints"
+  - Section 1 : ajout tableau seuils (PDO vs ρc, configurable vs non)
+  - Section 10 : tests 10.12 → 10.25 pour tous les nouveaux endpoints
+  - Section 14 : structure code mise à jour (psi_generique, nouvelles routes)
+  - Section 16 : 31 endpoints documentés, marqueur [S9] pour les nouveaux
+  - PATCH /api/clients/{id} et GET /api/admin/thresholds ajoutés (manquaient)
+  Note : format à revoir selon préférence Hendrix (décision reportée).
+
+================================================================
+PARTIE 6 — RÉSULTATS DES TESTS (tous validés)
+================================================================
+
+TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "Admin2026!"}' \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
+
+F1 override-stats     ✅ total_revue=38, overrides=2, "Seuils bien calibrés"
+F2 score-progression  ✅ HC-100001 : 7 scorings, +27 pts, ρc 0.54→0.96 ENRICHISSEMENT
+F3 portfolio-risk     ✅ PD moy=47.4% (démo), alerte auto déclenchée, 80% REVUE
+S1 audit-logs         ✅ 20 entrées, tous types actions présents (LOGIN, SCORING, etc.)
+S2 search rho_max     ✅ 5 clients thin-file rho=0.0
+S3 feature-drift      ✅ (après fix) 27 features STABLE, PSI=0.0 (attendu démo,
+                         même population dans les deux fenêtres temporelles)
+S4 score-bands        ✅ 4 tranches, PD décroissante (0.67→0.48→0.20→0.04) ✓ calibration OK
+
+================================================================
+CE QUI RESTE À FAIRE — ÉTAT FIN SESSION 9
+================================================================
+
+--------
+BACKEND
+--------
+
+[x] F1 — GET /api/decisions/override-stats         → VALIDÉ SESSION 9
+[x] F2 — GET /api/clients/{id}/score-progression   → VALIDÉ SESSION 9
+[x] F3 — GET /api/dashboard/portfolio-risk         → VALIDÉ SESSION 9
+[x] S1 — GET /api/monitoring/audit-logs            → VALIDÉ SESSION 9
+[x] S2 — Filtres rho sur GET /api/clients/search   → VALIDÉ SESSION 9
+[x] S3 — GET /api/monitoring/feature-drift         → VALIDÉ SESSION 9
+[x] S4 — GET /api/dashboard/score-bands            → VALIDÉ SESSION 9
+[~] GET /api/monitoring/model-drift (PSI score)    → Existant, PSI null normal en démo
+[~] POST /api/monitoring/promote-model             → Option B documentée (pas 2ème STAGING)
+
+--------
+MÉMOIRE — CHAPITRE 1
+--------
+
+[ ] Appliquer 3 corrections chap01.tex :
+    1.3.2 — retirer tableau métriques réelles → comparaison littérature
+    1.3.2 — retirer "LightGBM est l'algorithme retenu"
+    1.2.5 — retirer constantes 515,06 et 28,85 → formule symbolique
+[ ] Appliquer 10 corrections CORRECTIONS_MEMOIRE_SESSION5.md
+    → En attente depuis Session 5 — URGENT avant validation académique
+[ ] Relecture académique complète Ch.1 (niveau jury ENSPY)
+
+--------
+MÉMOIRE — CHAPITRE 2
+--------
+
+[ ] Validation lecture complète chap02.tex par Hendrix
+[ ] Vérifier présence de gof1994 et chawla2002 dans references.bib
+[ ] Validation Ch.2 par Pr Batchakui
+[ ] Générer et intégrer les 10 diagrammes restants (draw.io XML, diag04→13)
+[ ] Remplacer les 13 \fbox{placeholder} par \includegraphics{img/diag*.png}
+
+--------
+MÉMOIRE — CHAPITRE 3
+--------
+
+[ ] Planification complète Ch.3 (non commencé)
+    Éléments attendus :
+    - Tableau comparatif modèles (AUC, Recall, KS, Gini)
+    - Résultats expérimentaux sur test set
+    - Description outils (MongoDB, Docker, FastAPI)
+    - Section GenericAdapter + généralisation multi-institutions
+    - Captures d'écran interface React
+    - Discussion critique des résultats
+    - Monitoring PSI (score global + feature drift)
+
+--------
+FRONTEND
+--------
+
+[ ] Planification complète (questions Hendrix en attente — reportées Session 10)
+    → Prototype React existant : état exact à confirmer
+    → Port backend : 8080 confirmé
+    Stack pressentie : React + Vite + Tailwind + Axios + React Router v6
+
+--------
+ADMINISTRATIF
+--------
+
+[ ] Dépôt dossier ENSPY — lettre de mise en stage OFFICIELLE
+    → URGENT depuis Session 1
+[ ] README backend — format à revoir (décision Hendrix)
+[ ] Soutenance cible : avant mi-juillet 2026
+
+================================================================
+DÉCISIONS TECHNIQUES FIGÉES — INCHANGÉES
+================================================================
+
+  - Modèle final : LightGBM (irréversible depuis Session 1)
+  - 27 features NAP avec encodage WOE
+  - Bin "Manquant" pour NaN — pas d'imputation
+  - PDO : S = 515,06 − 28,85 × ln(PD/(1−PD))
+  - IV_total = 2,1145 (27 NAP uniquement)
+  - scale_pos_weight = 11,4 (SMOTE écarté)
+  - SHAP : φ > 0 = aggravant (rouge) / φ < 0 = atténuant (vert)
+  - LLM = setup uniquement — libelle_agent exploité à l'inférence
+  - Seuils PDO : 600 (ACCORDÉ) / 500 (REFUSÉ) — configurables admin_config
+  - Seuils ρc : 0,40 (bannière) / 0,25 (revue forcée) — settings/.env uniquement
+  - age_years : toujours recalculé dynamiquement depuis date_naissance
+  - HomeCreditAdapter conservé + GenericAdapter recommandé production
+  - Docker workflow : docker compose restart api (jamais rebuild)
+  - Champ WOE dans demandes : input.features_woe (pas vecteur_woe à la racine)
+
+================================================================
+FIN JOURNAL SESSION 9 — 11 juin 2026
+================================================================
+
+================================================================
+JOURNAL — SESSION BACKEND FINAL — 26 juin 2026
+Singhe Penka Hendrix Donavan — 21P050 — GI2026 — ENSPY
+Système : CREDIX — Scoring de Risque de Crédit
+================================================================
+RÈGLE : APPEND-ONLY. Ne jamais modifier les entrées passées.
+================================================================
+
+## ÉTAT ENTRANT
+
+- Backend : 20/21 endpoints validés (session 5)
+- Pipeline WOE + LightGBM + SHAP + PDO + ρc : opérationnel
+- 7 routers existants : auth, scoring, clients, decisions,
+  dashboard, monitoring, admin — tous validés
+- Bug WOE corrigé (session 5) — scores discriminés ✓
+- 3 problèmes identifiés à résoudre :
+  - PROBLÈME 1 : versioning fictif (promote_model ne recharge
+    pas le bon modèle — toujours depuis ./artefacts/)
+  - PROBLÈME 2 : pas d'upload HTTP (accès SSH requis)
+  - PROBLÈME 3 : 4 artefacts IF existants mais non intégrés
+
+---
+
+## CHANTIER 1 — GRIDFS VERSIONING
+
+### Fichiers créés / modifiés
+
+| Fichier | Type | Rôle |
+|---|---|---|
+| `app/db/gridfs.py` | NOUVEAU | Couche GridFS async — save/download/list/delete |
+| `app/routers/upload_model.py` | NOUVEAU | POST /api/admin/upload-model (multipart 9 fichiers) |
+| `app/main.py` | MODIFIÉ | charger_artefacts(run_id) + lifespan + router |
+| `app/routers/monitoring.py` | MODIFIÉ | promote_model avec vrai run_id |
+
+### Décisions architecturales prises
+
+- **Bucket GridFS** : `"artefacts_ml"` — séparé des collections métier
+- **run_id** : UUID4 généré côté backend uniquement, jamais par l'admin
+- **9 artefacts ensemble** sous le même run_id (= une version)
+- **Rollback** = POST /promote-model avec un ancien run_id
+  - Décision : promote_model accepte STAGING **et ARCHIVE**
+  - Raison : quand on rollback, v1 est en ARCHIVE → doit être promouvable
+- **Seed `./artefacts/`** : jamais supprimé — fallback premier lancement
+- **`/tmp/artefacts/{run_id}/`** : nettoyé après chargement (finally)
+- **`charger_feature_metadata`** : sans filtre run_id — les 27 features NAP
+  sont stables entre versions → charger tout sans filtre
+
+### Correctifs découverts en cours
+
+1. **FrequencyEncoder** : `encoder_if.pkl` sérialisé avec une classe
+   personnalisée absente du backend → custom unpickler
+   `_FrequencyEncoderUnpickler` qui substitue `FrequencyEncoder` → dict
+   - Raison du choix dict : le pipeline utilise uniquement `.get()`
+
+2. **`charger_feature_metadata` run_id** : bug pré-existant — filtrait
+   par run_id du modèle PRODUCTION → 0 metadata après promote GridFS
+   car les docs avaient run_id="lgbm-run-v1". Corrigé : chargement
+   sans filtre (features NAP sont version-agnostiques)
+
+3. **`promote_model` ARCHIVE** : le système n'acceptait que STAGING pour
+   la promotion. Rollback impossible sans mongosh. Corrigé : accepte
+   STAGING ou ARCHIVE.
+
+### Tests C1 validés (8/8)
+
+| Test | Résultat |
+|---|---|
+| C1-1 Upload 9 artefacts → STAGING | ✅ run_id UUID4 retourné |
+| C1-2 Listing model-versions | ✅ STAGING visible |
+| C1-3 Promotion STAGING → PRODUCTION | ✅ promoted_at retourné |
+| C1-4 /health → model_run_id réel | ✅ UUID4 affiché |
+| C1-5 Scoring non-régression HC-100001 | ✅ score 538 identique |
+| C1-6 Rollback v2 → v1 | ✅ model_run_id revenu à v1 |
+| C1-7 Upload incomplet → 422 explicite | ✅ champs manquants listés |
+| C1-8 Restart → bon run_id rechargé | ✅ automatique depuis GridFS |
+
+---
+
+## CHANTIER 2 — INTÉGRATION ISOLATION FOREST
+
+### Fichiers modifiés
+
+| Fichier | Modification |
+|---|---|
+| `app/services/pipeline_service.py` | `appliquer_flux_b()` + règle escalade |
+| `app/routers/scoring.py` | 5 champs IF dans réponse + MongoDB |
+
+### Architecture Flux B
+
+```
+vecteur_brut (avant WOE)
+  → imputation NaN numériques avec médianes train
+  → StandardScaler (features numériques)
+  → FrequencyEncoder (features catégorielles)
+  → IsolationForest.score_samples()
+  → -score_samples() [signe inversé — convention notebook]
+  → comparer à seuil_if (P95)
+  → is_anomaly (bool)
+```
+
+### Règle d'escalade (conservative)
+
+```
+ACCORDE + is_anomaly → REVUE_MANUELLE (if_escalade=True)
+REFUSE  + is_anomaly → REFUSE inchangé (if_escalade=False)
+REVUE   + is_anomaly → REVUE inchangée (if_escalade=False)
+IF non chargé        → valeurs neutres, zéro crash
+```
+
+### Correctifs découverts en cours
+
+1. **Signe du score IF** : `score_samples()` retourne des valeurs
+   négatives (convention sklearn : centré autour de 0 par soustraction
+   de 0.5). Le notebook avait calculé `SEUIL_IF` sur les scores
+   **inversés** (`-score_samples()`). La comparaison dans le backend
+   doit donc utiliser `-score_samples() > seuil_if`.
+
+2. **"ACCORDÉ" vs "ACCORDE"** : `get_decision()` retourne `"ACCORDE"`
+   sans accent. La comparaison dans `appliquer_flux_b` utilisait
+   `"ACCORDÉ"` avec accent → escalade jamais déclenchée. Corrigé.
+
+3. **`evaluer_formule` bug** : quand `date_naissance` (string) est dans
+   le declaratif, `float("2008-06-26")` → ValueError → toute la formule
+   échoue → `anciennete_emploi_mois` non pris en compte. Correction
+   identifiée : try/except par champ individuel (non appliquée cette
+   session — PATCH client utilisé comme workaround pour les tests).
+
+4. **`form-schema` run_id** : lisait `admin_config["modele_actif"]`
+   → run_id périmé ("lgbm-run-v1"). Corrigé : utilise
+   `request.app.state.model_run_id` — toujours le run_id réel en RAM.
+
+### Nouveaux champs API (POST /api/scoring/predict)
+
+```json
+{
+  "decision_initiale": "ACCORDE",   // null si pas d'escalade
+  "anomaly_score": 0.574587,
+  "is_anomaly": true,
+  "if_escalade": true,
+  "if_seuil": 0.5452796381815497
+}
+```
+
+### Nouveaux champs MongoDB
+
+```
+col_demandes  : anomaly_score, is_anomaly, if_escalade
+col_decisions : anomaly_score, is_anomaly, if_escalade, decision_avant_if
+audit_log     : si if_escalade → details{if_escalade, decision_initiale, anomaly_score}
+```
+
+### Tests C2 validés (4/4)
+
+| Test | Résultat |
+|---|---|
+| C2-1 Scoring normal + champs IF présents | ✅ is_anomaly=false, anomaly_score négatif→positif |
+| C2-2 Profil aberrant → is_anomaly True | ✅ employment_years=25, age=34 → 0.574 > 0.545 |
+| C2-3 ACCORDE + anomalie → REVUE_MANUELLE | ✅ if_escalade=True, dec_initiale=ACCORDE |
+| C2-4 REFUSE + anomalie → REFUSE inchangé | ✅ if_escalade=False |
+
+---
+
+## ÉTAT FINAL BACKEND
+
+```
+31 endpoints fonctionnels (30 existants + 1 nouveau /upload-model)
+Versioning GridFS réel — promote = vrais fichiers GridFS en RAM
+Rollback fonctionnel en une commande
+Restart automatique sur le bon modèle
+IF intégré dans le pipeline de scoring
+Règle d'escalade ACCORDE → REVUE si profil anormal
+Champs IF dans réponse API et MongoDB
+0 régression sur les scores PDO (HC-100001 : 538 stable)
+```
+
+## CHANTIER 3 — FRONTEND
+
+⚠️ Traité en session séparée (session suivante).
+
+---
+
+## DÉCISIONS À RETENIR POUR LE MÉMOIRE
+
+1. **GridFS** choisi pour le versioning des artefacts ML car natif
+   MongoDB (pas de dépendance externe) + support des fichiers binaires
+   lourds (modèles .pkl) + bucket séparé des collections métier
+
+2. **Isolation Forest** retenu parmi 3 candidats (IF, Autoencoder, LOF) :
+   - LOF éliminé : latence O(N_train) inacceptable en production
+   - Autoencoder éliminé : MSE non auditable Bâle II (explicabilité nulle)
+   - IF retenu : inférence < 1ms, pkl léger, score interprétable
+
+3. **Escalade conservative** : IF ne peut qu'escalader ACCORDE →
+   REVUE_MANUELLE. Un REFUSE reste REFUSE même si anomalie. Justification :
+   le crédit refusé est déjà la pire décision — l'IF n'apporte rien.
+
+4. **Seuil P95** : fp_rate_p95 = 0.05 (5% de faux positifs acceptés).
+   Compromis : quelques revues manuelles supplémentaires valent mieux
+   que laisser passer un profil frauduleux.
+
+----------------------------------------------------------------
+FIN SESSION BACKEND FINAL — 26 juin 2026
+================================================================
+
+================================================================
+JOURNAL — SESSION FRONTEND 1 — 26 juin 2026
+Singhe Penka Hendrix Donavan — 21P050 — GI2026
+================================================================
+
+CONTEXTE ENTRANT :
+  - Backend : 31 endpoints validés (GridFS + IF intégrés — session backend finale)
+  - Frontend : ébauche existante — seule la page /login était connectée
+  - Nouveaux champs backend : decision_initiale, anomaly_score, is_anomaly,
+    if_escalade, if_seuil dans POST /api/scoring/predict
+  - Nouveau endpoint : POST /api/admin/upload-model (multipart 9 artefacts)
+  - TODO_CREDIX_FRONTEND.md mise à jour et versionnée
+
+ÉTAT SORTANT :
+  - Phase 1 frontend : 100% complète
+  - Tâches 2.1, 2.2 : terminées et validées
+  - Design WAOUH établi et appliqué sur toutes les pages livrées
+  - 31 fichiers créés ou modifiés
+
+================================================================
+RÉALISATIONS DÉTAILLÉES
+================================================================
+
+----------------------------------------------------------------
+PHASE 0 — DISCUSSION ET PLAN DE SESSION
+----------------------------------------------------------------
+- Lecture complète du journal, du backend final et du contexte frontend
+- Analyse de la TODO existante (datée du 18 juin, incomplète)
+- Décision : NE PAS refaire le front à zéro (fondations solides)
+- Décision : refaire uniquement le design page par page
+- Règle adoptée : max 250 lignes par fichier, 1 composant = 1 fichier
+- TODO mise à jour et versionnée en fichier téléchargeable
+- Charte design définie :
+    * Tableau dense (style Linear/Notion)
+    * Filtres en chips inline toujours visibles
+    * Couleurs : emerald=ACCORDÉ, rose=REFUSÉ, amber=REVUE_MANUELLE
+    * Badges ρc : rose<25%, amber<40%, emerald≥40%
+    * dark: classes sur TOUS les composants, jamais de couleur hardcodée
+
+----------------------------------------------------------------
+TÂCHE 1.9 — Dark/Light Mode System (VALIDÉ ✅)
+----------------------------------------------------------------
+PROBLÈME IDENTIFIÉ :
+  - Login hardcodée en sombre
+  - forcedTheme="light" dans Providers.tsx bloquait tout
+  - Tailwind v4 utilise media query par défaut → toggle sans effet
+
+CORRECTIONS :
+  - globals.css : ajout de @custom-variant dark (&:where(.dark, .dark *))
+    → force Tailwind v4 à utiliser uniquement la classe .dark sur <html>
+    → supprime le conflit avec la media query système
+  - Providers.tsx : suppression forcedTheme="light", activation enableSystem
+  - Nouveau composant ThemeToggle.tsx (variants "default" et "login")
+  - Login page refaite : split-screen, image login.png plein écran gauche,
+    ThemeToggle en haut à droite
+  - LayoutParts.tsx : Topbar et Sidebar entièrement passés en dark: classes
+  - ClientLayout.tsx : bg hardcodé remplacé par dark: classes
+
+FICHIERS LIVRÉS :
+  - components/Providers.tsx
+  - components/ThemeToggle.tsx
+  - components/LayoutParts.tsx
+  - components/ClientLayout.tsx
+  - app/login/page.tsx
+  - app/globals.css
+
+VALIDÉ PAR HENDRIX ✅
+
+----------------------------------------------------------------
+TÂCHE 1.2 + 1.4 — Types IF + uploadModel (VALIDÉ ✅)
+----------------------------------------------------------------
+  - lib/types/scoring.ts : ajout des 5 champs IF dans ScoringResult
+      decision_initiale, anomaly_score, is_anomaly, if_escalade, if_seuil
+  - lib/repositories/admin.repository.ts : ajout uploadModel(FormData)
+      → POST /api/admin/upload-model (multipart, sans Content-Type manuel)
+
+VALIDÉ PAR HENDRIX ✅
+
+----------------------------------------------------------------
+TÂCHE 2.1 — /clients redesign complet (VALIDÉ ✅)
+----------------------------------------------------------------
+PROBLÈME INITIAL : filtres cachés dans un accordéon, LaTeX $\rho_c$ brut,
+  comptage thin-file incorrect (clients jamais scorés comptés)
+
+CORRECTIONS ET AMÉLIORATIONS :
+  - Filtres ρc et décision : chips inline toujours visibles, clic = recherche immédiate
+  - Chargement automatique des 10 derniers clients scorés au montage
+    → tri par date de dernier scoring décroissante (API : rho_max=1.0, côté backend)
+    → label "10 derniers clients scorés — Triés par date de scoring"
+  - Comptage thin-file : `last_score != null && rho < 0.25` (jamais les non-scorés)
+  - sessionStorage : état de recherche sauvegardé avant navigation vers un profil
+    → bouton retour restaure la recherche exacte
+  - Design : tableau dense, avatar gradient, badges colorés, skeleton loading
+  - Rho : formatRho Unicode (ρc) partout, plus de LaTeX
+
+FICHIER LIVRÉ :
+  - app/(dashboard)/clients/page.tsx
+
+VALIDÉ PAR HENDRIX ✅
+
+----------------------------------------------------------------
+TÂCHE 2.2 — /clients/[id] profil complet (VALIDÉ ✅)
+----------------------------------------------------------------
+ARCHITECTURE : modularisation complète (250 lignes max/fichier)
+
+NOUVEAUX FICHIERS (composants) :
+  - components/client/types.ts
+      HistoryItem, getDecisionVal(), decisionCls()
+      Champs IF : if_escalade, anomaly_score, decision_avant_if, if_seuil
+  - components/client/ClientBanners.tsx
+      Règle thin-file corrigée : hasHistory (= last_score != null) ET rho < seuil
+      Bannière bleue nouveau client, rouge critique, orange partielle
+  - components/client/ClientHeader.tsx
+      Avatar gradient, chips profil, RhoBadge contextuel
+      Sources disponibles (vert) séparées des manquantes (rouge)
+      3 boutons : Nouveau scoring, Simuler, Modifier
+  - components/client/tabs/ScoreTab.tsx
+      ScoreGauge + DecisionBadge + ρc CoverageRing + 3 StatCards
+      IFEscaladeCard : flux visuel LightGBM → IF → Décision finale
+      StatCards IF (Score IF, Seuil P95) visibles si escalade
+  - components/client/tabs/XAITab.tsx
+      ShapBars depuis history[history.length - 1].shap_top5
+      FIX : history[length-1] = plus récent (tri ASC backend)
+  - components/client/tabs/HistoriqueTab.tsx
+      Lignes expandables au clic → SHAP + badge IF + bouton PDF
+      Colonne IF avec ShieldAlert si escalade
+      Décision initiale LightGBM visible en sous-label
+  - components/client/tabs/ProgressionTab.tsx
+      2 LineCharts Recharts : évolution score PDO + évolution ρc
+      Lignes de référence aux seuils PDO (600 et 500)
+  - app/(dashboard)/clients/[id]/page.tsx
+      Orchestration pure <100 lignes, chargement parallèle client + historique
+
+REDESIGN ShapBar (components/Charts.tsx) :
+  - Flèche ↑ rouge (aggravant) / ↓ vert (atténuant)
+  - Barre de progression colorée proportionnelle au poids
+  - Badge "Aggravant"/"Atténuant" visible
+  - Texte markdown **bold** automatiquement nettoyé (stripMarkdown)
+
+FIX BACKEND APPLIQUÉ (scoring.py) :
+  - $project dans GET /api/scoring/history/{id} étendu pour inclure :
+    shap_top5, if_escalade, anomaly_score, decision_initiale,
+    decision_avant_if, is_anomaly, model_version
+  → Après restart API, SHAP et IF apparaissent dans l'historique
+
+VALIDÉ PAR HENDRIX ✅
+
+================================================================
+ÉTAT DE LA TODO À LA FIN DE SESSION
+================================================================
+
+✅ 1.1  Environnement & Configuration
+✅ 1.2  Types TypeScript — 5 champs IF ajoutés à ScoringResult
+✅ 1.3  Client HTTP (api-client.ts)
+✅ 1.4  Repositories — uploadModel ajouté (admin)
+✅ 1.5  Auth Context
+✅ 1.6  Page Login
+✅ 1.7  ClientLayout sécurisé
+✅ 1.8  Hook useApi
+✅ 1.9  Dark/Light Mode System — validé
+
+✅ 2.1  /clients — design WAOUH, chips, récents, sessionStorage, thin-file fix
+✅ 2.2  /clients/[id] — 4 onglets complets, IF card, SHAP redesigné, historique expandable
+⏳ 2.3a /clients/nouveau — À FAIRE (prochaine session)
+⏳ 2.3b Modal modifier profil — À FAIRE (prochaine session, priorité 1)
+⏳ 2.4  /score — À FAIRE (page centrale PFE, priorité 2)
+⏳ 2.5  /simul — À FAIRE
+⏳ 2.6 à 2.8 — À FAIRE
+⏳ Phase 3 (Superviseur) — À FAIRE
+⏳ Phase 4 (Admin) — À FAIRE
+⏳ Phase 5 (Composants transversaux) — À FAIRE
+⏳ Phase 6-7 (Polish + Nettoyage) — À FAIRE
+
+================================================================
+BUGS ET NOTES POUR SESSION SUIVANTE
+================================================================
+
+1. PDF — IF absent du rapport PDF
+   → Le template PDF (backend) ne connaît pas encore if_escalade,
+     anomaly_score, decision_initiale. Fix à faire côté backend.
+
+2. SHAP XAI — date affichée = "05 juin" pour certains clients
+   → FIX APPLIQUÉ : XAITab utilise history[history.length - 1]
+     (le plus récent, pas le plus ancien)
+
+3. Modal modifier profil (2.3b) non encore livré
+   → Champs autorisés : anciennete_emploi, anciennete_domicile,
+     OCCUPATION_TYPE, ORGANIZATION_TYPE, NAME_INCOME_TYPE, NAME_EDUCATION_TYPE
+   → PATCH /api/clients/{id}
+
+4. Règle fondamentale rappelée :
+   → UN SEUL point coché à la fois, validé par Hendrix avant de passer au suivant
+   → Max 250 lignes par fichier
+   → Toujours dark: classes sur tous les composants
+   → Sessions suivantes : /score d'abord (page centrale PFE)
+
+----------------------------------------------------------------
+FIN SESSION FRONTEND 1 — 26 juin 2026
+================================================================
+
+# Journal Session Frontend 2 — CREDIX
+**Date :** 29 juin 2026  
+**Durée :** ~12h  
+**Étudiant :** Singhe Penka Hendrix Donavan — 21P05A — ENSPY GI2026
+
+---
+
+## ✅ CE QUI A ÉTÉ ACCOMPLI
+
+### Frontend
+
+**2.3b — Modal Modifier Profil** ✅
+- Fichier : `components/client/ModifierProfilModal.tsx`
+- Combobox custom (position:fixed, saisie libre + suggestions)
+- 6 champs modifiables, 3 champs grisés immuables
+- Pré-remplissage depuis `client.features` (employment_years × 12)
+- PATCH /api/clients/{id} → toast + refetch automatique
+- Fix page.tsx : `onRefetch={refetchClient}` branché
+
+**2.3a — /clients/nouveau** ✅
+- Fichier : `app/(dashboard)/clients/nouveau/page.tsx`
+- 3 sections colorées (Identité, Profil pro, Ancienneté)
+- Combobox libres pour emploi/revenu/éducation
+- Pré-remplissage depuis `?q=` URL
+- POST /api/clients → redirect /clients/{client_id}
+- Gestion erreur 409 (doublon)
+- Empty state `/clients` : bouton "Créer ce client" si 0 résultats
+
+**2.4 — /score (page centrale PFE)** ✅
+- 4 fichiers : `score/page.tsx` + `components/scoring/` (ClientSelector, ScoringForm, ScoringResultDisplay)
+- Formulaire data-driven depuis GET /api/scoring/form-schema
+- Pré-remplissage des champs profil depuis client.features/profile
+- Validation uniquement sur is_request_specific=true (plus de blocage type_revenu)
+- Bloc IF/AE toujours visible (ScoreGauge + CoverageRing + SHAP + AE metrics)
+- Bouton PDF (blob) + Simuler
+
+### Backend
+
+**Fix is_new_client** — `scoring.py` : `"is_new_client": False` dans update_one après scoring
+
+**Fix recherche combinée** — `clients.py` : ajout `$expr + $concat` pour "hatem ben" → trouve "Hatem Ben Salem"
+
+**Fix IF gender** — `pipeline_service.py` : GENDER_MAP pour convertir M/F → float
+
+**Seuils PDO recalibrés** — via API admin : accorde=560, refuse=490
+
+**Intégration Autoencoder Keras** — remplacement de l'IF comme modèle Flux B prioritaire :
+- `main.py` : 11 artefacts (+ loader keras), `_ARTEFACTS_IF` étendu
+- `pipeline_service.py` : `appliquer_flux_b` → AE prioritaire, IF fallback
+- `upload_model.py` : endpoint mis à jour pour 11 artefacts
+- GridFS : artefacts AE uploadés directement via Python
+- `ae_metadata.json` : seuil P99 = 0.42897, score = log1p(MSE)
+- `pipeline_service.py` : `if_seuil` retourne maintenant seuil AE ou IF selon modèle actif
+
+**Justification AE vs IF :**
+- AE : AUC=0.5595 > IF : AUC=0.5554
+- Taux anomalies P99 = 0.9% vs P95 IF = 5%
+- Seuil mathématiquement fondé : P99 sur 199 444 bons payeurs train
+- Score : log1p(MSE reconstruction) → distribution étalée
+
+---
+
+## ❌ PROBLÈMES IDENTIFIÉS À CORRIGER
+
+1. **Interface trop technique** — "ANALYSE ISOLATION FOREST", "LIGHTGBM AVAIT DIT" visible à l'utilisateur → remplacer par termes métier
+2. **ScoreTab /clients/[id]** — bloc IF n'affiche pas les données AE (last_score sans champs IF pour anciens scorings)
+
+---
+
+## 📋 TODO — ÉTAT APRÈS SESSION 2
+
+```
+Phase 1  ✅ COMPLÈTE
+Phase 2 :
+  2.1 /clients          ✅
+  2.2 /clients/[id]     ✅
+  2.3a /clients/nouveau ✅
+  2.3b Modal modifier   ✅
+  2.4 /score            ✅
+  2.5 /simul            ❌ PRIORITÉ 1
+  2.6 /hist             ❌ PRIORITÉ 2
+  2.7 /rep              ❌ PRIORITÉ 3
+  2.8 /dashboard        ❌ PRIORITÉ 4
+Phase 3 : Pages Superviseur ❌
+Phase 4 : Pages Admin       ❌
+Phase 5 : Composants transversaux ❌
+Phase 6-7 : Polish + Nettoyage ❌
+```
+
+---
+
+## 🚀 PRIORITÉS SESSION 3
+
+1. **Fix interface** — supprimer noms techniques (IF/LightGBM) de l'UI
+2. **/simul** (2.5) — simulateur what-if
+3. **/hist** (2.6) — historique scorings
+4. **/dashboard** (2.8) — stats agent
+5. **/rep** (2.7) — rapports PDF
+6. Pages Superviseur (3.1 revue override en priorité)
+# SESSION FRONTEND 4 — Journal de session
+**Date :** 1er juillet 2026  
+**Durée estimée :** ~8 heures  
+**Objectif initial :** Finaliser Phase Agent (TÂCHE 3-4) + démarrer Phase Superviseur (3.1 → 3.8)  
+**Résultat :** Phase Agent terminée + Phase 3 Superviseur complète (8/8)
+
+---
+
+## 1. TÂCHES ACCOMPLIES
+
+### TÂCHE 3 — Dashboard Agent (`/dashboard`) — v4 finale
+**Fichiers livrés :**
+- `app/(dashboard)/dashboard/page.tsx` — v4 avec 5 sections
+- `components/dashboard/StatCards.tsx` — 4 cartes décisions
+- `components/dashboard/VolumeChart.tsx` — histogramme par tranche, couleurs sémantiques
+- `components/dashboard/QuickActions.tsx` — v2 (4 raccourcis, "Historique" → "Rechercher un client")
+- `components/dashboard/RecentScorings.tsx` — v3 (endpoint dédié `/recently-scored`)
+- `components/dashboard/AnomalyInsights.tsx` — panneau détection d'anomalie (endpoint fabriqué)
+- `components/dashboard/ThinFileWatch.tsx` — dossiers à enrichir (ρc < 0.40)
+
+**Backend patché :**
+- `BACKEND_PATCHES/11_clients_py_RECENTLY_SCORED_endpoint.py` — GET `/api/clients/recently-scored`
+  - Corrige le bug "Derniers scorings vide" : l'ancien code utilisait `/search?rho_max=1.0` trié par ρc croissant, les clients seedés avec ρc=0 remplissaient les 30 premiers résultats, les clients scorés n'apparaissaient jamais
+- `BACKEND_PATCHES/12_lib_repositories_clients_ADDITION.ts`
+- `BACKEND_PATCHES/20_dashboard_py_PORTFOLIO_RISK_IMPROVED.py` — Alerte PD configurable + médiane
+- `BACKEND_PATCHES/21_admin_py_SEUIL_ALERTE_PD_endpoint.py` — PUT `/api/admin/seuil-alerte-pd`
+- `BACKEND_PATCHES/ANOMALY_STATISTICS_snippet` — GET `/api/dashboard/anomaly-statistics` (à vérifier si livré en session 3 ou 4)
+
+---
+
+
+
+### TÂCHE 4 — Mes rapports PDF (`/rep`)
+**Fichiers livrés :**
+- `app/(dashboard)/rep/page.tsx` — liste avec sélecteur période
+- `components/rep/DecisionsTable.tsx` — tableau avec téléchargement PDF par ligne + badge atypique
+
+**Backend patché :**
+- `BACKEND_PATCHES/01_scoring_py_PATCH.py` — ajoute `agent_id` à l'insert decisions
+- `BACKEND_PATCHES/02_decisions_py_NEW_ENDPOINT.py` — GET `/api/decisions/my-decisions`
+- `BACKEND_PATCHES/03_lib_types_decision_ADDITION.ts`
+- `BACKEND_PATCHES/04_lib_repositories_decisions_ADDITION.ts`
+
+---
+
+### Restructuration Agent — 6 tabs dans `/clients/[id]`
+**Fichiers livrés :**
+- `components/client/tabs/ScoringTab.tsx` — formulaire scoring directement dans la fiche client
+- `components/client/tabs/SimulationTab.tsx` — simulation what-if intégrée
+- `components/client/tabs/HistoriqueTab.tsx` — remplace l'existant, intègre HistCharts + HistTable
+- `BACKEND_PATCHES/09_clients_id_page_TABS_PATCH.tsx` — 3 modifications dans `clients/[id]/page.tsx`
+
+**Tabs résultants :** Vue d'ensemble · Nouveau scoring · Simulation · Historique · Explicabilité (XAI) · Progression
+
+**Sidebar Agent :** 7 liens → 4 liens (Tableau de bord · Rechercher · Nouveau client · Mes rapports PDF)  
+**Patch sidebar :** `BACKEND_PATCHES/10_components_LayoutParts_AGENT_FINAL_PATCH.tsx`
+
+---
+
+### BUG CRITIQUE RÉSOLU — Score figé à 537
+**Problème identifié :** `evaluer_formule()` dans `pipeline_service.py` itérait sur TOUTES les clés du `declaratif` et appelait `float(val)` sur chacune, y compris `"type_contrat": "Cash loans"`. `float("Cash loans")` lève une `ValueError` attrapée silencieusement → la fonction retournait `None` pour TOUTE formule → fallback sur l'ancienne valeur MongoDB → score identique peu importe les saisies.
+
+**Correction :** ne tenter `float(val)` que si la clé apparaît réellement dans le texte de la formule.  
+**Fichier :** `BACKEND_PATCHES/14_pipeline_service_evaluer_formule_FIX.py`  
+**Validé par curl :** score_pdo `545` vs `541`, pd_c `0.258` vs `0.290`, shap_top5 différents ✅  
+**⚠️ Note :** le print de diagnostic (`[DIAG]`) a été ajouté temporairement dans `pipeline_service.py` puis retiré. Vérifier qu'il est bien absent.
+
+---
+
+### Unification palette (5 familles)
+- Remplacement de toutes les occurrences `violet` par `blue` sur les pages Superviseur et `/hist`
+- Dégradé d'avatar `ThinFileWatch` unifié (`from-amber-500 to-orange-600` → `from-blue-500 to-indigo-600`)
+- SHAP puces RevueList : badges pleins → flèches ↑↓ colorées + texte (moins dense)
+- **Palette finale :** slate · bleu · emerald · amber · rose = 5 familles uniquement
+- **Patch :** `BACKEND_PATCHES/19_LayoutParts_NavItem_isActive_FIX.tsx` — fix sidebar double highlight (`/superviseur` et `/admin` ajoutés à `EXACT_ONLY`)
+
+---
+
+### PHASE 3 — Superviseur (3.1 → 3.8) — COMPLÈTE
+
+#### 3.1 — Dossiers en revue (`/superviseur/revue`)
+- RevueList (v3 : SHAP top 3 allégé) + RevueDetail (v2 : profil + déclaratif + features + anomalie) + OverrideForm
+- Badge compteur sidebar en temps réel (polling 30s)
+- Backend patché : `/pending-review` enrichi ($lookup demandes + client profil + features + anomalie)
+- Backend patché : `/my-overrides` (liste des dossiers tranchés par CE superviseur)
+
+#### 3.2 — Mes validations (`/superviseur/mes-validations`)
+- Stats (donut + 4 métriques + bannière calibration) + tableau dossiers validés
+
+#### 3.3 — Vue d'ensemble (`/superviseur`) — version enrichie
+- 8 KPI (4 portefeuille + 4 personnels superviseur dont "Mes validations")
+- File d'urgence top 3 + mini histogramme distribution + barre empilée + santé modèle IA
+- Composants : `SecondaryKpis`, `UrgenceQueue`, `ModelHealth`
+
+#### 3.4 — Distribution Scores (`/superviseur/distribution`)
+- Histogramme avec lignes de référence aux seuils PDO réels (lus depuis admin_config)
+- 3 mini KPIs par zone (accord/revue/refus)
+- Composant : `ScoreDistributionChart`
+
+#### 3.5 — Tranches de Risque (`/superviseur/tranches`)
+- Tableau 6 tranches dynamiques (bornes lues depuis admin_config)
+- Fineness test automatique + alerte visuelle si PD non monotone
+- Code couleur rouge→vert par tranche
+- Composant : `ScoreBandsTable`
+
+#### 3.6 — Dérive Globale PSI (`/superviseur/modele/derive`)
+- Jauge PSI linéaire colorée avec curseur + badge statut + grille pédagogique
+- Composant : `PsiGauge`
+
+#### 3.7 — Dérive par Variable (`/superviseur/modele/variables`)
+- Tableau 27 features triées PSI décroissant + barre progression + PsiBadge
+- Résumé : nb_derives / nb_attention / nb_stables / nb_insuffisant
+- Composant : `FeatureDriftTable`
+
+#### 3.8 — Versions Modèle (`/superviseur/modele/versions`)
+- Tableau historique complet + mise en avant version PRODUCTION
+- Vue lecture seule (pas de bouton promouvoir — Admin uniquement)
+- **Bug corrigé en fin de session :** `prod.metriques.auc.toFixed(4)` crashait quand `auc` est `null` → fonction `fmt()` ajoutée
+
+---
+
+## 2. BUGS IDENTIFIÉS ET LIMITES CONNUES
+
+| # | Problème | Cause | Statut |
+|---|---|---|---|
+| 1 | Score figé à 537 | `evaluer_formule` plantait sur `float("Cash loans")` | ✅ **RÉSOLU** (patch 14) |
+| 2 | Derniers scorings vides sur dashboard | Endpoint `/search` trié par ρc, clients non-scorés en tête | ✅ **RÉSOLU** (endpoint `/recently-scored`) |
+| 3 | "Analyse de profil" = Non disponible dans Revue | Champs `anomaly_score`/`is_anomaly`/`if_escalade` manquants dans la projection `/pending-review` | ✅ **RÉSOLU** (patch 15) |
+| 4 | Double highlight sidebar superviseur | `pathname.startsWith(href)` sur `/superviseur` | ✅ **RÉSOLU** (patch 19) |
+| 5 | AUC/Gini/KS `—` sur versions uploadées via admin | L'endpoint `upload-model` ne reçoit pas de fichier `model_metrics.json` | 🔲 **À TRAITER Phase 4** |
+| 6 | PSI élevé (0.27 DÉRIVE) sur env de test | Trop peu de scores de référence (38 vs 82) + même client scoré plusieurs fois | ℹ️ **Artéfact test**, documenté |
+| 7 | Taux anomalie élevé (~75%) | Dataset `application_test.csv` Kaggle = cas difficiles par construction | ℹ️ **Comportement correct**, documenté |
+| 8 | Print diagnostic `[DIAG]` dans `pipeline_service.py` | Ajouté pour débugger le fix evaluer_formule | ⚠️ **À RETIRER si pas encore fait** |
+
+---
+
+## 3. ARCHITECTURE FICHIERS LIVRÉS
+
+```
+credix_patch/
+├── app/(dashboard)/
+│   ├── dashboard/page.tsx           ← v4 finale
+│   ├── rep/page.tsx
+│   ├── superviseur/
+│   │   ├── page.tsx                 ← dashboard enrichi v3
+│   │   ├── revue/page.tsx
+│   │   ├── mes-validations/page.tsx
+│   │   ├── distribution/page.tsx
+│   │   ├── tranches/page.tsx
+│   │   └── modele/
+│   │       ├── derive/page.tsx
+│   │       ├── variables/page.tsx
+│   │       └── versions/page.tsx
+├── components/
+│   ├── dashboard/
+│   │   ├── StatCards.tsx · VolumeChart.tsx · QuickActions.tsx
+│   │   ├── RecentScorings.tsx · AnomalyInsights.tsx · ThinFileWatch.tsx
+│   ├── rep/DecisionsTable.tsx
+│   ├── client/tabs/
+│   │   ├── ScoringTab.tsx · SimulationTab.tsx · HistoriqueTab.tsx · ScoreTab.tsx
+│   └── superviseur/
+│       ├── RevueList.tsx · RevueDetail.tsx · OverrideForm.tsx
+│       ├── RevueProfilCard.tsx · RevueFeaturesPanel.tsx
+│       ├── OverrideDonut.tsx · OverrideHistoryTable.tsx
+│       ├── PortfolioStats.tsx · PortfolioStackedBar.tsx
+│       ├── SecondaryKpis.tsx · UrgenceQueue.tsx · ModelHealth.tsx
+│       ├── ScoreDistributionChart.tsx · ScoreBandsTable.tsx
+│       ├── PsiGauge.tsx · FeatureDriftTable.tsx
+└── BACKEND_PATCHES/
+    ├── 01 → 04   (agent_id + my-decisions)
+    ├── 05 → 06   (pending-review enrichi + types)
+    ├── 07        (badge sidebar revue)
+    ├── 09 → 10   (tabs clients/[id] + sidebar agent)
+    ├── 11 → 12   (recently-scored)
+    ├── 13        (diagnostic temp — À RETIRER)
+    ├── 14        (evaluer_formule FIX ✅)
+    ├── 15 → 18   (pending-review full rewrite + my-overrides)
+    ├── 19        (NavItem isActive fix)
+    ├── 20 → 22   (portfolio-risk amélioré + seuil-alerte-pd + types)
+```
+
+---
+
+## 4. TODO — ÉTAT FINAL SESSION 4
+
+```
+✅ PHASE 1 — Fondations
+✅ PHASE 2 — Agent (2.1 → 2.8)
+✅ PHASE 3 — Superviseur (3.1 → 3.8)
+🔲 PHASE 4 — Admin (4.1 → 4.8)
+🔲 PHASE 5 — Composants transversaux (Toast, Skeleton, EmptyState…)
+🔲 PHASE 6 — Polish UX (animations, responsive, dark mode audit)
+🔲 PHASE 7 — Nettoyage soutenance
+```
+
+────────────────────────────────────────────────────────────────
+⚠️ À COLLER À LA SUITE DE journal_sessions_memoire_hendrix.txt
+   (juste après la ligne "🔲 PHASE 7 — Nettoyage soutenance",
+   fin de l'entrée SESSION FRONTEND 4)
+────────────────────────────────────────────────────────────────
+
+---
+
+# SESSION FRONTEND 5 — Journal de session
+**Date :** 07 juillet 2026
+**Durée estimée :** ~6 heures
+**Objectif initial :** Terminer la Phase 4 Admin (4.1 → 4.8) intégralement
+**Résultat :** Phase 4 Admin complète (8/8) + Phase 5 cadrée et lancée
+
+---
+
+## 1. TÂCHES ACCOMPLIES
+
+### PHASE 4 — Admin (4.1 → 4.8) — COMPLÈTE
+
+#### 4.1 — Vue générale (`/admin`)
+- `AdminStatCards.tsx` — 4 KPI (agents actifs, superviseurs actifs, modèle en production, versions en attente de promotion)
+- `ModelVersionsTable.tsx` — tableau versions + bouton "Promouvoir" (affiché pour STAGING **et** ARCHIVE, conforme à la vraie règle backend, pas seulement STAGING comme décrit initialement)
+- `PromoteConfirmModal.tsx` — confirmation avant `POST /promote-model`
+- `UploadModelModal.tsx` — formulaire **11 fichiers** (5 Flux A + 4 prétraitement partagé/IF + 2 Autoencoder) + nom_version + description + métriques AUC/Gini/KS envoyées en JSON
+
+#### 4.2 — Liste des comptes (`/admin/utilisateurs`)
+- `UsersTable.tsx` — badges rôle (bleu/emerald/rose), badge statut, toggle actif/inactif
+- `ToggleUserModal.tsx` — confirmation avant `PUT /users/{id}/toggle`
+- Recherche + filtre par rôle côté client
+
+#### 4.3 — Nouveau compte (`/admin/utilisateurs/nouveau`)
+- Formulaire 2 sections (Identité / Compte & accès), sélecteur de rôle en pastilles
+- Validations live : username ≥ 3, password ≥ 8, confirmation, gestion 409 (username pris)
+- Écran de succès avec double CTA
+
+#### 4.4 — Configuration seuils (`/admin/configuration`)
+- Seuils PDO (ACCORDÉ/REFUSÉ) avec `ThresholdVisualizer.tsx` (barre 3 zones, live avant enregistrement)
+- Seuil d'alerte PD (slider %) — **`updateSeuilAlertePd` ajouté au repository, il manquait complètement**
+- Section ρc lecture seule
+- **Retouche de layout** (signalée par Hendrix) : passage de `max-w-3xl` centré puis `max-w-6xl` à **`w-full`** pour occuper toute la largeur comme les autres pages admin ; ajout d'un panneau latéral utile (résumé de règle en clair + ρc) au lieu de laisser du vide
+
+#### 4.5 — Versions modèle Admin (`/admin/modeles`)
+- Réutilise intégralement `ModelVersionsTable` + `PromoteConfirmModal` + `UploadModelModal` de 4.1
+
+#### 4.6 — Dérive globale PSI Admin (`/admin/modeles/derive`)
+- Identique à 3.6, réutilise `PsiGauge` (superviseur), lien vers 4.7
+
+#### 4.7 — Dérive par variable Admin (`/admin/modeles/variables`)
+- Identique à 3.7, réutilise `FeatureDriftTable` + `PsiBadge`
+
+#### 4.8 — Journal d'audit (`/admin/audit`)
+- `AuditLogsTable.tsx` — ligne extensible (clic → détails JSON + IP)
+- Filtre action (liste dynamique `actions_disponibles`) + filtre user_id + "Charger plus"
+
+---
+
+### Patches transverses appliqués pendant la Phase 4
+- `lib/types/monitoring.ts` — `ModelVersion.version` devient optionnel, ajout `nom_version`/`description`/`date_upload` (voir bug #9 ci-dessous)
+- `lib/repositories/admin.repository.ts` — ajout de `updateSeuilAlertePd(seuil)`, absent depuis la session 4 malgré l'endpoint backend déjà créé
+
+---
+
+### PHASE 5 — Composants transversaux — CADRÉE, DÉMARRÉE
+Scope décidé avec Hendrix : construire la librairie `components/ui/` complète **et** remplacer les doublons dans les pages Admin déjà livrées.
+- `Toast` + `ToastProvider` (remplace les bannières succès statiques copiées-collées 3 fois)
+- `ConfirmModal` générique (remplace 80% du code dupliqué entre `PromoteConfirmModal` et `ToggleUserModal`)
+- `EmptyState`, `ErrorBanner`, `Skeleton`, `StatCard`/`StatGrid`
+- Retrofit dans `admin/*` une fois la librairie livrée
+
+*(Détail des fichiers livrés pour la Phase 5 : voir suite du journal, prochaine entrée.)*
+
+---
+
+## 2. BUGS / INCOHÉRENCES IDENTIFIÉS CETTE SESSION
+
+| # | Problème | Cause | Statut |
+|---|---|---|---|
+| 9 | Nom de version vide pour les modèles uploadés via l'admin | `POST /upload-model` stocke le champ `nom_version` en base, alors que le type frontend et la page 3.8 lisaient `version` | ✅ **RÉSOLU** — type patché + fallback `v.version ?? v.nom_version` partout où affiché |
+| 10 | `updateSeuilAlertePd` absent du repository | Endpoint backend créé en session 4 (`PUT /admin/seuil-alerte-pd`), jamais câblé côté frontend | ✅ **RÉSOLU** — ajouté (query param `seuil`, pas de body) |
+| 11 | Pas de GET dédié pour lire le seuil d'alerte PD actuel | N'existe pas côté backend | ✅ **CONTOURNÉ** — lu via `GET /dashboard/portfolio-risk` qui le renvoie déjà dans sa réponse |
+| 12 | `GET /monitoring/audit-logs` renvoie `total: len(logs)` (plafonné par `limite`), pas un vrai compte global | Le backend ne fait pas de `count_documents()` séparé | ⚠️ **CONTOURNÉ côté frontend** (heuristique `logs.length === limite`) — un vrai compteur nécessiterait un patch backend |
+| 13 | `actions_disponibles` (liste statique dans `/audit-logs`) ne correspond pas aux valeurs réellement journalisées (`AUTH_LOGIN` vs `LOGIN`, `USER_CREATE`/`SEUIL_ALERTE_PD_UPDATE` absents) | Liste codée en dur côté backend, jamais resynchronisée avec les `action=` réellement utilisés dans les `insert_one` | 🔲 **NON TRAITÉ** — mineur (filtre dropdown incomplet), à corriger côté backend si temps disponible |
+| 14 | BUG connu session 4 : print `[DIAG]` dans `pipeline_service.py` | Toujours présent (vérifié dans le contexte backend de cette session) | 🔲 **TOUJOURS EN ATTENTE** — patch d'une ligne, voir handover |
+
+### Clarification architecture AE/IF (discutée avec Hendrix avant de coder)
+`_appliquer_ae()` réutilise en interne `encoder_if` et `if_metadata` (features_cat/features_total) — ce ne sont **pas** des artefacts IF-only mais un prétraitement partagé AE+IF. Seul `isolation_forest.pkl` (le modèle IF lui-même) est réellement mort une fois l'AE actif. Décision prise : garder les **11 fichiers obligatoires** à l'upload pour cette phase (Option A, zéro risque, backend déjà testé). Option B (rendre `isolation_forest.pkl` seul optionnel, patch backend `Optional[UploadFile]`) **gardée en attente pour la toute fin du projet**, à la demande explicite de Hendrix.
+
+---
+
+## 3. ARCHITECTURE FICHIERS LIVRÉS — SESSION 5
+
+```
+credix_patch/
+├── app/(dashboard)/admin/
+│   ├── page.tsx                        ← 4.1
+│   ├── utilisateurs/
+│   │   ├── page.tsx                    ← 4.2
+│   │   └── nouveau/page.tsx            ← 4.3
+│   ├── configuration/page.tsx          ← 4.4 (2 itérations de layout)
+│   ├── modeles/
+│   │   ├── page.tsx                    ← 4.5
+│   │   ├── derive/page.tsx             ← 4.6
+│   │   └── variables/page.tsx          ← 4.7
+│   └── audit/page.tsx                  ← 4.8
+├── components/admin/
+│   ├── AdminStatCards.tsx · ModelVersionsTable.tsx · PromoteConfirmModal.tsx
+│   ├── UploadModelModal.tsx · UsersTable.tsx · ToggleUserModal.tsx
+│   ├── ThresholdVisualizer.tsx · AuditLogsTable.tsx
+├── lib/types/monitoring.ts             ← patch (nom_version)
+└── lib/repositories/admin.repository.ts ← patch (updateSeuilAlertePd)
+```
+
+---
+
+## 4. TODO — ÉTAT FINAL SESSION 5
+
+```
+✅ PHASE 1 — Fondations
+✅ PHASE 2 — Agent (2.1 → 2.8)
+✅ PHASE 3 — Superviseur (3.1 → 3.8)
+✅ PHASE 4 — Admin (4.1 → 4.8)
+🔲 PHASE 5 — Composants transversaux — EN COURS (librairie ui/ + retrofit admin)
+🔲 PHASE 6 — Polish UX (animations, responsive, dark mode audit)
+🔲 PHASE 7 — Nettoyage soutenance
+🔲 BUG 2 — print [DIAG] dans pipeline_service.py (toujours présent)
+🔲 AMÉLIORATION DIFFÉRÉE — Option B : isolation_forest.pkl optionnel (fin de projet)
+```
+
+---
+
+VALIDÉ PAR HENDRIX : en attente

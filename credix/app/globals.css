@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   DARK MODE — Configuration Tailwind v4
+   On force le mode classe (.dark sur <html>) au lieu de la
+   media query système. Sans ça, le toggle n'a aucun effet.
+───────────────────────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --font-sans: var(--font-sans);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CHARTE DE DESIGN CREDIX — à respecter partout, pas de dérogation
+   au cas par cas (c'est ce qui rend une UI cohérente vs "IA slop").
+
+   PALETTE
+     Neutre         → slate (jamais gray/zinc/neutral — un seul neutre)
+     Marque/primaire → blue-600 (light) / blue-500 (dark)
+     Succès / ACCORDÉ        → emerald
+     Danger / REFUSÉ         → rose
+     Alerte / REVUE_MANUELLE → amber
+     Info                    → sky
+
+   RAYONS (jamais rounded-2xl/rounded-3xl — trop "jouet")
+     Contrôles (bouton, input, select, chip)  → rounded-lg  (8px)
+     Cartes, panneaux, tableaux, modales       → rounded-xl  (12px)
+     Badges, pills, avatars                    → rounded-full
+
+   ÉLÉVATION
+     Carte au repos (light)  → border + shadow-xs (jamais shadow-lg au repos)
+     Carte au repos (dark)   → border SEUL (les ombres sont invisibles sur fond sombre)
+     Élément flottant (dropdown, dialog, tooltip, popover) → shadow-lg, sur les deux thèmes
+
+   TYPOGRAPHIE
+     Les micro-labels uppercase tracking-widest sont réservés aux titres de
+     groupe de navigation (Sidebar) — PAS pour chaque label de carte. Pour un
+     label de champ/carte : text-sm font-medium text-slate-500, casse normale.
+
+   ICONES
+     Toujours lucide-react. Jamais d'emoji dans un texte JSX (⚠️ ✓ 🚀 etc.) —
+     un <Icon className="..." /> à la place, ça reste net en dark mode et à
+     l'impression PDF.
+───────────────────────────────────────────────────────────── */
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+
+  /* Anneau de focus cohérent pour tous les contrôles interactifs custom
+     (utilisé par components/ui/*). Évite de retaper focus-visible:ring-2
+     focus-visible:ring-blue-500 focus-visible:ring-offset-2 partout. */
+  .focus-ring {
+    outline: none;
+  }
+  .focus-ring:focus-visible {
+    box-shadow: 0 0 0 2px var(--tw-ring-offset-color, white), 0 0 0 4px #3b82f6;
+  }
+  .dark .focus-ring:focus-visible {
+    box-shadow: 0 0 0 2px var(--tw-ring-offset-color, #020617), 0 0 0 4px #60a5fa;
+  }
+}
+
+/* Animations légères pour Radix (dialog/dropdown/select/tooltip/toast) */
+@keyframes credix-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes credix-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes credix-zoom-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes credix-slide-in-from-top {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes credix-slide-in-from-bottom {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes credix-toast-in {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes credix-toast-out {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(100%); }
+}
+
+@layer utilities {
+  .animate-credix-fade-in { animation: credix-fade-in 150ms ease-out; }
+  .animate-credix-fade-out { animation: credix-fade-out 120ms ease-in; }
+  .animate-credix-zoom-in { animation: credix-zoom-in 150ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .animate-credix-slide-in-top { animation: credix-slide-in-from-top 150ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .animate-credix-slide-in-bottom { animation: credix-slide-in-from-bottom 150ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .animate-credix-toast-in { animation: credix-toast-in 200ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .animate-credix-toast-out { animation: credix-toast-out 150ms ease-in; }
+}
