@@ -4,7 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
   french,
-  10pt,
+  11pt,
   a4paper,
 ]{article}
 \usepackage{xcolor}
@@ -68,10 +68,10 @@
 % Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
 % Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
 % (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
-% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
-\newcommand{\CredixShortTitle}{README CREDIX}
+% Une image absente n'est pas insérée : le texte reste, sans figure.
+\newcommand{\CredixShortTitle}{README}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
-\usepackage[scaled=.92]{helvet}
+\usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{pifont}
 \usepackage{amssymb}
@@ -116,7 +116,7 @@
 \DeclareUnicodeCharacter{2466}{\ding{178}}
 \DeclareUnicodeCharacter{2467}{\ding{179}}
 \usepackage{fvextra}
-\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
 \fvset{breaklines=true,breakanywhere=true}
 \usepackage{fancyhdr}
 \usepackage{tcolorbox}
@@ -125,6 +125,8 @@
 \definecolor{credixblue}{HTML}{1F3A5F}
 \definecolor{credixgray}{HTML}{5F6B7A}
 \definecolor{boxbg}{HTML}{F3F5F8}
+\definecolor{credixaccent}{HTML}{D9822B}
+\usepackage{tikz}
 \setlength{\emergencystretch}{4em}
 \renewcommand{\arraystretch}{1.3}
 \setlength{\parindent}{0pt}
@@ -133,7 +135,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
-\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyhead[R]{\small\color{credixgray}Dossier de remise}
 \fancyfoot[C]{\small\color{credixgray}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -164,7 +166,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={CREDIX},
+  pdftitle={Guide de prise en main},
   pdfauthor={SINGHE PENKA Hendrix Donavan},
   pdflang={fr},
   colorlinks=true,
@@ -181,20 +183,34 @@
 
 \begin{titlepage}
 \thispagestyle{empty}
-\centering
-\vspace*{3.2cm}
-{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
-\vspace{2.2cm}
-{\Huge\bfseries\color{credixblue} CREDIX\par}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[credixblue] (current page.north west) rectangle ([yshift=-8cm]current page.north east);
+  \fill[credixaccent] ([yshift=-8cm]current page.north west) rectangle ([yshift=-8.25cm]current page.north east);
+\end{tikzpicture}
+\noindent
+{\color{white}
+\vspace*{0.3cm}
+{\large\bfseries\textsc{Projet de fin d'études}\par}
+\vspace{0.6cm}
+{\Large École Nationale Supérieure Polytechnique de Yaoundé\par}
+\vspace{0.15cm}
+{\Large Université de Yaoundé I\par}
+\vspace{0.9cm}
+{\normalsize Diplôme d'Ingénieur de Conception en Génie Informatique\par}
+{\normalsize Année académique 2025--2026\par}
+}
+\vspace{2.8cm}
+\noindent{\fontsize{28}{34}\selectfont\bfseries\color{credixblue} Guide de prise en main\par}
+\vspace{0.6cm}
+\noindent{\Large\color{credixgray} Récupérer, lancer et tester le système de scoring de crédit\par}
 \vspace{0.8cm}
-{\Large Guide de récupération, de lancement et de test\par}
-\vspace{2cm}
-{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
-\vspace{1.2cm}
-{\large SINGHE PENKA Hendrix Donavan\par}
-{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\noindent{\color{credixaccent}\rule{4cm}{2.5pt}\par}
 \vfill
-{\color{credixgray}\small Version du 19/09/2026\par}
+\noindent{\small\color{credixgray} Présenté par\par}
+\vspace{0.1cm}
+\noindent{\Large\bfseries SINGHE PENKA Hendrix Donavan\par}
+\vspace{0.7cm}
+\noindent{\small\color{credixgray} Version du 19/09/2026\par}
 \end{titlepage}
 
 
@@ -342,9 +358,9 @@ pas des droits différents sur les mêmes pages : ce sont trois espaces de
 travail distincts.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3104}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4346}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2929}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4101}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Acteur
@@ -382,7 +398,6 @@ versions \\
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Page principale de l'espace Agent (tableau de bord)}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/readme/01_espace_agent.png}
   \caption{Espace Agent : tableau de bord.}
 \end{figure}
@@ -396,7 +411,6 @@ versions \\
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Page principale de l'espace Superviseur (vue d'ensemble)}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/readme/02_espace_superviseur.png}
   \caption{Espace Superviseur : vue d\textquotesingle ensemble.}
 \end{figure}
@@ -410,7 +424,6 @@ versions \\
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Page principale de l'espace Administrateur (vue générale)}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/readme/03_espace_admin.png}
   \caption{Espace Administrateur : vue générale.}
 \end{figure}
@@ -438,9 +451,9 @@ l\textquotesingle un l\textquotesingle autre :
 \end{itemize}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2943}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2943}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3815}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2859}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3135}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3706}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Règle
@@ -524,7 +537,7 @@ Le système est organisé en \textbf{cinq couches}, chacune avec une seule
 responsabilité. Une couche ne dépend jamais d\textquotesingle une couche
 au-dessus d\textquotesingle elle.
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
         Navigateur web (l'utilisateur)
                     |
                     v
@@ -553,9 +566,9 @@ au-dessus d\textquotesingle elle.
 ports}\label{22-les-services-qui-tournent-et-leurs-ports}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2387}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1925}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5389}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2300}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2205}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5195}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Service
@@ -588,7 +601,7 @@ machine, avec Node.js.
 \subsubsection{2.3 L\textquotesingle arborescence des
 dossiers}\label{23-larborescence-des-dossiers}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 credix/                          dossier créé par « git clone »
 |-- README.md                    ce document
 |-- scoring-backend/             LE BACKEND
@@ -691,7 +704,7 @@ installé}\label{33-vuxe9rifier-ce-qui-est-duxe9juxe0-installuxe9}
 
 Ouvrez un terminal et tapez ces commandes, une par une :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git --version
 docker --version
 docker compose version
@@ -706,7 +719,7 @@ de l\textquotesingle outil.
 
 \textbf{Résultat attendu (les numéros peuvent différer légèrement) :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git version 2.43.0
 Docker version 29.5.3, build d1c06ef
 Docker Compose version v5.1.4
@@ -732,7 +745,7 @@ de doute, suivez la documentation officielle indiquée.
 
 \textbf{Git, curl et OpenSSL :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 sudo apt-get update
 sudo apt-get install -y git curl openssl
 \end{Verbatim}
@@ -740,7 +753,7 @@ sudo apt-get install -y git curl openssl
 \textbf{Docker et Docker Compose} (documentation officielle :
 \url{https://docs.docker.com/engine/install/ubuntu/}) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -755,14 +768,14 @@ Ensuite, \textbf{autorisez votre utilisateur à utiliser Docker sans
 \texttt{sudo}} (sinon vous aurez l\textquotesingle erreur « permission
 denied ») :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 sudo usermod -aG docker $USER
 \end{Verbatim}
 
 \textbf{Fermez votre session Linux puis rouvrez-la} (ou redémarrez),
 puis testez :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 docker run --rm hello-world
 \end{Verbatim}
 
@@ -772,13 +785,13 @@ docker run --rm hello-world
 \textbf{Node.js et npm} (avec l\textquotesingle outil nvm, documentation
 : \url{https://github.com/nvm-sh/nvm}) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 \end{Verbatim}
 
 Fermez puis rouvrez le terminal, et tapez :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 nvm install 22
 node --version
 \end{Verbatim}
@@ -835,7 +848,7 @@ pu être rejouées pour ce guide.
 \subsubsection{4.2 Copier le projet sur votre
 ordinateur}\label{42-copier-le-projet-sur-votre-ordinateur}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 cd ~
 git clone https://github.com/HendrixPenka2/credix.git
 cd credix
@@ -868,7 +881,7 @@ tout le projet} (le code et son historique) dans un nouveau dossier
 \textbf{Pendant le \texttt{git\ clone}, Git vous demande de vous
 identifier} (le dépôt est privé) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Username for 'https://github.com':
 Password for 'https://votre_nom@github.com':
 \end{Verbatim}
@@ -878,9 +891,9 @@ la ligne « Password », \textbf{collez le jeton} créé en 4.1 (rien ne
 s\textquotesingle affiche pendant la saisie, c\textquotesingle est
 normal), puis appuyez sur \texttt{Entrée}. Pour ne pas le retaper à
 chaque fois, vous pouvez taper une fois
-\texttt{git\ config\ -\/-global\ credential.helper\ store} avant le
-clone (attention : le jeton est alors enregistré en clair dans votre
-dossier personnel).
+\texttt{git\ config\ -\allowbreak{}-\allowbreak{}global\ credential.\allowbreak{}helper\ store}
+avant le clone (attention : le jeton est alors enregistré en clair dans
+votre dossier personnel).
 
 \textbf{Si vous obtenez \texttt{Repository\ not\ found} ou
 \texttt{Authentication\ failed} :} l\textquotesingle invitation
@@ -889,13 +902,13 @@ du compte au lieu du jeton.
 
 \textbf{Résultat attendu de \texttt{ls} :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 credix-v2  docs  README.md  scoring-backend  stitch_credix_design_system
 \end{Verbatim}
 
 \subsubsection{4.3 Vérifier la copie}\label{43-vuxe9rifier-la-copie}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git status
 git log --oneline -3
 ls scoring-backend/artefacts | wc -l
@@ -903,9 +916,9 @@ ls scoring-backend/artefacts | wc -l
 
 \textbf{Ce que fait chaque commande :} \texttt{git\ status} indique la
 branche et si des fichiers ont changé ;
-\texttt{git\ log\ -\/-oneline\ -3} affiche les 3 dernières modifications
-enregistrées ; la dernière commande \textbf{compte les fichiers du
-modèle}.
+\texttt{git\ log\ -\allowbreak{}-\allowbreak{}oneline\ -\allowbreak{}3}
+affiche les 3 dernières modifications enregistrées ; la dernière
+commande \textbf{compte les fichiers du modèle}.
 
 \textbf{Résultat attendu :} \texttt{git\ status} indique « Sur la
 branche main » et « la copie de travail est propre » ; la dernière
@@ -923,7 +936,7 @@ le \texttt{git\ clone}.
 Toutes les commandes de cette section se tapent \textbf{dans le dossier
 \texttt{scoring-\allowbreak{}backend}}. Placez-vous-y :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 cd ~/credix/scoring-backend
 pwd
 \end{Verbatim}
@@ -938,7 +951,7 @@ Le fichier \texttt{.env} contient les réglages du backend, dont un
 \textbf{secret} qui ne doit jamais être publié. Le dépôt ne contient
 qu\textquotesingle un modèle, \texttt{.env.example}.
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 cp .env.example .env
 sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$(openssl rand -hex 32)|" .env
 grep -E "^(USE_MOCK_ARTEFACTS|MONGO_URI|ALLOWED_ORIGINS|JWT_SECRET)=" .env
@@ -959,21 +972,22 @@ Effet
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\texttt{cp\ .env.example\ .env} & Copie le modèle vers le vrai fichier
-de configuration \\
+\texttt{cp\ .\allowbreak{}env.\allowbreak{}example\ .\allowbreak{}env} &
+Copie le modèle vers le vrai fichier de configuration \\
 \texttt{sed\ -i\ "s\textbar{}...\textbar{}...\textbar{}"\ .env} &
 Remplace la ligne \texttt{JWT\_SECRET=} par \textbf{une clé secrète
 aléatoire de 64 caractères}, fabriquée par
-\texttt{openssl\ rand\ -hex\ 32}. Cette clé sert à signer les jetons de
-connexion. \\
-\texttt{grep\ -E\ ...\ .env} & Affiche les 4 réglages les plus
-importants pour que vous les contrôliez \\
+\texttt{openssl\ rand\ -\allowbreak{}hex\ 32}. Cette clé sert à signer
+les jetons de connexion. \\
+\texttt{grep\ -\allowbreak{}E\ .\allowbreak{}.\allowbreak{}.\allowbreak{}\ .\allowbreak{}env}
+& Affiche les 4 réglages les plus importants pour que vous les
+contrôliez \\
 \end{longtable}
 
 \textbf{Résultat attendu (la valeur de \texttt{JWT\_SECRET} sera
 différente chez vous, mais elle doit faire 64 caractères) :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 USE_MOCK_ARTEFACTS=false
 MONGO_URI=mongodb://mongodb:27017
 JWT_SECRET=3f9c1e...(64 caractères au total)
@@ -985,11 +999,11 @@ ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001,http://localhost:517
 \begin{itemize}
 \tightlist
 \item
-  \texttt{USE\_\allowbreak{}MOCK\_\allowbreak{}ARTEFACTS=false} : on
-  utilise le \textbf{vrai modèle} (le dossier \texttt{artefacts/}) et
-  non des fichiers factices.
+  \texttt{USE\_\allowbreak{}MOCK\_\allowbreak{}ARTEFACTS=\allowbreak{}false}
+  : on utilise le \textbf{vrai modèle} (le dossier \texttt{artefacts/})
+  et non des fichiers factices.
 \item
-  \texttt{MONGO\_\allowbreak{}URI=mongodb:/\allowbreak{}/\allowbreak{}mongodb:27017}
+  \texttt{MONGO\_\allowbreak{}URI=\allowbreak{}mongodb:/\allowbreak{}/\allowbreak{}mongodb:27017}
   : l\textquotesingle adresse de la base de données \textbf{à
   l\textquotesingle intérieur de Docker} ; ne la changez pas.
 \item
@@ -1011,7 +1025,7 @@ installé (\texttt{openssl\ version}) et relancez-la.
 \subsubsection{5.2 Démarrer les
 conteneurs}\label{52-duxe9marrer-les-conteneurs}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 docker compose up -d --build
 \end{Verbatim}
 
@@ -1070,14 +1084,14 @@ déjà fabriquées).
 \item
   C\textquotesingle est \textbf{terminé} quand l\textquotesingle invite
   du terminal \textbf{réapparaît}, après les lignes
-  \texttt{Container\ ...\ Started} ci-dessous. Passez alors à la section
-  5.3.
+  \texttt{Container\ .\allowbreak{}.\allowbreak{}.\allowbreak{}\ Started}
+  ci-dessous. Passez alors à la section 5.3.
 \end{itemize}
 
 \textbf{Résultat attendu à la fin :} des lignes de ce type (le mot «
 error » ne doit pas apparaître) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
  Container scoring-mongodb Started
  Container scoring-mlflow Started
  Container scoring-pdf Started
@@ -1094,7 +1108,7 @@ ordre.
 \paragraph{Vérification 1 : l\textquotesingle état des
 conteneurs}\label{vuxe9rification-1--luxe9tat-des-conteneurs}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 docker compose ps
 \end{Verbatim}
 
@@ -1103,7 +1117,7 @@ et leur état.
 
 \textbf{Résultat attendu :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 NAME              IMAGE                           COMMAND                  SERVICE      CREATED         STATUS                   PORTS
 scoring-api       scoring-backend-api             "uvicorn app.main:ap…"   api          2 minutes ago   Up 2 minutes (healthy)   0.0.0.0:8080->8000/tcp, [::]:8080->8000/tcp
 scoring-mlflow    ghcr.io/mlflow/mlflow:v2.12.1   "mlflow server --hos…"   mlflow       2 minutes ago   Up 2 minutes             0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
@@ -1117,8 +1131,8 @@ scoring-pdf       scoring-backend-pdf-worker      "uvicorn main:app --…"   pdf
 \textbf{\texttt{(healthy)}}. Juste après le démarrage,
 \texttt{scoring-api} peut afficher \texttt{(health:\ starting)} :
 \textbf{attendez}, puis retapez la commande. Pour la suivre en direct,
-tapez \texttt{watch\ -n\ 5\ docker\ compose\ ps} et quittez avec
-\texttt{Ctrl} + \texttt{C}.
+tapez \texttt{watch\ -\allowbreak{}n\ 5\ docker\ compose\ ps} et quittez
+avec \texttt{Ctrl} + \texttt{C}.
 
 \textbf{Si un conteneur est \texttt{Exited} ou \texttt{unhealthy} :}
 voyez la vérification 2 pour lire l\textquotesingle erreur, puis la
@@ -1127,7 +1141,7 @@ section 10.
 \paragraph{Vérification 2 : les messages (logs) de
 l\textquotesingle API}\label{vuxe9rification-2--les-messages-logs-de-lapi}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 docker compose logs -f --tail 60 api
 \end{Verbatim}
 
@@ -1140,7 +1154,7 @@ Pour arrêter de suivre, tapez \texttt{Ctrl} + \texttt{C} : cela
 \textbf{Résultat attendu au tout premier lancement}
 (l\textquotesingle ordre de quelques lignes peut varier légèrement) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 INFO:     Started server process [1]
 INFO:     Waiting for application startup.
 2026-09-19 17:32:02.014168: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
@@ -1196,7 +1210,7 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
   dessous de 539,5).
 \item
   Le message
-  \texttt{I\ tensorflow/...\ This\ TensorFlow\ binary\ is\ optimized\ ...}
+  \texttt{I\ tensorflow/\allowbreak{}.\allowbreak{}.\allowbreak{}.\allowbreak{}\ This\ TensorFlow\ binary\ is\ optimized\ .\allowbreak{}.\allowbreak{}.\allowbreak{}}
   est une \textbf{simple information} de TensorFlow : ce
   n\textquotesingle est pas une erreur.
 \item
@@ -1211,14 +1225,15 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 \end{itemize}
 
 Après quelques minutes, vous verrez aussi, toutes les 30 secondes, des
-lignes \texttt{GET\ /health\ HTTP/1.1"\ 200\ OK} : ce sont les
-\textbf{contrôles de santé} automatiques de Docker. Elles sont bon
-signe.
+lignes
+\texttt{GET\ /\allowbreak{}health\ HTTP/\allowbreak{}1.\allowbreak{}1"\ 200\ OK}
+: ce sont les \textbf{contrôles de santé} automatiques de Docker. Elles
+sont bon signe.
 
 \paragraph{Vérification 3 : l\textquotesingle état de santé de
 l\textquotesingle API}\label{vuxe9rification-3--luxe9tat-de-santuxe9-de-lapi}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 curl -s http://localhost:8080/health
 \end{Verbatim}
 
@@ -1230,16 +1245,16 @@ l\textquotesingle API utilise pour dire dans quel état elle est ;
 \textbf{Résultat attendu (une seule ligne, avant l\textquotesingle étape
 5.4) :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 {"statut":"ok","model_run_id":"seed-initial","features_chargees":27,"metadata_chargees":0,"calibration_isotonique_active":true,"decision_config_charge":true,"seuils_pdo_defaut":{"accorde":578.5,"refuse":539.5},"isolation_forest_charge":true,"autoencoder_charge":true,"encodage_hybride_61dims_charge":true,"flux_b_actif":true,"flux_b_percentile":95,"mock_mode":false}
 \end{Verbatim}
 
 \textbf{Comment le lire :}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2808}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4892}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2360}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2677}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4663}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Champ
@@ -1283,7 +1298,7 @@ l\textquotesingle API n\textquotesingle a pas fini de démarrer. Attendez
 \paragraph{Vérification 4 : les autres
 services}\label{vuxe9rification-4--les-autres-services}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 curl -s http://localhost:8001/health
 curl -sI http://localhost:5000 | head -1
 curl -s -o /dev/null -w "documentation de l'API : HTTP %{http_code}\n" http://localhost:8080/docs
@@ -1291,7 +1306,7 @@ curl -s -o /dev/null -w "documentation de l'API : HTTP %{http_code}\n" http://lo
 
 \textbf{Résultat attendu :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 {"status":"ok"}
 HTTP/1.1 200 OK
 documentation de l'API : HTTP 200
@@ -1335,35 +1350,41 @@ une commande. Il fait quatre choses :
   \textbf{enregistre le modèle fourni} comme version en production.
 \end{enumerate}
 
-\textbf{Choisissez d\textquotesingle abord le mot de passe de
-l\textquotesingle administrateur} (8 caractères minimum ; utilisez de
-préférence des lettres et des chiffres, sans guillemets ni espaces) :
+\textbf{Pour ce test, utilisez ce mot de passe simple, le même pour les
+trois comptes} (administrateur, agent, superviseur) :
+\texttt{Demo12345}. C\textquotesingle est un mot de passe
+d\textquotesingle exemple, sans risque sur votre propre ordinateur ; ne
+l\textquotesingle utilisez jamais sur un vrai serveur. (Vous pouvez en
+choisir un autre : 8 caractères minimum, de préférence des lettres et
+des chiffres, sans guillemets ni espaces.)
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
-export ADMIN_PASSWORD='MonMotDePasse2026'
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+export ADMIN_PASSWORD='Demo12345'
 \end{Verbatim}
 
 \textbf{Ce que fait cette commande :} \texttt{export} mémorise le mot de
 passe \textbf{uniquement pour la fenêtre de terminal courante}. Il
-n\textquotesingle est écrit dans aucun fichier. \textbf{Choisissez le
-vôtre et notez-le} : vous en aurez besoin pour vous connecter.
+n\textquotesingle est écrit dans aucun fichier. Ce sera le mot de passe
+du compte \texttt{admin}.
 
 Lancez ensuite le script :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 docker compose exec -T -e ADMIN_PASSWORD="$ADMIN_PASSWORD" api python scripts/init_demo.py
 \end{Verbatim}
 
 \textbf{Ce que fait cette commande :} \texttt{exec} exécute une commande
 \textbf{dans le conteneur \texttt{api} qui tourne déjà} ; \texttt{-T}
 indique qu\textquotesingle il n\textquotesingle y a pas de terminal
-interactif ; \texttt{-e\ ADMIN\_PASSWORD=...} transmet le mot de passe
-au script ; \texttt{python\ scripts/init\_demo.py} lance le script de
-premier lancement.
+interactif ;
+\texttt{-\allowbreak{}e\ ADMIN\_\allowbreak{}PASSWORD=\allowbreak{}.\allowbreak{}.\allowbreak{}.\allowbreak{}}
+transmet le mot de passe au script ;
+\texttt{python\ scripts/\allowbreak{}init\_\allowbreak{}demo.\allowbreak{}py}
+lance le script de premier lancement.
 
 \textbf{Résultat attendu :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 
 === 1/4 Compte administrateur ===
 [OK] Admin cree: username='admin' / role=ADMIN
@@ -1400,7 +1421,7 @@ Maintenant, \textbf{redémarrez l\textquotesingle API} pour
 qu\textquotesingle elle recharge les phrases
 d\textquotesingle explication :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 docker compose restart api
 docker compose up -d --wait --wait-timeout 240 api
 \end{Verbatim}
@@ -1416,17 +1437,17 @@ au démarrage}. Sans redémarrage, elle continuerait à en voir 0.
 
 Vérifiez :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 curl -s http://localhost:8080/health
 \end{Verbatim}
 
 \textbf{Résultat attendu :} la même ligne qu\textquotesingle en 5.3,
-mais avec \textbf{\texttt{"metadata\_chargees":27}}.
+mais avec \textbf{\texttt{"metadata\_\allowbreak{}chargees":27}}.
 
 \subsubsection{5.5 Vérifier que l\textquotesingle administrateur peut se
 connecter}\label{55-vuxe9rifier-que-ladministrateur-peut-se-connecter}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d "{\"username\":\"admin\",\"password\":\"$ADMIN_PASSWORD\"}"
@@ -1439,7 +1460,7 @@ connexion.
 \textbf{Résultat attendu} (une seule ligne ; le \texttt{token} est une
 longue suite de caractères, ici raccourcie) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 {"token":"eyJhbGciOiJIUzI1NiIsInR5...","role":"ADMIN","user_id":"3628800d-5f36-4d9b-94bd-b8012a95660f","nom":"Administrateur","prenom":"Systeme","expires_at":"2026-09-20T01:34:23.430433+00:00"}
 \end{Verbatim}
 
@@ -1447,7 +1468,7 @@ Le jeton est valable \textbf{8 heures} (\texttt{expires\_at}).
 
 \textbf{Avec un mauvais mot de passe}, la réponse est (code 401) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 {"detail":"Identifiants incorrects"}
 \end{Verbatim}
 
@@ -1455,9 +1476,9 @@ Le jeton est valable \textbf{8 heures} (\texttt{expires\_at}).
 si\ldots{}}\label{56-ruxe9capitulatif--le-backend-est-pruxeat-si}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1750}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3950}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2050}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2725}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4925}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Contrôle
@@ -1474,14 +1495,16 @@ Conteneurs & \texttt{docker\ compose\ ps} & 4 conteneurs \texttt{Up},
 dont \texttt{scoring-api} et \texttt{scoring-\allowbreak{}mongodb}
 \texttt{(healthy)} \\
 Messages de l\textquotesingle API &
-\texttt{docker\ compose\ logs\ -\/-tail\ 60\ api} & La ligne
-\texttt{{[}OK{]}\ Backend\ prêt} \\
+\texttt{docker\ compose\ logs\ -\allowbreak{}-\allowbreak{}tail\ 60\ api}
+& La ligne \texttt{{[}OK{]}\ Backend\ prêt} \\
 Santé de l\textquotesingle API &
-\texttt{curl\ -s\ http://localhost:8080/health} &
-\texttt{"statut":"ok"}, \texttt{"features\_chargees":27},
-\texttt{"metadata\_chargees":27}, \texttt{"mock\_mode":false} \\
-Service PDF & \texttt{curl\ -s\ http://localhost:8001/health} &
-\texttt{\{"status":"ok"\}} \\
+\texttt{curl\ -\allowbreak{}s\ http:/\allowbreak{}/\allowbreak{}localhost:8080/\allowbreak{}health}
+& \texttt{"statut":"ok"}, \texttt{"features\_\allowbreak{}chargees":27},
+\texttt{"metadata\_\allowbreak{}chargees":27},
+\texttt{"mock\_\allowbreak{}mode":false} \\
+Service PDF &
+\texttt{curl\ -\allowbreak{}s\ http:/\allowbreak{}/\allowbreak{}localhost:8001/\allowbreak{}health}
+& \texttt{\{"status":"ok"\}} \\
 Connexion & commande de la section 5.5 & Un \texttt{token} et
 \texttt{"role":"ADMIN"} \\
 \end{longtable}
@@ -1498,7 +1521,7 @@ Ouvrez un \textbf{nouveau terminal} (ou gardez celui-ci : le frontend
 occupera la fenêtre tant qu\textquotesingle il tourne) et placez-vous
 dans le dossier du frontend :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 cd ~/credix/credix-v2
 pwd
 \end{Verbatim}
@@ -1508,7 +1531,7 @@ pwd
 
 \subsubsection{6.1 Configurer}\label{61-configurer}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 cp .env.example .env.local
 cat .env.local
 \end{Verbatim}
@@ -1517,7 +1540,7 @@ cat .env.local
 configuration du frontend ; la seconde l\textquotesingle affiche.
 
 \textbf{Résultat attendu :} une ligne
-\texttt{NEXT\_\allowbreak{}PUBLIC\_\allowbreak{}API\_\allowbreak{}URL=http:/\allowbreak{}/\allowbreak{}localhost:8080}.
+\texttt{NEXT\_\allowbreak{}PUBLIC\_\allowbreak{}API\_\allowbreak{}URL=\allowbreak{}http:/\allowbreak{}/\allowbreak{}localhost:8080}.
 C\textquotesingle est l\textquotesingle adresse du backend que le
 navigateur va appeler. \textbf{Si votre backend est ailleurs, changez
 cette adresse maintenant :} elle est \textbf{intégrée au moment de la
@@ -1526,7 +1549,7 @@ compilation} (section 6.3).
 \subsubsection{6.2 Installer les
 bibliothèques}\label{62-installer-les-bibliothuxe8ques}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 npm ci
 \end{Verbatim}
 
@@ -1539,7 +1562,7 @@ Comptez de 30 secondes à quelques minutes selon la connexion.
 \textbf{Résultat attendu (le nombre de paquets et la durée peuvent
 varier un peu) :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 added 477 packages in 28s
 
 154 packages are looking for funding
@@ -1558,7 +1581,7 @@ faut 18.18 au minimum, 22 conseillé) et reprenez la section 3.4.
 \subsubsection{6.3 Compiler et démarrer (mode « production
 »)}\label{63-compiler-et-duxe9marrer-mode--production-}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 npm run build
 npm run start
 \end{Verbatim}
@@ -1566,8 +1589,8 @@ npm run start
 \textbf{Ce que fait chaque commande :}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1519}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8181}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1740}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7960}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Commande
@@ -1589,7 +1612,7 @@ dossier \texttt{.next/}. Comptez de 30 secondes à deux minutes. \\
 \textbf{Résultat attendu de \texttt{npm\ run\ build}} (une quarantaine
 de secondes sur la machine de test) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
    ▲ Next.js 15.5.23
    - Environments: .env.local
 
@@ -1613,12 +1636,13 @@ Route (app)                                 Size  First Load JS
 
 La commande \textbf{se termine sans message d\textquotesingle erreur} et
 crée un dossier \texttt{.next/}. Si elle affiche
-\texttt{Failed\ to\ compile.} suivi de \texttt{Type\ error}, le code
-contient une erreur de type : voir la section 10.2.
+\texttt{Failed\ to\ compile.\allowbreak{}} suivi de
+\texttt{Type\ error}, le code contient une erreur de type : voir la
+section 10.2.
 
 \textbf{Résultat attendu de \texttt{npm\ run\ start} :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 > credix-v2@0.1.0 start
 > next start -p 3001
 
@@ -1647,7 +1671,7 @@ tourne}\label{64-vuxe9rifier-que-le-frontend-tourne}
 
 Dans un \textbf{autre terminal} :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 curl -s -o /dev/null -w "page de connexion : HTTP %{http_code}\n" http://localhost:3001/login
 \end{Verbatim}
 
@@ -1680,8 +1704,8 @@ administrateur}\label{71-se-connecter-en-administrateur}
 \item
   Ouvrez \url{http://localhost:3001}.
 \item
-  \textbf{Identifiant :} \texttt{admin}. \textbf{Mot de passe :} celui
-  que vous avez choisi à l\textquotesingle étape 5.4.
+  \textbf{Identifiant :} \texttt{admin}. \textbf{Mot de passe :}
+  \texttt{Demo12345} (celui de l\textquotesingle étape 5.4).
 \item
   Cliquez sur \textbf{« Se connecter »}.
 \end{enumerate}
@@ -1715,8 +1739,8 @@ Superviseur}\label{72-cruxe9er-un-compte-agent-et-un-compte-superviseur}
 \item
   Section \textbf{« Compte \& accès »} : choisissez le rôle
   \textbf{Agent}, puis un \textbf{Identifiant} (par exemple
-  \texttt{agent.test}), un \textbf{Mot de passe} (8 caractères minimum)
-  et sa \textbf{confirmation}.
+  \texttt{agent.test}), le \textbf{Mot de passe} \texttt{Demo12345} et
+  sa \textbf{confirmation} (la même valeur).
 \item
   Cliquez sur \textbf{« Créer le compte »}.
 \end{enumerate}
@@ -1725,8 +1749,8 @@ Superviseur}\label{72-cruxe9er-un-compte-agent-et-un-compte-superviseur}
 l\textquotesingle identifiant créé.
 
 Recommencez avec le rôle \textbf{Superviseur} (identifiant
-\texttt{superviseur.\allowbreak{}test} par exemple). \textbf{Notez les
-deux mots de passe.}
+\texttt{superviseur.\allowbreak{}test} par exemple, même mot de passe
+\texttt{Demo12345}).
 
 Puis ouvrez de nouveau \textbf{« Utilisateurs »}. \textbf{Résultat
 attendu :} la page indique \textbf{« 3 comptes enregistrés »} et liste
@@ -1750,7 +1774,8 @@ agent}\label{73-se-duxe9connecter-puis-se-connecter-en-agent}
 \item
   En bas du menu de gauche, cliquez sur \textbf{« Déconnexion »}.
 \item
-  Connectez-vous avec \texttt{agent.test} et son mot de passe.
+  Connectez-vous avec \texttt{agent.test} et le mot de passe
+  \texttt{Demo12345}.
 \end{enumerate}
 
 \textbf{Résultat attendu :} vous arrivez sur le \textbf{Tableau de bord}
@@ -1813,11 +1838,11 @@ ci-dessous \textbf{avec les mêmes valeurs d\textquotesingle exemple}
 d\textquotesingle autres montants, le score et la décision changent.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3575}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1625}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1125}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1625}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1750}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2585}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1895}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1275}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1895}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2050}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Ce que l\textquotesingle on veut voir
@@ -1882,10 +1907,10 @@ que les informations déclarées :
   de contrat \texttt{Cash\ loans}, Profession du demandeur
   \texttt{Sales\ staff}, Ancienneté dans l\textquotesingle emploi actuel
   (mois) \texttt{18}, Niveau d\textquotesingle éducation
-  \texttt{Secondary\ /\ secondary\ special}, Genre \texttt{F}, Date de
-  naissance \texttt{1996-02-18}, Type de revenu \texttt{Working},
-  Ancienneté à l\textquotesingle adresse actuelle (mois) \texttt{24},
-  puis cliquez sur \textbf{« Continuer »}.
+  \texttt{Secondary\ /\allowbreak{}\ secondary\ special}, Genre
+  \texttt{F}, Date de naissance \texttt{1996-02-18}, Type de revenu
+  \texttt{Working}, Ancienneté à l\textquotesingle adresse actuelle
+  (mois) \texttt{24}, puis cliquez sur \textbf{« Continuer »}.
 \end{enumerate}
 
 \textbf{Résultat attendu :} une couverture de \textbf{35 \%}, un bandeau
@@ -2025,8 +2050,8 @@ Conservées \\
 \texttt{docker\ compose\ down} & \textbf{Conservées} (la base est dans
 un « volume ») \\
 \textbf{Tout effacer et repartir de zéro} &
-\texttt{docker\ compose\ down\ -v} & \textbf{Supprimées} : la base est
-vidée, il faut refaire l\textquotesingle étape 5.4 \\
+\texttt{docker\ compose\ down\ -\allowbreak{}v} & \textbf{Supprimées} :
+la base est vidée, il faut refaire l\textquotesingle étape 5.4 \\
 \textbf{Arrêter} le frontend & \texttt{Ctrl} + \texttt{C} dans son
 terminal & Sans effet sur les données \\
 \textbf{Relancer} le frontend & \texttt{npm\ run\ start} dans
@@ -2051,7 +2076,7 @@ fonctionne.
 \subsubsection{9.1 Une seule fois : se présenter à Git et à
 GitHub}\label{91-une-seule-fois--se-pruxe9senter-uxe0-git-et-uxe0-github}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git config --global user.name "Votre Nom"
 git config --global user.email "votre.email@example.com"
 \end{Verbatim}
@@ -2073,13 +2098,13 @@ prouver votre identité. Deux méthodes :
   de passe}.
 \item
   \textbf{Par SSH.} Générez une clé avec
-  \texttt{ssh-keygen\ -t\ ed25519\ -C\ "votre.email@example.com"},
+  \texttt{ssh-\allowbreak{}keygen\ -\allowbreak{}t\ ed25519\ -\allowbreak{}C\ "votre.\allowbreak{}email@example.\allowbreak{}com"},
   copiez le contenu de \texttt{\textasciitilde{}/.ssh/id\_ed25519.pub}
   dans GitHub (\emph{Settings}, \emph{SSH and GPG keys}), puis testez
-  avec \texttt{ssh\ -T\ git@github.com}. Utilisez alors
-  l\textquotesingle adresse
+  avec \texttt{ssh\ -\allowbreak{}T\ git@github.\allowbreak{}com}.
+  Utilisez alors l\textquotesingle adresse
   \texttt{git@github.\allowbreak{}com:HendrixPenka2/\allowbreak{}credix.\allowbreak{}git}
-  (\texttt{git\ remote\ set-url\ origin\ git@github.com:HendrixPenka2/credix.git}).
+  (\texttt{git\ remote\ set-\allowbreak{}url\ origin\ git@github.\allowbreak{}com:HendrixPenka2/\allowbreak{}credix.\allowbreak{}git}).
 \end{itemize}
 
 \begin{quote}
@@ -2094,7 +2119,7 @@ modification}\label{92-le-cycle-normal-dune-modification}
 \textbf{1. Se mettre à jour avant de commencer} (récupérer le travail
 des autres) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 cd ~/credix
 git checkout main
 git pull
@@ -2103,7 +2128,7 @@ git pull
 \textbf{2. Créer une « branche »}, c\textquotesingle est-à-dire une
 copie de travail séparée, pour ne pas toucher à la version stable :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git checkout -b ma-modification
 \end{Verbatim}
 
@@ -2112,7 +2137,7 @@ Code : \texttt{code\ .}), puis \textbf{tester} (section 9.3).
 
 \textbf{4. Voir ce qui a changé :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git status
 git diff
 \end{Verbatim}
@@ -2123,14 +2148,14 @@ montre les lignes ajoutées et retirées.
 \textbf{5. Enregistrer la modification} (en deux temps : choisir les
 fichiers, puis valider avec un message qui explique \textbf{pourquoi}) :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git add chemin/vers/le/fichier
 git commit -m "Explique en une phrase ce que la modification apporte"
 \end{Verbatim}
 
 \textbf{6. Envoyer sur GitHub :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git push -u origin ma-modification
 \end{Verbatim}
 
@@ -2139,7 +2164,7 @@ sûr : sur GitHub, ouvrez une \textbf{« Pull request »} depuis votre
 branche vers \texttt{main}, relisez-la, puis fusionnez-la. Sans passer
 par GitHub :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git checkout main
 git merge ma-modification
 git push origin main
@@ -2147,7 +2172,7 @@ git push origin main
 
 \textbf{8. Récupérer la version à jour sur un autre ordinateur :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 git checkout main
 git pull
 \end{Verbatim}
@@ -2173,15 +2198,15 @@ Un fichier Python du backend (dossier
 \texttt{docker\ compose\ restart\ api} (le dossier \texttt{app/} est
 partagé avec le conteneur, pas besoin de reconstruire) \\
 \texttt{requirements.\allowbreak{}txt} ou \texttt{Dockerfile.api} &
-\texttt{docker\ compose\ up\ -d\ -\/-build} \\
+\texttt{docker\ compose\ up\ -\allowbreak{}d\ -\allowbreak{}-\allowbreak{}build} \\
 Un fichier du dossier \texttt{artefacts/} &
 \texttt{docker\ compose\ restart\ api} \\
 Un fichier du dossier \texttt{demo\_data/} & Relancer le script de
 l\textquotesingle étape 5.4 (il n\textquotesingle ajoute que ce qui
 manque), puis \texttt{docker\ compose\ restart\ api} \\
 Le fichier \texttt{.env} du backend &
-\texttt{docker\ compose\ up\ -d\ -\/-force-recreate\ api} (un simple
-\texttt{restart} ne relit pas \texttt{.env}) \\
+\texttt{docker\ compose\ up\ -\allowbreak{}d\ -\allowbreak{}-\allowbreak{}force-\allowbreak{}recreate\ api}
+(un simple \texttt{restart} ne relit pas \texttt{.env}) \\
 Le frontend & Avec \texttt{npm\ run\ dev}, la page se met à jour toute
 seule. Pour la version compilée : \texttt{npm\ run\ build}, puis
 relancer \texttt{npm\ run\ start}. \\
@@ -2206,16 +2231,17 @@ Commande
 \bottomrule\noalign{}
 \endlastfoot
 Annuler les changements \textbf{non enregistrés} d\textquotesingle un
-fichier & \texttt{git\ restore\ chemin/vers/le/fichier} \\
+fichier &
+\texttt{git\ restore\ chemin/\allowbreak{}vers/\allowbreak{}le/\allowbreak{}fichier} \\
 Retirer un fichier de la liste \texttt{git\ add} &
-\texttt{git\ restore\ -\/-staged\ chemin/vers/le/fichier} \\
+\texttt{git\ restore\ -\allowbreak{}-\allowbreak{}staged\ chemin/\allowbreak{}vers/\allowbreak{}le/\allowbreak{}fichier} \\
 Annuler un enregistrement déjà validé, \textbf{en gardant
 l\textquotesingle historique} &
 \texttt{git\ revert\ \textless{}numéro\ du\ commit\textgreater{}} (les
 numéros s\textquotesingle affichent avec
-\texttt{git\ log\ -\/-oneline}). Un éditeur de texte
-s\textquotesingle ouvre pour le message : enregistrez et fermez-le (dans
-\texttt{nano} : \texttt{Ctrl} + \texttt{O}, \texttt{Entrée}, puis
+\texttt{git\ log\ -\allowbreak{}-\allowbreak{}oneline}). Un éditeur de
+texte s\textquotesingle ouvre pour le message : enregistrez et fermez-le
+(dans \texttt{nano} : \texttt{Ctrl} + \texttt{O}, \texttt{Entrée}, puis
 \texttt{Ctrl} + \texttt{X}). \\
 \end{longtable}
 
@@ -2288,9 +2314,9 @@ et \texttt{git\ commit}. \\
 \textbf{Faire passer SSH par le port 443} (quand le port 22 est bloqué)
 : créez ou complétez le fichier \texttt{\textasciitilde{}/.ssh/config}
 avec ces quatre lignes, puis testez avec
-\texttt{ssh\ -T\ git@github.com}.
+\texttt{ssh\ -\allowbreak{}T\ git@github.\allowbreak{}com}.
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Host github.com
   Hostname ssh.github.com
   Port 443
@@ -2307,8 +2333,8 @@ le message d\textquotesingle erreur}, puis cherchez-le ici.
 \subsubsection{10.1 Docker et backend}\label{101-docker-et-backend}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2850}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2850}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3030}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4000}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
@@ -2326,22 +2352,25 @@ Solution
 & Votre utilisateur n\textquotesingle est pas autorisé à utiliser Docker
 & \texttt{sudo\ usermod\ -aG\ docker\ \$USER}, puis fermez et rouvrez
 votre session (section 3.4) \\
-\texttt{docker\ compose} : \texttt{env\ file\ ...\ .env\ not\ found} &
-Vous n\textquotesingle avez pas créé \texttt{.env}, ou vous
+\texttt{docker\ compose} :
+\texttt{env\ file\ .\allowbreak{}.\allowbreak{}.\allowbreak{}\ .\allowbreak{}env\ not\ found}
+& Vous n\textquotesingle avez pas créé \texttt{.env}, ou vous
 n\textquotesingle êtes pas dans
 \texttt{scoring-\allowbreak{}backend/\allowbreak{}} &
 \texttt{cd\ \textasciitilde{}/credix/scoring-backend}, puis
-\texttt{cp\ .env.example\ .env} (section 5.1) \\
+\texttt{cp\ .\allowbreak{}env.\allowbreak{}example\ .\allowbreak{}env}
+(section 5.1) \\
 \texttt{port\ is\ already\ allocated} ou
 \texttt{address\ already\ in\ use} (8080, 27017, 5000, 8001) & Un autre
 programme utilise déjà ce port & Trouvez le programme avec
 \texttt{ss\ -ltnp\ \textbar{}\ grep\ 8080} (remplacez 8080 par le port
-en cause), arrêtez-le, puis relancez \texttt{docker\ compose\ up\ -d} \\
+en cause), arrêtez-le, puis relancez
+\texttt{docker\ compose\ up\ -\allowbreak{}d} \\
 L\textquotesingle API reste \texttt{(health:\ starting)} ou passe à
 \texttt{unhealthy} & Elle charge encore le modèle, ou une erreur bloque
 son démarrage & Attendez 2 minutes ; sinon
-\texttt{docker\ compose\ logs\ -\/-tail\ 100\ api} et cherchez
-\texttt{Traceback} ou \texttt{Error} \\
+\texttt{docker\ compose\ logs\ -\allowbreak{}-\allowbreak{}tail\ 100\ api}
+et cherchez \texttt{Traceback} ou \texttt{Error} \\
 Une commande \texttt{curl} répond \texttt{Connection\ refused} juste
 après le démarrage & L\textquotesingle API n\textquotesingle a pas fini
 de charger le modèle & Attendez 30 secondes et recommencez \\
@@ -2359,32 +2388,34 @@ Refaites la commande \texttt{init\_demo.py}, puis
 terminal & Refaites
 \texttt{export\ ADMIN\_PASSWORD=\textquotesingle{}...\textquotesingle{}}
 puis la commande \\
-Le premier \texttt{docker\ compose\ up\ -\/-build} est très long &
-Normal : TensorFlow est volumineux & Patientez ; les lancements suivants
-sont rapides \\
+Le premier
+\texttt{docker\ compose\ up\ -\allowbreak{}-\allowbreak{}build} est très
+long & Normal : TensorFlow est volumineux & Patientez ; les lancements
+suivants sont rapides \\
 \texttt{no\ space\ left\ on\ device} & Le disque est plein &
 \texttt{docker\ system\ df}, puis \texttt{docker\ system\ prune} \\
 Vous avez modifié \texttt{.env} mais rien ne change & \texttt{restart}
 ne relit pas \texttt{.env} &
-\texttt{docker\ compose\ up\ -d\ -\/-force-recreate\ api} \\
+\texttt{docker\ compose\ up\ -\allowbreak{}d\ -\allowbreak{}-\allowbreak{}force-\allowbreak{}recreate\ api} \\
 Vous avez oublié le mot de passe administrateur & & Créez un autre
 administrateur :
-\texttt{docker\ compose\ exec\ -T\ -e\ ADMIN\_PASSWORD="nouveau\_mot\_de\_passe"\ api\ python\ scripts/create\_admin.py\ -\/-username\ admin2}.
-Ou repartez de zéro avec \texttt{docker\ compose\ down\ -v} (efface
-toutes les données). \\
+\texttt{docker\ compose\ exec\ -\allowbreak{}T\ -\allowbreak{}e\ ADMIN\_\allowbreak{}PASSWORD=\allowbreak{}"nouveau\_\allowbreak{}mot\_\allowbreak{}de\_\allowbreak{}passe"\ api\ python\ scripts/\allowbreak{}create\_\allowbreak{}admin.\allowbreak{}py\ -\allowbreak{}-\allowbreak{}username\ admin2}.
+Ou repartez de zéro avec \texttt{docker\ compose\ down\ -\allowbreak{}v}
+(efface toutes les données). \\
 \texttt{Permission\ denied} en supprimant un dossier
 \texttt{\_\_pycache\_\_} dans
 \texttt{scoring-\allowbreak{}backend/\allowbreak{}app/\allowbreak{}} &
 Ces dossiers sont créés par Docker (donc appartiennent à \texttt{root})
-& \texttt{sudo\ rm\ -rf\ scoring-backend/app/\_\_pycache\_\_} \\
+&
+\texttt{sudo\ rm\ -\allowbreak{}rf\ scoring-\allowbreak{}backend/\allowbreak{}app/\allowbreak{}\_\allowbreak{}\_\allowbreak{}pycache\_\allowbreak{}\_\allowbreak{}} \\
 \end{longtable}
 
 \subsubsection{10.2 Frontend}\label{102-frontend}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2850}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2850}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4000}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3233}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3233}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3233}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Symptôme
@@ -2403,10 +2434,11 @@ pas l\textquotesingle adresse du frontend & Vérifiez que
 \texttt{ALLOWED\_\allowbreak{}ORIGINS} (fichier
 \texttt{scoring-\allowbreak{}backend/\allowbreak{}.\allowbreak{}env})
 contient \texttt{http:/\allowbreak{}/\allowbreak{}localhost:3001}, puis
-\texttt{docker\ compose\ up\ -d\ -\/-force-recreate\ api} \\
+\texttt{docker\ compose\ up\ -\allowbreak{}d\ -\allowbreak{}-\allowbreak{}force-\allowbreak{}recreate\ api} \\
 La page se charge mais aucune donnée ne s\textquotesingle affiche & Le
 frontend n\textquotesingle atteint pas le backend &
-\texttt{curl\ -s\ http://localhost:8080/health} doit répondre ; vérifiez
+\texttt{curl\ -\allowbreak{}s\ http:/\allowbreak{}/\allowbreak{}localhost:8080/\allowbreak{}health}
+doit répondre ; vérifiez
 \texttt{NEXT\_\allowbreak{}PUBLIC\_\allowbreak{}API\_\allowbreak{}URL}
 dans
 \texttt{credix-\allowbreak{}v2/\allowbreak{}.\allowbreak{}env.\allowbreak{}local}.
@@ -2420,12 +2452,14 @@ Installez Node 22 (section 3.4) \\
 est déjà pris (souvent par un autre frontend qui tourne) & Fermez le
 terminal de cet autre frontend, ou cherchez le programme avec
 \texttt{ss\ -ltnp\ \textbar{}\ grep\ 3001} \\
-\texttt{Failed\ to\ compile.} suivi de \texttt{Type\ error:\ ...}
+\texttt{Failed\ to\ compile.\allowbreak{}} suivi de
+\texttt{Type\ error:\ .\allowbreak{}.\allowbreak{}.\allowbreak{}}
 pendant \texttt{npm\ run\ build} & Le code contient une erreur de type
 TypeScript & Lisez le fichier et la ligne indiqués.
-\texttt{npx\ tsc\ -\/-noEmit} liste \textbf{toutes} les erreurs
-d\textquotesingle un coup (\texttt{npm\ run\ build} n\textquotesingle en
-affiche qu\textquotesingle une à la fois) \\
+\texttt{npx\ tsc\ -\allowbreak{}-\allowbreak{}noEmit} liste
+\textbf{toutes} les erreurs d\textquotesingle un coup
+(\texttt{npm\ run\ build} n\textquotesingle en affiche
+qu\textquotesingle une à la fois) \\
 Le navigateur affiche la page de connexion en boucle & Le jeton de
 connexion a expiré (il dure 8 heures) ou est invalide &
 Reconnectez-vous \\
@@ -2511,7 +2545,7 @@ envoie vers GitHub, \texttt{pull} récupère depuis GitHub. \\
 \subsubsection{11.2 Récapitulatif de toutes les
 commandes}\label{112-ruxe9capitulatif-de-toutes-les-commandes}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 # --- Récupérer le projet (section 4) ---
 cd ~ && git clone https://github.com/HendrixPenka2/credix.git && cd credix
 
@@ -2523,7 +2557,7 @@ docker compose up -d --build
 docker compose ps
 docker compose logs --tail 60 api
 curl -s http://localhost:8080/health
-export ADMIN_PASSWORD='MonMotDePasse2026'
+export ADMIN_PASSWORD='Demo12345'
 docker compose exec -T -e ADMIN_PASSWORD="$ADMIN_PASSWORD" api python scripts/init_demo.py
 docker compose restart api
 docker compose up -d --wait --wait-timeout 240 api
@@ -2545,8 +2579,8 @@ docker compose down -v   # tout effacer
 loin}\label{113-pour-aller-plus-loin}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7700}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2360}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7340}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Document

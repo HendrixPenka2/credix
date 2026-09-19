@@ -278,9 +278,17 @@ Puis fais un diagnostic honnête : ce qui est prêt, ce qui manque, ce qui se
 contredit. Termine par les trois prochaines actions que tu recommandes.
 ```
 
-![Base de connaissances d'un projet avec les documents chargés](../images/guides/02-01_base_connaissances.png)
+**Pas à pas :**
 
-*Figure 1. La base de connaissances du projet.*
+1. Ouvrez votre Projet (colonne de gauche de claude.ai, **« Projets »**, puis le nom du projet).
+2. Dans la zone **« Contexte »**, cliquez sur **« + »** et ajoutez vos documents (guide 1, section 6.4).
+3. Ouvrez une **nouvelle conversation dans le projet** et collez le prompt 0 ci-dessus.
+4. **Lisez l'inventaire** : vérifiez que chaque document est bien décrit, et corrigez ce qui est faux.
+5. Demandez ensuite la rédaction des **instructions du projet** (section 4.1) et du **journal de bord** (section 16.2).
+
+![Le contexte d'un projet Claude avec les documents chargés](../images/guides/02-01_base_connaissances.png)
+
+*Figure 1. Le « Contexte » du projet : les documents chargés (cahier des charges, méthodologie, journaux), la barre de capacité et le mode de recherche.*
 
 ---
 
@@ -363,9 +371,15 @@ Cite les passages sur lesquels tu t'appuies.
 
 > **Dans CREDIX.** Une session de recherche approfondie a été conservée sous forme de PDF. Pour le seuil de 50 % de valeurs manquantes, la recherche a établi qu'**il n'existe pas de règle universelle** : le package de référence `scorecard` (langage R) fixe 95 % par défaut, et la littérature utilise des seuils très variables. Conclusion consignée : *ne pas attribuer ce seuil à un auteur* ; le présenter comme un **choix assumé**. Des références comme Chow (1970) ou El-Yaniv et Wiener (2010) sont restées marquées « à vérifier » tant qu'elles n'étaient pas contrôlées.
 
-![Rapport de recherche approfondie avec ses citations](../images/guides/02-02_recherche_approfondie.png)
+**Pas à pas : lancer une recherche approfondie et l'exploiter.**
 
-*Figure 2. Un résultat de recherche approfondie avec citations.*
+1. Ouvrez une **nouvelle conversation** dans votre Projet (guide 1, section 6).
+2. Cliquez sur le bouton **« + »** à gauche de la zone de saisie, puis sur **« Recherche »** (guide 1, section 5.2).
+3. Collez le **prompt 4** ci-dessus, remplacez les crochets par votre question précise, puis envoyez avec `Entrée`.
+4. **Attendez** la fin du travail : Claude enchaîne plusieurs recherches, en général pendant une à trois minutes.
+5. **Lisez le rapport** : il est organisé en parties et contient des **citations**, c'est-à-dire des renvois vers les sources.
+6. **Vérifiez** : ouvrez les sources des affirmations importantes et contrôlez qu'elles disent bien ce que le rapport prétend. Marquez `[à vérifier]` tout ce que vous n'avez pas pu contrôler.
+7. **Conservez le rapport** : enregistrez-le dans un fichier (dans CREDIX, sous forme de PDF) et ajoutez-le au « Contexte » du projet, pour que les sessions suivantes s'appuient dessus.
 
 ---
 
@@ -445,9 +459,15 @@ Markdown : contexte, options comparées, critères, décision retenue, alternati
 ni aucun chiffre.
 ```
 
-![Un extrait du registre des décisions](../images/guides/02-03_registre_decisions.png)
+**Pas à pas : tenir le registre des décisions.**
 
-*Figure 3. Un extrait du registre des décisions méthodologiques.*
+1. Après chaque choix important, envoyez le **prompt 6** à Claude, dans la conversation où le choix a été discuté.
+2. **Relisez** la fiche obtenue : les options comparées, la décision, le niveau de preuve, les références.
+3. **Faites corriger** avec Claude ce qui est faux ou incertain, et marquer `[à vérifier]` les références non contrôlées.
+4. **Copiez** la fiche à la suite des précédentes dans un fichier du dossier du projet (par exemple `registre_des_decisions.md`). On **ajoute**, on n'efface jamais : une décision abandonnée reste écrite, avec la raison de l'abandon.
+5. **Ajoutez** ce fichier au « Contexte » du Projet Claude, pour qu'il serve de référence aux sessions suivantes.
+
+Un exemple complet de fiche remplie se trouve en section 8.2 ; le modèle vierge est en section 16.1.
 
 ---
 
@@ -530,9 +550,16 @@ qui te paraissent ambigus.
 
 Vous **relisez le plan**, l'annotez dans VS Code, le faites corriger, puis vous l'**approuvez**. Ce plan devient la **TODO** du projet.
 
-![Claude Code en mode Plan : plan de réalisation](../images/guides/02-04_plan_todo.png)
+**Pas à pas dans VS Code** (le détail de chaque bouton est dans le guide 1, sections 7 et 8) :
 
-*Figure 4. Le plan produit à partir du document de conception.*
+1. **Ouvrez le dossier du projet** (menu **Fichier**, puis **Ouvrir le dossier…**). Il doit contenir le document de conception, par exemple `docs/conception.md`.
+2. **Ouvrez le panneau Claude Code** (icône d'étincelle) et **passez en mode Plan** : cliquez sur le nom du mode en bas à droite de la zone de saisie, puis sur **« Plan »**.
+3. **Collez le prompt 10** dans la zone de saisie et envoyez avec `Entrée`.
+4. **Attendez** le plan : il s'ouvre comme un document Markdown. Aucun fichier du projet n'a été créé ni modifié à ce stade.
+5. **Relisez-le avec une grille simple** : chaque module a-t-il un objectif, des fichiers, des tests et un critère de fin ? Les modules sont-ils dans le bon ordre, du plus indépendant au plus dépendant ? Les ambiguïtés du document de conception sont-elles signalées ?
+6. **Faites corriger** : ajoutez vos commentaires dans le plan, ou écrivez-les dans la zone de saisie.
+7. **Approuvez** le plan. Au début, choisissez la réponse « Oui, en approuvant chaque modification à la main ».
+8. **Enregistrez le plan** dans un fichier du dossier du projet (par exemple `TODO.md`) : c'est la liste des tâches que vous cocherez module après module.
 
 ### 11.2 Étape 7 : un module à la fois, avec des tests
 

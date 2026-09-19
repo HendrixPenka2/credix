@@ -600,13 +600,13 @@ Ces trois lignes confirment que le **service PDF**, **MLflow** et la **documenta
 3. **charge 150 clients de démonstration** (`demo_data/clients_demo.json`, extraits du jeu Home Credit, noms fictifs : **vous n'avez besoin d'aucun fichier Kaggle**) ;
 4. **enregistre le modèle fourni** comme version en production.
 
-**Choisissez d'abord le mot de passe de l'administrateur** (8 caractères minimum ; utilisez de préférence des lettres et des chiffres, sans guillemets ni espaces) :
+**Pour ce test, utilisez ce mot de passe simple, le même pour les trois comptes** (administrateur, agent, superviseur) : `Demo12345`. C'est un mot de passe d'exemple, sans risque sur votre propre ordinateur ; ne l'utilisez jamais sur un vrai serveur. (Vous pouvez en choisir un autre : 8 caractères minimum, de préférence des lettres et des chiffres, sans guillemets ni espaces.)
 
 ```bash
-export ADMIN_PASSWORD='MonMotDePasse2026'
+export ADMIN_PASSWORD='Demo12345'
 ```
 
-**Ce que fait cette commande :** `export` mémorise le mot de passe **uniquement pour la fenêtre de terminal courante**. Il n'est écrit dans aucun fichier. **Choisissez le vôtre et notez-le** : vous en aurez besoin pour vous connecter.
+**Ce que fait cette commande :** `export` mémorise le mot de passe **uniquement pour la fenêtre de terminal courante**. Il n'est écrit dans aucun fichier. Ce sera le mot de passe du compte `admin`.
 
 Lancez ensuite le script :
 
@@ -825,7 +825,7 @@ Ce parcours vérifie que **les trois espaces fonctionnent et communiquent**. Il 
 ### 7.1 Se connecter en administrateur
 
 1. Ouvrez <http://localhost:3001>.
-2. **Identifiant :** `admin`. **Mot de passe :** celui que vous avez choisi à l'étape 5.4.
+2. **Identifiant :** `admin`. **Mot de passe :** `Demo12345` (celui de l'étape 5.4).
 3. Cliquez sur **« Se connecter »**.
 
 **Résultat attendu :** vous arrivez sur la **Vue générale** de l'espace Administrateur, avec 4 indicateurs et le tableau des versions du modèle.
@@ -836,12 +836,12 @@ Ce parcours vérifie que **les trois espaces fonctionnent et communiquent**. Il 
 
 1. Dans le menu de gauche, cliquez sur **« Utilisateurs »**, puis sur le bouton **« Nouveau compte »**.
 2. Section **« Identité & agence »** : renseignez **Prénom**, **Nom**, **Email**, **Agence** (par exemple `Awa`, `Test`, `awa.test@example.com`, `Agence Centrale`).
-3. Section **« Compte & accès »** : choisissez le rôle **Agent**, puis un **Identifiant** (par exemple `agent.test`), un **Mot de passe** (8 caractères minimum) et sa **confirmation**.
+3. Section **« Compte & accès »** : choisissez le rôle **Agent**, puis un **Identifiant** (par exemple `agent.test`), le **Mot de passe** `Demo12345` et sa **confirmation** (la même valeur).
 4. Cliquez sur **« Créer le compte »**.
 
 **Résultat attendu :** un écran de confirmation avec l'identifiant créé.
 
-Recommencez avec le rôle **Superviseur** (identifiant `superviseur.test` par exemple). **Notez les deux mots de passe.**
+Recommencez avec le rôle **Superviseur** (identifiant `superviseur.test` par exemple, même mot de passe `Demo12345`).
 
 Puis ouvrez de nouveau **« Utilisateurs »**. **Résultat attendu :** la page indique **« 3 comptes enregistrés »** et liste les trois comptes par leur **nom et leur e-mail** (« Systeme Administrateur », « Awa Agent », « Samir Superviseur »), avec leur rôle (Admin, Agent, Superviseur) et le statut « Actif ». La liste n'affiche pas les identifiants de connexion.
 
@@ -850,7 +850,7 @@ Puis ouvrez de nouveau **« Utilisateurs »**. **Résultat attendu :** la page i
 ### 7.3 Se déconnecter, puis se connecter en agent
 
 1. En bas du menu de gauche, cliquez sur **« Déconnexion »**.
-2. Connectez-vous avec `agent.test` et son mot de passe.
+2. Connectez-vous avec `agent.test` et le mot de passe `Demo12345`.
 
 **Résultat attendu :** vous arrivez sur le **Tableau de bord** de l'espace Agent (les statistiques sont à zéro : personne n'a encore été scoré).
 
@@ -1148,7 +1148,7 @@ docker compose up -d --build
 docker compose ps
 docker compose logs --tail 60 api
 curl -s http://localhost:8080/health
-export ADMIN_PASSWORD='MonMotDePasse2026'
+export ADMIN_PASSWORD='Demo12345'
 docker compose exec -T -e ADMIN_PASSWORD="$ADMIN_PASSWORD" api python scripts/init_demo.py
 docker compose restart api
 docker compose up -d --wait --wait-timeout 240 api

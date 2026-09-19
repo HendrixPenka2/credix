@@ -30,6 +30,11 @@ L'encadrant veut vérifier **trois choses**, dans cet ordre :
 
 **Répartition indicative du temps** (à ajuster) : partie 1, environ 15 minutes ; partie 2, environ 25 minutes ; partie 3, environ 40 minutes.
 
+**Ordre conseillé.** L'installation de la partie 1 est **longue** (jusqu'à 50 minutes la première fois). On ne l'attend donc pas sans rien faire :
+
+- **Si l'encadrant a déjà installé le projet** : parties 1, 2, puis 3.
+- **Sinon** : dès les premières minutes, il lance la commande d'installation du README (section 5.2). Pendant qu'elle travaille, vous faites la **partie 2**, puis la **partie 3**. Quand l'installation est terminée, vous faites la **partie 1** (les tests).
+
 ---
 
 ## 2. Avant la séance : les préparatifs indispensables
@@ -90,6 +95,8 @@ L'encadrant veut vérifier **trois choses**, dans cet ordre :
 | 4 | Premier lancement (administrateur et données de démonstration) | README, section 5.4 |
 | 5 | Vérifier le frontend | README, section 6.4 |
 | 6 | Parcours de test : connexion, création d'un agent, scoring de `HC-100001`, dossier en revue avec `HC-100241`, journal d'audit | README, section 7 |
+
+**Comptes de test.** `admin`, `agent.test` et `superviseur.test`, tous les trois avec le mot de passe d'exemple `Demo12345` (README, sections 5.4 et 7). Ce mot de passe est sans risque : il ne sert que sur la machine de test.
 
 ### 3.2 Ce que l'encadrant doit constater
 

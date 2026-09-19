@@ -4,7 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
   french,
-  10pt,
+  11pt,
   a4paper,
 ]{article}
 \usepackage{xcolor}
@@ -68,10 +68,10 @@
 % Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
 % Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
 % (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
-% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
+% Une image absente n'est pas insérée : le texte reste, sans figure.
 \newcommand{\CredixShortTitle}{Guide 1 : outils Claude}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
-\usepackage[scaled=.92]{helvet}
+\usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{pifont}
 \usepackage{amssymb}
@@ -116,7 +116,7 @@
 \DeclareUnicodeCharacter{2466}{\ding{178}}
 \DeclareUnicodeCharacter{2467}{\ding{179}}
 \usepackage{fvextra}
-\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
 \fvset{breaklines=true,breakanywhere=true}
 \usepackage{fancyhdr}
 \usepackage{tcolorbox}
@@ -125,6 +125,8 @@
 \definecolor{credixblue}{HTML}{1F3A5F}
 \definecolor{credixgray}{HTML}{5F6B7A}
 \definecolor{boxbg}{HTML}{F3F5F8}
+\definecolor{credixaccent}{HTML}{D9822B}
+\usepackage{tikz}
 \setlength{\emergencystretch}{4em}
 \renewcommand{\arraystretch}{1.3}
 \setlength{\parindent}{0pt}
@@ -133,7 +135,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
-\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyhead[R]{\small\color{credixgray}Dossier de remise}
 \fancyfoot[C]{\small\color{credixgray}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -181,20 +183,34 @@
 
 \begin{titlepage}
 \thispagestyle{empty}
-\centering
-\vspace*{3.2cm}
-{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
-\vspace{2.2cm}
-{\Huge\bfseries\color{credixblue} Guide 1 : les outils Claude\par}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[credixblue] (current page.north west) rectangle ([yshift=-8cm]current page.north east);
+  \fill[credixaccent] ([yshift=-8cm]current page.north west) rectangle ([yshift=-8.25cm]current page.north east);
+\end{tikzpicture}
+\noindent
+{\color{white}
+\vspace*{0.3cm}
+{\large\bfseries\textsc{Projet de fin d'études}\par}
+\vspace{0.6cm}
+{\Large École Nationale Supérieure Polytechnique de Yaoundé\par}
+\vspace{0.15cm}
+{\Large Université de Yaoundé I\par}
+\vspace{0.9cm}
+{\normalsize Diplôme d'Ingénieur de Conception en Génie Informatique\par}
+{\normalsize Année académique 2025--2026\par}
+}
+\vspace{2.8cm}
+\noindent{\fontsize{28}{34}\selectfont\bfseries\color{credixblue} Guide 1 : les outils Claude\par}
+\vspace{0.6cm}
+\noindent{\Large\color{credixgray} Abonnements, sessions, mode Projet et Claude Code\par}
 \vspace{0.8cm}
-{\Large Abonnements, sessions, mode Projet et Claude Code\par}
-\vspace{2cm}
-{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
-\vspace{1.2cm}
-{\large SINGHE PENKA Hendrix Donavan\par}
-{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\noindent{\color{credixaccent}\rule{4cm}{2.5pt}\par}
 \vfill
-{\color{credixgray}\small Version du 19/09/2026\par}
+\noindent{\small\color{credixgray} Présenté par\par}
+\vspace{0.1cm}
+\noindent{\Large\bfseries SINGHE PENKA Hendrix Donavan\par}
+\vspace{0.7cm}
+\noindent{\small\color{credixgray} Version du 19/09/2026\par}
 \end{titlepage}
 
 
@@ -210,13 +226,13 @@ tout ce qu\textquotesingle il faut savoir pour commencer, même sans
 aucune expérience.}
 
 \begin{quote}
-\textbf{À propos des captures d\textquotesingle écran.} Ce guide
-contient des cadres « CAPTURE À INSÉRER », numérotés de 01-01 à 01-20.
-Chaque cadre indique ce qu\textquotesingle il faut montrer et le nom du
-fichier attendu, dans
-\texttt{docs/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}}. La
-liste complète est dans
-\texttt{docs/\allowbreak{}guides/\allowbreak{}CAPTURES\_\allowbreak{}A\_\allowbreak{}PRENDRE.\allowbreak{}md}.
+\textbf{À propos des captures d\textquotesingle écran.} Les captures
+viennent de l\textquotesingle interface \textbf{en français} de
+claude.ai et de VS Code (l\textquotesingle extension Claude Code, elle,
+s\textquotesingle affiche en anglais). Elles servent de repères : chaque
+étape est décrite dans le texte, bouton par bouton, et se suit
+\textbf{sans} l\textquotesingle image. Quand un libellé diffère
+légèrement chez vous, cherchez l\textquotesingle option de même sens.
 
 \textbf{À propos des prix et des menus.} Les prix et les noms de menus
 de Claude changent avec le temps. Ceux de ce guide ont été
@@ -275,9 +291,9 @@ On l\textquotesingle utilise de deux façons principales, complémentaires
 :
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2205}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3748}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3748}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Outil
@@ -319,23 +335,39 @@ abonnement}\label{3-cruxe9er-un-compte-et-choisir-un-abonnement}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Ouvrez un navigateur et tapez \textbf{claude.ai} dans la barre
-  d\textquotesingle adresse.
+  Ouvrez un navigateur (Chrome, Firefox\ldots), tapez \textbf{claude.ai}
+  dans la barre d\textquotesingle adresse, puis appuyez sur
+  \texttt{Entrée}.
 \item
-  Créez un compte avec votre adresse e-mail (ou un compte existant
-  proposé par la page) et confirmez-la.
+  La page d\textquotesingle accueil propose trois façons de se
+  connecter. Choisissez-en une :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    cliquez sur le bouton \textbf{« Continuer avec Google »} ;
+  \item
+    ou sur le bouton \textbf{« Continuer avec Apple »} ;
+  \item
+    ou tapez votre adresse e-mail dans le champ \textbf{« Saisissez
+    votre e-mail »}, puis cliquez sur \textbf{« Continuer par
+    l\textquotesingle e-mail »}.
+  \end{itemize}
 \item
-  Vous arrivez sur la page de discussion.
+  Avec l\textquotesingle e-mail, Claude vous envoie un message pour
+  confirmer votre adresse : ouvrez votre boîte e-mail et suivez les
+  indications du message.
+\item
+  Vous arrivez sur la page de discussion de Claude.
 \end{enumerate}
 
 % --------------------------------------------------------------------
-% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai avant la connexion
+% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai : les trois façons de se connecter
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Page d'accueil de claude.ai avant la connexion}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-01_claude_ai_accueil.png}
-  \caption{Page d\textquotesingle accueil de claude.ai.}
+  \caption{La page d\textquotesingle accueil de claude.ai et ses trois façons de se connecter.}
 \end{figure}
 
 \subsubsection{3.2 Les abonnements et leurs
@@ -351,9 +383,9 @@ Prix relevés sur les pages officielles le 19 septembre 2026 (en dollars
 américains, hors taxes) :
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1750}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3975}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3975}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2050}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3825}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3825}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Abonnement
@@ -400,14 +432,18 @@ avec un commercial à partir de 50. \\
   centralisée.
 \end{itemize}
 
+\textbf{Où voir cette page depuis votre compte ?} Cliquez sur votre
+profil, en bas à gauche, puis sur \textbf{« Mettre le forfait à niveau
+»}. La page propose deux onglets : \textbf{« Particuliers »} (Free, Pro
+et Max) et \textbf{« Team et Enterprise »}.
+
 % --------------------------------------------------------------------
-% CAPTURE : 01-02_claude_ai_tarifs.png : Page officielle des abonnements de Claude
+% CAPTURE : 01-02_claude_ai_tarifs.png : Page des forfaits de Claude
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Page officielle des abonnements de Claude}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-02_claude_ai_tarifs.png}
-  \caption{Page des abonnements (prix à vérifier au moment de l\textquotesingle achat).}
+  \caption{La page des forfaits, onglet « Particuliers » (prix à vérifier au moment de l\textquotesingle achat).}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -422,9 +458,9 @@ limites} et \textbf{deux sens du mot « session »}.
 \subsubsection{4.1 Les deux limites}\label{41-les-deux-limites}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1500}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4100}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4100}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1740}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3980}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3980}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Limite
@@ -479,24 +515,47 @@ consommation}\label{43-ouxf9-surveiller-sa-consommation}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Cliquez sur \textbf{votre profil, en bas à gauche} de claude.ai.
+  Cliquez sur \textbf{votre profil, en bas à gauche} de claude.ai :
+  c\textquotesingle est le bouton qui affiche votre prénom et votre
+  forfait (par exemple « Hendrix · Pro »). Un menu
+  s\textquotesingle ouvre.
 \item
-  Choisissez \textbf{Paramètres} (\emph{Settings}).
+  Dans ce menu, cliquez sur \textbf{« Paramètres »} (raccourci :
+  \texttt{Ctrl} + \texttt{Maj} + \texttt{,}).
 \item
-  Ouvrez l\textquotesingle onglet \textbf{Utilisation} (\emph{Usage}) :
-  vous y voyez où vous en êtes dans la session en cours, dans la limite
-  hebdomadaire, et l\textquotesingle heure de la prochaine remise à
-  zéro.
+  Dans la colonne de gauche de la fenêtre qui s\textquotesingle ouvre,
+  cliquez sur \textbf{« Utilisation »}.
+\item
+  Lisez les trois blocs de la page :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{« Session actuelle »} : une barre indique la part déjà
+    utilisée (par exemple « 63 \% utilisés ») et le temps avant la
+    remise à zéro (par exemple « Réinitialisation dans 2 h 16 min ») ;
+  \item
+    \textbf{« Limites hebdomadaires »}, ligne \textbf{« Tous les modèles
+    »} : la même chose pour la semaine, avec le jour et
+    l\textquotesingle heure de la remise à zéro ;
+  \item
+    \textbf{« Crédits d\textquotesingle utilisation »} : un interrupteur
+    pour continuer à utiliser Claude quand la limite du forfait est
+    atteinte. Des frais peuvent s\textquotesingle appliquer : laissez-le
+    désactivé tant que vous n\textquotesingle avez pas vérifié.
+  \end{itemize}
+\item
+  La ligne \textbf{« Dernière mise à jour »} indique quand ces chiffres
+  ont été rafraîchis ; le petit bouton rond à côté les met à jour.
 \end{enumerate}
 
 % --------------------------------------------------------------------
-% CAPTURE : 01-03_menu_profil.png : Menu du profil en bas à gauche
+% CAPTURE : 01-03_menu_profil.png : Menu du profil, en bas à gauche
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Menu du profil en bas à gauche}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-03_menu_profil.png}
-  \caption{Le menu du profil, en bas à gauche.}
+  \includegraphics[width=2.84in,height=0.75\textheight,keepaspectratio]{../images/guides/01-03_menu_profil.png}
+  \caption{Le menu du profil : l\textquotesingle entrée « Paramètres » ouvre la fenêtre des réglages.}
 \end{figure}
 
 % --------------------------------------------------------------------
@@ -504,9 +563,8 @@ consommation}\label{43-ouxf9-surveiller-sa-consommation}
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Page Paramètres, onglet Utilisation}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-04_parametres_utilisation.png}
-  \caption{L\textquotesingle onglet Utilisation : barres de la session en cours et de la limite hebdomadaire.}
+  \caption{L\textquotesingle onglet « Utilisation » : session actuelle et limites hebdomadaires.}
 \end{figure}
 
 \subsubsection{4.4 Comment consommer
@@ -559,47 +617,94 @@ conversation}\label{51-une-premiuxe8re-conversation}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Sur claude.ai, cliquez sur \textbf{Nouveau chat} (en haut à gauche).
+  Sur claude.ai, cliquez sur le bouton \textbf{« + Nouveau »}, en haut
+  de la colonne de gauche.
 \item
-  Écrivez votre demande dans la zone de saisie en bas, puis validez.
+  Cliquez dans la zone de saisie (« Comment puis-je vous aider
+  aujourd\textquotesingle hui ? » sur l\textquotesingle écran
+  d\textquotesingle accueil, « Écrivez un message\ldots{} » dans une
+  conversation) et tapez votre demande.
 \item
-  Vous pouvez \textbf{joindre des fichiers} (documents PDF, texte,
-  images, tableaux) avec le bouton de pièce jointe.
+  Appuyez sur \texttt{Entrée} pour l\textquotesingle envoyer.
+  \texttt{Maj} + \texttt{Entrée} passe à la ligne sans envoyer.
+\item
+  Pour \textbf{joindre un fichier} : cliquez sur le bouton \textbf{« +
+  »} à gauche de la zone de saisie, puis sur \textbf{« Ajouter des
+  fichiers ou des photos »} (raccourci \texttt{Ctrl} + \texttt{U}), et
+  choisissez le fichier (PDF, texte, image, tableau) dans la fenêtre qui
+  s\textquotesingle ouvre.
 \end{enumerate}
 
+Sur l\textquotesingle écran d\textquotesingle accueil, deux repères
+utiles : le sélecteur \textbf{« Chat / Cowork »} sous la zone de saisie
+(restez sur \textbf{« Chat »}) et, plus bas, la liste de vos
+conversations passées : \textbf{« Épinglés »} puis \textbf{« Récents »}.
+À droite de la zone de saisie, le nom du modèle est suivi
+d\textquotesingle un niveau (par exemple « Sonnet 5 Élevé »).
+
 % --------------------------------------------------------------------
-% CAPTURE : 01-05_nouveau_chat.png : Une nouvelle conversation dans claude.ai
+% CAPTURE : 01-05_nouveau_chat.png : Le bouton Nouveau
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Une nouvelle conversation dans claude.ai}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-05_nouveau_chat.png}
-  \caption{Une conversation dans claude.ai.}
+  \includegraphics[width=1.51in,height=0.75\textheight,keepaspectratio]{../images/guides/01-05_nouveau_chat.png}
+  \caption{Le bouton « + Nouveau » ouvre une nouvelle conversation.}
+\end{figure}
+
+% --------------------------------------------------------------------
+% CAPTURE : 01-11_conversation_projet.png : L'écran d'accueil de claude.ai
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-11_conversation_projet.png}
+  \caption{L\textquotesingle écran d\textquotesingle accueil : zone de saisie, sélecteur « Chat / Cowork », modèle utilisé et conversations récentes.}
 \end{figure}
 
 \textbf{Exemples de demandes utiles :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Explique-moi en termes simples la différence entre un score de crédit
 et une probabilité de défaut.
 \end{Verbatim}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Voici un article scientifique en PDF. Résume-le en dix lignes et dis-moi
 en quoi il concerne le choix d'une méthode de sélection de variables.
 \end{Verbatim}
 
-\subsubsection{5.2 Les trois outils de
-réflexion}\label{52-les-trois-outils-de-ruxe9flexion}
+\subsubsection{5.2 Les outils de recherche et de
+réflexion}\label{52-les-outils-de-recherche-et-de-ruxe9flexion}
 
-Dans la zone de saisie, un menu d\textquotesingle outils permet
-d\textquotesingle activer des fonctions qui changent la façon dont
-Claude répond :
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cliquez sur le bouton \textbf{« + »} à gauche de la zone de saisie. Un
+  menu s\textquotesingle ouvre, avec notamment : « Ajouter des fichiers
+  ou des photos », « Prendre une capture d\textquotesingle écran », «
+  Ajouter au projet », « Compétences », « Connecteurs », « Système de
+  design », « Ajouter des plugins », \textbf{« Recherche »} et \textbf{«
+  Recherche web »}.
+\item
+  Cliquez sur \textbf{« Recherche web »} pour l\textquotesingle activer
+  ou la désactiver : une \textbf{coche bleue} apparaît en face quand
+  elle est active.
+\item
+  Cliquez sur \textbf{« Recherche »} pour demander une recherche
+  approfondie (selon votre abonnement et votre pays, cette option peut
+  varier : vérifiez dans votre menu).
+\item
+  Pour la réflexion, regardez à droite de la zone de saisie : le nom du
+  modèle est suivi d\textquotesingle un niveau (par exemple « Sonnet 5
+  Élevé »). Ce niveau règle l\textquotesingle effort de réflexion : plus
+  il est haut, plus Claude réfléchit longtemps, et plus la réponse
+  consomme.
+\end{enumerate}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3076}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3312}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3312}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Outil
@@ -612,30 +717,29 @@ En bref
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{Recherche sur le web} & Une question factuelle, une information
-récente & Claude fait une ou deux recherches et répond \\
-\textbf{Réflexion étendue} & Un raisonnement difficile, sans besoin
-d\textquotesingle Internet : mathématiques, déboguer du code, comparer
-des choix & Claude réfléchit plus longtemps avant de répondre \\
-\textbf{Recherche approfondie} (\emph{Research}) & Un vrai travail de
-recherche : état de l\textquotesingle art, comparaison de méthodes &
-Claude enchaîne au moins cinq recherches pendant une à trois minutes et
-rédige un \textbf{rapport avec des citations} vers ses sources \\
+\textbf{Recherche web} & Une question factuelle, une information récente
+& Claude fait une ou deux recherches et répond \\
+\textbf{Réflexion étendue} (niveau de réflexion du modèle) & Un
+raisonnement difficile, sans besoin d\textquotesingle Internet :
+mathématiques, déboguer du code, comparer des choix & Claude réfléchit
+plus longtemps avant de répondre \\
+\textbf{Recherche approfondie} (\emph{Research}, entrée « Recherche » du
+menu) & Un vrai travail de recherche : état de l\textquotesingle art,
+comparaison de méthodes & Claude enchaîne au moins cinq recherches
+pendant une à trois minutes et rédige un \textbf{rapport avec des
+citations} vers ses sources \\
 \end{longtable}
 
 La recherche approfondie est \textbf{très utile pour la partie «
-littérature »} d\textquotesingle un projet (guide 2). Sa disponibilité
-dépend de votre abonnement et de votre pays : vérifiez dans le menu
-d\textquotesingle outils de votre compte.
+littérature »} d\textquotesingle un projet (guide 2).
 
 % --------------------------------------------------------------------
-% CAPTURE : 01-06_outils_recherche.png : Menu d'outils de la zone de saisie
+% CAPTURE : 01-06_outils_recherche.png : Le menu « + » de la zone de saisie
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Menu d'outils de la zone de saisie}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-06_outils_recherche.png}
-  \caption{Les outils de la zone de saisie (recherche web, réflexion étendue, recherche approfondie).}
+  \includegraphics[width=3.86in,height=0.75\textheight,keepaspectratio]{../images/guides/01-06_outils_recherche.png}
+  \caption{Le menu « + » : joindre des fichiers, ajouter au projet, « Recherche » et « Recherche web » (coche bleue quand elle est active).}
 \end{figure}
 
 \begin{quote}
@@ -658,9 +762,9 @@ que ce qui s\textquotesingle y dit. Un \textbf{Projet} est un
 documents partagés.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2125}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2525}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5050}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2515}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2395}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4790}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -699,17 +803,36 @@ pas}\label{62-cruxe9er-un-projet-pas-uxe0-pas}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Dans le menu de gauche de claude.ai, ouvrez \textbf{Projets}.
+  Dans la colonne de gauche de claude.ai, cliquez sur \textbf{« Projets
+  »}. La page \textbf{« Projets »} s\textquotesingle ouvre : chaque
+  projet y est une carte avec son nom et la date de sa dernière
+  activité.
 \item
-  Cliquez sur \textbf{Nouveau projet}, donnez un \textbf{nom} (par
-  exemple « CREDIX »), puis une courte \textbf{description}.
+  Cliquez sur le bouton \textbf{« Nouveau projet »}, en haut à droite de
+  la page.
 \item
-  Ouvrez les \textbf{instructions du projet} et rédigez les consignes
-  qui s\textquotesingle appliqueront à toutes les conversations.
+  La fenêtre \textbf{« Créer un projet »} s\textquotesingle ouvre :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    dans le champ \textbf{« Sur quoi travaillez-vous ? »} (« Nommez
+    votre projet »), tapez le nom, par exemple \texttt{CREDIX} ;
+  \item
+    dans le champ \textbf{« Qu\textquotesingle essayez-vous de faire ?
+    »}, décrivez le projet, ses objectifs, son sujet.
+  \end{itemize}
 \item
-  Dans la base de connaissances, \textbf{ajoutez vos fichiers}.
+  Cliquez sur \textbf{« Créer un projet »} (ou sur « Annuler » pour
+  abandonner).
 \item
-  Démarrez une conversation \textbf{à l\textquotesingle intérieur} du
+  La page du projet s\textquotesingle ouvre avec trois zones : \textbf{«
+  Instructions »}, \textbf{« Contexte »} et \textbf{« Programmé »}. Les
+  deux premières servent aux sections 6.3 et 6.4 ; « Programmé » (tâches
+  récurrentes) ne sert pas ici.
+\item
+  Démarrez ensuite une conversation \textbf{à
+  l\textquotesingle intérieur} du projet, avec la zone de saisie du
   projet.
 \end{enumerate}
 
@@ -718,9 +841,8 @@ pas}\label{62-cruxe9er-un-projet-pas-uxe0-pas}
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Liste des projets et bouton Nouveau projet}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-07_liste_projets.png}
-  \caption{La liste des projets.}
+  \caption{La page « Projets » et son bouton « Nouveau projet ».}
 \end{figure}
 
 % --------------------------------------------------------------------
@@ -728,9 +850,8 @@ pas}\label{62-cruxe9er-un-projet-pas-uxe0-pas}
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Création d'un projet : nom et description}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-08_creation_projet.png}
-  \caption{Création d\textquotesingle un projet.}
+  \includegraphics[width=5.56in,height=0.75\textheight,keepaspectratio]{../images/guides/01-08_creation_projet.png}
+  \caption{La fenêtre « Créer un projet » : le nom, puis la description.}
 \end{figure}
 
 \subsubsection{6.3 Bien écrire les instructions du
@@ -739,7 +860,7 @@ projet}\label{63-bien-uxe9crire-les-instructions-du-projet}
 Les instructions décrivent \textbf{qui est Claude dans ce projet et
 comment il doit travailler}. Exemple utilisé pour CREDIX, à adapter :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Tu es mon assistant de conception pour un mémoire d'ingénieur sur un système
 de scoring de crédit.
 
@@ -756,18 +877,23 @@ Règles de travail :
    ce qui a été fait, ce qui a été décidé, ce qui reste à faire.
 \end{Verbatim}
 
+\textbf{Où saisir ces instructions ?} Dans la page du projet, cliquez
+sur le bouton \textbf{« + »} à droite de \textbf{« Instructions »} (le
+texte grisé indique « Ajoutez des instructions pour personnaliser les
+réponses de Claude »). Collez le texte, puis validez.
+
 % --------------------------------------------------------------------
-% CAPTURE : 01-09_instructions_projet.png : Instructions du projet
+% CAPTURE : 01-09_instructions_projet.png : Panneau d'un projet neuf
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Instructions du projet}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-09_instructions_projet.png}
-  \caption{Les instructions du projet.}
+  \includegraphics[width=4.07in,height=0.75\textheight,keepaspectratio]{../images/guides/01-09_instructions_projet.png}
+  \caption{Le panneau d\textquotesingle un projet neuf : « Instructions », « Contexte » et « Programmé ».}
 \end{figure}
 
-\subsubsection{6.4 Que mettre dans la base de connaissances
-?}\label{64-que-mettre-dans-la-base-de-connaissances-}
+\subsubsection{6.4 Que mettre dans la base de connaissances (le «
+Contexte »)
+?}\label{64-que-mettre-dans-la-base-de-connaissances-le--contexte--}
 
 \begin{itemize}
 \tightlist
@@ -792,24 +918,25 @@ Pour CREDIX, la première séance de travail a justement consisté à
 à rédiger les instructions du projet, avant de poser la moindre question
 de fond.
 
-% --------------------------------------------------------------------
-% CAPTURE : 01-10_ajout_fichiers.png : Ajout de fichiers à la base de connaissances
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Ajout de fichiers à la base de connaissances}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-10_ajout_fichiers.png}
-  \caption{Ajout de fichiers à la base de connaissances du projet.}
-\end{figure}
+\textbf{Comment ajouter des fichiers ?} Dans la page du projet, cliquez
+sur le bouton \textbf{« + »} à droite de \textbf{« Contexte »} (le texte
+indique « Ajoutez des PDF, des documents ou d\textquotesingle autres
+textes à référencer dans ce projet »), puis choisissez vos fichiers sur
+l\textquotesingle ordinateur. Chaque fichier apparaît sous la forme
+d\textquotesingle une carte avec son nom, sa taille et son type (TXT,
+MD, PDF\ldots). Une \textbf{barre de capacité} indique la part déjà
+utilisée (par exemple « 58 \% de la capacité du projet utilisée ») ;
+quand le contenu devient volumineux, le \textbf{« Mode de recherche »}
+s\textquotesingle active : Claude cherche alors les passages utiles au
+lieu de tout relire.
 
 % --------------------------------------------------------------------
-% CAPTURE : 01-11_conversation_projet.png : Une conversation dans un projet
+% CAPTURE : 01-10_ajout_fichiers.png : Le contexte d'un projet : fichiers ajoutés et barre de capacité
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Une conversation dans un projet}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-11_conversation_projet.png}
-  \caption{Une conversation à l\textquotesingle intérieur d\textquotesingle un projet : les documents du projet sont disponibles.}
+  \includegraphics[width=4.06in,height=0.75\textheight,keepaspectratio]{../images/guides/01-10_ajout_fichiers.png}
+  \caption{Le « Contexte » d\textquotesingle un projet : les fichiers ajoutés, la barre de capacité et le mode de recherche.}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -853,76 +980,113 @@ Code}\label{73-installer-lextension-dans-vs-code}
   Ouvrez \textbf{VS Code}.
 \item
   Ouvrez la vue des \textbf{extensions} : cliquez sur
-  l\textquotesingle icône des extensions dans la barre latérale gauche,
-  ou tapez \texttt{Ctrl} + \texttt{Maj} + \texttt{X} (sur Mac :
-  \texttt{Cmd} + \texttt{Maj} + \texttt{X}).
+  l\textquotesingle icône des extensions dans la barre verticale de
+  gauche (quatre carrés, dont un détaché), ou tapez \texttt{Ctrl} +
+  \texttt{Maj} + \texttt{X} (sur Mac : \texttt{Cmd} + \texttt{Maj} +
+  \texttt{X}). Le panneau \textbf{« EXTENSIONS: MARKETPLACE »}
+  s\textquotesingle ouvre.
 \item
-  Dans la barre de recherche, tapez \textbf{Claude Code}.
+  Cliquez dans la barre de recherche du panneau et tapez \textbf{claude
+  code}.
 \item
-  Repérez l\textquotesingle extension \textbf{officielle publiée par
-  Anthropic} (elle porte le \textbf{badge bleu de vérification}) et
-  cliquez sur \textbf{Installer}.
+  Dans la liste des résultats, repérez l\textquotesingle extension
+  \textbf{« Claude Code for VS Code »}. Son éditeur est
+  \textbf{Anthropic}, avec un \textbf{badge bleu de vérification} à côté
+  du nom. Attention : la liste contient aussi des extensions
+  d\textquotesingle autres éditeurs, au nom presque identique (par
+  exemple « Chat for Claude Code » ou « Claude Code Assistant for VSCode
+  »). \textbf{Ne choisissez pas celles-là.}
 \item
-  Si VS Code le demande, \textbf{redémarrez-le}.
+  Cliquez sur l\textquotesingle extension officielle pour ouvrir sa
+  page, puis sur le bouton bleu \textbf{« Install »} (« Installer »).
+\item
+  Attendez la fin de l\textquotesingle installation. Si le message
+  \textbf{« Restart Required »} (redémarrage requis)
+  s\textquotesingle affiche à côté du nom de
+  l\textquotesingle extension, redémarrez VS Code : fermez-le puis
+  rouvrez-le.
+\item
+  Pour vérifier : l\textquotesingle extension figure dans la liste des
+  extensions installées, et une \textbf{icône
+  d\textquotesingle étincelle} apparaît dans VS Code (section 7.4).
 \end{enumerate}
 
 % --------------------------------------------------------------------
-% CAPTURE : 01-12_vscode_recherche_extension.png : Recherche « Claude Code » dans les extensions de VS Code
+% CAPTURE : 01-12_vscode_recherche_extension.png : Recherche « claude code » dans les extensions de VS Code
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Recherche « Claude Code » dans les extensions de VS Code}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-12_vscode_recherche_extension.png}
-  \caption{Recherche de l\textquotesingle extension dans VS Code.}
-\end{figure}
-
-% --------------------------------------------------------------------
-% CAPTURE : 01-13_vscode_installer.png : Page de l'extension officielle avec le bouton Installer
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Page de l'extension officielle avec le bouton Installer}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-13_vscode_installer.png}
-  \caption{L\textquotesingle extension officielle (badge de vérification) et le bouton Installer.}
+  \includegraphics[width=4.97in,height=0.75\textheight,keepaspectratio]{../images/guides/01-12_vscode_recherche_extension.png}
+  \caption{Recherche « claude code » : l\textquotesingle extension officielle a pour éditeur Anthropic et un badge bleu ; les autres viennent d\textquotesingle autres éditeurs.}
 \end{figure}
 
 \subsubsection{7.4 Ouvrir Claude Code et se
 connecter}\label{74-ouvrir-claude-code-et-se-connecter}
 
-Une fois installée, l\textquotesingle extension est signalée par une
-\textbf{icône en forme d\textquotesingle étincelle}. Trois façons de
-l\textquotesingle ouvrir :
+\textbf{Ouvrir le panneau.} Trois façons, au choix :
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  cliquer sur l\textquotesingle{}\textbf{icône
-  d\textquotesingle étincelle en haut à droite de
-  l\textquotesingle éditeur} (elle n\textquotesingle apparaît que
-  lorsqu\textquotesingle un fichier est ouvert) ;
+  \textbf{Depuis l\textquotesingle éditeur.} Ouvrez
+  d\textquotesingle abord un fichier de votre projet
+  (l\textquotesingle icône n\textquotesingle apparaît que
+  lorsqu\textquotesingle un fichier est ouvert), puis cliquez sur
+  l\textquotesingle{}\textbf{icône d\textquotesingle étincelle}, en haut
+  à droite de l\textquotesingle éditeur.
 \item
-  cliquer sur l\textquotesingle{}\textbf{icône
-  d\textquotesingle étincelle dans la barre d\textquotesingle activité}
-  (barre latérale de gauche), qui ouvre la liste des sessions ;
+  \textbf{Depuis la barre d\textquotesingle activité} (la barre
+  verticale de gauche) : cliquez sur l\textquotesingle icône
+  d\textquotesingle étincelle, qui ouvre la liste de vos sessions.
 \item
-  ouvrir la \textbf{palette de commandes} (\texttt{Ctrl} + \texttt{Maj}
-  + \texttt{P}), taper « Claude Code » et choisir \textbf{Open in New
-  Tab} (raccourci : \texttt{Ctrl} + \texttt{Maj} + \texttt{Échap}).
-\end{itemize}
+  \textbf{Depuis la palette de commandes} : tapez \texttt{Ctrl} +
+  \texttt{Maj} + \texttt{P}, écrivez « Claude Code » et choisissez
+  \textbf{« Open in New Tab »} (raccourci : \texttt{Ctrl} + \texttt{Maj}
+  + \texttt{Échap}).
+\end{enumerate}
 
-Au premier lancement, l\textquotesingle extension demande de
-\textbf{vous connecter} : elle ouvre votre navigateur, vous acceptez, et
-vous revenez dans VS Code. Sélectionnez le compte lié à votre
-\textbf{abonnement Claude}.
+Le panneau \textbf{« Claude Code »} s\textquotesingle ouvre dans un
+onglet de l\textquotesingle éditeur.
+
+\textbf{Se connecter (au premier lancement seulement).}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Le panneau vous demande de vous connecter : cliquez sur le bouton de
+  connexion proposé.
+\item
+  Votre \textbf{navigateur} s\textquotesingle ouvre sur une page de
+  claude.ai. Vérifiez que c\textquotesingle est bien le compte qui
+  possède l\textquotesingle abonnement payant, puis autorisez
+  l\textquotesingle accès avec le bouton de la page.
+\item
+  Revenez dans \textbf{VS Code} : le panneau affiche maintenant la zone
+  de saisie. Vous êtes connecté.
+\end{enumerate}
+
+\textbf{Lire le panneau.} L\textquotesingle extension
+s\textquotesingle affiche \textbf{en anglais}. De haut en bas : le titre
+« Claude Code » ; au milieu, parfois un petit guide « Learn Claude Code
+» (une liste d\textquotesingle étapes) et des messages
+d\textquotesingle information, par exemple « Auto mode is enabled », que
+l\textquotesingle on ferme avec la croix ; en bas, la \textbf{zone de
+saisie}. Sous elle se trouvent, de gauche à droite : le bouton \textbf{«
++ »} (joindre un élément), le bouton \textbf{« / »} (commandes), le
+\textbf{nom du modèle} avec son niveau d\textquotesingle effort (par
+exemple « Sonnet 5 Extra high »), puis, à droite, le \textbf{mode en
+cours} (par exemple « Auto ») et le \textbf{bouton
+d\textquotesingle envoi} (une flèche).
 
 % --------------------------------------------------------------------
-% CAPTURE : 01-14_vscode_icone_etincelle.png : L'icône d'étincelle de Claude Code dans VS Code
+% CAPTURE : 01-14_vscode_icone_etincelle.png : L'icône d'étincelle de Claude Code
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{L'icône d'étincelle de Claude Code dans VS Code}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-14_vscode_icone_etincelle.png}
-  \caption{L\textquotesingle icône d\textquotesingle étincelle : barre d\textquotesingle outils de l\textquotesingle éditeur et barre d\textquotesingle activité.}
+  \includegraphics[width=2.90in,height=0.75\textheight,keepaspectratio]{../images/guides/01-14_vscode_icone_etincelle.png}
+  \caption{L\textquotesingle icône d\textquotesingle étincelle, à l\textquotesingle extrémité de la barre d\textquotesingle outils de l\textquotesingle éditeur.}
 \end{figure}
 
 % --------------------------------------------------------------------
@@ -930,19 +1094,8 @@ vous revenez dans VS Code. Sélectionnez le compte lié à votre
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Panneau Claude Code ouvert dans VS Code}%
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-15_vscode_panneau_ouvert.png}
-  \caption{Le panneau Claude Code, à sa première ouverture.}
-\end{figure}
-
-% --------------------------------------------------------------------
-% CAPTURE : 01-16_connexion_navigateur.png : Fenêtre de connexion dans le navigateur
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Fenêtre de connexion dans le navigateur}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-16_connexion_navigateur.png}
-  \caption{La connexion dans le navigateur.}
+  \caption{Le panneau Claude Code : messages d\textquotesingle accueil, puis zone de saisie et réglages en bas.}
 \end{figure}
 
 \begin{quote}
@@ -950,7 +1103,7 @@ vous revenez dans VS Code. Sélectionnez le compte lié à votre
 s\textquotesingle installe aussi dans un terminal. Sous Linux, macOS ou
 WSL :
 \texttt{curl\ -fsSL\ https://claude.ai/install.sh\ \textbar{}\ bash}.
-Puis \texttt{claude\ -\/-version} vérifie
+Puis \texttt{claude\ -\allowbreak{}-\allowbreak{}version} vérifie
 l\textquotesingle installation, et la commande \texttt{claude}, tapée
 dans le dossier d\textquotesingle un projet, démarre
 l\textquotesingle assistant (connexion au premier lancement).
@@ -963,29 +1116,44 @@ utilisation}\label{75-premiuxe8re-utilisation}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Ouvrez le dossier de votre projet} dans VS Code (menu
-  \emph{Fichier}, puis \emph{Ouvrir le dossier}).
+  \textbf{Ouvrez le dossier de votre projet} : menu \textbf{« Fichier »}
+  (\emph{File}), puis \textbf{« Ouvrir le dossier\ldots{} »} (\emph{Open
+  Folder\ldots{}}) ; choisissez le dossier et validez. Son contenu
+  apparaît dans la colonne de gauche de VS Code.
 \item
-  Ouvrez Claude Code et posez une première question :
+  \textbf{Ouvrez le panneau Claude Code} en cliquant sur
+  l\textquotesingle icône d\textquotesingle étincelle (section 7.4).
+\item
+  \textbf{Cliquez dans la zone de saisie}, en bas du panneau, et tapez
+  une première question :
 \end{enumerate}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Que fait ce projet ? Explique-moi son organisation en quelques lignes.
 \end{Verbatim}
 
-Claude lit les fichiers dont il a besoin : vous n\textquotesingle avez
-pas à les lui fournir un par un. Vous pouvez aussi lui désigner un
-fichier précis avec le symbole \texttt{@} suivi du nom du fichier.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{Envoyez} avec la touche \texttt{Entrée}, ou avec le bouton en
+  forme de flèche à droite de la zone de saisie.
+\item
+  \textbf{Suivez le travail de Claude} : le panneau affiche ce
+  qu\textquotesingle il fait au fur et à mesure (par exemple la lecture
+  de fichiers), puis sa réponse rédigée. Selon le mode choisi (section
+  8), il peut vous demander une autorisation avant une action : lisez la
+  demande, puis acceptez ou refusez.
+\item
+  \textbf{Continuez la conversation} en écrivant dans la même zone de
+  saisie.
+\end{enumerate}
 
-% --------------------------------------------------------------------
-% CAPTURE : 01-17_premiere_question.png : Première question posée à Claude Code
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Première question posée à Claude Code}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-17_premiere_question.png}
-  \caption{Une première question à Claude Code.}
-\end{figure}
+Claude lit les fichiers dont il a besoin : vous n\textquotesingle avez
+pas à les lui fournir un par un. Pour lui désigner un fichier précis,
+tapez le symbole \texttt{@} suivi du début du nom du fichier, puis
+choisissez-le dans la liste qui s\textquotesingle affiche.
 
 \textbf{Quelques commandes utiles}, à taper dans la zone de saisie :
 
@@ -1038,14 +1206,31 @@ permission}\label{81-les-modes-de-permission}
 
 Claude Code peut lire, modifier des fichiers et lancer des commandes. Le
 \textbf{mode de permission} règle ce qu\textquotesingle il peut faire
-\textbf{sans vous demander}. On le change en cliquant sur
-l\textquotesingle{}\textbf{indicateur de mode}, en bas de la zone de
-saisie (dans le terminal : touches \texttt{Maj} + \texttt{Tab}).
+\textbf{sans vous demander}. Pour le changer :
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  repérez le \textbf{nom du mode en cours}, en bas à droite de la zone
+  de saisie (par exemple « Auto ») ;
+\item
+  cliquez dessus : la liste \textbf{« Modes »} s\textquotesingle ouvre,
+  avec pour chaque mode une courte description ;
+\item
+  cliquez sur le mode voulu. Sous la liste, un curseur \textbf{« Effort
+  »} règle l\textquotesingle effort de réflexion de Claude.
+\end{enumerate}
+
+Raccourci : \texttt{Maj} + \texttt{Tab} passe au mode suivant (dans le
+terminal aussi). Dans l\textquotesingle extension, les modes
+s\textquotesingle affichent \textbf{en anglais} : \emph{Manual},
+\emph{Edit automatically}, \emph{Plan} et \emph{Auto}.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2875}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4083}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2742}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3445}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3742}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2513}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mode
@@ -1078,13 +1263,12 @@ Sur les abonnements Pro, Max et Team, le mode de départ est
 de l\textquotesingle extension.
 
 % --------------------------------------------------------------------
-% CAPTURE : 01-18_modes_permission.png : Indicateur de mode et liste des modes
+% CAPTURE : 01-18_modes_permission.png : La liste des modes
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Indicateur de mode et liste des modes}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-18_modes_permission.png}
-  \caption{L\textquotesingle indicateur de mode, en bas de la zone de saisie.}
+  \includegraphics[width=5.32in,height=0.75\textheight,keepaspectratio]{../images/guides/01-18_modes_permission.png}
+  \caption{La liste « Modes » : Manual, Edit automatically, Plan, Auto, et le curseur « Effort ».}
 \end{figure}
 
 \subsubsection{8.2 Le mode Plan : réfléchir avant
@@ -1106,26 +1290,38 @@ C\textquotesingle est le mode à utiliser :
   valide.
 \end{itemize}
 
-\textbf{Comment l\textquotesingle utiliser :}
+\textbf{Pas à pas :}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Passez en mode \textbf{Plan} (indicateur de mode) ou commencez votre
-  demande par \texttt{/plan}.
+  \textbf{Passez en mode Plan.} Cliquez sur le nom du mode en cours (en
+  bas à droite de la zone de saisie), puis sur \textbf{« Plan »} dans la
+  liste. Autres façons : taper \texttt{/plan} au début de votre demande,
+  ou appuyer sur \texttt{Maj} + \texttt{Tab} jusqu\textquotesingle à ce
+  que « Plan » s\textquotesingle affiche. Vérifiez que le nom du mode
+  indiqué est bien \textbf{« Plan »}.
 \item
-  Donnez votre demande. Par exemple : « Lis le document
-  docs/guides/03\_conception\_MVP.md et propose un plan de réalisation,
-  module par module. »
+  \textbf{Écrivez votre demande} dans la zone de saisie, par exemple : «
+  Lis le document docs/guides/03\_conception\_MVP.md et propose un plan
+  de réalisation, module par module. » Envoyez avec \texttt{Entrée}.
 \item
-  Claude explore, puis \textbf{présente son plan}. Dans VS Code, le plan
-  s\textquotesingle ouvre comme un \textbf{document Markdown} où vous
-  pouvez \textbf{ajouter des commentaires} pour demander des
-  corrections.
+  \textbf{Attendez.} Claude lit les fichiers et réfléchit. À ce stade,
+  \textbf{aucun fichier n\textquotesingle est créé ni modifié}.
 \item
-  Quand le plan vous convient, \textbf{approuvez-le}. Trois réponses
-  sont proposées :
+  \textbf{Lisez le plan.} Il s\textquotesingle ouvre comme un
+  \textbf{document Markdown} dans VS Code : un titre, des parties, une
+  liste d\textquotesingle étapes. Lisez-le en entier, comme vous relirez
+  un document de conception.
+\item
+  \textbf{Faites corriger si besoin.} Vous pouvez ajouter des
+  commentaires dans le plan, à côté des passages à corriger, comme dans
+  une relecture. Sinon, écrivez vos remarques dans la zone de saisie :
+  Claude révise le plan.
+\item
+  \textbf{Approuvez quand le plan vous convient.} Trois réponses sont
+  proposées :
 
   \begin{itemize}
   \tightlist
@@ -1134,32 +1330,17 @@ C\textquotesingle est le mode à utiliser :
     minimum d\textquotesingle interruptions ;
   \item
     \textbf{Oui, en approuvant chaque modification à la main}
-    (recommandé au début) ;
+    (recommandé au début) : Claude demande votre accord avant chaque
+    changement ;
   \item
     \textbf{Non, continuer à planifier} : on reste en mode Plan et on
     précise ce qu\textquotesingle il faut changer.
   \end{itemize}
+\item
+  \textbf{Gardez le plan.} Une fois validé, il sert de \textbf{liste des
+  tâches (TODO)} du projet : copiez-le dans un fichier du dossier du
+  projet (guide 2, section 11.1).
 \end{enumerate}
-
-% --------------------------------------------------------------------
-% CAPTURE : 01-19_mode_plan_document.png : Un plan proposé par Claude Code en mode Plan
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Un plan proposé par Claude Code en mode Plan}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-19_mode_plan_document.png}
-  \caption{Le plan affiché comme un document Markdown commentable.}
-\end{figure}
-
-% --------------------------------------------------------------------
-% CAPTURE : 01-20_mode_plan_approbation.png : Options d'approbation du plan
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Options d'approbation du plan}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-20_mode_plan_approbation.png}
-  \caption{Les options d\textquotesingle approbation du plan.}
-\end{figure}
 
 \begin{quote}
 \textbf{Règle pratique.} Un travail qui touche plusieurs fichiers
@@ -1223,8 +1404,8 @@ officielles}\label{10-glossaire-et-sources-officielles}
 \subsubsection{10.1 Glossaire}\label{101-glossaire}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2238}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7462}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2515}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7185}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Terme

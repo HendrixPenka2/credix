@@ -19,24 +19,38 @@ fi
 mkdir -p "$TEXDIR"; TEXDIR="$(cd "$TEXDIR" && pwd)"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 DATE="$(date +'%d/%m/%Y')"
-# Page de garde
+# Page de garde : bandeau bleu (établissement), titre, sous-titre, auteur
 cat > "$TMP/cover.tex" <<COVER
 \\begin{titlepage}
 \\thispagestyle{empty}
-\\centering
-\\vspace*{3.2cm}
-{\\color{credixgray}\\large\\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\\par}
-\\vspace{2.2cm}
-{\\Huge\\bfseries\\color{credixblue} ${TITRE}\\par}
+\\begin{tikzpicture}[remember picture,overlay]
+  \\fill[credixblue] (current page.north west) rectangle ([yshift=-8cm]current page.north east);
+  \\fill[credixaccent] ([yshift=-8cm]current page.north west) rectangle ([yshift=-8.25cm]current page.north east);
+\\end{tikzpicture}
+\\noindent
+{\\color{white}
+\\vspace*{0.3cm}
+{\\large\\bfseries\\textsc{Projet de fin d'études}\\par}
+\\vspace{0.6cm}
+{\\Large École Nationale Supérieure Polytechnique de Yaoundé\\par}
+\\vspace{0.15cm}
+{\\Large Université de Yaoundé I\\par}
+\\vspace{0.9cm}
+{\\normalsize Diplôme d'Ingénieur de Conception en Génie Informatique\\par}
+{\\normalsize Année académique 2025--2026\\par}
+}
+\\vspace{2.8cm}
+\\noindent{\\fontsize{28}{34}\\selectfont\\bfseries\\color{credixblue} ${TITRE}\\par}
+\\vspace{0.6cm}
+\\noindent{\\Large\\color{credixgray} ${SOUS}\\par}
 \\vspace{0.8cm}
-{\\Large ${SOUS}\\par}
-\\vspace{2cm}
-{\\color{credixblue}\\rule{0.5\\linewidth}{0.8pt}\\par}
-\\vspace{1.2cm}
-{\\large SINGHE PENKA Hendrix Donavan\\par}
-{\\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\\par}
+\\noindent{\\color{credixaccent}\\rule{4cm}{2.5pt}\\par}
 \\vfill
-{\\color{credixgray}\\small Version du ${DATE}\\par}
+\\noindent{\\small\\color{credixgray} Présenté par\\par}
+\\vspace{0.1cm}
+\\noindent{\\Large\\bfseries SINGHE PENKA Hendrix Donavan\\par}
+\\vspace{0.7cm}
+\\noindent{\\small\\color{credixgray} Version du ${DATE}\\par}
 \\end{titlepage}
 
 COVER
@@ -48,7 +62,7 @@ COVER
   echo "% Chaque image est un bloc \\begin{figure} ... \\includegraphics{fichier} ... \\end{figure}."
   echo "% Pour mettre votre capture : changez seulement le nom du fichier dans \\includegraphics{...}"
   echo "% (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez."
-  echo "% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place."
+  echo "% Une image absente n'est pas insérée : le texte reste, sans figure."
   printf '\\newcommand{\\CredixShortTitle}{%s}\n' "$COURT"
   cat "$HERE/preamble.tex"
 } > "$TMP/short.tex"
@@ -64,7 +78,7 @@ pandoc "$(basename "$SRC_ABS")" -f gfm -t latex -s \
   --include-in-header="$TMP/short.tex" \
   --include-before-body="$TMP/cover.tex" \
   $TOCARGS \
-  -V documentclass=article -V papersize=a4 -V fontsize=10pt \
+  -V documentclass=article -V papersize=a4 -V fontsize=11pt \
   -V geometry:margin=2.2cm \
   -V lang=fr -V colorlinks=true -V linkcolor=credixblue -V urlcolor=credixblue \
   -V title-meta="$TITRE" -V author-meta="SINGHE PENKA Hendrix Donavan" \

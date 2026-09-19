@@ -383,11 +383,17 @@ Avec le jeu de données de l'annexe A (graine 42), un premier essai a donné une
 
 Trois profils d'exemple, avec le résultat **indicatif** obtenu :
 
-| Profil | Âge | Revenu | Ancienneté | Montant | Durée | Incidents | PD | Score | Décision |
-|---|---|---|---|---|---|---|---|---|---|
-| **A** solide | 42 | 450 000 | 120 mois | 1 500 000 | 24 mois | 0 | 0,5 % | 667 | ACCORDÉ |
-| **B** intermédiaire | 33 | 220 000 | 36 mois | 2 600 000 | 24 mois | 2 | 24,5 % | 548 | REVUE |
-| **C** fragile | 24 | 120 000 | 6 mois | 1 800 000 | 12 mois | 3 | 95 % | 429 | REFUSÉ |
+| Caractéristique | **A** solide | **B** intermédiaire | **C** fragile |
+|---|---|---|---|
+| Âge | 42 | 33 | 24 |
+| Revenu | 450 000 | 220 000 | 120 000 |
+| Ancienneté | 120 mois | 36 mois | 6 mois |
+| Montant | 1 500 000 | 2 600 000 | 1 800 000 |
+| Durée | 24 mois | 24 mois | 12 mois |
+| Incidents | 0 | 2 | 3 |
+| **PD** | 0,5 % | 24,5 % | 95 % |
+| **Score** | 667 | 548 | 429 |
+| **Décision** | ACCORDÉ | REVUE | REFUSÉ |
 
 ---
 

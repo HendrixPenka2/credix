@@ -1,5 +1,5 @@
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
-\usepackage[scaled=.92]{helvet}
+\usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{pifont}
 \usepackage{amssymb}
@@ -44,7 +44,7 @@
 \DeclareUnicodeCharacter{2466}{\ding{178}}
 \DeclareUnicodeCharacter{2467}{\ding{179}}
 \usepackage{fvextra}
-\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
 \fvset{breaklines=true,breakanywhere=true}
 \usepackage{fancyhdr}
 \usepackage{tcolorbox}
@@ -53,6 +53,8 @@
 \definecolor{credixblue}{HTML}{1F3A5F}
 \definecolor{credixgray}{HTML}{5F6B7A}
 \definecolor{boxbg}{HTML}{F3F5F8}
+\definecolor{credixaccent}{HTML}{D9822B}
+\usepackage{tikz}
 \setlength{\emergencystretch}{4em}
 \renewcommand{\arraystretch}{1.3}
 \setlength{\parindent}{0pt}
@@ -61,7 +63,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
-\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyhead[R]{\small\color{credixgray}Dossier de remise}
 \fancyfoot[C]{\small\color{credixgray}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}

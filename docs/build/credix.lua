@@ -47,6 +47,24 @@ local function file_exists(path)
   return false
 end
 
+-- Largeur (en pixels) d'un fichier PNG, lue dans son en-tête ; nil si illisible
+local function png_width(path)
+  local f = io.open(path, 'rb')
+  if not f then return nil end
+  local head = f:read(24)
+  f:close()
+  if not head or #head < 24 or head:sub(2, 4) ~= 'PNG' then return nil end
+  local b1, b2, b3, b4 = head:byte(17, 20)
+  return ((b1 * 256 + b2) * 256 + b3) * 256 + b4
+end
+
+-- Largeur d'affichage : la taille naturelle (96 points par pouce) si l'image est petite, sinon la largeur du texte
+local function display_width(path, full)
+  local px = png_width(path)
+  if px and px / 96 < 6.2 then return string.format('%.2fin', px / 96) end
+  return full
+end
+
 local function lone_image(b)
   if b.t ~= 'Para' and b.t ~= 'Plain' then return nil end
   local img, other = nil, false
@@ -86,7 +104,6 @@ local function figure_latex(fig, caption)
   L[#L + 1] = '% Pour mettre votre image : changez seulement le nom du fichier dans \\includegraphics{...}'
   L[#L + 1] = '\\begin{figure}[H]'
   L[#L + 1] = '  \\centering'
-  if fig.alt ~= '' then L[#L + 1] = '  \\def\\CredixAlt{' .. latex_escape(fig.alt) .. '}%' end
   L[#L + 1] = '  \\includegraphics[width=' .. fig.width .. ',height=' .. fig.height .. ',keepaspectratio]{' .. fig.src .. '}'
   if caption then L[#L + 1] = '  \\caption{' .. caption .. '}' end
   L[#L + 1] = '\\end{figure}'
@@ -109,8 +126,17 @@ function Pandoc(doc)
       local img = lone_image(b)
       if img then
         local alt = pandoc.utils.stringify(img.caption)
-        fig = { kind = 'CAPTURE', src = tex_path(img.src), alt = alt == '' and 'Capture' or alt,
-                width = '\\linewidth', height = '0.75\\textheight' }
+        local abs = mddir .. '/' .. img.src
+        if file_exists(abs) or os.getenv('FIGURES_ABSENTES') then
+          fig = { kind = 'CAPTURE', src = tex_path(img.src), alt = alt == '' and 'Capture' or alt,
+                  width = display_width(abs, '\\linewidth'), height = '0.75\\textheight' }
+        else
+          -- image absente : on n'insère aucune figure, le texte autour reste ; la légende qui suit est retirée
+          io.stderr:write('  (image absente, figure ignorée : ' .. img.src .. ')\n')
+          if caption_inlines(blocks[i + 1]) then i = i + 1 end
+          i = i + 1
+          goto continue
+        end
       elseif b.t == 'CodeBlock' and b.classes:includes('mermaid') then
         mermaid_seen = mermaid_seen + 1
         local src = '../images/mermaid/' .. docname .. '_' .. mermaid_seen .. '.png'
@@ -133,6 +159,7 @@ function Pandoc(doc)
       end
     end
     i = i + 1
+    ::continue::
   end
   doc.blocks = out
   return doc
@@ -177,7 +204,7 @@ function Table(tbl)
   end
   local fr, fixed, fixed_sum, free_sum = {}, {}, 0, 0
   for j = 1, n do
-    local floor = math.min(maxword[j] * 0.0125 + 0.05, 0.4)
+    local floor = math.min(maxword[j] * 0.0155 + 0.05, 0.4)
     local f = (w[j] / total) * 0.97
     if f < floor then
       fixed[j] = true; fr[j] = floor; fixed_sum = fixed_sum + floor
@@ -211,15 +238,15 @@ function CodeBlock(cb)
       return nil          -- traité par la fonction Pandoc (figure)
     end
   end
-  local opts = 'breaklines=true,breakanywhere=true,fontsize=\\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm'
+  local opts = 'breaklines=true,breakanywhere=true,fontsize=\\small,frame=leftline,framerule=1.6pt,rulecolor=\\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm'
   return pandoc.RawBlock('latex', '\\begin{Verbatim}[' .. opts .. ']\n' .. cb.text .. '\n\\end{Verbatim}')
 end
 
 -- 6. Noms de fichiers et identifiants en police à chasse fixe : coupure autorisée après _ . / -
 --    (sans cela, un long nom déborde de sa colonne). Les autres codes en ligne restent gérés par pandoc.
 function Code(c)
-  if c.text:match('^[%w_%.%-/:=@+]+$') and #c.text > 14 then
-    local t = c.text:gsub('_', '\\_'):gsub('([%.%-/])', '%1\\allowbreak{}'):gsub('(\\_)', '%1\\allowbreak{}')
+  if c.text:match('^[%w_%.%-/:=@+ ",]+$') and #c.text > 14 then
+    local t = c.text:gsub('_', '\\_'):gsub('([%.%-/=,])', '%1\\allowbreak{}'):gsub('(\\_)', '%1\\allowbreak{}'):gsub(' ', '\\ ')
     return pandoc.RawInline('latex', '\\texttt{' .. t .. '}')
   end
   return nil

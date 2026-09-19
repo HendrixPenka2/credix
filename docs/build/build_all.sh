@@ -11,7 +11,7 @@ B="$HERE/build_pdf.sh"
 P="docs/pdf"
 mkdir -p "$P"
 
-echo "== 1/7 README";            "$B" README.md "$P/01_README.pdf" "CREDIX" "Guide de récupération, de lancement et de test" "README CREDIX"
+echo "== 1/7 README";            "$B" README.md "$P/01_README.pdf" "Guide de prise en main" "Récupérer, lancer et tester le système de scoring de crédit" "README"
 echo "== 2/7 Guide 1";           "$B" docs/guides/01_outils_claude.md "$P/02_Guide1_Outils_Claude.pdf" "Guide 1 : les outils Claude" "Abonnements, sessions, mode Projet et Claude Code" "Guide 1 : outils Claude"
 echo "== 3/7 Guide 2";           "$B" docs/guides/02_methode_conception.md "$P/03_Guide2_Methode_de_conception.pdf" "Guide 2 : la méthode de conception" "Concevoir une application avec Claude, de A à Z" "Guide 2 : méthode"
 echo "== 4/7 Guide 3";           "$B" docs/guides/03_conception_MVP.md "$P/04_Guide3_Conception_MVP.pdf" "Guide 3 : conception du MVP" "Un scoring de crédit réduit, à construire avec Claude Code" "Guide 3 : MVP"
@@ -20,7 +20,7 @@ echo "== 6/7 Guide 4";           "$B" docs/guides/04_autres_fonctions_claude.md 
 
 echo "== 7/7 Dossier de remise regroupé"
 DOCS=("$P/01_README.pdf" "$P/02_Guide1_Outils_Claude.pdf" "$P/03_Guide2_Methode_de_conception.pdf" "$P/04_Guide3_Conception_MVP.pdf" "$P/05_Fiche_de_demonstration.pdf")
-NOMS=("README : récupérer, lancer et tester CREDIX" "Guide 1 : les outils Claude" "Guide 2 : la méthode de conception" "Guide 3 : conception du MVP (test en direct)" "Fiche de démonstration")
+NOMS=("README : récupérer, lancer et tester le système" "Guide 1 : les outils Claude" "Guide 2 : la méthode de conception" "Guide 3 : conception du MVP (test en direct)" "Fiche de démonstration")
 ROLES=("Partie 1 : vérifier que le projet fonctionne" "Partie 2 : comprendre les outils" "Partie 2 : comprendre la méthode" "Partie 3 : tester la méthode sur un exemple" "Le déroulé de la séance")
 TMPD="$(mktemp -d)"; trap 'rm -rf "$TMPD"' EXIT
 gen_sommaire() {  # $1 = nombre de pages du sommaire (décalage)
@@ -28,7 +28,7 @@ gen_sommaire() {  # $1 = nombre de pages du sommaire (décalage)
   {
     echo "# Contenu du dossier"
     echo
-    echo "Ce dossier réunit tout ce qu'il faut pour **récupérer**, **lancer** et **tester** le projet CREDIX, puis pour **comprendre** comment il a été conçu avec Claude et **tester la méthode** sur un exemple."
+    echo "Ce dossier réunit tout ce qu'il faut pour **récupérer**, **lancer** et **tester** le projet, puis pour **comprendre** comment il a été conçu avec Claude et **tester la méthode** sur un exemple."
     echo
     echo "Chaque document a sa propre page de garde. La colonne « Page » indique la page de ce fichier où commence le document."
     echo
@@ -57,10 +57,10 @@ gen_sommaire() {  # $1 = nombre de pages du sommaire (décalage)
   } > "$TMPD/sommaire.md"
 }
 gen_sommaire 0
-NOTOC=1 TEXDIR="$TMPD/tex" "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Projet CREDIX : README et guides" "Dossier de remise" >/dev/null
+NOTOC=1 TEXDIR="$TMPD/tex" "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Prise en main du projet et méthode de conception avec Claude" "Dossier de remise" >/dev/null
 NS=$(pdfinfo "$TMPD/sommaire.pdf" | awk '/^Pages:/{print $2}')
 gen_sommaire "$NS"
-NOTOC=1 TEXDIR="$TMPD/tex" "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Projet CREDIX : README et guides" "Dossier de remise" >/dev/null
+NOTOC=1 TEXDIR="$TMPD/tex" "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Prise en main du projet et méthode de conception avec Claude" "Dossier de remise" >/dev/null
 pdfunite "$TMPD/sommaire.pdf" "${DOCS[@]}" "$P/00_Dossier_de_remise.pdf"
 echo "PDF regroupé : $P/00_Dossier_de_remise.pdf ($(pdfinfo "$P/00_Dossier_de_remise.pdf" | awk '/^Pages:/{print $2}') pages)"
 echo
@@ -69,7 +69,7 @@ for f in "$P"/*.pdf; do printf '%-55s %3s pages  %s\n' "$f" "$(pdfinfo "$f" | aw
 # Copie les deux fichiers à envoyer dans un dossier du Bureau, s'il existe (sinon rien n'est fait)
 ENVOI="${ENVOI_DIR:-$HOME/Bureau/A_ENVOYER_ENCADRANT}"
 if [ -d "$ENVOI" ]; then
-  cp "$P/00_Dossier_de_remise.pdf" "$ENVOI/1_Dossier_de_remise_CREDIX.pdf"
+  cp "$P/00_Dossier_de_remise.pdf" "$ENVOI/1_Dossier_de_remise.pdf"
   cp "$P/06_Guide4_Autres_fonctions_Claude.pdf" "$ENVOI/2_Guide4_Autres_fonctions_Claude.pdf"
   echo "Copie à jour dans : $ENVOI"
 fi

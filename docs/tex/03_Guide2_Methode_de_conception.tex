@@ -4,7 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
   french,
-  10pt,
+  11pt,
   a4paper,
 ]{article}
 \usepackage{xcolor}
@@ -68,10 +68,10 @@
 % Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
 % Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
 % (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
-% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
+% Une image absente n'est pas insérée : le texte reste, sans figure.
 \newcommand{\CredixShortTitle}{Guide 2 : méthode}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
-\usepackage[scaled=.92]{helvet}
+\usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{pifont}
 \usepackage{amssymb}
@@ -116,7 +116,7 @@
 \DeclareUnicodeCharacter{2466}{\ding{178}}
 \DeclareUnicodeCharacter{2467}{\ding{179}}
 \usepackage{fvextra}
-\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
 \fvset{breaklines=true,breakanywhere=true}
 \usepackage{fancyhdr}
 \usepackage{tcolorbox}
@@ -125,6 +125,8 @@
 \definecolor{credixblue}{HTML}{1F3A5F}
 \definecolor{credixgray}{HTML}{5F6B7A}
 \definecolor{boxbg}{HTML}{F3F5F8}
+\definecolor{credixaccent}{HTML}{D9822B}
+\usepackage{tikz}
 \setlength{\emergencystretch}{4em}
 \renewcommand{\arraystretch}{1.3}
 \setlength{\parindent}{0pt}
@@ -133,7 +135,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
-\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyhead[R]{\small\color{credixgray}Dossier de remise}
 \fancyfoot[C]{\small\color{credixgray}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -181,20 +183,34 @@
 
 \begin{titlepage}
 \thispagestyle{empty}
-\centering
-\vspace*{3.2cm}
-{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
-\vspace{2.2cm}
-{\Huge\bfseries\color{credixblue} Guide 2 : la méthode de conception\par}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[credixblue] (current page.north west) rectangle ([yshift=-8cm]current page.north east);
+  \fill[credixaccent] ([yshift=-8cm]current page.north west) rectangle ([yshift=-8.25cm]current page.north east);
+\end{tikzpicture}
+\noindent
+{\color{white}
+\vspace*{0.3cm}
+{\large\bfseries\textsc{Projet de fin d'études}\par}
+\vspace{0.6cm}
+{\Large École Nationale Supérieure Polytechnique de Yaoundé\par}
+\vspace{0.15cm}
+{\Large Université de Yaoundé I\par}
+\vspace{0.9cm}
+{\normalsize Diplôme d'Ingénieur de Conception en Génie Informatique\par}
+{\normalsize Année académique 2025--2026\par}
+}
+\vspace{2.8cm}
+\noindent{\fontsize{28}{34}\selectfont\bfseries\color{credixblue} Guide 2 : la méthode de conception\par}
+\vspace{0.6cm}
+\noindent{\Large\color{credixgray} Concevoir une application avec Claude, de A à Z\par}
 \vspace{0.8cm}
-{\Large Concevoir une application avec Claude, de A à Z\par}
-\vspace{2cm}
-{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
-\vspace{1.2cm}
-{\large SINGHE PENKA Hendrix Donavan\par}
-{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\noindent{\color{credixaccent}\rule{4cm}{2.5pt}\par}
 \vfill
-{\color{credixgray}\small Version du 19/09/2026\par}
+\noindent{\small\color{credixgray} Présenté par\par}
+\vspace{0.1cm}
+\noindent{\Large\bfseries SINGHE PENKA Hendrix Donavan\par}
+\vspace{0.7cm}
+\noindent{\small\color{credixgray} Version du 19/09/2026\par}
 \end{titlepage}
 
 
@@ -291,9 +307,9 @@ vérifiable.}
 méthode}\label{21-les-trois-niveaux-de-la-muxe9thode}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2153}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5797}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1750}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2072}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5578}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2050}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Niveau
@@ -321,10 +337,10 @@ projet & Section 4 \\
 projet}\label{22-les-neuf-uxe9tapes-dun-projet}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3434}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2891}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2125}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1430}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3124}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2631}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2515}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Étape
@@ -386,7 +402,7 @@ interdit de commencer avant votre accord.
 \textbf{Prompt de démarrage (extrait réel, phase de rédaction du
 chapitre 2 de CREDIX)}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Voici la suite du travail sur le mémoire CREDIX, chapitre 2. Avant de répondre
 quoi que ce soit, lis dans cet ordre, entièrement :
 
@@ -433,7 +449,7 @@ bon »} & Vous gardez la main : Claude propose, vous décidez \\
 \textbf{Variante pour un projet de programmation (extrait réel, projet
 professionnel)}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Tu es mon pair-programmer principal. Règles absolues : tu travailles une seule
 tâche à la fois ; tu respectes l'architecture existante et les conventions ;
 tu ne codes jamais avant d'avoir clarifié la conception.
@@ -489,7 +505,7 @@ passation}\label{33-fermer-la-session--le-rapport-de-passation}
 
 \textbf{Prompt de fin de session (extrait réel, projet professionnel)}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Nous allons bientôt changer de session. Génère-moi un « Handoff Report »
 (résumé de passation) très concis. Il doit contenir :
 1. Ce qui a été complété avec succès aujourd'hui.
@@ -549,9 +565,9 @@ C\textquotesingle est le document le plus important : il est chargé
 CREDIX.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2125}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4494}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3081}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2515}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4262}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2923}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Section
@@ -590,7 +606,7 @@ session & Claude connaît la situation \\
 
 \textbf{Extrait réel de la section 4 (consignes permanentes) :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 À faire systématiquement :
 - Lire le journal de bord en début de chaque session
 - Consulter [le document de méthodologie] avant tout chapitre technique
@@ -605,7 +621,7 @@ Ce que Claude ne doit pas faire :
 
 \textbf{Extrait réel de la section 5 (workflow) :}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 En début de session : Claude lit le journal ; propose un objectif de session ;
 l'auteur confirme ou ajuste.
 Pendant la session : on itère ; Claude explique chaque initiative avant de produire.
@@ -619,10 +635,10 @@ Règle fondamentale : aucun livrable final n'est produit sans OK explicite.
 tableau}\label{42-les-autres-documents-en-un-tableau}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2912}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2038}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2250}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2980}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2382}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1668}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2670}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Document
@@ -722,7 +738,7 @@ Claude}\label{44-comment-les-cruxe9er-avec-claude}
 
 \textbf{Prompt : rédiger le journal ou le document de passation}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Fais le document de reprise de cette session en Markdown : 1) l'objectif de la
 session, 2) ce qui a été fait, 3) les décisions prises et leur justification,
 4) ce qui a été écarté et pourquoi, 5) les fichiers créés ou modifiés,
@@ -770,21 +786,42 @@ mémoire, d\textquotesingle un \textbf{plan de travail daté} et du
 
 \textbf{Prompt 0 : faire l\textquotesingle inventaire du projet}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Fais l'inventaire de tous les documents de la base de connaissances de ce projet.
 Pour chacun : son titre, son rôle, sa date, et s'il est à jour ou périmé.
 Puis fais un diagnostic honnête : ce qui est prêt, ce qui manque, ce qui se
 contredit. Termine par les trois prochaines actions que tu recommandes.
 \end{Verbatim}
 
+\textbf{Pas à pas :}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ouvrez votre Projet (colonne de gauche de claude.ai, \textbf{« Projets
+  »}, puis le nom du projet).
+\item
+  Dans la zone \textbf{« Contexte »}, cliquez sur \textbf{« + »} et
+  ajoutez vos documents (guide 1, section 6.4).
+\item
+  Ouvrez une \textbf{nouvelle conversation dans le projet} et collez le
+  prompt 0 ci-dessus.
+\item
+  \textbf{Lisez l\textquotesingle inventaire} : vérifiez que chaque
+  document est bien décrit, et corrigez ce qui est faux.
+\item
+  Demandez ensuite la rédaction des \textbf{instructions du projet}
+  (section 4.1) et du \textbf{journal de bord} (section 16.2).
+\end{enumerate}
+
 % --------------------------------------------------------------------
-% CAPTURE : 02-01_base_connaissances.png : Base de connaissances d'un projet avec les documents chargés
+% CAPTURE : 02-01_base_connaissances.png : Le contexte d'un projet Claude avec les documents chargés
 % Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
 \begin{figure}[H]
   \centering
-  \def\CredixAlt{Base de connaissances d'un projet avec les documents chargés}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-01_base_connaissances.png}
-  \caption{La base de connaissances du projet.}
+  \includegraphics[width=3.57in,height=0.75\textheight,keepaspectratio]{../images/guides/02-01_base_connaissances.png}
+  \caption{Le « Contexte » du projet : les documents chargés (cahier des charges, méthodologie, journaux), la barre de capacité et le mode de recherche.}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -801,7 +838,7 @@ fois.
 
 \textbf{Prompt 1 : cadrer le besoin par des questions}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Je veux concevoir [décrire l'application en une phrase], pour [qui].
 Avant de rédiger quoi que ce soit, pose-moi une question à la fois pour
 clarifier : le problème à résoudre, les utilisateurs, ce que l'application
@@ -815,7 +852,7 @@ charges}\label{62-ruxe9diger-et-faire-critiquer-le-cahier-des-charges}
 
 \textbf{Prompt 2 : rédiger le cahier des charges}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 À partir de notre échange, rédige le cahier des charges en Markdown avec :
 1. Contexte et objectifs
 2. Acteurs et leurs rôles
@@ -829,7 +866,7 @@ Exigences courtes, vérifiables, sans ambiguïté.
 
 \textbf{Prompt 3 : faire critiquer le cahier des charges}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Relis ce cahier des charges comme un examinateur sévère. Liste : les ambiguïtés,
 les contradictions, les exigences impossibles à vérifier, ce qui manque.
 Classe tes remarques par gravité. Ne corrige rien : propose seulement.
@@ -867,7 +904,7 @@ outils :
 
 \textbf{Prompt 4 : balayer la littérature}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Fais une recherche approfondie sur : [question précise, par exemple
 « méthodes de sélection de variables pour un scoring de crédit explicable »].
 Je veux : les approches principales, leurs avantages et limites, les références
@@ -878,7 +915,7 @@ sûr, marquées [à vérifier].
 
 \textbf{Prompt 5 : interroger un article chargé dans le Projet}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Dans l'article [titre ou auteur] chargé dans ce projet :
 1. Quelle est la méthode proposée, en termes simples ?
 2. Sur quelles données est-elle évaluée, et avec quels résultats ?
@@ -906,15 +943,38 @@ Wiener (2010) sont restées marquées « à vérifier » tant
 qu\textquotesingle elles n\textquotesingle étaient pas contrôlées.
 \end{quote}
 
-% --------------------------------------------------------------------
-% CAPTURE : 02-02_recherche_approfondie.png : Rapport de recherche approfondie avec ses citations
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Rapport de recherche approfondie avec ses citations}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-02_recherche_approfondie.png}
-  \caption{Un résultat de recherche approfondie avec citations.}
-\end{figure}
+\textbf{Pas à pas : lancer une recherche approfondie et
+l\textquotesingle exploiter.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ouvrez une \textbf{nouvelle conversation} dans votre Projet (guide 1,
+  section 6).
+\item
+  Cliquez sur le bouton \textbf{« + »} à gauche de la zone de saisie,
+  puis sur \textbf{« Recherche »} (guide 1, section 5.2).
+\item
+  Collez le \textbf{prompt 4} ci-dessus, remplacez les crochets par
+  votre question précise, puis envoyez avec \texttt{Entrée}.
+\item
+  \textbf{Attendez} la fin du travail : Claude enchaîne plusieurs
+  recherches, en général pendant une à trois minutes.
+\item
+  \textbf{Lisez le rapport} : il est organisé en parties et contient des
+  \textbf{citations}, c\textquotesingle est-à-dire des renvois vers les
+  sources.
+\item
+  \textbf{Vérifiez} : ouvrez les sources des affirmations importantes et
+  contrôlez qu\textquotesingle elles disent bien ce que le rapport
+  prétend. Marquez \texttt{{[}à\ vérifier{]}} tout ce que vous
+  n\textquotesingle avez pas pu contrôler.
+\item
+  \textbf{Conservez le rapport} : enregistrez-le dans un fichier (dans
+  CREDIX, sous forme de PDF) et ajoutez-le au « Contexte » du projet,
+  pour que les sessions suivantes s\textquotesingle appuient dessus.
+\end{enumerate}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -929,9 +989,9 @@ consignation.}
 niveaux}\label{81-luxe9chelle-de-preuve-uxe0-trois-niveaux}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4244}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3456}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2360}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4046}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3294}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Niveau
@@ -965,7 +1025,7 @@ réellement consignées} dans les documents du projet.
 
 \textbf{A. Poser la question, avec les contraintes.}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Mon pipeline de scoring doit rester explicable variable par variable (contrainte
 réglementaire) et gérer des valeurs manquantes nombreuses. Comment encoder mes
 variables numériques et catégorielles avant le modèle ? Compare au moins :
@@ -979,10 +1039,10 @@ chaque variable en tranches et remplace chaque valeur par le logarithme
 du rapport entre bons et mauvais payeurs de sa tranche.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2294}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3478}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2375}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1554}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2465}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2825}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1740}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Critère
@@ -1009,7 +1069,7 @@ Risque de fuite & Réel : à apprendre \textbf{sur le train seul} & Faible
 
 \textbf{C. L\textquotesingle avocat du diable.}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Donne-moi les cinq meilleures objections à ce choix. Pour chacune, dis si elle
 est décisive ou si on peut la traiter.
 \end{Verbatim}
@@ -1081,7 +1141,7 @@ l\textquotesingle indice de couverture ρc.
 
 \textbf{Prompt 6 : produire une fiche de décision}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Nous venons de discuter du choix de [sujet]. Rédige la fiche de décision en
 Markdown : contexte, options comparées, critères, décision retenue, alternatives
 écartées avec leur raison, niveau de preuve (I, II ou III), références (marque
@@ -1089,15 +1149,33 @@ Markdown : contexte, options comparées, critères, décision retenue, alternati
 ni aucun chiffre.
 \end{Verbatim}
 
-% --------------------------------------------------------------------
-% CAPTURE : 02-03_registre_decisions.png : Un extrait du registre des décisions
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Un extrait du registre des décisions}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-03_registre_decisions.png}
-  \caption{Un extrait du registre des décisions méthodologiques.}
-\end{figure}
+\textbf{Pas à pas : tenir le registre des décisions.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Après chaque choix important, envoyez le \textbf{prompt 6} à Claude,
+  dans la conversation où le choix a été discuté.
+\item
+  \textbf{Relisez} la fiche obtenue : les options comparées, la
+  décision, le niveau de preuve, les références.
+\item
+  \textbf{Faites corriger} avec Claude ce qui est faux ou incertain, et
+  marquer \texttt{{[}à\ vérifier{]}} les références non contrôlées.
+\item
+  \textbf{Copiez} la fiche à la suite des précédentes dans un fichier du
+  dossier du projet (par exemple
+  \texttt{registre\_\allowbreak{}des\_\allowbreak{}decisions.\allowbreak{}md}).
+  On \textbf{ajoute}, on n\textquotesingle efface jamais : une décision
+  abandonnée reste écrite, avec la raison de l\textquotesingle abandon.
+\item
+  \textbf{Ajoutez} ce fichier au « Contexte » du Projet Claude, pour
+  qu\textquotesingle il serve de référence aux sessions suivantes.
+\end{enumerate}
+
+Un exemple complet de fiche remplie se trouve en section 8.2 ; le modèle
+vierge est en section 16.1.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1109,7 +1187,7 @@ paie à chaque étape suivante.
 
 \textbf{Prompt 7 : proposer une pile technologique justifiée}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 À partir des exigences du cahier des charges (EF et ENF), propose une pile
 technologique : langage(s), cadre de développement, base de données, outils
 de test, moyen de lancement. Pour chaque choix : l'exigence qu'il sert,
@@ -1179,7 +1257,7 @@ automatiquement sur GitHub. Un exemple complet est fourni dans le
 
 \textbf{Prompt 8 : rédiger la conception}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 À partir du cahier des charges et des décisions du projet, rédige le document
 de conception en Markdown avec les neuf sections suivantes : [copier la liste
 du paragraphe 10.1]. Diagrammes en Mermaid. Règles UML : pas d'attribut dont
@@ -1191,7 +1269,7 @@ suivi d'une légende. Ne rien inventer qui ne découle pas des documents du proj
 
 \textbf{Prompt 9 : vérifier la cohérence entre documents}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Compare le cahier des charges et le document de conception. Liste : les
 exigences non couvertes par la conception, les éléments de conception sans
 exigence, les noms qui diffèrent d'un document à l'autre, les contradictions.
@@ -1218,7 +1296,7 @@ Plan} (guide 1, section 8).
 
 \textbf{Prompt 10 : produire le plan de réalisation}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 /plan Lis docs/conception.md et docs/cahier_des_charges.md.
 Propose un plan de réalisation en modules ordonnés (du plus indépendant au plus
 dépendant). Pour chaque module : son objectif, les fichiers à créer, les tests
@@ -1231,22 +1309,52 @@ Vous \textbf{relisez le plan}, l\textquotesingle annotez dans VS Code,
 le faites corriger, puis vous l\textquotesingle{}\textbf{approuvez}. Ce
 plan devient la \textbf{TODO} du projet.
 
-% --------------------------------------------------------------------
-% CAPTURE : 02-04_plan_todo.png : Claude Code en mode Plan : plan de réalisation
-% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
-\begin{figure}[H]
-  \centering
-  \def\CredixAlt{Claude Code en mode Plan : plan de réalisation}%
-  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-04_plan_todo.png}
-  \caption{Le plan produit à partir du document de conception.}
-\end{figure}
+\textbf{Pas à pas dans VS Code} (le détail de chaque bouton est dans le
+guide 1, sections 7 et 8) :
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Ouvrez le dossier du projet} (menu \textbf{Fichier}, puis
+  \textbf{Ouvrir le dossier\ldots{}}). Il doit contenir le document de
+  conception, par exemple
+  \texttt{docs/\allowbreak{}conception.\allowbreak{}md}.
+\item
+  \textbf{Ouvrez le panneau Claude Code} (icône
+  d\textquotesingle étincelle) et \textbf{passez en mode Plan} : cliquez
+  sur le nom du mode en bas à droite de la zone de saisie, puis sur
+  \textbf{« Plan »}.
+\item
+  \textbf{Collez le prompt 10} dans la zone de saisie et envoyez avec
+  \texttt{Entrée}.
+\item
+  \textbf{Attendez} le plan : il s\textquotesingle ouvre comme un
+  document Markdown. Aucun fichier du projet n\textquotesingle a été
+  créé ni modifié à ce stade.
+\item
+  \textbf{Relisez-le avec une grille simple} : chaque module a-t-il un
+  objectif, des fichiers, des tests et un critère de fin ? Les modules
+  sont-ils dans le bon ordre, du plus indépendant au plus dépendant ?
+  Les ambiguïtés du document de conception sont-elles signalées ?
+\item
+  \textbf{Faites corriger} : ajoutez vos commentaires dans le plan, ou
+  écrivez-les dans la zone de saisie.
+\item
+  \textbf{Approuvez} le plan. Au début, choisissez la réponse « Oui, en
+  approuvant chaque modification à la main ».
+\item
+  \textbf{Enregistrez le plan} dans un fichier du dossier du projet (par
+  exemple \texttt{TODO.md}) : c\textquotesingle est la liste des tâches
+  que vous cocherez module après module.
+\end{enumerate}
 
 \subsubsection{11.2 Étape 7 : un module à la fois, avec des
 tests}\label{112-uxe9tape-7--un-module-uxe0-la-fois-avec-des-tests}
 
 \textbf{Prompt 11 : réaliser un module}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Réalise le module [M2] du plan. Écris d'abord les tests, puis le code.
 Lance les tests et montre-moi le résultat. Ne touche à aucun autre module.
 Si tu dois modifier un fichier existant, dis-le avant.
@@ -1254,7 +1362,7 @@ Si tu dois modifier un fichier existant, dis-le avant.
 
 \textbf{Prompt 12 : quand un test échoue}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Le test [nom] échoue avec ce message : [coller le message]. Avant de modifier
 quoi que ce soit, explique la cause probable et propose la correction la plus
 petite possible.
@@ -1271,7 +1379,7 @@ CREDIX.
 
 \textbf{Prompt (extrait réel)}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Tu travailles sur mon mémoire CREDIX (scoring de crédit). Le notebook est dans
 le workspace. Lis d'abord EN ENTIER le fichier HANDOVER_CLAUDE_CODE_PHASE2.md
 (contexte, règles absolues, variables disponibles) avant de coder.
@@ -1301,7 +1409,7 @@ main}\label{12-uxe9tape-8--livrer-lancer-tester-uxe0-la-main}
 
 \textbf{Prompt 13 : préparer la livraison et le README}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Prépare la livraison du projet. 1) Vérifie que tous les tests passent.
 2) Rédige le README de lancement pour un débutant : prérequis, commandes
 exactes dans l'ordre, ce qu'on doit voir après chaque commande, et que faire
@@ -1336,7 +1444,7 @@ transmettre}\label{13-uxe9tape-9--modifier-documenter-transmettre}
 
 \textbf{Prompt 14 : ajouter une fonction (toujours en mode Plan)}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 /plan Je veux ajouter [fonction]. Analyse l'impact : quels fichiers sont
 concernés, quels tests existants risquent de casser, quelles nouvelles
 données sont nécessaires. Propose les étapes et les tests. Ne modifie rien
@@ -1424,9 +1532,9 @@ sur une machine neuve.
 prompts}\label{15-bibliothuxe8que-de-prompts}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0909}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1718}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.7073}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0965}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1707}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.7028}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 N°
@@ -1463,14 +1571,14 @@ Deux prompts utiles à toutes les étapes :
 
 \textbf{Prompt 15 : l\textquotesingle avocat du diable}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Donne-moi les cinq meilleures objections à [ce choix, ce plan, ce texte].
 Pour chacune : est-elle décisive ? comment la traiter ?
 \end{Verbatim}
 
 \textbf{Prompt 16 : la chasse aux chiffres non sourcés}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Relis ce document. Liste chaque chiffre, chaque affirmation factuelle et chaque
 référence. Pour chacun : d'où vient-il (document du projet, calcul, littérature,
 ou nulle part) ? Signale tout ce qui n'a pas de source.
@@ -1482,7 +1590,7 @@ ou nulle part) ? Signale tout ce qui n'a pas de source.
 
 \subsubsection{16.1 Fiche de décision}\label{161-fiche-de-duxe9cision}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 ## Décision D-[n] : [titre]
 - **Date :** [jj/mm/aaaa]
 - **Contexte :** [le problème, les contraintes]
@@ -1500,7 +1608,7 @@ ou nulle part) ? Signale tout ce qui n'a pas de source.
 \subsubsection{16.2 Entrée du journal de bord (ajout
 seulement)}\label{162-entruxe9e-du-journal-de-bord-ajout-seulement}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 ## Session [n] : [date]
 **Objectif :** [...]
 **Réalisé :** [liste]
@@ -1511,7 +1619,7 @@ seulement)}\label{162-entruxe9e-du-journal-de-bord-ajout-seulement}
 \subsubsection{16.3 Instructions du projet (six
 sections)}\label{163-instructions-du-projet-six-sections}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 # Instructions du projet Claude : [titre du projet]
 ## Section 1 : Contexte
 ## Section 2 : Ressources permanentes (liste classée, avec « consulter pour... »)
@@ -1524,7 +1632,7 @@ sections)}\label{163-instructions-du-projet-six-sections}
 \subsubsection{16.4 Document de
 passation}\label{164-document-de-passation}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 # Passation : [projet], [phase]
 ## 1. Contexte minimal
 ## 2. Règles absolues (non négociables)
@@ -1535,7 +1643,7 @@ passation}\label{164-document-de-passation}
 
 \subsubsection{16.5 Liste de pièges}\label{165-liste-de-piuxe8ges}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 ## Pièges déjà identifiés : à ne jamais reproduire
 - **[Sujet].** [Ce qui s'est passé] → [ce qu'il faut faire à la place].
 \end{Verbatim}

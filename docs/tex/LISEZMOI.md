@@ -29,27 +29,28 @@ pdflatex 02_Guide1_Outils_Claude.tex
 
 Le PDF est créé **à côté du `.tex`** (les fichiers `.aux`, `.log`, `.out`, `.toc`, `.pdf` de ce dossier sont ignorés par Git).
 
-## Insérer une capture d'écran
+## Ajouter ou changer une image
 
-Dans chaque `.tex`, **chaque image est un bloc LaTeX standard**, précédé d'un commentaire qui indique le nom du fichier et ce qu'il faut montrer :
+**Façon recommandée : passer par le Markdown.**
+
+1. Déposez le fichier PNG dans `docs/images/guides/` (ou `docs/images/readme/` pour le README).
+2. Dans le `.md` du document, écrivez à l'endroit voulu la ligne de l'image, puis sa légende (guide 4, section 8.3).
+3. Lancez `docs/build/build_all.sh` : les `.tex` et les PDF sont refaits.
+
+Une image n'est insérée **que si son fichier existe**. Sinon, le script l'ignore (et le signale à l'écran) : le texte reste, sans figure.
+
+**Directement dans le `.tex`.** Chaque image y est un bloc LaTeX standard, précédé d'un commentaire qui donne le nom du fichier :
 
 ```text
-% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai avant la connexion
+% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-01_claude_ai_accueil.png}
-  \caption{Page d'accueil de claude.ai.}
+  \caption{La page d'accueil de claude.ai.}
 \end{figure}
 ```
 
-Pour mettre votre capture, **changez seulement le nom du fichier** dans `\includegraphics{...}`, puis recompilez. Le chemin est relatif à **ce dossier** (`docs/tex/`), d'où le `../images/`.
-
-Deux façons de faire :
-
-1. **Sans modifier le `.tex`** : déposez votre image **sous le nom exact** déjà écrit dans le bloc, dans `docs/images/guides/` (ou `docs/images/readme/` pour le README).
-2. **En modifiant le `.tex`** : remplacez le nom du fichier par celui de votre image.
-
-Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place dans le PDF, et la compilation continue. Pour retrouver un bloc dans le `.tex`, cherchez le nom du fichier ou `CAPTURE :`. Le texte sous l'image se change avec `\caption{...}`.
+Pour changer l'image, **changez seulement le nom du fichier** dans `\includegraphics{...}`. Le chemin est relatif à **ce dossier** (`docs/tex/`), d'où le `../images/`. Pour ajouter une image, copiez un bloc existant et changez le nom. Le texte sous l'image se change avec `\caption{...}`. Puis recompilez.
 
 ## Refaire tous les fichiers d'un coup
 

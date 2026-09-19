@@ -19,7 +19,7 @@
 
 <!-- /toc -->
 
-> **À propos des captures d'écran.** Ce guide contient des cadres « CAPTURE À INSÉRER », numérotés de 01-01 à 01-20. Chaque cadre indique ce qu'il faut montrer et le nom du fichier attendu, dans `docs/images/guides/`. La liste complète est dans `docs/guides/CAPTURES_A_PRENDRE.md`.
+> **À propos des captures d'écran.** Les captures viennent de l'interface **en français** de claude.ai et de VS Code (l'extension Claude Code, elle, s'affiche en anglais). Elles servent de repères : chaque étape est décrite dans le texte, bouton par bouton, et se suit **sans** l'image. Quand un libellé diffère légèrement chez vous, cherchez l'option de même sens.
 >
 > **À propos des prix et des menus.** Les prix et les noms de menus de Claude changent avec le temps. Ceux de ce guide ont été **vérifiés sur les pages officielles le 19 septembre 2026** (sources en section 10). En cas de doute, la page officielle des tarifs fait foi.
 
@@ -62,13 +62,17 @@ Claude Code existe dans le terminal, dans **VS Code** (l'éditeur de code utilis
 
 ### 3.1 Créer un compte
 
-1. Ouvrez un navigateur et tapez **claude.ai** dans la barre d'adresse.
-2. Créez un compte avec votre adresse e-mail (ou un compte existant proposé par la page) et confirmez-la.
-3. Vous arrivez sur la page de discussion.
+1. Ouvrez un navigateur (Chrome, Firefox…), tapez **claude.ai** dans la barre d'adresse, puis appuyez sur `Entrée`.
+2. La page d'accueil propose trois façons de se connecter. Choisissez-en une :
+   - cliquez sur le bouton **« Continuer avec Google »** ;
+   - ou sur le bouton **« Continuer avec Apple »** ;
+   - ou tapez votre adresse e-mail dans le champ **« Saisissez votre e-mail »**, puis cliquez sur **« Continuer par l'e-mail »**.
+3. Avec l'e-mail, Claude vous envoie un message pour confirmer votre adresse : ouvrez votre boîte e-mail et suivez les indications du message.
+4. Vous arrivez sur la page de discussion de Claude.
 
-![Page d'accueil de claude.ai avant la connexion](../images/guides/01-01_claude_ai_accueil.png)
+![Page d'accueil de claude.ai : les trois façons de se connecter](../images/guides/01-01_claude_ai_accueil.png)
 
-*Figure 1. Page d'accueil de claude.ai.*
+*Figure 1. La page d'accueil de claude.ai et ses trois façons de se connecter.*
 
 ### 3.2 Les abonnements et leurs prix
 
@@ -89,9 +93,11 @@ Prix relevés sur les pages officielles le 19 septembre 2026 (en dollars améric
 - **Pour ce projet, un compte Pro suffit** pour commencer. Si vous utilisez beaucoup Claude Code, vous atteindrez plus vite les limites et Max peut devenir utile.
 - **Team** et **Enterprise** sont pensés pour le travail en entreprise : partage de projets entre collègues, administration centralisée.
 
-![Page officielle des abonnements de Claude](../images/guides/01-02_claude_ai_tarifs.png)
+**Où voir cette page depuis votre compte ?** Cliquez sur votre profil, en bas à gauche, puis sur **« Mettre le forfait à niveau »**. La page propose deux onglets : **« Particuliers »** (Free, Pro et Max) et **« Team et Enterprise »**.
 
-*Figure 2. Page des abonnements (prix à vérifier au moment de l'achat).*
+![Page des forfaits de Claude](../images/guides/01-02_claude_ai_tarifs.png)
+
+*Figure 2. La page des forfaits, onglet « Particuliers » (prix à vérifier au moment de l'achat).*
 
 ---
 
@@ -118,17 +124,22 @@ Sur les abonnements Pro et Max, l'usage se mesure par **sessions** :
 
 ### 4.3 Où surveiller sa consommation
 
-1. Cliquez sur **votre profil, en bas à gauche** de claude.ai.
-2. Choisissez **Paramètres** (*Settings*).
-3. Ouvrez l'onglet **Utilisation** (*Usage*) : vous y voyez où vous en êtes dans la session en cours, dans la limite hebdomadaire, et l'heure de la prochaine remise à zéro.
+1. Cliquez sur **votre profil, en bas à gauche** de claude.ai : c'est le bouton qui affiche votre prénom et votre forfait (par exemple « Hendrix · Pro »). Un menu s'ouvre.
+2. Dans ce menu, cliquez sur **« Paramètres »** (raccourci : `Ctrl` + `Maj` + `,`).
+3. Dans la colonne de gauche de la fenêtre qui s'ouvre, cliquez sur **« Utilisation »**.
+4. Lisez les trois blocs de la page :
+   - **« Session actuelle »** : une barre indique la part déjà utilisée (par exemple « 63 % utilisés ») et le temps avant la remise à zéro (par exemple « Réinitialisation dans 2 h 16 min ») ;
+   - **« Limites hebdomadaires »**, ligne **« Tous les modèles »** : la même chose pour la semaine, avec le jour et l'heure de la remise à zéro ;
+   - **« Crédits d'utilisation »** : un interrupteur pour continuer à utiliser Claude quand la limite du forfait est atteinte. Des frais peuvent s'appliquer : laissez-le désactivé tant que vous n'avez pas vérifié.
+5. La ligne **« Dernière mise à jour »** indique quand ces chiffres ont été rafraîchis ; le petit bouton rond à côté les met à jour.
 
-![Menu du profil en bas à gauche](../images/guides/01-03_menu_profil.png)
+![Menu du profil, en bas à gauche](../images/guides/01-03_menu_profil.png)
 
-*Figure 3. Le menu du profil, en bas à gauche.*
+*Figure 3. Le menu du profil : l'entrée « Paramètres » ouvre la fenêtre des réglages.*
 
 ![Page Paramètres, onglet Utilisation](../images/guides/01-04_parametres_utilisation.png)
 
-*Figure 4. L'onglet Utilisation : barres de la session en cours et de la limite hebdomadaire.*
+*Figure 4. L'onglet « Utilisation » : session actuelle et limites hebdomadaires.*
 
 ### 4.4 Comment consommer moins
 
@@ -150,13 +161,20 @@ Au-delà de la limite technique, on parle de **session de travail** : un moment 
 
 ### 5.1 Une première conversation
 
-1. Sur claude.ai, cliquez sur **Nouveau chat** (en haut à gauche).
-2. Écrivez votre demande dans la zone de saisie en bas, puis validez.
-3. Vous pouvez **joindre des fichiers** (documents PDF, texte, images, tableaux) avec le bouton de pièce jointe.
+1. Sur claude.ai, cliquez sur le bouton **« + Nouveau »**, en haut de la colonne de gauche.
+2. Cliquez dans la zone de saisie (« Comment puis-je vous aider aujourd'hui ? » sur l'écran d'accueil, « Écrivez un message… » dans une conversation) et tapez votre demande.
+3. Appuyez sur `Entrée` pour l'envoyer. `Maj` + `Entrée` passe à la ligne sans envoyer.
+4. Pour **joindre un fichier** : cliquez sur le bouton **« + »** à gauche de la zone de saisie, puis sur **« Ajouter des fichiers ou des photos »** (raccourci `Ctrl` + `U`), et choisissez le fichier (PDF, texte, image, tableau) dans la fenêtre qui s'ouvre.
 
-![Une nouvelle conversation dans claude.ai](../images/guides/01-05_nouveau_chat.png)
+Sur l'écran d'accueil, deux repères utiles : le sélecteur **« Chat / Cowork »** sous la zone de saisie (restez sur **« Chat »**) et, plus bas, la liste de vos conversations passées : **« Épinglés »** puis **« Récents »**. À droite de la zone de saisie, le nom du modèle est suivi d'un niveau (par exemple « Sonnet 5 Élevé »).
 
-*Figure 5. Une conversation dans claude.ai.*
+![Le bouton Nouveau](../images/guides/01-05_nouveau_chat.png)
+
+*Figure 5. Le bouton « + Nouveau » ouvre une nouvelle conversation.*
+
+![L'écran d'accueil de claude.ai](../images/guides/01-11_conversation_projet.png)
+
+*Figure 6. L'écran d'accueil : zone de saisie, sélecteur « Chat / Cowork », modèle utilisé et conversations récentes.*
 
 **Exemples de demandes utiles :**
 
@@ -170,21 +188,24 @@ Voici un article scientifique en PDF. Résume-le en dix lignes et dis-moi
 en quoi il concerne le choix d'une méthode de sélection de variables.
 ```
 
-### 5.2 Les trois outils de réflexion
+### 5.2 Les outils de recherche et de réflexion
 
-Dans la zone de saisie, un menu d'outils permet d'activer des fonctions qui changent la façon dont Claude répond :
+1. Cliquez sur le bouton **« + »** à gauche de la zone de saisie. Un menu s'ouvre, avec notamment : « Ajouter des fichiers ou des photos », « Prendre une capture d'écran », « Ajouter au projet », « Compétences », « Connecteurs », « Système de design », « Ajouter des plugins », **« Recherche »** et **« Recherche web »**.
+2. Cliquez sur **« Recherche web »** pour l'activer ou la désactiver : une **coche bleue** apparaît en face quand elle est active.
+3. Cliquez sur **« Recherche »** pour demander une recherche approfondie (selon votre abonnement et votre pays, cette option peut varier : vérifiez dans votre menu).
+4. Pour la réflexion, regardez à droite de la zone de saisie : le nom du modèle est suivi d'un niveau (par exemple « Sonnet 5 Élevé »). Ce niveau règle l'effort de réflexion : plus il est haut, plus Claude réfléchit longtemps, et plus la réponse consomme.
 
 | Outil | Quand l'utiliser | En bref |
 |---|---|---|
-| **Recherche sur le web** | Une question factuelle, une information récente | Claude fait une ou deux recherches et répond |
-| **Réflexion étendue** | Un raisonnement difficile, sans besoin d'Internet : mathématiques, déboguer du code, comparer des choix | Claude réfléchit plus longtemps avant de répondre |
-| **Recherche approfondie** (*Research*) | Un vrai travail de recherche : état de l'art, comparaison de méthodes | Claude enchaîne au moins cinq recherches pendant une à trois minutes et rédige un **rapport avec des citations** vers ses sources |
+| **Recherche web** | Une question factuelle, une information récente | Claude fait une ou deux recherches et répond |
+| **Réflexion étendue** (niveau de réflexion du modèle) | Un raisonnement difficile, sans besoin d'Internet : mathématiques, déboguer du code, comparer des choix | Claude réfléchit plus longtemps avant de répondre |
+| **Recherche approfondie** (*Research*, entrée « Recherche » du menu) | Un vrai travail de recherche : état de l'art, comparaison de méthodes | Claude enchaîne au moins cinq recherches pendant une à trois minutes et rédige un **rapport avec des citations** vers ses sources |
 
-La recherche approfondie est **très utile pour la partie « littérature »** d'un projet (guide 2). Sa disponibilité dépend de votre abonnement et de votre pays : vérifiez dans le menu d'outils de votre compte.
+La recherche approfondie est **très utile pour la partie « littérature »** d'un projet (guide 2).
 
-![Menu d'outils de la zone de saisie](../images/guides/01-06_outils_recherche.png)
+![Le menu « + » de la zone de saisie](../images/guides/01-06_outils_recherche.png)
 
-*Figure 6. Les outils de la zone de saisie (recherche web, réflexion étendue, recherche approfondie).*
+*Figure 7. Le menu « + » : joindre des fichiers, ajouter au projet, « Recherche » et « Recherche web » (coche bleue quand elle est active).*
 
 > **Toujours vérifier les sources.** Même avec des citations, ouvrez les références importantes et vérifiez qu'elles disent bien ce que Claude rapporte. C'est une règle de rigueur pour tout travail académique.
 
@@ -209,19 +230,22 @@ Les projets sont disponibles pour tous les comptes, y compris gratuits (dans la 
 
 ### 6.2 Créer un projet, pas à pas
 
-1. Dans le menu de gauche de claude.ai, ouvrez **Projets**.
-2. Cliquez sur **Nouveau projet**, donnez un **nom** (par exemple « CREDIX »), puis une courte **description**.
-3. Ouvrez les **instructions du projet** et rédigez les consignes qui s'appliqueront à toutes les conversations.
-4. Dans la base de connaissances, **ajoutez vos fichiers**.
-5. Démarrez une conversation **à l'intérieur** du projet.
+1. Dans la colonne de gauche de claude.ai, cliquez sur **« Projets »**. La page **« Projets »** s'ouvre : chaque projet y est une carte avec son nom et la date de sa dernière activité.
+2. Cliquez sur le bouton **« Nouveau projet »**, en haut à droite de la page.
+3. La fenêtre **« Créer un projet »** s'ouvre :
+   - dans le champ **« Sur quoi travaillez-vous ? »** (« Nommez votre projet »), tapez le nom, par exemple `CREDIX` ;
+   - dans le champ **« Qu'essayez-vous de faire ? »**, décrivez le projet, ses objectifs, son sujet.
+4. Cliquez sur **« Créer un projet »** (ou sur « Annuler » pour abandonner).
+5. La page du projet s'ouvre avec trois zones : **« Instructions »**, **« Contexte »** et **« Programmé »**. Les deux premières servent aux sections 6.3 et 6.4 ; « Programmé » (tâches récurrentes) ne sert pas ici.
+6. Démarrez ensuite une conversation **à l'intérieur** du projet, avec la zone de saisie du projet.
 
 ![Liste des projets et bouton Nouveau projet](../images/guides/01-07_liste_projets.png)
 
-*Figure 7. La liste des projets.*
+*Figure 8. La page « Projets » et son bouton « Nouveau projet ».*
 
 ![Création d'un projet : nom et description](../images/guides/01-08_creation_projet.png)
 
-*Figure 8. Création d'un projet.*
+*Figure 9. La fenêtre « Créer un projet » : le nom, puis la description.*
 
 ### 6.3 Bien écrire les instructions du projet
 
@@ -244,11 +268,13 @@ Règles de travail :
    ce qui a été fait, ce qui a été décidé, ce qui reste à faire.
 ```
 
-![Instructions du projet](../images/guides/01-09_instructions_projet.png)
+**Où saisir ces instructions ?** Dans la page du projet, cliquez sur le bouton **« + »** à droite de **« Instructions »** (le texte grisé indique « Ajoutez des instructions pour personnaliser les réponses de Claude »). Collez le texte, puis validez.
 
-*Figure 9. Les instructions du projet.*
+![Panneau d'un projet neuf](../images/guides/01-09_instructions_projet.png)
 
-### 6.4 Que mettre dans la base de connaissances ?
+*Figure 10. Le panneau d'un projet neuf : « Instructions », « Contexte » et « Programmé ».*
+
+### 6.4 Que mettre dans la base de connaissances (le « Contexte ») ?
 
 - le **cahier des charges** et les documents de conception déjà produits ;
 - les **articles scientifiques** (PDF) sur lesquels s'appuient les choix ;
@@ -258,13 +284,11 @@ Règles de travail :
 
 Pour CREDIX, la première séance de travail a justement consisté à **faire l'inventaire des ressources du projet** et à rédiger les instructions du projet, avant de poser la moindre question de fond.
 
-![Ajout de fichiers à la base de connaissances](../images/guides/01-10_ajout_fichiers.png)
+**Comment ajouter des fichiers ?** Dans la page du projet, cliquez sur le bouton **« + »** à droite de **« Contexte »** (le texte indique « Ajoutez des PDF, des documents ou d'autres textes à référencer dans ce projet »), puis choisissez vos fichiers sur l'ordinateur. Chaque fichier apparaît sous la forme d'une carte avec son nom, sa taille et son type (TXT, MD, PDF…). Une **barre de capacité** indique la part déjà utilisée (par exemple « 58 % de la capacité du projet utilisée ») ; quand le contenu devient volumineux, le **« Mode de recherche »** s'active : Claude cherche alors les passages utiles au lieu de tout relire.
 
-*Figure 10. Ajout de fichiers à la base de connaissances du projet.*
+![Le contexte d'un projet : fichiers ajoutés et barre de capacité](../images/guides/01-10_ajout_fichiers.png)
 
-![Une conversation dans un projet](../images/guides/01-11_conversation_projet.png)
-
-*Figure 11. Une conversation à l'intérieur d'un projet : les documents du projet sont disponibles.*
+*Figure 11. Le « Contexte » d'un projet : les fichiers ajoutés, la barre de capacité et le mode de recherche.*
 
 ---
 
@@ -282,57 +306,60 @@ Claude Code est l'assistant qui **travaille dans votre projet** : il lit les fic
 ### 7.3 Installer l'extension dans VS Code
 
 1. Ouvrez **VS Code**.
-2. Ouvrez la vue des **extensions** : cliquez sur l'icône des extensions dans la barre latérale gauche, ou tapez `Ctrl` + `Maj` + `X` (sur Mac : `Cmd` + `Maj` + `X`).
-3. Dans la barre de recherche, tapez **Claude Code**.
-4. Repérez l'extension **officielle publiée par Anthropic** (elle porte le **badge bleu de vérification**) et cliquez sur **Installer**.
-5. Si VS Code le demande, **redémarrez-le**.
+2. Ouvrez la vue des **extensions** : cliquez sur l'icône des extensions dans la barre verticale de gauche (quatre carrés, dont un détaché), ou tapez `Ctrl` + `Maj` + `X` (sur Mac : `Cmd` + `Maj` + `X`). Le panneau **« EXTENSIONS: MARKETPLACE »** s'ouvre.
+3. Cliquez dans la barre de recherche du panneau et tapez **claude code**.
+4. Dans la liste des résultats, repérez l'extension **« Claude Code for VS Code »**. Son éditeur est **Anthropic**, avec un **badge bleu de vérification** à côté du nom. Attention : la liste contient aussi des extensions d'autres éditeurs, au nom presque identique (par exemple « Chat for Claude Code » ou « Claude Code Assistant for VSCode »). **Ne choisissez pas celles-là.**
+5. Cliquez sur l'extension officielle pour ouvrir sa page, puis sur le bouton bleu **« Install »** (« Installer »).
+6. Attendez la fin de l'installation. Si le message **« Restart Required »** (redémarrage requis) s'affiche à côté du nom de l'extension, redémarrez VS Code : fermez-le puis rouvrez-le.
+7. Pour vérifier : l'extension figure dans la liste des extensions installées, et une **icône d'étincelle** apparaît dans VS Code (section 7.4).
 
-![Recherche « Claude Code » dans les extensions de VS Code](../images/guides/01-12_vscode_recherche_extension.png)
+![Recherche « claude code » dans les extensions de VS Code](../images/guides/01-12_vscode_recherche_extension.png)
 
-*Figure 12. Recherche de l'extension dans VS Code.*
-
-![Page de l'extension officielle avec le bouton Installer](../images/guides/01-13_vscode_installer.png)
-
-*Figure 13. L'extension officielle (badge de vérification) et le bouton Installer.*
+*Figure 12. Recherche « claude code » : l'extension officielle a pour éditeur Anthropic et un badge bleu ; les autres viennent d'autres éditeurs.*
 
 ### 7.4 Ouvrir Claude Code et se connecter
 
-Une fois installée, l'extension est signalée par une **icône en forme d'étincelle**. Trois façons de l'ouvrir :
+**Ouvrir le panneau.** Trois façons, au choix :
 
-- cliquer sur l'**icône d'étincelle en haut à droite de l'éditeur** (elle n'apparaît que lorsqu'un fichier est ouvert) ;
-- cliquer sur l'**icône d'étincelle dans la barre d'activité** (barre latérale de gauche), qui ouvre la liste des sessions ;
-- ouvrir la **palette de commandes** (`Ctrl` + `Maj` + `P`), taper « Claude Code » et choisir **Open in New Tab** (raccourci : `Ctrl` + `Maj` + `Échap`).
+1. **Depuis l'éditeur.** Ouvrez d'abord un fichier de votre projet (l'icône n'apparaît que lorsqu'un fichier est ouvert), puis cliquez sur l'**icône d'étincelle**, en haut à droite de l'éditeur.
+2. **Depuis la barre d'activité** (la barre verticale de gauche) : cliquez sur l'icône d'étincelle, qui ouvre la liste de vos sessions.
+3. **Depuis la palette de commandes** : tapez `Ctrl` + `Maj` + `P`, écrivez « Claude Code » et choisissez **« Open in New Tab »** (raccourci : `Ctrl` + `Maj` + `Échap`).
 
-Au premier lancement, l'extension demande de **vous connecter** : elle ouvre votre navigateur, vous acceptez, et vous revenez dans VS Code. Sélectionnez le compte lié à votre **abonnement Claude**.
+Le panneau **« Claude Code »** s'ouvre dans un onglet de l'éditeur.
 
-![L'icône d'étincelle de Claude Code dans VS Code](../images/guides/01-14_vscode_icone_etincelle.png)
+**Se connecter (au premier lancement seulement).**
 
-*Figure 14. L'icône d'étincelle : barre d'outils de l'éditeur et barre d'activité.*
+1. Le panneau vous demande de vous connecter : cliquez sur le bouton de connexion proposé.
+2. Votre **navigateur** s'ouvre sur une page de claude.ai. Vérifiez que c'est bien le compte qui possède l'abonnement payant, puis autorisez l'accès avec le bouton de la page.
+3. Revenez dans **VS Code** : le panneau affiche maintenant la zone de saisie. Vous êtes connecté.
+
+**Lire le panneau.** L'extension s'affiche **en anglais**. De haut en bas : le titre « Claude Code » ; au milieu, parfois un petit guide « Learn Claude Code » (une liste d'étapes) et des messages d'information, par exemple « Auto mode is enabled », que l'on ferme avec la croix ; en bas, la **zone de saisie**. Sous elle se trouvent, de gauche à droite : le bouton **« + »** (joindre un élément), le bouton **« / »** (commandes), le **nom du modèle** avec son niveau d'effort (par exemple « Sonnet 5 Extra high »), puis, à droite, le **mode en cours** (par exemple « Auto ») et le **bouton d'envoi** (une flèche).
+
+![L'icône d'étincelle de Claude Code](../images/guides/01-14_vscode_icone_etincelle.png)
+
+*Figure 13. L'icône d'étincelle, à l'extrémité de la barre d'outils de l'éditeur.*
 
 ![Panneau Claude Code ouvert dans VS Code](../images/guides/01-15_vscode_panneau_ouvert.png)
 
-*Figure 15. Le panneau Claude Code, à sa première ouverture.*
-
-![Fenêtre de connexion dans le navigateur](../images/guides/01-16_connexion_navigateur.png)
-
-*Figure 16. La connexion dans le navigateur.*
+*Figure 14. Le panneau Claude Code : messages d'accueil, puis zone de saisie et réglages en bas.*
 
 > **Alternative en ligne de commande.** Claude Code s'installe aussi dans un terminal. Sous Linux, macOS ou WSL : `curl -fsSL https://claude.ai/install.sh | bash`. Puis `claude --version` vérifie l'installation, et la commande `claude`, tapée dans le dossier d'un projet, démarre l'assistant (connexion au premier lancement).
 
 ### 7.5 Première utilisation
 
-1. **Ouvrez le dossier de votre projet** dans VS Code (menu *Fichier*, puis *Ouvrir le dossier*).
-2. Ouvrez Claude Code et posez une première question :
+1. **Ouvrez le dossier de votre projet** : menu **« Fichier »** (*File*), puis **« Ouvrir le dossier… »** (*Open Folder…*) ; choisissez le dossier et validez. Son contenu apparaît dans la colonne de gauche de VS Code.
+2. **Ouvrez le panneau Claude Code** en cliquant sur l'icône d'étincelle (section 7.4).
+3. **Cliquez dans la zone de saisie**, en bas du panneau, et tapez une première question :
 
 ```text
 Que fait ce projet ? Explique-moi son organisation en quelques lignes.
 ```
 
-Claude lit les fichiers dont il a besoin : vous n'avez pas à les lui fournir un par un. Vous pouvez aussi lui désigner un fichier précis avec le symbole `@` suivi du nom du fichier.
+4. **Envoyez** avec la touche `Entrée`, ou avec le bouton en forme de flèche à droite de la zone de saisie.
+5. **Suivez le travail de Claude** : le panneau affiche ce qu'il fait au fur et à mesure (par exemple la lecture de fichiers), puis sa réponse rédigée. Selon le mode choisi (section 8), il peut vous demander une autorisation avant une action : lisez la demande, puis acceptez ou refusez.
+6. **Continuez la conversation** en écrivant dans la même zone de saisie.
 
-![Première question posée à Claude Code](../images/guides/01-17_premiere_question.png)
-
-*Figure 17. Une première question à Claude Code.*
+Claude lit les fichiers dont il a besoin : vous n'avez pas à les lui fournir un par un. Pour lui désigner un fichier précis, tapez le symbole `@` suivi du début du nom du fichier, puis choisissez-le dans la liste qui s'affiche.
 
 **Quelques commandes utiles**, à taper dans la zone de saisie :
 
@@ -356,7 +383,13 @@ On y met, par exemple : les commandes pour lancer et tester le projet, les conve
 
 ### 8.1 Les modes de permission
 
-Claude Code peut lire, modifier des fichiers et lancer des commandes. Le **mode de permission** règle ce qu'il peut faire **sans vous demander**. On le change en cliquant sur l'**indicateur de mode**, en bas de la zone de saisie (dans le terminal : touches `Maj` + `Tab`).
+Claude Code peut lire, modifier des fichiers et lancer des commandes. Le **mode de permission** règle ce qu'il peut faire **sans vous demander**. Pour le changer :
+
+1. repérez le **nom du mode en cours**, en bas à droite de la zone de saisie (par exemple « Auto ») ;
+2. cliquez dessus : la liste **« Modes »** s'ouvre, avec pour chaque mode une courte description ;
+3. cliquez sur le mode voulu. Sous la liste, un curseur **« Effort »** règle l'effort de réflexion de Claude.
+
+Raccourci : `Maj` + `Tab` passe au mode suivant (dans le terminal aussi). Dans l'extension, les modes s'affichent **en anglais** : *Manual*, *Edit automatically*, *Plan* et *Auto*.
 
 | Mode | Ce qui s'exécute sans demander | Quand l'utiliser |
 |---|---|---|
@@ -368,9 +401,9 @@ Claude Code peut lire, modifier des fichiers et lancer des commandes. Le **mode 
 
 Sur les abonnements Pro, Max et Team, le mode de départ est **Auto**. Les libellés peuvent légèrement varier selon la version de l'extension.
 
-![Indicateur de mode et liste des modes](../images/guides/01-18_modes_permission.png)
+![La liste des modes](../images/guides/01-18_modes_permission.png)
 
-*Figure 18. L'indicateur de mode, en bas de la zone de saisie.*
+*Figure 15. La liste « Modes » : Manual, Edit automatically, Plan, Auto, et le curseur « Effort ».*
 
 ### 8.2 Le mode Plan : réfléchir avant d'agir
 
@@ -379,23 +412,18 @@ En **mode Plan**, Claude Code **explore le projet et rédige un plan d'action, m
 - **au début d'un travail** : à partir d'un document de conception, il produit la **liste des tâches à réaliser** (la « TODO ») ;
 - **avant chaque ajout ou modification** d'un module : on relit ce que Claude compte faire, on corrige, puis on valide.
 
-**Comment l'utiliser :**
+**Pas à pas :**
 
-1. Passez en mode **Plan** (indicateur de mode) ou commencez votre demande par `/plan`.
-2. Donnez votre demande. Par exemple : « Lis le document docs/guides/03_conception_MVP.md et propose un plan de réalisation, module par module. »
-3. Claude explore, puis **présente son plan**. Dans VS Code, le plan s'ouvre comme un **document Markdown** où vous pouvez **ajouter des commentaires** pour demander des corrections.
-4. Quand le plan vous convient, **approuvez-le**. Trois réponses sont proposées :
+1. **Passez en mode Plan.** Cliquez sur le nom du mode en cours (en bas à droite de la zone de saisie), puis sur **« Plan »** dans la liste. Autres façons : taper `/plan` au début de votre demande, ou appuyer sur `Maj` + `Tab` jusqu'à ce que « Plan » s'affiche. Vérifiez que le nom du mode indiqué est bien **« Plan »**.
+2. **Écrivez votre demande** dans la zone de saisie, par exemple : « Lis le document docs/guides/03_conception_MVP.md et propose un plan de réalisation, module par module. » Envoyez avec `Entrée`.
+3. **Attendez.** Claude lit les fichiers et réfléchit. À ce stade, **aucun fichier n'est créé ni modifié**.
+4. **Lisez le plan.** Il s'ouvre comme un **document Markdown** dans VS Code : un titre, des parties, une liste d'étapes. Lisez-le en entier, comme vous relirez un document de conception.
+5. **Faites corriger si besoin.** Vous pouvez ajouter des commentaires dans le plan, à côté des passages à corriger, comme dans une relecture. Sinon, écrivez vos remarques dans la zone de saisie : Claude révise le plan.
+6. **Approuvez quand le plan vous convient.** Trois réponses sont proposées :
    - **Oui, en mode Auto** : Claude passe à la réalisation avec un minimum d'interruptions ;
-   - **Oui, en approuvant chaque modification à la main** (recommandé au début) ;
+   - **Oui, en approuvant chaque modification à la main** (recommandé au début) : Claude demande votre accord avant chaque changement ;
    - **Non, continuer à planifier** : on reste en mode Plan et on précise ce qu'il faut changer.
-
-![Un plan proposé par Claude Code en mode Plan](../images/guides/01-19_mode_plan_document.png)
-
-*Figure 19. Le plan affiché comme un document Markdown commentable.*
-
-![Options d'approbation du plan](../images/guides/01-20_mode_plan_approbation.png)
-
-*Figure 20. Les options d'approbation du plan.*
+7. **Gardez le plan.** Une fois validé, il sert de **liste des tâches (TODO)** du projet : copiez-le dans un fichier du dossier du projet (guide 2, section 11.1).
 
 > **Règle pratique.** Un travail qui touche plusieurs fichiers commence **toujours** par un plan. C'est moins cher (pas de fausses pistes) et plus sûr (vous validez avant que le code change).
 

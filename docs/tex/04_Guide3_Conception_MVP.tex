@@ -4,7 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
   french,
-  10pt,
+  11pt,
   a4paper,
 ]{article}
 \usepackage{xcolor}
@@ -68,10 +68,10 @@
 % Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
 % Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
 % (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
-% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
+% Une image absente n'est pas insérée : le texte reste, sans figure.
 \newcommand{\CredixShortTitle}{Guide 3 : MVP}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
-\usepackage[scaled=.92]{helvet}
+\usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{pifont}
 \usepackage{amssymb}
@@ -116,7 +116,7 @@
 \DeclareUnicodeCharacter{2466}{\ding{178}}
 \DeclareUnicodeCharacter{2467}{\ding{179}}
 \usepackage{fvextra}
-\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
 \fvset{breaklines=true,breakanywhere=true}
 \usepackage{fancyhdr}
 \usepackage{tcolorbox}
@@ -125,6 +125,8 @@
 \definecolor{credixblue}{HTML}{1F3A5F}
 \definecolor{credixgray}{HTML}{5F6B7A}
 \definecolor{boxbg}{HTML}{F3F5F8}
+\definecolor{credixaccent}{HTML}{D9822B}
+\usepackage{tikz}
 \setlength{\emergencystretch}{4em}
 \renewcommand{\arraystretch}{1.3}
 \setlength{\parindent}{0pt}
@@ -133,7 +135,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
-\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyhead[R]{\small\color{credixgray}Dossier de remise}
 \fancyfoot[C]{\small\color{credixgray}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -181,20 +183,34 @@
 
 \begin{titlepage}
 \thispagestyle{empty}
-\centering
-\vspace*{3.2cm}
-{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
-\vspace{2.2cm}
-{\Huge\bfseries\color{credixblue} Guide 3 : conception du MVP\par}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[credixblue] (current page.north west) rectangle ([yshift=-8cm]current page.north east);
+  \fill[credixaccent] ([yshift=-8cm]current page.north west) rectangle ([yshift=-8.25cm]current page.north east);
+\end{tikzpicture}
+\noindent
+{\color{white}
+\vspace*{0.3cm}
+{\large\bfseries\textsc{Projet de fin d'études}\par}
+\vspace{0.6cm}
+{\Large École Nationale Supérieure Polytechnique de Yaoundé\par}
+\vspace{0.15cm}
+{\Large Université de Yaoundé I\par}
+\vspace{0.9cm}
+{\normalsize Diplôme d'Ingénieur de Conception en Génie Informatique\par}
+{\normalsize Année académique 2025--2026\par}
+}
+\vspace{2.8cm}
+\noindent{\fontsize{28}{34}\selectfont\bfseries\color{credixblue} Guide 3 : conception du MVP\par}
+\vspace{0.6cm}
+\noindent{\Large\color{credixgray} Un scoring de crédit réduit, à construire avec Claude Code\par}
 \vspace{0.8cm}
-{\Large Un scoring de crédit réduit, à construire avec Claude Code\par}
-\vspace{2cm}
-{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
-\vspace{1.2cm}
-{\large SINGHE PENKA Hendrix Donavan\par}
-{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\noindent{\color{credixaccent}\rule{4cm}{2.5pt}\par}
 \vfill
-{\color{credixgray}\small Version du 19/09/2026\par}
+\noindent{\small\color{credixgray} Présenté par\par}
+\vspace{0.1cm}
+\noindent{\Large\bfseries SINGHE PENKA Hendrix Donavan\par}
+\vspace{0.7cm}
+\noindent{\small\color{credixgray} Version du 19/09/2026\par}
 \end{titlepage}
 
 
@@ -312,9 +328,9 @@ démonstration.
 fonctionnelles}\label{21-exigences-fonctionnelles}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1125}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4287}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4287}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1275}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4212}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4212}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 N°
@@ -364,9 +380,9 @@ décision & Un seuil incohérent (accord supérieur au refus) est refusé
 fonctionnelles}\label{22-exigences-non-fonctionnelles}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1125}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4547}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4028}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1275}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4468}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3957}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 N°
@@ -426,8 +442,8 @@ acteur.
 »}\label{31-spuxe9cification-du-cas--demander-un-scoring-}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7450}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7030}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Élément
@@ -460,8 +476,8 @@ modèle, ses seuils, son auteur et sa date \\
 »}\label{32-spuxe9cification-du-cas--cruxe9er-un-compte-}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7450}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7030}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Élément
@@ -626,7 +642,7 @@ outil de compilation & React, Next.js : chaîne de compilation en plus \\
 \subsubsection{6.3 Organisation des
 dossiers}\label{63-organisation-des-dossiers}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 credix-mvp/
 |-- README.md
 |-- requirements.txt
@@ -657,9 +673,9 @@ Base SQLite, une table par classe (les facteurs sont stockés avec leur
 scoring).
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3725}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3725}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3515}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3515}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Table
@@ -712,9 +728,9 @@ Six variables explicatives, dont deux \textbf{calculées} à partir des
 données saisies :
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5217}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2608}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2205}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4997}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2498}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Variable
@@ -812,20 +828,23 @@ section 12 sont donc écrits avec des marges.}
 Trois profils d\textquotesingle exemple, avec le résultat
 \textbf{indicatif} obtenu :
 
-\begin{longtable}[]{@{}llllllllll@{}}
+\begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
-Profil & Âge & Revenu & Ancienneté & Montant & Durée & Incidents & PD &
-Score & Décision \\
+Caractéristique & \textbf{A} solide & \textbf{B} intermédiaire &
+\textbf{C} fragile \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{A} solide & 42 & 450 000 & 120 mois & 1 500 000 & 24 mois & 0 &
-0,5 \% & 667 & ACCORDÉ \\
-\textbf{B} intermédiaire & 33 & 220 000 & 36 mois & 2 600 000 & 24 mois
-& 2 & 24,5 \% & 548 & REVUE \\
-\textbf{C} fragile & 24 & 120 000 & 6 mois & 1 800 000 & 12 mois & 3 &
-95 \% & 429 & REFUSÉ \\
+Âge & 42 & 33 & 24 \\
+Revenu & 450 000 & 220 000 & 120 000 \\
+Ancienneté & 120 mois & 36 mois & 6 mois \\
+Montant & 1 500 000 & 2 600 000 & 1 800 000 \\
+Durée & 24 mois & 24 mois & 12 mois \\
+Incidents & 0 & 2 & 3 \\
+\textbf{PD} & 0,5 \% & 24,5 \% & 95 \% \\
+\textbf{Score} & 667 & 548 & 429 \\
+\textbf{Décision} & ACCORDÉ & REVUE & REFUSÉ \\
 \end{longtable}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -840,10 +859,10 @@ l\textquotesingle en-tête
 \texttt{Authorization:\ Bearer\ \textless{}jeton\textgreater{}}.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3500}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1220}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3151}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1830}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1430}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2701}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1569}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Méthode et route
@@ -859,22 +878,24 @@ Codes
 \bottomrule\noalign{}
 \endlastfoot
 \texttt{GET\ /health} & aucun & État du système et du modèle & 200 \\
-\texttt{POST\ /api/auth/login} & aucun & Connexion & 200, 401 \\
-\texttt{POST\ /api/clients} & Agent, Admin & Créer un client & 201,
-422 \\
+\texttt{POST\ /\allowbreak{}api/\allowbreak{}auth/\allowbreak{}login} &
+aucun & Connexion & 200, 401 \\
+\texttt{POST\ /\allowbreak{}api/\allowbreak{}clients} & Agent, Admin &
+Créer un client & 201, 422 \\
 \texttt{GET\ /api/clients?recherche=} & Agent, Admin & Rechercher (nom
 ou prénom) & 200 \\
 \texttt{GET\ /api/clients/\{id\}} & Agent, Admin & Fiche
 d\textquotesingle un client & 200, 404 \\
-\texttt{POST\ /api/scorings} & Agent, Admin & Demander un scoring & 201,
-404, 422, 503 \\
+\texttt{POST\ /\allowbreak{}api/\allowbreak{}scorings} & Agent, Admin &
+Demander un scoring & 201, 404, 422, 503 \\
 \texttt{GET\ /api/scorings?client\_id=} & Agent, Admin & Historique
 d\textquotesingle un client & 200 \\
-\texttt{POST\ /api/admin/utilisateurs} & Admin & Créer un compte & 201,
-403, 409, 422 \\
-\texttt{GET\ /api/admin/seuils} & Admin & Seuils actifs & 200, 403 \\
-\texttt{PUT\ /api/admin/seuils} & Admin & Nouvelle version des seuils &
-200, 403, 422 \\
+\texttt{POST\ /\allowbreak{}api/\allowbreak{}admin/\allowbreak{}utilisateurs}
+& Admin & Créer un compte & 201, 403, 409, 422 \\
+\texttt{GET\ /\allowbreak{}api/\allowbreak{}admin/\allowbreak{}seuils} &
+Admin & Seuils actifs & 200, 403 \\
+\texttt{PUT\ /\allowbreak{}api/\allowbreak{}admin/\allowbreak{}seuils} &
+Admin & Nouvelle version des seuils & 200, 403, 422 \\
 \end{longtable}
 
 Sans jeton ou avec un jeton invalide : \textbf{401}. Avec un rôle
@@ -882,7 +903,7 @@ insuffisant : \textbf{403}.
 
 \textbf{Exemple : connexion}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 POST /api/auth/login
 { "identifiant": "agent1", "mot_de_passe": "MotDePasse2026" }
 
@@ -892,7 +913,7 @@ POST /api/auth/login
 
 \textbf{Exemple : demande de scoring}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 POST /api/scorings
 { "client_id": 12, "montant_credit": 2600000, "duree_mois": 24 }
 
@@ -958,10 +979,10 @@ L\textquotesingle ordre va du plus indépendant au plus dépendant. Chaque
 module se termine quand ses tests passent.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1750}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2850}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2850}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2050}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2490}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2490}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Module
@@ -1046,9 +1067,9 @@ moins un test par exigence fonctionnelle}, plus :
 main)}\label{122-scuxe9nario-de-recette-uxe0-la-main}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0875}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0965}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4367}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4367}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 N°
@@ -1119,9 +1140,9 @@ correcte \\
 CREDIX}\label{13-limites-et-uxe9volution-vers-credix}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3706}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2180}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3815}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3540}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2515}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3645}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Ce que fait CREDIX
@@ -1208,7 +1229,7 @@ Ce script définit le « monde » du MVP. Le donner tel quel à Claude Code
 garantit des données \textbf{identiques d\textquotesingle une exécution
 à l\textquotesingle autre} (graine 42).
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 import numpy as np
 import pandas as pd
 
@@ -1243,7 +1264,7 @@ démonstration}\label{annexe-b--prompt-de-duxe9monstration}
 ce document sous
 \texttt{docs/\allowbreak{}conception\_\allowbreak{}mvp.\allowbreak{}md}.
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 /plan Lis docs/conception_mvp.md en entier. Propose un plan de réalisation par
 modules (M1 à M6 ou mieux, si tu vois une meilleure découpe). Pour chaque
 module : l'objectif, les fichiers à créer, les tests à écrire, le critère qui
@@ -1253,7 +1274,7 @@ paraissent ambigus ou contradictoires. Ne crée aucun fichier pour l'instant.
 
 Puis, après relecture et approbation du plan :
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 Réalise le module M2 du plan. Écris d'abord les tests, puis le code. Lance les
 tests et montre-moi le résultat, dont l'AUC de test. Ne touche à aucun autre module.
 \end{Verbatim}
@@ -1261,7 +1282,7 @@ tests et montre-moi le résultat, dont l'AUC de test. Ne touche à aucun autre m
 \subsubsection{Annexe C : commandes de lancement attendues à la
 fin}\label{annexe-c--commandes-de-lancement-attendues-uxe0-la-fin}
 
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env

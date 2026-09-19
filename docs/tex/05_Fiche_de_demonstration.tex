@@ -4,7 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
   french,
-  10pt,
+  11pt,
   a4paper,
 ]{article}
 \usepackage{xcolor}
@@ -68,10 +68,10 @@
 % Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
 % Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
 % (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
-% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
+% Une image absente n'est pas insérée : le texte reste, sans figure.
 \newcommand{\CredixShortTitle}{Fiche de démonstration}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
-\usepackage[scaled=.92]{helvet}
+\usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{pifont}
 \usepackage{amssymb}
@@ -116,7 +116,7 @@
 \DeclareUnicodeCharacter{2466}{\ding{178}}
 \DeclareUnicodeCharacter{2467}{\ding{179}}
 \usepackage{fvextra}
-\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
 \fvset{breaklines=true,breakanywhere=true}
 \usepackage{fancyhdr}
 \usepackage{tcolorbox}
@@ -125,6 +125,8 @@
 \definecolor{credixblue}{HTML}{1F3A5F}
 \definecolor{credixgray}{HTML}{5F6B7A}
 \definecolor{boxbg}{HTML}{F3F5F8}
+\definecolor{credixaccent}{HTML}{D9822B}
+\usepackage{tikz}
 \setlength{\emergencystretch}{4em}
 \renewcommand{\arraystretch}{1.3}
 \setlength{\parindent}{0pt}
@@ -133,7 +135,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
-\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyhead[R]{\small\color{credixgray}Dossier de remise}
 \fancyfoot[C]{\small\color{credixgray}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -181,20 +183,34 @@
 
 \begin{titlepage}
 \thispagestyle{empty}
-\centering
-\vspace*{3.2cm}
-{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
-\vspace{2.2cm}
-{\Huge\bfseries\color{credixblue} Fiche de démonstration\par}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[credixblue] (current page.north west) rectangle ([yshift=-8cm]current page.north east);
+  \fill[credixaccent] ([yshift=-8cm]current page.north west) rectangle ([yshift=-8.25cm]current page.north east);
+\end{tikzpicture}
+\noindent
+{\color{white}
+\vspace*{0.3cm}
+{\large\bfseries\textsc{Projet de fin d'études}\par}
+\vspace{0.6cm}
+{\Large École Nationale Supérieure Polytechnique de Yaoundé\par}
+\vspace{0.15cm}
+{\Large Université de Yaoundé I\par}
+\vspace{0.9cm}
+{\normalsize Diplôme d'Ingénieur de Conception en Génie Informatique\par}
+{\normalsize Année académique 2025--2026\par}
+}
+\vspace{2.8cm}
+\noindent{\fontsize{28}{34}\selectfont\bfseries\color{credixblue} Fiche de démonstration\par}
+\vspace{0.6cm}
+\noindent{\Large\color{credixgray} Déroulé de la séance avec l'encadrant\par}
 \vspace{0.8cm}
-{\Large Déroulé de la séance avec l'encadrant\par}
-\vspace{2cm}
-{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
-\vspace{1.2cm}
-{\large SINGHE PENKA Hendrix Donavan\par}
-{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\noindent{\color{credixaccent}\rule{4cm}{2.5pt}\par}
 \vfill
-{\color{credixgray}\small Version du 19/09/2026\par}
+\noindent{\small\color{credixgray} Présenté par\par}
+\vspace{0.1cm}
+\noindent{\Large\bfseries SINGHE PENKA Hendrix Donavan\par}
+\vspace{0.7cm}
+\noindent{\small\color{credixgray} Version du 19/09/2026\par}
 \end{titlepage}
 
 
@@ -217,10 +233,10 @@ L\textquotesingle encadrant veut vérifier \textbf{trois choses}, dans
 cet ordre :
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3361}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3361}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1728}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1430}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3289}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3289}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1692}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Partie
@@ -249,6 +265,23 @@ en direct & Guide 3 (MVP) \\
 \textbf{Répartition indicative du temps} (à ajuster) : partie 1, environ
 15 minutes ; partie 2, environ 25 minutes ; partie 3, environ 40
 minutes.
+
+\textbf{Ordre conseillé.} L\textquotesingle installation de la partie 1
+est \textbf{longue} (jusqu\textquotesingle à 50 minutes la première
+fois). On ne l\textquotesingle attend donc pas sans rien faire :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Si l\textquotesingle encadrant a déjà installé le projet} :
+  parties 1, 2, puis 3.
+\item
+  \textbf{Sinon} : dès les premières minutes, il lance la commande
+  d\textquotesingle installation du README (section 5.2). Pendant
+  qu\textquotesingle elle travaille, vous faites la \textbf{partie 2},
+  puis la \textbf{partie 3}. Quand l\textquotesingle installation est
+  terminée, vous faites la \textbf{partie 1} (les tests).
+\end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -389,9 +422,9 @@ sur GitHub se lance et se teste.
 \subsubsection{3.1 Déroulé}\label{31-duxe9rouluxe9}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6646}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1804}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1430}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6065}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2205}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Étape
@@ -417,12 +450,18 @@ scoring de \texttt{HC-100001}, dossier en revue avec \texttt{HC-100241},
 journal d\textquotesingle audit & README, section 7 \\
 \end{longtable}
 
+\textbf{Comptes de test.} \texttt{admin}, \texttt{agent.test} et
+\texttt{superviseur.\allowbreak{}test}, tous les trois avec le mot de
+passe d\textquotesingle exemple \texttt{Demo12345} (README, sections 5.4
+et 7). Ce mot de passe est sans risque : il ne sert que sur la machine
+de test.
+
 \subsubsection{3.2 Ce que l\textquotesingle encadrant doit
 constater}\label{32-ce-que-lencadrant-doit-constater}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7450}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2670}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7030}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Contrôle
@@ -437,7 +476,7 @@ Récupération & Le \texttt{git\ clone} réussit ; `ls
 scoring-backend/artefacts \\
 Backend & 4 conteneurs \texttt{Up}, l\textquotesingle API
 \texttt{healthy} ; \texttt{/health} : \texttt{"statut":"ok"}, 27
-variables, 27 phrases, \texttt{"mock\_mode":false} \\
+variables, 27 phrases, \texttt{"mock\_\allowbreak{}mode":false} \\
 Frontend & La page de connexion s\textquotesingle affiche ; les trois
 espaces (Agent, Superviseur, Administrateur) sont accessibles \\
 Scoring & \texttt{HC-100001} : score 603, \texttt{ACCORDÉ} ;
@@ -469,9 +508,9 @@ sur le \textbf{guide 2}.
 passer}\label{41-les-cinq-messages-uxe0-faire-passer}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0875}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0965}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4367}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4367}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 N°
@@ -542,9 +581,9 @@ le \textbf{guide 3}.
 \subsubsection{5.1 Protocole pas à pas}\label{51-protocole-pas-uxe0-pas}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6632}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1818}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1430}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6220}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2050}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Étape

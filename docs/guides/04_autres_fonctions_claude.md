@@ -20,9 +20,7 @@
 
 <!-- /toc -->
 
-> **À propos des captures d'écran.** Ce guide contient des cadres « CAPTURE À INSÉRER », numérotés de 04-01 à 04-06. Chaque cadre indique ce qu'il faut montrer et le nom du fichier attendu, dans `docs/images/guides/`. La liste complète est dans `docs/guides/CAPTURES_A_PRENDRE.md`.
->
-> **À propos des menus.** Les noms de menus de Claude changent avec le temps, et leur libellé français peut différer de l'anglais. Ceux de ce guide ont été **vérifiés sur les pages officielles le 19 septembre 2026** (sources en section 11).
+> **À propos des captures d'écran et des menus.** Les captures viennent de l'interface **en français** de claude.ai. Chaque étape est décrite dans le texte, bouton par bouton : elle se suit sans l'image. Les noms de menus changent avec le temps ; ceux de ce guide ont été relevés sur l'interface et **vérifiés sur les pages officielles le 19 septembre 2026** (sources en section 11).
 >
 > **Ce qui est vérifié, et ce qui ne l'est pas.** Les fonctions décrites (formats, limites, menus) viennent de la documentation officielle. Les **recettes** (sections 3 et 4) sont des façons de les utiliser : **essayez-les une fois avant de les présenter**, et relisez toujours le résultat.
 
@@ -62,13 +60,15 @@ Cette fonction est disponible sur **tous les abonnements** (Gratuit, Pro, Max, T
 
 ### 2.2 L'activer
 
-1. Cliquez sur votre profil (en bas à gauche), puis **Paramètres** (*Settings*).
-2. Ouvrez **Capacités** (*Capabilities*).
-3. Activez l'option **« Code execution and file creation »** (exécution de code et création de fichiers).
+1. Cliquez sur votre profil, en bas à gauche de claude.ai, puis sur **« Paramètres »** (guide 1, section 4.3).
+2. Dans la colonne de gauche de la fenêtre, cliquez sur **« Capacités »**.
+3. Descendez jusqu'au bloc **« Exécution de code et création de fichiers »**.
+4. Vérifiez que l'interrupteur **« Exécution de code et création de fichiers »** est **activé** (il est bleu). Le texte en dessous précise : « Claude peut exécuter du code et créer et modifier des documents, des feuilles de calcul, des présentations, des PDF et des rapports de données. Requis pour les skills. »
+5. Juste en dessous, l'interrupteur **« Autoriser l'accès réseau sortant »** permet à Claude d'installer des outils et de charger des bibliothèques depuis Internet. L'écran demande de **surveiller attentivement les conversations**, car cela comporte des risques de sécurité (section 2.4).
 
-![Paramètres, onglet Capacités : l'option de création de fichiers](../images/guides/04-01_parametres_capacites.png)
+![Paramètres, onglet Capacités : exécution de code et création de fichiers](../images/guides/04-01_parametres_capacites.png)
 
-*Figure 1. L'option « Code execution and file creation ».*
+*Figure 1. L'onglet « Capacités » : l'interrupteur « Exécution de code et création de fichiers » et, dessous, « Autoriser l'accès réseau sortant ».*
 
 Sur les abonnements d'équipe (Team, Enterprise), l'option est activée par défaut au niveau de l'organisation, et un propriétaire peut la désactiver.
 
@@ -92,7 +92,7 @@ Sur les abonnements d'équipe (Team, Enterprise), l'option est activée par déf
 Quand Claude peut créer des fichiers, il exécute du code dans un environnement séparé. Deux précautions vous concernent :
 
 - **Le partage public** d'une conversation qui contient des fichiers créés est **désactivé** sur les abonnements Gratuit, Pro et Max.
-- **L'accès à Internet** de cet environnement est réglable. Une page web piégée pourrait, en théorie, pousser Claude à envoyer vos données ailleurs : **n'envoyez pas de documents confidentiels** sans avoir vérifié les réglages réseau.
+- **L'accès à Internet** de cet environnement est réglable (interrupteur « Autoriser l'accès réseau sortant », section 2.2). Une page web piégée pourrait, en théorie, pousser Claude à envoyer vos données ailleurs : **n'envoyez pas de documents confidentiels** sans avoir vérifié les réglages réseau.
 
 ---
 
@@ -103,16 +103,16 @@ Quand Claude peut créer des fichiers, il exécute du code dans un environnement
 ### 3.1 Étape par étape
 
 1. **Activez** la création de fichiers (section 2.2).
-2. **Ouvrez une nouvelle conversation**, de préférence **dans un Projet** (guide 1, section 6), où vous aurez déposé vos consignes.
-3. **Joignez le PDF** avec le bouton de pièce jointe. Vérifiez sa taille (moins de 30 Mo) et son nombre de pages (section 2.3).
-4. **Collez le prompt** de la section 3.2 et complétez les crochets.
-5. **Attendez le fichier** `.pptx` : Claude l'affiche dans la conversation, avec un bouton pour le télécharger.
-6. **Téléchargez-le**, ouvrez-le (PowerPoint ou LibreOffice Impress) et **relisez tout** (section 3.3).
+2. **Ouvrez une nouvelle conversation**, de préférence **dans un Projet** (guide 1, section 6), où vous aurez déposé vos consignes : cliquez sur **« Projets »**, ouvrez votre projet, puis écrivez dans la zone de saisie du projet.
+3. **Joignez le PDF** : cliquez sur le bouton **« + »** à gauche de la zone de saisie, puis sur **« Ajouter des fichiers ou des photos »** (raccourci `Ctrl` + `U`), et choisissez le PDF dans la fenêtre qui s'ouvre. Attendez qu'il apparaisse dans la zone de saisie. Vérifiez sa taille (moins de 30 Mo) et son nombre de pages (section 2.3).
+4. **Collez le prompt** de la section 3.2, complétez les crochets, puis envoyez avec `Entrée`.
+5. **Attendez le fichier** `.pptx` : Claude l'affiche dans la conversation sous la forme d'une carte (le nom du fichier, « Présentation · PPTX ») avec un bouton **« Télécharger »**. Un aperçu des diapositives peut s'ouvrir à droite.
+6. **Téléchargez-le** avec ce bouton, ouvrez-le (PowerPoint ou LibreOffice Impress) et **relisez tout** (section 3.3).
 7. **Demandez les corrections** dans la même conversation (section 3.4).
 
-![Un PDF joint à une conversation](../images/guides/04-02_pdf_joint.png)
+![Le menu « + » : ajouter des fichiers](../images/guides/04-02_pdf_joint.png)
 
-*Figure 2. Le PDF joint à la conversation.*
+*Figure 2. Le menu « + » : « Ajouter des fichiers ou des photos » (`Ctrl` + `U`) permet de joindre le PDF.*
 
 ### 3.2 Le prompt à copier
 
@@ -157,9 +157,9 @@ Claude peut se tromper, y compris avec assurance. Avant d'utiliser le diaporama 
 | **Les mots** | Les noms de méthodes, de variables, d'auteurs sont-ils correctement écrits ? |
 | **La cohérence** | Le diaporama dit-il la même chose que le mémoire ? Rien d'ajouté, rien de déformé ? |
 
-![Le diaporama créé, ouvert dans PowerPoint ou LibreOffice](../images/guides/04-03_resultat_pptx.png)
+![Le diaporama créé, avec le bouton Télécharger et l'aperçu](../images/guides/04-03_resultat_pptx.png)
 
-*Figure 3. Le fichier `.pptx` produit, ouvert pour relecture.*
+*Figure 3. Le fichier PowerPoint produit : la carte avec le bouton « Télécharger » et l'aperçu des diapositives, à droite.*
 
 ### 3.4 Demander des corrections
 
@@ -223,13 +223,15 @@ Les Skills sont disponibles sur tous les abonnements, et demandent que l'option 
 
 ### 5.2 Où les trouver dans claude.ai
 
-1. Cliquez sur **Personnaliser** (*Customize*) dans votre compte.
-2. Ouvrez **Skills**.
-3. Cliquez sur **+**, puis **Parcourir les skills** (*Browse skills*) pour ouvrir l'annuaire.
+**Depuis les réglages :**
 
-![Menu Personnaliser, liste des Skills](../images/guides/04-04_skills_annuaire.png)
+1. Cliquez sur votre profil (en bas à gauche), puis sur **« Paramètres »**.
+2. Dans la colonne de gauche, repérez la section **« Personnaliser »** : elle contient **« Compétences »**, **« Connecteurs »** et **« Plugins »**.
+3. Cliquez sur **« Compétences »**. La page liste vos Skills et permet d'en ajouter : cliquez sur le bouton **+**, puis choisissez d'ouvrir l'annuaire (en anglais : *Browse skills*).
 
-*Figure 4. L'annuaire des Skills.*
+**Depuis une conversation :** cliquez sur le bouton **« + »** à gauche de la zone de saisie, puis sur **« Compétences »** : un sous-menu s'ouvre, où vous retrouvez vos Skills.
+
+Rappel : les Skills demandent que **« Exécution de code et création de fichiers »** soit activé (section 2.2).
 
 ### 5.3 Dans Claude Code : écrire son propre Skill
 
@@ -279,25 +281,26 @@ Il peut s'agir de : un **document** (Markdown ou texte), un **extrait de code**,
 
 Les artefacts sont disponibles sur tous les abonnements. Des fonctions de présentation (Claude Slides) et de documents sont proposées, **en version bêta**, sur les abonnements payants.
 
-![Un artefact ouvert à côté de la conversation](../images/guides/04-05_artefact.png)
+**Pas à pas : créer et modifier un artefact.**
 
-*Figure 5. Un artefact à côté de la conversation.*
+1. Dans une conversation, demandez un contenu précis, par exemple : « Crée une page web d'une seule page qui affiche le planning de ma semaine » ou « Rédige un document Markdown qui résume ce guide ».
+2. Claude affiche le résultat dans un **panneau à côté de la conversation** (à droite de l'écran).
+3. Pour le modifier, demandez-le dans la conversation. Pour un document Markdown, vous pouvez aussi **surligner le passage** à changer, cliquer sur **« Edit with Claude »** et écrire votre demande.
+4. En **bas à droite** du panneau, utilisez les boutons pour **voir le code**, **copier** le contenu ou le **télécharger**.
+5. Pour le partager par un lien, utilisez la fonction **« Publier et partager »**.
 
 ### 6.2 Les connecteurs
 
 Un **connecteur** relie Claude à un **service extérieur** pour qu'il lise ou utilise vos données : Google Workspace (Gmail, Drive, Agenda), GitHub, Microsoft 365, etc. On peut aussi ajouter des connecteurs personnalisés.
 
-**Activation (abonnements Gratuit, Pro et Max) :**
+**Pas à pas (abonnements Gratuit, Pro et Max) :**
 
-1. Ouvrez **Personnaliser**, puis **Connecteurs** (*Customize > Connectors*).
-2. Ajoutez le connecteur voulu et autorisez l'accès quand la page vous le demande.
-3. Dans une conversation, cliquez sur le bouton **+**, puis **Connecteurs**, pour l'activer pour cette conversation.
+1. Cliquez sur votre profil (en bas à gauche), puis sur **« Paramètres »**.
+2. Dans la colonne de gauche, sous **« Personnaliser »**, cliquez sur **« Connecteurs »**.
+3. Choisissez le service voulu et lancez sa connexion : une page d'autorisation du service s'ouvre. **Lisez attentivement les autorisations demandées**, puis acceptez seulement celles dont vous avez besoin.
+4. Dans une conversation, cliquez sur le bouton **« + »** à gauche de la zone de saisie, puis sur **« Connecteurs »**, et activez le connecteur pour cette conversation.
 
-Sur les abonnements Team et Enterprise, un propriétaire ajoute d'abord les connecteurs dans **Paramètres de l'organisation**.
-
-![Menu Connecteurs](../images/guides/04-06_connecteurs.png)
-
-*Figure 6. Le menu des connecteurs.*
+Sur les abonnements Team et Enterprise, un propriétaire ajoute d'abord les connecteurs dans **« Paramètres de l'organisation »**.
 
 > **Prudence.** Ne connectez Claude qu'à des services **de confiance**. Un connecteur peut **lire, créer, modifier ou supprimer** des données. Lisez attentivement les autorisations demandées, et n'acceptez que celles dont vous avez besoin.
 
@@ -370,27 +373,38 @@ Pour compter les pages d'un PDF :
 pdfinfo /tmp/exemple.pdf | grep Pages
 ```
 
-### 8.3 Insérer des images dans le fichier `.tex`
+### 8.3 Ajouter ou retirer une image dans un document
 
-Dans chaque fichier `.tex`, **chaque image est un bloc LaTeX standard** :
+Une image n'apparaît dans un PDF que **si son fichier existe**. Les images sont rangées dans `docs/images/` (`readme/` pour le README, `guides/` pour les guides).
+
+**Ajouter une image :**
+
+1. Placez le fichier PNG dans `docs/images/guides/` (ou `docs/images/readme/` pour le README).
+2. Dans le fichier Markdown du document, écrivez à l'endroit voulu la ligne de l'image, puis, juste dessous, sa légende :
 
 ```text
-% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai avant la connexion
+![Description de l'image](../images/guides/mon_image.png)
+
+*Figure 1. Légende de l'image.*
+```
+
+Pour le README, le chemin est `docs/images/readme/mon_image.png`. Les numéros de figure sont recalculés automatiquement dans le PDF.
+
+3. Refaites les PDF : `docs/build/build_all.sh`.
+
+**Retirer une image :** supprimez ces deux lignes (l'image et sa légende) : le texte autour reste. Si une image est citée dans le Markdown mais que son fichier n'existe pas, le script l'ignore et le signale à l'écran : le texte reste, sans figure.
+
+**Dans le fichier `.tex`.** Chaque image y est un bloc LaTeX standard :
+
+```text
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-01_claude_ai_accueil.png}
-  \caption{Page d'accueil de claude.ai.}
+  \caption{La page d'accueil de claude.ai.}
 \end{figure}
 ```
 
-Pour mettre votre capture, **changez seulement le nom du fichier** entre les accolades de `\includegraphics{...}`. Le chemin est relatif au dossier `docs/tex/` : d'où le `../images/`. Deux façons de faire :
-
-- **Sans toucher au `.tex`.** Déposez votre capture **sous le nom exact** déjà écrit dans le bloc, dans `docs/images/guides/` (ou `docs/images/readme/`).
-- **En changeant le nom dans le `.tex`.** Remplacez `01-01_claude_ai_accueil.png` par le nom de votre fichier.
-
-Tant que le fichier est absent, le PDF affiche à sa place un cadre **« CAPTURE À INSÉRER »** et la compilation ne s'arrête pas. Pour trouver un bloc dans le `.tex`, cherchez le nom du fichier ou le mot `CAPTURE :`, écrit en commentaire au-dessus de chaque bloc. Le texte de la légende se change avec `\caption{...}`.
-
-Ensuite, recompilez **deux fois**, depuis `docs/tex/` :
+Pour changer l'image à la main, **changez seulement le nom du fichier** entre les accolades de `\includegraphics{...}` (le chemin part du dossier `docs/tex/`, d'où le `../images/`). Pour en ajouter une, copiez un bloc existant et changez le nom. Recompilez ensuite **deux fois** avec `pdflatex`, depuis `docs/tex/` :
 
 ```bash
 cd docs/tex
