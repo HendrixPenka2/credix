@@ -204,7 +204,8 @@ credix/                          dossier créé par « git clone »
 |   |-- .env.example             le modèle du fichier de configuration
 |   `-- FONCTIONNALITES.md       la liste détaillée des écrans
 |-- docs/                        schémas (diagrammes/), captures (captures_memoire/),
-|                                images de ce README (images/readme/), guides (guides/)
+|                                images (images/), guides (guides/), PDF (pdf/),
+|                                outils de fabrication des PDF (build/)
 `-- stitch_credix_design_system/ cahier des charges du frontend et système de design
 ```
 
@@ -1174,4 +1175,6 @@ docker compose down -v   # tout effacer
 | [`scoring-backend/demo_data/LISEZMOI.md`](scoring-backend/demo_data/LISEZMOI.md) | D'où viennent les phrases d'explication et les clients de démonstration, et comment les régénérer |
 | [`docs/diagrammes/`](docs/diagrammes/) | Schémas de conception (draw.io et PlantUML) |
 | [`stitch_credix_design_system/`](stitch_credix_design_system/) | Cahier des charges du frontend et système de design |
-| `docs/guides/` | Guides sur la méthode de conception avec Claude (à venir) |
+| [`docs/guides/`](docs/guides/) | Guides sur la méthode de conception avec Claude : fiche de démonstration (`00_`), outils Claude (`01_`), méthode de conception (`02_`), conception du MVP (`03_`), autres fonctions de Claude (`04_`) |
+| [`docs/pdf/`](docs/pdf/) | Les mêmes documents en PDF, dont le dossier de remise complet (`00_Dossier_de_remise.pdf`) |
+| [`docs/build/`](docs/build/) | Outils qui fabriquent les PDF à partir des fichiers Markdown (guide 4, section 8) |

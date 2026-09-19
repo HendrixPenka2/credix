@@ -44,3 +44,6 @@ stitch_credix_design_system/*
 !stitch_credix_design_system/credix_system/
 stitch_credix_design_system/credix_system/*
 !stitch_credix_design_system/credix_system/DESIGN.md
+
+# Bibliothèque Mermaid (3,5 Mo, se retélécharge : voir docs/build/render_mermaid.js)
+docs/build/mermaid.min.js
