@@ -16,8 +16,8 @@ NOTE SUR LES FILTRES RHO (S2-rework) :
   Le paramètre q (texte) est OPTIONNEL si rho_min ou rho_max est fourni.
   Cela permet d'obtenir la liste des clients thin-file sans terme de recherche.
   Si q, rho_min et rho_max sont tous absents → HTTP 400.
-  Les filtres sont cumulatifs : q="Ndongo" + rho_max=0.40 filtre les clients
-  nommés "Ndongo" avec une couverture ρc < 0.40.
+  Les filtres sont cumulatifs : q="Ndongo" + rho_max=0.42 filtre les clients
+  nommés "Ndongo" avec une couverture ρc < 0.42.
 """
 from fastapi import APIRouter, HTTPException, Depends, Query
 from datetime import datetime, timezone
@@ -45,7 +45,7 @@ def _serialize(doc: dict) -> dict:
 async def rechercher_clients(
     q: Optional[str] = Query(None, min_length=2, description="Nom, prénom, téléphone ou identifiant"),
     rho_min: Optional[float] = Query(None, ge=0.0, le=1.0, description="Filtre ρc minimum"),
-    rho_max: Optional[float] = Query(None, ge=0.0, le=1.0, description="Filtre ρc maximum (ex: 0.40 pour thin-file)"),
+    rho_max: Optional[float] = Query(None, ge=0.0, le=1.0, description="Filtre ρc maximum (ex: 0.42 pour thin-file)"),
     decision_derniere: Optional[str] = Query(None, description="Filtre sur dernière décision: ACCORDE, REFUSE, REVUE_MANUELLE"),
     limit: int = Query(10, le=50),
     current_user: dict = Depends(require_agent)
@@ -55,9 +55,9 @@ async def rechercher_clients(
 
     EXEMPLES D'USAGE :
       /search?q=Mballa                         → recherche textuelle classique
-      /search?rho_max=0.40                     → tous les clients thin-file
-      /search?q=Ndongo&rho_max=0.40            → client "Ndongo" + thin-file
-      /search?rho_min=0.40&rho_max=1.0         → clients avec couverture suffisante
+      /search?rho_max=0.42                     → tous les clients thin-file
+      /search?q=Ndongo&rho_max=0.42            → client "Ndongo" + thin-file
+      /search?rho_min=0.42&rho_max=1.0         → clients avec couverture suffisante
       /search?decision_derniere=REVUE_MANUELLE → clients en attente de revue
 
     NOTE : q devient optionnel si rho_min ou rho_max est fourni.

@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException, Depends, Query, Response
 from datetime import datetime, timezone, timedelta
 from pydantic import BaseModel, Field
 from app.core.security import require_agent, require_superviseur
-from app.db.collections import col_decisions, col_clients, col_audit_logs
+from app.db.collections import col_decisions, col_clients, col_audit_logs, col_demandes
 from app.services.pdf_client import generer_pdf
 
 router = APIRouter(prefix="/api/decisions", tags=["Décisions"])
@@ -134,10 +134,18 @@ def _empty_override_stats() -> dict:
 @router.get("/pending-review")
 async def get_pending_reviews(current_user: dict = Depends(require_superviseur)):
     """File des dossiers en attente de revue manuelle (superviseur)."""
+    filtre_attente = {"decision_finale.valeur": "REVUE_MANUELLE", "override_superviseur": False}
+    # Total réel de la file (pas la taille de la page retournée) — utilisé
+    # par la cloche de notification. Avant ce correctif, "total" valait
+    # len(dossiers) donc plafonnait silencieusement à la limite de la page :
+    # au-delà de 50 dossiers en attente, les plus récents n'apparaissaient
+    # nulle part (ni dans la liste, ni dans le compteur).
+    total_reel = await col_decisions().count_documents(filtre_attente)
+
     pipeline = [
-        {"$match": {"decision_finale.valeur": "REVUE_MANUELLE", "override_superviseur": False}},
+        {"$match": filtre_attente},
         {"$sort": {"timestamp": 1}},
-        {"$limit": 50},
+        {"$limit": 200},
         {"$lookup": {
             "from": "clients", "localField": "client_id",
             "foreignField": "client_id", "as": "client"
@@ -153,6 +161,7 @@ async def get_pending_reviews(current_user: dict = Depends(require_superviseur))
             "score_pdo": 1, "pd_c": 1, "rho_c": 1,
             "shap_top5": 1, "recommandation_rho": 1,
             "anomaly_score": 1, "is_anomaly": 1, "if_escalade": 1,
+            "if_detecteur": 1, "top_facteurs_anomalie": 1,
             "client_nom": "$client.profile.nom",
             "client_prenom": "$client.profile.prenom",
             "client_profile": "$client.profile",
@@ -160,8 +169,8 @@ async def get_pending_reviews(current_user: dict = Depends(require_superviseur))
             "declaratif": "$demande.input.declaratif",
         }}
     ]
-    dossiers = await col_decisions().aggregate(pipeline).to_list(50)
-    return {"dossiers": dossiers, "total": len(dossiers)}
+    dossiers = await col_decisions().aggregate(pipeline).to_list(200)
+    return {"dossiers": dossiers, "total": total_reel}
 
 
 class OverrideRequest(BaseModel):
@@ -305,11 +314,13 @@ async def export_pdf(demande_id: str, current_user: dict = Depends(require_agent
         raise HTTPException(status_code=404, detail="Décision introuvable")
 
     client = await col_clients().find_one({"client_id": decision["client_id"]}, {"_id": 0})
+    demande = await col_demandes().find_one({"demande_id": demande_id}, {"_id": 0})
 
     payload = {
         "demande_id": demande_id,
         "decision": decision,
         "client": client or {},
+        "declaratif": (demande or {}).get("input", {}).get("declaratif", {}),
         "agent_id": current_user["sub"],
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }

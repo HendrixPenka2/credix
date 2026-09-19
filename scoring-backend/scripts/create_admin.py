@@ -1,10 +1,13 @@
 """
 create_admin.py -- Cree le premier compte ADMIN dans MongoDB.
-Lance ce script apres seed_database.py et avant de demarrer le backend.
+Lance ce script quand MongoDB est demarre. Le mot de passe n'est jamais ecrit
+dans le code : passe-le par --password, par la variable ADMIN_PASSWORD, ou
+saisis-le au clavier.
 
 Usage:
-    python scripts/create_admin.py
-    python scripts/create_admin.py --username admin --password MonMotDePasse123
+    python scripts/create_admin.py --password "VotreMotDePasse"
+    ADMIN_PASSWORD="VotreMotDePasse" python scripts/create_admin.py
+    docker compose exec -e ADMIN_PASSWORD="VotreMotDePasse" api python scripts/create_admin.py
 """
 import os, sys, asyncio, argparse, uuid
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -54,6 +57,18 @@ async def create_admin(username, password):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--username", default="admin")
-    parser.add_argument("--password", default="Admin2026!")
+    parser.add_argument(
+        "--password",
+        default=None,
+        help="Mot de passe (8 caracteres minimum). A defaut : variable ADMIN_PASSWORD, sinon saisie au clavier.",
+    )
     args = parser.parse_args()
-    asyncio.run(create_admin(args.username, args.password))
+
+    password = args.password or os.getenv("ADMIN_PASSWORD")
+    if not password and sys.stdin.isatty():
+        import getpass
+        password = getpass.getpass("Mot de passe du compte ADMIN (8 caracteres minimum) : ")
+    if not password or len(password) < 8:
+        sys.exit("[ERREUR] Mot de passe manquant ou trop court (8 caracteres minimum). "
+                 "Utilise --password ou la variable ADMIN_PASSWORD.")
+    asyncio.run(create_admin(args.username, password))

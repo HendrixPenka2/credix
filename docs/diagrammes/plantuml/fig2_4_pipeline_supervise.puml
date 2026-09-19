@@ -1,0 +1,82 @@
+@startuml fig2_4_pipeline_supervise
+' =====================================================================
+'  FIGURE 2.4 — Construction methodologique du flux supervise
+'  Emplacement : chapitre 2, §2.4.1 « Vue generale du pipeline »
+'  Remplace la figure 2.4 actuelle (4 boites generiques)
+'
+'  Chiffres verifies dans le chapitre 2 :
+'   63 caracteristiques construites -> 27 retenues par l'IV
+'   -> les 27 resistent au NAP -> les 27 conservees apres VIF
+'  A RELIRE une fois contre le notebook avant compilation.
+' =====================================================================
+
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 12
+skinparam ArrowColor #333333
+skinparam activity {
+  BorderThickness 1.3
+  DiamondBorderThickness 1.3
+}
+
+title Flux supervise — de la donnee brute a la decision initiale
+
+start
+
+#F2F2F2:**Corpus historique**
+<size:10>construction des caracteristiques</size>;
+note right: **63 variables** construites
+
+#F2F2F2:**Separation temporelle**
+<size:10>apprentissage / validation / test</size>;
+note right
+  Encodage, selection et apprentissage
+  sont ajustes sur le seul ensemble
+  d'apprentissage, puis appliques de
+  maniere deterministe aux autres.
+end note
+
+partition "Reduction et transformation" #FFFDF5 {
+
+  #FFF4D6:**Pre-filtrage univarie (IV)**
+  <size:10>elimination des variables non predictives</size>;
+  note right: **27 variables** retenues
+
+  #FFF4D6:**Encodage WOE**
+  <size:10>mise a l'echelle continue commune</size>;
+
+  #FFF4D6:**Selection multivariee (NAP)**
+  <size:10>importance par permutation</size>;
+  note right: les **27** resistent
+
+  #FFF4D6:**Controle de colinearite (VIF)**;
+  note right: les **27** conservees
+}
+
+partition "Modelisation" #FBFDFB {
+
+  #E6F4E6:**Apprentissage LightGBM**
+  <size:10>produit PD brute</size>;
+
+  #E6F4E6:**Calibration isotonique**
+  <size:10>PD brute -> PD calibree</size>;
+}
+
+fork
+  #E8F0FB:**Conversion en score PDO**
+  <size:10>puis application des seuils metier</size>;
+
+  #D6E4F7:**Decision initiale D<sub>i</sub>**;
+  stop
+fork again
+  #FFF9E0:**Explication SHAP**
+  <size:10>sortie complementaire</size>;
+  note right
+    N'altere pas le calcul du risque :
+    branche parallele a la chaine decisionnelle.
+  end note
+  stop
+end fork
+
+@enduml

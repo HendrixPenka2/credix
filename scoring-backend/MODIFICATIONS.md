@@ -364,7 +364,7 @@ curl http://localhost:8080/health
 # Attendu : {"statut":"ok","features_chargees":27,"mock_mode":false}
 
 # 4. Créer l'admin
-python scripts/create_admin.py --username admin --password Admin2026!
+python scripts/create_admin.py --username admin --password <votre_mot_de_passe>
 
 # 5. Générer les métadonnées features (LLM Gemini)
 python scripts/generate_metadata.py --run-id lgbm-run-v1

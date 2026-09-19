@@ -1,0 +1,46 @@
+# ============================================================
+# CREDIX : fichiers à ne jamais publier
+# ============================================================
+
+# Secrets et configuration locale (on garde .env.example)
+.env
+.env.*
+!.env.example
+
+# Dépendances et fichiers générés
+node_modules/
+.next/
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.tsbuildinfo
+*.log
+.DS_Store
+
+# Mémoire de fin d'études : reste sur l'ordinateur de l'auteur
+docs/memoire/
+
+# Ancienne interface (remplacée par credix-v2) : reste sur l'ordinateur de l'auteur
+/credix/
+
+# Outils de capture d'écran du mémoire (chemins propres à l'ordinateur de l'auteur)
+docs/captures_memoire/capture_*.js
+docs/captures_memoire/lib.js
+docs/captures_memoire/assets/
+
+# Copies du code faites pour Claude (contiennent des mots de passe de test, régénérables)
+contexte_fastapi.txt
+contexte_frontend_CREDIX.txt
+
+# Documents de travail non publiés (à décider plus tard)
+*.skill
+PLAN_MEMOIRE_CREDIX_V1.tex
+/credix-v3-quantification-2026-07 (2).ipynb
+
+# Maquettes Stitch : on ne publie que le cahier des charges et le design system
+stitch_credix_design_system/*
+!stitch_credix_design_system/cdc_credix.md
+!stitch_credix_design_system/credix_system/
+stitch_credix_design_system/credix_system/*
+!stitch_credix_design_system/credix_system/DESIGN.md

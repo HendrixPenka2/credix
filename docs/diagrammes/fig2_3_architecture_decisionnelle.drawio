@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" agent="CREDIX" version="24.0.0">
+  <diagram id="fig2_3" name="Fig 2.3 - Architecture decisionnelle">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="DATA" value="&lt;b&gt;Donnees du demandeur&lt;/b&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#707070;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="20" width="280" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- package = conteneur reel (swimlane) : FS est un ENFANT de PS, pas un element flottant a cote -->
+        <mxCell id="PS" value="Flux supervise" style="swimlane;startSize=26;whiteSpace=wrap;html=1;fillColor=#FBFDFB;strokeColor=#82B366;fontStyle=1;fontSize=12;container=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="130" width="340" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="FS" value="&lt;b&gt;Estimation du risque&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;PD calibree -&amp;gt; score PDO&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;produit la decision initiale D&lt;sub&gt;i&lt;/sub&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;+ contributions SHAP&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#E6F4E6;strokeColor=#4A8B4A;fontSize=11;" vertex="1" parent="PS">
+          <mxGeometry x="20" y="35" width="300" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- package = conteneur reel (swimlane) : RHO et ATY sont ENFANTS de MC -->
+        <mxCell id="MC" value="Mecanismes de controle" style="swimlane;startSize=26;whiteSpace=wrap;html=1;fillColor=#FFFDF5;strokeColor=#D6B656;fontStyle=1;fontSize=12;container=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="130" width="380" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="RHO" value="&lt;b&gt;Indice de couverture &amp;#961;&lt;sub&gt;c&lt;/sub&gt;&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;part du signal reellement disponible&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF4D6;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="MC">
+          <mxGeometry x="20" y="35" width="340" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ATY" value="&lt;b&gt;Flux de controle&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;score d'atypicite&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;ecart a la population de reference&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFE9CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="MC">
+          <mxGeometry x="20" y="105" width="340" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="FUS" value="&lt;b&gt;Dispositif de fusion&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;escalade conservative : un controle peut durcir&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;une decision favorable, jamais adoucir un refus&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#E8F0FB;strokeColor=#4A72B0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="280" y="360" width="320" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="DF" value="&lt;b&gt;Decision finale D&lt;sub&gt;f&lt;/sub&gt;&lt;/b&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#D6E4F7;strokeColor=#2F5C9E;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="330" y="500" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="RECO" value="Recommandation&lt;br&gt;documentaire&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;&amp;#961;&lt;sub&gt;c&lt;/sub&gt; &amp;lt; 0,42&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#FFF9E0;strokeColor=#C9A227;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="660" y="490" width="220" height="75" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_data_fs" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="DATA" target="FS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_data_rho" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="DATA" target="RHO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_data_aty" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="DATA" target="ATY">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_rho_aty" value="&amp;#961;&lt;sub&gt;c&lt;/sub&gt; &amp;lt; 0,25 : desactive" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#D79B00;fontColor=#D79B00;fontSize=10;" edge="1" parent="1" source="RHO" target="ATY">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_fs_fus" value="D&lt;sub&gt;i&lt;/sub&gt;" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=11;exitX=0.3;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="FS" target="FUS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rho_fus" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="RHO" target="FUS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_aty_fus" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="ATY" target="FUS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_fus_df" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=2;" edge="1" parent="1" source="FUS" target="DF">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fus_reco" value="signal informatif" style="endArrow=block;endFill=1;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;exitX=1;exitY=0.6;exitDx=0;exitDy=0;" edge="1" parent="1" source="FUS" target="RECO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note_reco" value="N'atteint jamais D&lt;sub&gt;f&lt;/sub&gt;.&#10;Informe l'agent sans&#10;modifier la decision." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="660" y="580" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="link_reco" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_reco" target="RECO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note_fus" value="Aucune information de controle n'est une seconde estimation du risque.&#10;Les mecanismes de controle ne corrigent pas la prediction :&#10;ils determinent si elle peut etre automatisee en toute securite." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="590" width="440" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="link_fus" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_fus" target="FUS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,83 @@
+@startuml fig2_5_pipeline_controle
+' =====================================================================
+'  FIGURE NOUVELLE — Construction methodologique du flux de controle
+'  Emplacement : chapitre 2, §2.6.1 (debut de la section
+'                « Conception du flux de controle non supervise »),
+'                en pendant symetrique de la figure 2.4.
+'
+'  Cette figure n'existe pas dans le memoire actuel : la section 2.6
+'  presente l'autoencodeur (figure 2.5) mais jamais la chaine complete
+'  qui va du corpus aux seuils figes.
+'
+'  Chiffres issus du chapitre 2 : espace de representation a 61 dimensions
+'  construit a partir des 27 variables NAP dans leur forme brute ;
+'  architecture 61 -> 22 -> 8 -> 22 -> 61 ; seuils P95 = 0,1775 et P99 = 0,2451.
+' =====================================================================
+
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 12
+skinparam ArrowColor #333333
+skinparam activity {
+  BorderThickness 1.3
+  DiamondBorderThickness 1.3
+}
+
+title Flux de controle — du corpus aux seuils d'atypicite figes
+
+start
+
+#F2F2F2:**Corpus d'apprentissage**;
+
+#FFE9CC:**Restriction aux bons payeurs**
+<size:10>y = 0 uniquement</size>;
+note right
+  Detection de **nouveaute**, non de defaut.
+  Le reseau apprend la structure du profil
+  regulier ; tout ecart devient un signal.
+  Justification : chandola2009anomaly.
+end note
+
+partition "Espace de representation" #FFFDF5 {
+  #FFF4D6:**Reprise des 27 variables NAP**
+  <size:10>dans leur forme brute, non encodee en WOE</size>;
+
+  #FFF4D6:**Construction de l'espace a 61 dimensions**
+  <size:10>indicateurs de presence, ratios, formes brutes</size>;
+  note right: **61 dimensions**
+}
+
+partition "Apprentissage de l'autoencodeur" #FBFDFB {
+  #E6F4E6:**Architecture symetrique 61 -> 22 -> 8 -> 22 -> 61**
+  <size:10>couche intermediaire : regle de la pyramide geometrique</size>
+  <size:10>goulot a 8 dimensions : balayage empirique</size>;
+
+  #E6F4E6:**Entrainement**
+  <size:10>minimisation de l'erreur quadratique moyenne</size>
+  <size:10>optimiseur Adam, 200 epoques max, arret anticipe</size>;
+}
+
+#E8F0FB:**Calcul de l'erreur de reconstruction**
+<size:10>score d'atypicite = ecart entre le profil et sa reconstruction</size>;
+
+#E8F0FB:**Determination des seuils par percentiles**
+<size:10>sur la distribution des bons payeurs</size>;
+note right
+  P95 = **0,1775** (seuil retenu)
+  P99 = **0,2451**
+  Les seuils sont des **artefacts figes**,
+  non des parametres administrables.
+end note
+
+#D6E4F7:**Score d'atypicite + seuil de declenchement**
+<size:10>consommes par le dispositif de fusion</size>;
+
+stop
+
+note bottom
+  Ce flux ne produit **aucune estimation du risque de defaut**.
+  Son orthogonalite au defaut est un resultat attendu, verifie au chapitre 3.
+end note
+
+@enduml

@@ -2,10 +2,11 @@
 .env
 *.env
 
-# Artefacts ML (ne pas versionner)
-artefacts/*.pkl
-artefacts/*.csv
-artefacts/*.json
+# Artefacts ML : versionnes (3,5 Mo au total) pour qu'un clone puisse demarrer.
+# Ne jamais y placer de donnees clients.
+
+# Etude ponctuelle rho_c : contient 1 000 enregistrements Home Credit et des resultats generes
+verification_rho_c/
 
 # Python
 __pycache__/

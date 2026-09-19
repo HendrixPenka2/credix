@@ -14,7 +14,9 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
     volumes:
       - ./artefacts:/app/artefacts:ro
-      - ./app:/app/app   # ← AJOUTER CETTE LIGNE
+      - ./app:/app/app
+      - ./scripts:/app/scripts:ro   # scripts de premier lancement : docker compose exec api python scripts/...
+      - ./demo_data:/app/demo_data:ro   # phrases d'explication et clients de démonstration
     depends_on:
       mongodb:
         condition: service_healthy

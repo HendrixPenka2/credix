@@ -40,14 +40,14 @@ class Settings(BaseSettings):
     psi_seuil_derive: float = 0.25
 
     # rho_c
-    rho_seuil_banniere: float = 0.40
+    rho_seuil_banniere: float = 0.42
     rho_seuil_revue_forcee: float = 0.25
 
     # MLflow
     mlflow_tracking_uri: str = "http://mlflow:5000"
 
     # CORS
-    allowed_origins: str = "http://localhost:3000,http://localhost:5173"
+    allowed_origins: str = "http://localhost:3000,http://localhost:3001,http://localhost:5173"
 
     @property
     def allowed_origins_list(self) -> List[str]:

@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" agent="CREDIX" version="24.0.0">
+  <diagram id="fig2_2" name="Fig 2.2 - Chaine conceptuelle">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="520" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="titre" value="Ce qui evolue, ce qui est fige" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="0" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="M" value="&lt;b&gt;Version de modele&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;artefacts figes&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#B85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="560" y="30" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="C" value="&lt;b&gt;Client&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;entite evolutive&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;revenu, adresse, historique changent&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#E8F0FB;strokeColor=#4A72B0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="230" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D" value="&lt;b&gt;Demande&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;photographie figee a l'instant t&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;declaratif + vecteur de caracteristiques&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#707070;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="340" y="180" width="230" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="E" value="&lt;b&gt;Decision&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;resultat immuable&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;score, D&lt;sub&gt;i&lt;/sub&gt;, D&lt;sub&gt;f&lt;/sub&gt;, &amp;#961;&lt;sub&gt;c&lt;/sub&gt;, SHAP&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#E6F4E6;strokeColor=#4A8B4A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="180" width="240" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_cd" value="soumet" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=11;" edge="1" parent="1" source="C" target="D">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_de" value="est evaluee" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=11;" edge="1" parent="1" source="D" target="E">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_me" value="produit" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=11;" edge="1" parent="1" source="M" target="E">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note_c" value="Seul le Client evolue dans le temps.&#10;Evaluer &amp;#171;&amp;#160;un client&amp;#160;&amp;#187; plutot qu'une demande&#10;rendrait la decision non reproductible." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="230" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="link_c" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_c" target="C">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note_e" value="Rejouer une decision passee = recombiner&#10;la Demande figee et la Version de modele&#10;qui l'a produite. Aucun des deux ne change&#10;apres coup : c'est la condition de la reproductibilite." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="610" y="320" width="310" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="link_e" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_e" target="E">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

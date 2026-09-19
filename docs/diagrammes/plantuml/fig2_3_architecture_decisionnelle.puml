@@ -1,0 +1,60 @@
+@startuml fig2_3_architecture_decisionnelle
+' =====================================================================
+'  FIGURE 2.3 — Architecture decisionnelle a deux flux
+'  Emplacement : chapitre 2, §2.3.3 « Vue globale de l'architecture decisionnelle »
+'  Remplace la figure 2.3 actuelle
+' =====================================================================
+
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+skinparam ArrowColor #333333
+skinparam rectangle {
+  BorderThickness 1.4
+}
+
+rectangle "**Donnees du demandeur**" as DATA #F2F2F2;line:707070
+
+package "Flux supervise" as PS #FBFDFB {
+  rectangle "**Estimation du risque**\n<size:10>PD calibree -> score PDO</size>\n<size:10>produit la decision initiale D<sub>i</sub></size>\n<size:10>+ contributions SHAP</size>" as FS #E6F4E6;line:4A8B4A
+}
+
+package "Mecanismes de controle" as MC #FFFDF5 {
+  rectangle "**Indice de couverture rho_c**\n<size:10>part du signal reellement disponible</size>" as RHO #FFF4D6;line:C9A227
+  rectangle "**Flux de controle**\n<size:10>score d'atypicite</size>\n<size:10>ecart a la population de reference</size>" as ATY #FFE9CC;line:D79B00
+}
+
+rectangle "**Dispositif de fusion**\n<size:10>escalade conservative : un controle peut durcir</size>\n<size:10>une decision favorable, jamais adoucir un refus</size>" as FUS #E8F0FB;line:4A72B0
+
+rectangle "**Decision finale D<sub>f</sub>**" as DF #D6E4F7;line:2F5C9E
+
+rectangle "Recommandation\ndocumentaire\n<size:10>rho_c < 0,42</size>" as RECO #FFF9E0;line:C9A227
+
+DATA --> FS
+DATA --> RHO
+DATA --> ATY
+
+RHO -[#D79B00]-> ATY : <size:10>rho_c < 0,25 : desactive</size>
+
+FS --> FUS : <size:10>D<sub>i</sub></size>
+RHO --> FUS
+ATY --> FUS
+
+FUS --> DF
+FUS ..> RECO : <size:10>signal informatif</size>
+
+note right of RECO
+  N'atteint jamais D<sub>f</sub>.
+  Informe l'agent sans
+  modifier la decision.
+end note
+
+note bottom of FUS
+  Aucune information de controle n'est une seconde estimation du risque.
+  Les mecanismes de controle ne corrigent pas la prediction :
+  ils determinent si elle peut etre automatisee en toute securite.
+end note
+
+@enduml

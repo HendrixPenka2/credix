@@ -167,6 +167,68 @@ def generer_phrase_shap(
     }
 
 
+def generer_phrase_anomalie(
+    feature: str,
+    erreur_reconstruction: float,
+    valeur_brute,
+    feature_metadata: dict,
+) -> dict:
+    """
+    Génère une phrase d'explicabilité pour le Flux B (autoencodeur).
+
+    Pas d'équivalent SHAP ici : l'erreur de reconstruction par variable dit
+    juste "inhabituel par rapport aux profils appris", sans direction
+    aggravant/atténuant ni garantie d'additivité (ce n'est pas une
+    décomposition prouvée de la décision, juste une mesure de dissimilarité).
+    """
+    meta = feature_metadata.get(feature)
+
+    if not meta:
+        return {
+            "feature": feature,
+            "libelle_agent": feature,
+            "erreur_reconstruction": round(float(erreur_reconstruction), 6),
+            "valeur_brute": valeur_brute,
+            "explication_naturelle": (
+                f"Variable {feature} : valeur inhabituelle par rapport aux "
+                f"profils similaires appris par le modèle."
+            ),
+        }
+
+    libelle = meta.get("libelle_agent", feature)
+    seuils = meta.get("seuils", [])
+    label = _trouver_label(valeur_brute, seuils, meta)
+
+    if valeur_brute is None:
+        valeur_fmt = "N/A"
+    elif meta.get("type") == "categorical":
+        valeur_fmt = str(valeur_brute)
+    else:
+        try:
+            valeur_fmt = f"{float(valeur_brute):.2f}"
+        except (TypeError, ValueError):
+            valeur_fmt = str(valeur_brute)
+
+    if label and label != libelle and valeur_fmt != "N/A":
+        phrase = (
+            f"{libelle} : {label} ({valeur_fmt}) — valeur inhabituelle par "
+            f"rapport aux profils similaires appris par le modèle."
+        )
+    else:
+        phrase = (
+            f"{libelle} ({valeur_fmt}) — valeur inhabituelle par rapport "
+            f"aux profils similaires appris par le modèle."
+        )
+
+    return {
+        "feature": feature,
+        "libelle_agent": libelle,
+        "erreur_reconstruction": round(float(erreur_reconstruction), 6),
+        "valeur_brute": valeur_brute,
+        "explication_naturelle": phrase,
+    }
+
+
 def _trouver_label(valeur, seuils: list, meta: dict) -> str:
     """Trouve le label d'intervalle correspondant à la valeur brute."""
     if not seuils or valeur is None:

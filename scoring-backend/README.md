@@ -1,9 +1,11 @@
 # Scoring Backend — Application IA de Prédiction du Comportement de Solvabilité
 
 **ENSPY GI2026 / IT Nearshore**
-**Étudiant :** Singhe Penka Hendrix Donavan — 21P05A
+**Étudiant :** Singhe Penka Hendrix Donavan — 21P050
 **Encadreur professionnel :** IT Nearshore
 **Stack :** FastAPI · Python 3.12 · LightGBM · SHAP · WOE · MongoDB · WeasyPrint · Docker
+
+> **Ce document est une documentation technique détaillée, rédigée en juin 2026.** Pour **récupérer, lancer et tester** le projet, suivez le [README à la racine du dépôt](../README.md), qui est à jour. Certains chiffres ci-dessous ont évolué depuis (14 fichiers de modèle chargés par l'API et non 5, 38 routes et non 23, seuils de décision 578,5 et 539,5 et non 600 et 500, seuil de couverture ρc 0,42 et non 0,40) : en cas de différence, le README racine fait foi.
 
 ---
 
@@ -388,7 +390,7 @@ Lance ces 4 scripts **une seule fois**, dans cet ordre, **après avoir démarré
 ### Script 1 — Créer le compte ADMIN
 
 ```bash
-python scripts/create_admin.py --username admin --password Admin2026!
+python scripts/create_admin.py --username admin --password <votre_mot_de_passe>
 ```
 
 Tu peux changer le username et le password. **Note-les bien.**
@@ -554,7 +556,7 @@ Toutes les routes peuvent être testées via Swagger (http://localhost:8080/docs
 ```bash
 curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "Admin2026!"}'
+  -d '{"username": "admin", "password": "<votre_mot_de_passe>"}'
 ```
 
 R�ponse :

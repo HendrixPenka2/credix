@@ -15,7 +15,7 @@ import numpy as np
 from datetime import date
 from fastapi import Request
 from app.services.rho_service import calculer_rho, generer_recommandation
-from app.services.shap_service import calculer_shap, generer_phrase_shap
+from app.services.shap_service import calculer_shap, generer_phrase_shap, generer_phrase_anomalie
 from app.services.pdo_service import pd_to_score, get_decision
 from app.services.calibration_service import calibrer_pd
 from app.core.config import settings
@@ -191,6 +191,65 @@ def _construire_vecteur_hybride(vecteur_brut: dict, app_state) -> np.ndarray | N
         return None
 
 
+def _grouper_erreurs_par_variable(erreurs, colonnes_json: dict, nap_features: list) -> dict:
+    """
+    Regroupe les 61 erreurs de reconstruction (une par colonne du vecteur
+    hybride AE) par variable NAP d'origine (27 variables).
+
+    - colonnes numériques (bloc_num) et ORGANIZATION_TYPE (frequency
+      encoding) : mapping 1:1, l'erreur de la colonne = l'erreur de la
+      variable.
+    - colonnes one-hot (bloc_cat_hybride, hors ORGANIZATION_TYPE) : plusieurs
+      colonnes partagent une variable d'origine (ex : NAME_EDUCATION_TYPE_*)
+      → on somme leurs erreurs.
+
+    Source de vérité pour l'ordre/le regroupement des colonnes :
+    colonnes_ordonnees_61.json + nap_features (jamais un mapping supposé).
+    """
+    ordre = colonnes_json["ordre"]
+    bloc_num = set(colonnes_json["bloc_num"])
+    erreurs_par_col = dict(zip(ordre, erreurs))
+
+    groupes = {f: 0.0 for f in nap_features}
+    prefixes_categoriels = sorted(
+        (f for f in nap_features if f not in bloc_num),
+        key=len, reverse=True,
+    )
+
+    for col, err in erreurs_par_col.items():
+        if col in bloc_num:
+            groupes[col] = float(err)
+            continue
+        origine = next(
+            (p for p in prefixes_categoriels if col == p or col.startswith(p + "_")),
+            None,
+        )
+        if origine is not None:
+            groupes[origine] += float(err)
+        else:
+            print(f"[WARNING] Flux B explicabilité : colonne '{col}' non rattachée à une variable NAP")
+
+    return groupes
+
+
+def _top_facteurs_anomalie(erreurs, app_state, vecteur_brut: dict, top_n: int = 3) -> list:
+    """Top-N des variables NAP les plus mal reconstruites par l'autoencodeur."""
+    groupes = _grouper_erreurs_par_variable(
+        erreurs, app_state.colonnes_ordonnees_61, app_state.nap_features
+    )
+    top = sorted(groupes.items(), key=lambda kv: kv[1], reverse=True)[:top_n]
+
+    return [
+        generer_phrase_anomalie(
+            feature=feature,
+            erreur_reconstruction=erreur,
+            valeur_brute=vecteur_brut.get(feature),
+            feature_metadata=app_state.feature_metadata,
+        )
+        for feature, erreur in top
+    ]
+
+
 def _appliquer_ae(vecteur_brut: dict, app_state, percentile: int) -> dict:
     """
     Détection d'anomalie par Autoencodeur (détecteur PRINCIPAL, 61 dims).
@@ -211,9 +270,19 @@ def _appliquer_ae(vecteur_brut: dict, app_state, percentile: int) -> dict:
         seuil = ae_metadata[f"seuil_ae_p{percentile}"]
 
         X_recon = app_state.autoencoder.predict(X_61, verbose=0)
-        mse = float(np.mean((X_61 - X_recon) ** 2))
+        erreurs_par_colonne = (X_61[0] - X_recon[0]) ** 2
+        mse = float(np.mean(erreurs_par_colonne))
         anomaly_score = float(np.log1p(mse))
         is_anomaly = anomaly_score > seuil
+
+        # Explicabilité (non réglementaire, aide au superviseur — cf. spec
+        # explicabilité Flux B) : calculée seulement si le dossier est
+        # effectivement signalé anomalie, pour ne pas faire le travail pour rien.
+        top_facteurs_anomalie = None
+        if is_anomaly:
+            top_facteurs_anomalie = _top_facteurs_anomalie(
+                erreurs_par_colonne, app_state, vecteur_brut, top_n=3
+            )
 
         return {
             "anomaly_score": round(anomaly_score, 6),
@@ -221,12 +290,13 @@ def _appliquer_ae(vecteur_brut: dict, app_state, percentile: int) -> dict:
             "if_escalade":   False,
             "detecteur":     "autoencoder",
             "percentile":    percentile,
+            "top_facteurs_anomalie": top_facteurs_anomalie,
         }
 
     except Exception as e:
         print(f"[WARNING] Flux B AE échoué : {e} — is_anomaly=False par défaut")
         return {"anomaly_score": None, "is_anomaly": False, "if_escalade": False,
-                "detecteur": None, "percentile": percentile}
+                "detecteur": None, "percentile": percentile, "top_facteurs_anomalie": None}
 
 
 def _appliquer_if(vecteur_brut: dict, app_state, percentile: int) -> dict:
@@ -255,12 +325,16 @@ def _appliquer_if(vecteur_brut: dict, app_state, percentile: int) -> dict:
             "if_escalade":   False,
             "detecteur":     "isolation_forest",
             "percentile":    percentile,
+            # Explicabilité par variable non implémentée pour l'Isolation Forest
+            # (repli) : pas de reconstruction, donc pas d'erreur par colonne
+            # exploitable de la même façon que pour l'AE (cf. spec Flux B §2).
+            "top_facteurs_anomalie": None,
         }
 
     except Exception as e:
         print(f"[WARNING] Flux B IF échoué : {e} — is_anomaly=False par défaut")
         return {"anomaly_score": None, "is_anomaly": False, "if_escalade": False,
-                "detecteur": None, "percentile": percentile}
+                "detecteur": None, "percentile": percentile, "top_facteurs_anomalie": None}
 
 
 def appliquer_flux_b(vecteur_brut: dict, app_state, percentile: int = 95) -> dict:
@@ -286,7 +360,7 @@ def appliquer_flux_b(vecteur_brut: dict, app_state, percentile: int = 95) -> dic
         return _appliquer_if(vecteur_brut, app_state, percentile)
 
     return {"anomaly_score": None, "is_anomaly": False, "if_escalade": False,
-            "detecteur": None, "percentile": percentile}
+            "detecteur": None, "percentile": percentile, "top_facteurs_anomalie": None}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -388,7 +462,8 @@ def run_pipeline(
         if_result = appliquer_flux_b(vecteur_brut, state, flux_b_percentile)
     else:
         if_result = {"anomaly_score": None, "is_anomaly": False, "if_escalade": False,
-                      "detecteur": None, "percentile": flux_b_percentile}
+                      "detecteur": None, "percentile": flux_b_percentile,
+                      "top_facteurs_anomalie": None}
 
     # Règle d'escalade : le garde-fou ne peut QU'ESCALADER — jamais diminuer une décision
     #   ACCORDÉ  + anomalie → REVUE_MANUELLE ✓
@@ -434,4 +509,5 @@ def run_pipeline(
         "if_seuil"              : if_seuil,
         "if_detecteur"          : if_result["detecteur"],
         "if_percentile"         : if_result["percentile"],
+        "top_facteurs_anomalie" : if_result["top_facteurs_anomalie"],
     }

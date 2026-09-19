@@ -78,7 +78,7 @@ def parse_json_response(text):
     return json.loads(text)
 
 
-async def generate(run_id, dry_run=False):
+async def generate(run_id, dry_run=False, features_filter=None):
     artefacts_dir = os.getenv("ARTEFACTS_DIR", "./artefacts")
     mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017")
     db_name = os.getenv("MONGO_DB_NAME", "scoring_db")
@@ -97,6 +97,13 @@ async def generate(run_id, dry_run=False):
     with open(stats_path, encoding="utf-8") as f:
         feature_stats = json.load(f)
 
+    if features_filter:
+        inconnues = features_filter - feature_stats.keys()
+        if inconnues:
+            print(f"ERREUR: feature(s) inconnue(s) dans feature_stats.json : {sorted(inconnues)}")
+            sys.exit(1)
+        feature_stats = {f: s for f, s in feature_stats.items() if f in features_filter}
+
     print(f"[generate_metadata] {len(feature_stats)} features a traiter (provider: {provider})")
 
     if dry_run:
@@ -109,6 +116,11 @@ async def generate(run_id, dry_run=False):
     errors = 0
 
     for feature, stats in feature_stats.items():
+        ancien = await db.feature_metadata.find_one(
+            {"run_id": run_id, "feature": feature}, {"_id": 0, "document_recommande": 1}
+        )
+        ancien_document = ancien.get("document_recommande") if ancien else None
+
         print(f"  Traitement: {feature}...", end=" ")
         prompt = build_prompt(feature, stats)
         llm_result = None
@@ -149,7 +161,10 @@ async def generate(run_id, dry_run=False):
             "genere_le": now,
         }
 
-        if not dry_run:
+        if dry_run:
+            print(f"    ancien document_recommande : {ancien_document!r}")
+            print(f"    nouveau document_recommande: {doc['document_recommande']!r}")
+        else:
             await db.feature_metadata.update_one(
                 {"run_id": run_id, "feature": feature},
                 {"$set": doc},
@@ -166,5 +181,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-id", default="lgbm-run-v1")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--features", default=None, help="Sous-ensemble a regenerer, separe par des virgules (ex: EXT_SOURCE_1,EXT_SOURCE_2). Toutes les features si omis.")
     args = parser.parse_args()
-    asyncio.run(generate(args.run_id, args.dry_run))
+    features_filter = set(f.strip() for f in args.features.split(",")) if args.features else None
+    asyncio.run(generate(args.run_id, args.dry_run, features_filter))

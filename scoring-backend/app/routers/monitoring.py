@@ -19,7 +19,7 @@ from datetime import datetime, timezone, timedelta
 from typing import Optional
 from pydantic import BaseModel
 from app.core.security import require_superviseur, require_admin
-from app.db.collections import col_decisions, col_modeles, col_audit_logs, col_demandes
+from app.db.collections import col_decisions, col_modeles, col_audit_logs, col_demandes, col_utilisateurs
 from app.services.psi_service import calculer_psi, calculer_psi_generique, interpreter_psi
 
 router = APIRouter(prefix="/api/monitoring", tags=["Monitoring"])
@@ -222,6 +222,27 @@ async def get_audit_logs(
     logs = await col_audit_logs().find(
         filtre, {"_id": 0}
     ).sort("timestamp", -1).limit(limite).to_list(limite)
+
+    # ── Résolution de l'auteur : user_id est un UUID interne, pas exploitable
+    # tel quel dans le journal d'audit (l'auteur doit être lisible) ─────────
+    user_ids = list({log.get("user_id") for log in logs if log.get("user_id")})
+    utilisateurs = await col_utilisateurs().find(
+        {"user_id": {"$in": user_ids}},
+        {"_id": 0, "user_id": 1, "username": 1, "profil.nom": 1, "profil.prenom": 1}
+    ).to_list(len(user_ids)) if user_ids else []
+    annuaire = {u["user_id"]: u for u in utilisateurs}
+
+    for log in logs:
+        u = annuaire.get(log.get("user_id"))
+        if u:
+            profil = u.get("profil", {}) or {}
+            nom_complet = f"{profil.get('prenom', '')} {profil.get('nom', '')}".strip()
+            log["user_display_name"] = nom_complet or u.get("username") or log.get("user_id")
+            log["username"] = u.get("username")
+        else:
+            # Acteur non résolu (ex. connexion échouée, script interne) :
+            # user_id contient déjà une valeur lisible dans ce cas.
+            log["user_display_name"] = log.get("user_id")
 
     actions_disponibles = [
         "SCORING_REQUEST", "PROFIL_UPDATE", "CLIENT_CREATE",

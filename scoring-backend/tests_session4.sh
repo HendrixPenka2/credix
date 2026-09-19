@@ -11,10 +11,15 @@
 #   5. Régénérer le TOKEN (ci-dessous)
 # ============================================================
 
+if [ -z "$ADMIN_PASSWORD" ]; then
+  echo "ERREUR : définissez ADMIN_PASSWORD (ex. : ADMIN_PASSWORD='...' bash tests_session4.sh)."
+  exit 1
+fi
+
 echo "===== GÉNÉRATION DU TOKEN ====="
 TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "Admin2026!"}' \
+  -d "{\"username\": \"${ADMIN_USER:-admin}\", \"password\": \"${ADMIN_PASSWORD}\"}" \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
 
 if [ -z "$TOKEN" ]; then

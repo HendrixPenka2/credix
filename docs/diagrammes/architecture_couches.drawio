@@ -1,0 +1,146 @@
+<mxfile host="app.diagrams.net" agent="CREDIX" version="24.0.0">
+  <diagram id="couches" name="Architecture en couches">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="c1" value="Couche de presentation" style="swimlane;startSize=30;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontStyle=1;html=1;fontSize=13;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="1120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="c1a" value="Espace Agent&#10;&lt;font style=&quot;font-size:10px&quot;&gt;saisie, scoring, simulation, historique&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6C8EBF;fontSize=11;" vertex="1" parent="c1">
+          <mxGeometry x="40" y="45" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c1b" value="Espace Superviseur&#10;&lt;font style=&quot;font-size:10px&quot;&gt;file de revue, tableau de bord, derive&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6C8EBF;fontSize=11;" vertex="1" parent="c1">
+          <mxGeometry x="400" y="45" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c1c" value="Espace Administrateur&#10;&lt;font style=&quot;font-size:10px&quot;&gt;seuils metier, comptes, versions de modele&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6C8EBF;fontSize=11;" vertex="1" parent="c1">
+          <mxGeometry x="760" y="45" width="320" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c2" value="Couche d'interface applicative" style="swimlane;startSize=30;fillColor=#E1D5E7;strokeColor=#9673A6;fontStyle=1;html=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="1120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="c2a" value="Authentification&#10;et controle des droits par role" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673A6;fontSize=11;" vertex="1" parent="c2">
+          <mxGeometry x="40" y="45" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c2b" value="Routage des requetes&#10;et validation des saisies" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673A6;fontSize=11;" vertex="1" parent="c2">
+          <mxGeometry x="400" y="45" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c2c" value="Schema de formulaire&#10;&lt;font style=&quot;font-size:10px&quot;&gt;construit depuis les metadonnees&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673A6;fontSize=11;" vertex="1" parent="c2">
+          <mxGeometry x="760" y="45" width="320" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c3" value="Couche des services de decision" style="swimlane;startSize=30;fillColor=#D5E8D4;strokeColor=#82B366;fontStyle=1;html=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="340" width="1120" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="c3t1" value="Flux supervise" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontStyle=2" vertex="1" parent="c3">
+          <mxGeometry x="40" y="34" width="200" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="c3a" value="Encodage WOE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#82B366;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="40" y="56" width="150" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c3b" value="Prediction du risque" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#82B366;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="205" y="56" width="150" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c3c" value="Calibration&#10;et score PDO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#82B366;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="370" y="56" width="150" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c3d" value="Explication SHAP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#82B366;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="535" y="56" width="150" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c3t2" value="Mecanismes de controle" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontStyle=2" vertex="1" parent="c3">
+          <mxGeometry x="40" y="112" width="220" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="c3e" value="Indice de couverture &amp;#961;&lt;sub&gt;c&lt;/sub&gt;&#10;&lt;font style=&quot;font-size:10px&quot;&gt;+ recommandation documentaire&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="40" y="134" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c3f" value="Detection d'atypicite&#10;&lt;font style=&quot;font-size:10px&quot;&gt;erreur de reconstruction vs seuil P95&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="295" y="134" width="240" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c3g" value="&lt;b&gt;Fusion des decisions&lt;/b&gt;&#10;&lt;font style=&quot;font-size:10px&quot;&gt;escalade conservative : D&lt;sub&gt;i&lt;/sub&gt; &amp;#8594; D&lt;sub&gt;f&lt;/sub&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="720" y="56" width="200" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="c3h" value="Surveillance&#10;de la derive (PSI)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#82B366;fontSize=11;" vertex="1" parent="c3">
+          <mxGeometry x="940" y="56" width="140" height="128" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c4" value="Couche des modeles &amp;#8212; artefacts figes, en lecture seule" style="swimlane;startSize=30;fillColor=#F8CECC;strokeColor=#B85450;fontStyle=1;html=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="610" width="1120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="c4a" value="Transformateurs&#10;WOE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B85450;fontSize=11;" vertex="1" parent="c4">
+          <mxGeometry x="40" y="45" width="190" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="c4b" value="Modele LightGBM&#10;+ calibrateur isotonique" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B85450;fontSize=11;" vertex="1" parent="c4">
+          <mxGeometry x="250" y="45" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="c4c" value="Autoencodeur&#10;+ seuils d'atypicite" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B85450;fontSize=11;" vertex="1" parent="c4">
+          <mxGeometry x="500" y="45" width="210" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="c4d" value="Liste des variables NAP&#10;+ statistiques de reference" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B85450;fontSize=11;" vertex="1" parent="c4">
+          <mxGeometry x="730" y="45" width="250" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- FIX couche de persistance : une seule base MongoDB (scoring_db) confirmee dans app/db/mongodb.py + config.py + docker-compose.yml -->
+        <!-- toutes les collections ci-dessous sont des ENFANTS du conteneur c5db (et non des enfants directs de c5) : -->
+        <!-- deplacer c5db dans l'editeur draw.io emporte desormais les 6 puces avec lui, sans les detacher -->
+        <mxCell id="c5" value="Couche de persistance" style="swimlane;startSize=30;fillColor=#F5F5F5;strokeColor=#666666;fontStyle=1;html=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="760" width="1120" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c5db" value="MongoDB &amp;#8212; base de donnees unique (scoring_db)" style="swimlane;startSize=24;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontStyle=1;fontSize=12;arcSize=6;rounded=1;container=1;align=center;" vertex="1" parent="c5">
+          <mxGeometry x="40" y="40" width="1040" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c5a" value="Clients &amp;#183; Demandes &amp;#183; Decisions" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10.5;" vertex="1" parent="c5db">
+          <mxGeometry x="20" y="34" width="300" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c5b" value="Journal d'audit&#10;&lt;font style=&quot;font-size:9px&quot;&gt;ajout seul&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10.5;" vertex="1" parent="c5db">
+          <mxGeometry x="360" y="34" width="300" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c5c" value="Metadonnees &amp;#183; Configuration" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10.5;" vertex="1" parent="c5db">
+          <mxGeometry x="700" y="34" width="300" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c5d" value="Utilisateurs et roles" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10.5;" vertex="1" parent="c5db">
+          <mxGeometry x="20" y="96" width="300" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c5e" value="Versions de modeles" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10.5;" vertex="1" parent="c5db">
+          <mxGeometry x="360" y="96" width="300" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c5f" value="Artefacts binaires (GridFS)&#10;&lt;font style=&quot;font-size:9px&quot;&gt;bucket artefacts_ml&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10.5;" vertex="1" parent="c5db">
+          <mxGeometry x="700" y="96" width="300" height="46" as="geometry" />
+        </mxCell>
+
+        <mxCell id="d1" value="" style="endArrow=block;endFill=1;html=1;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="c1" target="c2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" value="" style="endArrow=block;endFill=1;html=1;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="c2" target="c3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" value="" style="endArrow=block;endFill=1;html=1;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="c3" target="c4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" value="" style="endArrow=block;endFill=1;html=1;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="c4" target="c5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" value="lecture / ecriture directe" style="endArrow=block;endFill=1;html=1;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="c3" target="c5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="1215" y="455" /><mxPoint x="1215" y="870" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d6" value="authentification" style="endArrow=block;endFill=1;html=1;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="c2" target="c5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="25" y="245" /><mxPoint x="25" y="870" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="note1" value="Les dependances sont strictement descendantes : aucune couche basse ne connait les couches superieures.&#10;La couche des modeles est en lecture seule en production : aucun apprentissage n'a lieu en ligne.&#10;Les seuils d'atypicite appartiennent aux artefacts figes ; les seuils PDO relevent de la Configuration, modifiable sans re-entrainement.&#10;Une seule base MongoDB (scoring_db) porte toutes les collections ci-dessus ; les artefacts binaires volumineux (poids de modeles) sont stockes via GridFS dans cette meme base, pas dans une base a part." style="shape=note;whiteSpace=wrap;html=1;size=16;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1000" width="1120" height="100" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

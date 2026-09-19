@@ -15,8 +15,18 @@ MODIFICATIONS (refonte 61 dims / BK.1 — août 2026) :
     if_seuil           : float|null (seuil réellement utilisé)
     if_detecteur       : str|null  ("autoencoder" ou "isolation_forest")
     if_percentile       : int      (95 ou 99, configurable admin)
+    top_facteurs_anomalie : list|null (Top 3 variables NAP les plus mal
+      reconstruites par l'AE, si is_anomaly=true et détecteur=autoencoder ;
+      null sinon — pas d'équivalent pour l'Isolation Forest en repli)
 
   Insertions MongoDB : mêmes nouveaux champs propagés dans col_demandes/col_decisions.
+
+  Traçabilité des seuils (col_decisions uniquement) :
+    seuils_appliques : {pdo_accorde, pdo_refuse, rho_banniere, rho_revue_forcee}
+      Seuils réellement utilisés pour cette décision, lus au moment de l'évaluation
+      (PDO depuis admin_config via _get_seuils_pdo(), ρc depuis settings — non
+      admin-configurable à ce jour). Permet de rejouer/auditer une décision passée
+      même si les seuils admin ont changé depuis.
 
   CORRECTIF form-schema (session antérieure, conservé) :
     run_id : admin_config["modele_actif"] → request.app.state.model_run_id
@@ -223,9 +233,17 @@ async def predict(body: ScoringRequest, request: Request, current_user: dict = D
         "if_escalade":         result["if_escalade"],
         "if_detecteur":        result["if_detecteur"],
         "if_percentile":       result["if_percentile"],
+        "top_facteurs_anomalie": result["top_facteurs_anomalie"],
         "decision_avant_if":   result["decision_initiale"],
         "pd_c_brute":            result["pd_c_brute"],
         "calibration_appliquee": result["calibration_appliquee"],
+        # ── Traçabilité des seuils appliqués à cette évaluation ──────────────
+        "seuils_appliques": {
+            "pdo_accorde":     seuils["accorde"],
+            "pdo_refuse":      seuils["refuse"],
+            "rho_banniere":     settings.rho_seuil_banniere,
+            "rho_revue_forcee": settings.rho_seuil_revue_forcee,
+        },
     })
 
     # Mettre à jour le profil client
@@ -270,7 +288,7 @@ async def predict(body: ScoringRequest, request: Request, current_user: dict = D
         "action":       "SCORING_REQUEST",
         "ressource":    "demandes",
         "ressource_id": demande_id,
-        "ip_address":   "internal",
+        "ip_address":   request.client.host if request.client else "internal",
         "statut":       "SUCCES",
         "details":      audit_details,
     })
@@ -300,6 +318,7 @@ async def predict(body: ScoringRequest, request: Request, current_user: dict = D
         "if_seuil":          result["if_seuil"],
         "if_detecteur":      result["if_detecteur"],
         "if_percentile":     result["if_percentile"],
+        "top_facteurs_anomalie": result["top_facteurs_anomalie"],
     }
 
 
@@ -356,6 +375,7 @@ async def simulate(body: SimulationRequest, request: Request, current_user: dict
         "if_escalade":   result["if_escalade"],
         "if_detecteur":  result["if_detecteur"],
         "if_percentile": result["if_percentile"],
+        "top_facteurs_anomalie": result["top_facteurs_anomalie"],
     }
 
 
@@ -381,6 +401,7 @@ async def get_history(client_id: str, limit: int = 20, current_user: dict = Depe
             "_id":               0,
             "demande_id":        1,
             "timestamp":         1,
+            "declaratif":        "$input.declaratif",
             "score_pdo":         "$decision.score_pdo",
             "decision":          "$decision.decision_finale.valeur",
             "decision_initiale": "$decision.decision_initiale.valeur",
@@ -390,6 +411,10 @@ async def get_history(client_id: str, limit: int = 20, current_user: dict = Depe
             "if_escalade":       "$decision.if_escalade",
             "anomaly_score":     "$decision.anomaly_score",
             "is_anomaly":        "$decision.is_anomaly",
+            "if_seuil":          "$decision.if_seuil",
+            "if_detecteur":      "$decision.if_detecteur",
+            "if_percentile":     "$decision.if_percentile",
+            "top_facteurs_anomalie": "$decision.top_facteurs_anomalie",
             "decision_avant_if": "$decision.decision_avant_if",
             "model_version":     "$decision.model_version",
         }}

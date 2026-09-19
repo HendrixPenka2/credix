@@ -1,0 +1,1056 @@
+[
+  {
+    "feature": "CODE_GENDER",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Pièce d identité nationale",
+    "famille": "F9",
+    "formule": null,
+    "gabarit_aggravant": "Le genre {valeur} est associé à un profil de risque plus élevé selon les données historiques.",
+    "gabarit_attenuant": "Le genre {valeur} est associé à un profil de risque plus faible selon les données historiques.",
+    "gabarit_fallback": "La variable {libelle} contribue a {direction} le risque (contribution: {shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0505,
+    "libelle_agent": "Genre du demandeur",
+    "seuils": [],
+    "type": "categorical",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "CODE_GENDER_bin",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "genre",
+        "label": "Genre",
+        "type": "select",
+        "options": [
+          "M",
+          "F"
+        ],
+        "obligatoire": true
+      }
+    ],
+    "document_recommande": "Pièce d'identité (carte nationale d'identité, passeport) pour vérifier le genre.",
+    "famille": "F7",
+    "formule": null,
+    "gabarit_aggravant": "Le genre du demandeur est {label} ({valeur:.2f}), ce qui augmente le risque de défaut.",
+    "gabarit_attenuant": "Le genre du demandeur est {label} ({valeur:.2f}), ce qui atténue le risque de défaut.",
+    "gabarit_fallback": "L'impact du {libelle} est {direction} de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0505,
+    "libelle_agent": "Genre du demandeur",
+    "seuils": [
+      {
+        "max": 0.0,
+        "label": "Genre Féminin (Risque atténué)"
+      },
+      {
+        "max": 0.0,
+        "label": "Genre Féminin (Risque atténué)"
+      },
+      {
+        "max": 1.0,
+        "label": "Genre Masculin (Risque aggravé)"
+      },
+      {
+        "max": 1.0,
+        "label": "Genre Masculin (Risque aggravé)"
+      },
+      {
+        "max": 999999,
+        "label": "Genre non spécifié ou inconnu"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "EMERGENCYSTATE_MODE",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Justificatif de domicile",
+    "famille": "F9",
+    "formule": null,
+    "gabarit_aggravant": "Le demandeur réside dans une zone déclarée à état d urgence ({valeur}), facteur aggravant.",
+    "gabarit_attenuant": "Le demandeur ne réside pas dans une zone à état d urgence ({valeur}).",
+    "gabarit_fallback": "La variable {libelle} contribue a {direction} le risque (contribution: {shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0247,
+    "libelle_agent": "Zone géographique à risque",
+    "seuils": [],
+    "type": "categorical",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "EXT_SOURCE_1",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Rapport de solvabilité d'une agence de crédit locale ou historique de crédit bancaire détaillé.",
+    "famille": "EXT",
+    "formule": null,
+    "gabarit_aggravant": "L'Indice de Fiabilité du Crédit Externe est jugé {label} ({valeur:.2f}), ce qui augmente le risque de défaut.",
+    "gabarit_attenuant": "Un Indice de Fiabilité du Crédit Externe {label} ({valeur:.2f}) est un facteur rassurant, réduisant le risque de défaut.",
+    "gabarit_fallback": "La valeur de l'{libelle} {direction} le risque de défaut avec un impact de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.1403,
+    "libelle_agent": "Indice de Fiabilité du Crédit Externe",
+    "seuils": [
+      {
+        "max": 0.3486,
+        "label": "Fiabilité Très Faible"
+      },
+      {
+        "max": 0.521,
+        "label": "Fiabilité Faible"
+      },
+      {
+        "max": 0.69,
+        "label": "Fiabilité Moyenne"
+      },
+      {
+        "max": 0.8416,
+        "label": "Bonne Fiabilité"
+      },
+      {
+        "max": 999999,
+        "label": "Très Bonne Fiabilité"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "EXT_SOURCE_2",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Rapport d'une agence de crédit externe ou relevé de compte bancaire détaillé",
+    "famille": "EXT",
+    "formule": null,
+    "gabarit_aggravant": "L'indice de solvabilité externe est {label} ({valeur:.2f}), indiquant un risque d'octroi accru.",
+    "gabarit_attenuant": "L'indice de solvabilité externe est {label} ({valeur:.2f}), ce qui est un facteur favorable à l'octroi.",
+    "gabarit_fallback": "L'impact de l' {libelle} sur le risque de crédit est de {shap_value:+.3f}, avec une tendance où {direction}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.308,
+    "libelle_agent": "Indice de Solvabilité Externe 2",
+    "seuils": [
+      {
+        "max": 0.4019,
+        "label": "très faible"
+      },
+      {
+        "max": 0.5716,
+        "label": "faible"
+      },
+      {
+        "max": 0.667,
+        "label": "moyen"
+      },
+      {
+        "max": 0.7498,
+        "label": "bon"
+      },
+      {
+        "max": 999999,
+        "label": "très bon"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "EXT_SOURCE_3",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Rapport d'une agence de notation ou de crédit externe, ou relevé de compte bancaire détaillé.",
+    "famille": "EXT",
+    "formule": null,
+    "gabarit_aggravant": "L'Indice de Fiabilité Externe 3 à {valeur:.2f} ({label}) est un facteur aggravant pour le dossier de crédit.",
+    "gabarit_attenuant": "L'Indice de Fiabilité Externe 3 à {valeur:.2f} ({label}) est un facteur atténuant pour le dossier de crédit.",
+    "gabarit_fallback": "L'Indice de Fiabilité Externe 3 {direction} le risque de {shap_value:+.3f} points.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.3216,
+    "libelle_agent": "Indice de Fiabilité Externe 3",
+    "seuils": [
+      {
+        "max": 0.3911,
+        "label": "Inférieur au 25ème percentile (Risque très élevé)"
+      },
+      {
+        "max": 0.5532,
+        "label": "Entre 25ème et 50ème percentile (Risque élevé)"
+      },
+      {
+        "max": 0.6786,
+        "label": "Entre 50ème et 75ème percentile (Risque modéré)"
+      },
+      {
+        "max": 0.7934,
+        "label": "Entre 75ème et 95ème percentile (Faible risque)"
+      },
+      {
+        "max": 999999,
+        "label": "Supérieur au 95ème percentile (Très faible risque)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "NAME_CONTRACT_TYPE",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "type_contrat",
+        "label": "Type de contrat",
+        "type": "select",
+        "options": [
+          "Cash loans",
+          "Revolving loans"
+        ],
+        "obligatoire": true
+      }
+    ],
+    "document_recommande": "Rapport d'analyse comparatif des performances et profils de risque des contrats de prêt (Cash loans, Revolving loans) sur les marchés africains.",
+    "famille": "F9",
+    "formule": null,
+    "gabarit_aggravant": "Un {libelle} de type '{valeur}' est un facteur aggravant, avec un risque de défaut plus élevé.",
+    "gabarit_attenuant": "Un {libelle} de type '{valeur}' est un facteur atténuant, avec un risque de défaut plus faible.",
+    "gabarit_fallback": "Le {libelle} a un impact {direction} de {shap_value:+.3f} sur la probabilité de défaut.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0212,
+    "libelle_agent": "Type de Contrat de Prêt",
+    "seuils": [],
+    "type": "categorical",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": true
+  },
+  {
+    "feature": "NAME_EDUCATION_TYPE",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "niveau_education",
+        "label": "Niveau d'éducation",
+        "type": "select",
+        "options": [
+          "Secondary / secondary special",
+          "Higher education",
+          "Incomplete higher",
+          "Lower secondary",
+          "Academic degree"
+        ],
+        "obligatoire": true
+      }
+    ],
+    "document_recommande": "Justificatifs de diplômes et certifications professionnelles",
+    "famille": "F9",
+    "formule": null,
+    "gabarit_aggravant": "Le type d'éducation {valeur} (correspondant à un taux de défaut de {taux_defaut:.1f}%) est un facteur aggravant pour votre profil de crédit.",
+    "gabarit_attenuant": "Le type d'éducation {valeur} (correspondant à un taux de défaut de {taux_defaut:.1f}%) est un facteur atténuant pour votre profil de crédit.",
+    "gabarit_fallback": "Le facteur {libelle} {direction} la probabilité de défaut de {shap_value:+.3f} points.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0472,
+    "libelle_agent": "Niveau d éducation du demandeur",
+    "seuils": [
+      6.72
+    ],
+    "type": "categorical",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "NAME_INCOME_TYPE",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "type_revenu",
+        "label": "Type de revenu",
+        "type": "select",
+        "options": [
+          "Working",
+          "Commercial associate",
+          "Pensioner",
+          "State servant",
+          "Unemployed"
+        ],
+        "obligatoire": true
+      }
+    ],
+    "document_recommande": "Justificatif de revenus des 3 derniers mois",
+    "famille": "F9",
+    "formule": null,
+    "gabarit_aggravant": "Le type de revenus {valeur} est associé à un risque de défaut élevé.",
+    "gabarit_attenuant": "Le type de revenus {valeur} est associé à un profil de remboursement stable.",
+    "gabarit_fallback": "La variable {libelle} contribue a {direction} le risque (contribution: {shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0607,
+    "libelle_agent": "Type de revenus du demandeur",
+    "seuils": [],
+    "type": "categorical",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "OCCUPATION_TYPE",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "OCCUPATION_TYPE",
+        "label": "Profession du demandeur",
+        "type": "select",
+        "obligatoire": false
+      }
+    ],
+    "document_recommande": "Compte tenu du taux élevé de NaN (35.7%) pour la variable OCCUPATION_TYPE, une investigation approfondie des sources de données et des processus de collecte est impérative. Il est également fortement recommandé de mettre en place des procédures de vérification systématique de l'emploi déclaré (ex: justificatifs, enquêtes terrain, appel employeur) pour réduire l'incertitude et mitiger le risque, notamment pour les professions à risque élevé.",
+    "famille": "F9",
+    "formule": null,
+    "gabarit_aggravant": "L'occupation '{libelle}' (taux de défaut de {valeur:.1f}%) est un facteur aggravant pour la solvabilité du demandeur.",
+    "gabarit_attenuant": "L'occupation '{libelle}' (taux de défaut de {valeur:.1f}%) représente un facteur atténuant le risque de crédit.",
+    "gabarit_fallback": "L'occupation '{libelle}' a une influence {direction} sur le score de crédit (valeur SHAP : {shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.088,
+    "libelle_agent": "Profession du demandeur",
+    "seuils": [
+      0.045,
+      0.065,
+      0.095,
+      0.105
+    ],
+    "type": "categorical",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "ORGANIZATION_TYPE",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Mener une analyse approfondie des sous-types d'organisation (ex: 'Industry: type X', 'Trade: type Y', 'Transport: type Z') pour identifier les spécificités de leur modèle d'affaires et leur environnement réglementaire et économique. Une attention particulière doit être portée aux catégories 'XNA' et 'Self-employed' ainsi qu'aux extrêmes (très faibles et très élevés taux de défaut) afin de valider leur classification et d'optimiser la stratégie de risque.",
+    "famille": "F9",
+    "formule": null,
+    "gabarit_aggravant": "La catégorie '{valeur}' de la variable {libelle} est associée à un risque de défaut élevé.",
+    "gabarit_attenuant": "La catégorie '{valeur}' de la variable {libelle} est associée à un risque de défaut faible.",
+    "gabarit_fallback": "La variable {libelle} avec la catégorie '{valeur}' est un facteur {direction} le risque de défaut de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0735,
+    "libelle_agent": "Secteur d activité de l employeur",
+    "seuils": [
+      4.5,
+      7.0,
+      9.0
+    ],
+    "type": "categorical",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "REGION_RATING_CLIENT",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Rapport d'évaluation de la zone géographique du client",
+    "famille": "F7",
+    "formule": null,
+    "gabarit_aggravant": "La notation régionale du client est de {valeur:.2f} ({label}), ce qui aggrave le risque de crédit.",
+    "gabarit_attenuant": "La notation régionale du client est de {valeur:.2f} ({label}), ce qui atténue le risque de crédit.",
+    "gabarit_fallback": "La {libelle_agent} {direction} de {shap_value:+.3f} points le score de risque.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0503,
+    "libelle_agent": "Notation Régionale du Client",
+    "seuils": [
+      {
+        "max": 2.0,
+        "label": "Risque Régional Très Faible (≤ P25)"
+      },
+      {
+        "max": 2.0,
+        "label": "Risque Régional Très Faible (P25-P50)"
+      },
+      {
+        "max": 2.0,
+        "label": "Risque Régional Faible (P50-P75)"
+      },
+      {
+        "max": 3.0,
+        "label": "Risque Régional Modéré (P75-P95)"
+      },
+      {
+        "max": 999999,
+        "label": "Risque Régional Élevé (> P95)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "age_years",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "date_naissance",
+        "label": "Date de naissance",
+        "type": "date",
+        "obligatoire": true
+      }
+    ],
+    "document_recommande": "Copie de la pièce d'identité (CNI, Passeport ou permis de conduire valide)",
+    "famille": "F2",
+    "formule": null,
+    "gabarit_aggravant": "L'âge de {valeur:.2f} ans, se situant dans la catégorie '{label}', est un facteur de risque accru.",
+    "gabarit_attenuant": "L'âge de {valeur:.2f} ans, se situant dans la catégorie '{label}', contribue à réduire le risque.",
+    "gabarit_fallback": "La variable age_years ({libelle}) {direction} le risque de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.085,
+    "libelle_agent": "Âge du demandeur (années)",
+    "seuils": [
+      {
+        "max": 35.4497,
+        "label": "Jeune Adulte (<35 ans)"
+      },
+      {
+        "max": 42.8036,
+        "label": "Jeune Professionnel (35-42 ans)"
+      },
+      {
+        "max": 56.668,
+        "label": "Maturité Professionnelle (42-56 ans)"
+      },
+      {
+        "max": 64.3422,
+        "label": "Pré-retraite (56-64 ans)"
+      },
+      {
+        "max": 999999,
+        "label": "Sénior (>64 ans)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "annuity_to_credit",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "montant_annuite",
+        "label": "Annuité mensuelle (FCFA)",
+        "type": "number",
+        "obligatoire": true
+      },
+      {
+        "nom": "montant_credit_demande",
+        "label": "Montant du crédit demandé (FCFA)",
+        "type": "number",
+        "obligatoire": true
+      }
+    ],
+    "document_recommande": "Justificatifs de revenus détaillés (fiches de paie, déclarations fiscales, relevés bancaires des 3-6 derniers mois) et tableau d'amortissement du crédit proposé.",
+    "famille": "F8",
+    "formule": "montant_annuite / montant_credit_demande",
+    "gabarit_aggravant": "Le taux d'endettement potentiel sur le crédit est de {valeur:.2f}, ce qui correspond à une '{label}' et aggrave le risque.",
+    "gabarit_attenuant": "Le taux d'endettement potentiel sur le crédit est de {valeur:.2f}, ce qui correspond à une '{label}' et atténue le risque.",
+    "gabarit_fallback": "Le {libelle} a une influence {direction} de {shap_value:+.3f} sur le risque global.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.1128,
+    "libelle_agent": "Taux d'endettement potentiel sur le crédit",
+    "seuils": [
+      {
+        "max": 0.0362,
+        "label": "Très faible charge de remboursement"
+      },
+      {
+        "max": 0.05,
+        "label": "Faible charge de remboursement"
+      },
+      {
+        "max": 0.0639,
+        "label": "Charge de remboursement modérée"
+      },
+      {
+        "max": 0.1039,
+        "label": "Charge de remboursement élevée"
+      },
+      {
+        "max": 999999,
+        "label": "Charge de remboursement très élevée"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": true
+  },
+  {
+    "feature": "avg_payment_diff",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Historique détaillé des paiements (relevés bancaires ou extraits de compte) des 6 à 12 derniers mois.",
+    "famille": "F4",
+    "formule": null,
+    "gabarit_aggravant": "Le délai/avance moyen de paiement de {valeur:.2f} indique un {label}, ce qui aggrave le profil de risque.",
+    "gabarit_attenuant": "Le délai/avance moyen de paiement de {valeur:.2f} indique un {label}, ce qui atténue le profil de risque.",
+    "gabarit_fallback": "La variable '{libelle}' (valeur: {valeur:.2f}) a une influence {direction} de {shap_value:+.3f} sur le score.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0523,
+    "libelle_agent": "Délai/avance moyen de paiement",
+    "seuils": [
+      {
+        "max": -449.725,
+        "label": "Retard de paiement très important"
+      },
+      {
+        "max": 0.0,
+        "label": "Retard de paiement léger à modéré"
+      },
+      {
+        "max": 0.0,
+        "label": "Paiement à l'heure"
+      },
+      {
+        "max": 4733.4831,
+        "label": "Paiement en légère avance"
+      },
+      {
+        "max": 999999,
+        "label": "Paiement très en avance"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "avg_payment_ratio",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Relevés de compte bancaire des 6 derniers mois",
+    "famille": "F4",
+    "formule": null,
+    "gabarit_aggravant": "Le ratio moyen de paiement ({valeur:.2f}) est {label}, augmentant le risque de défaut.",
+    "gabarit_attenuant": "Le ratio moyen de paiement ({valeur:.2f}) est {label}, atténuant le risque de défaut.",
+    "gabarit_fallback": "Le {libelle} a un impact {direction} sur le risque de crédit ({shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0583,
+    "libelle_agent": "Ratio moyen de paiement",
+    "seuils": [
+      {
+        "max": 0.9535,
+        "label": "Paiements très anticipés (risque très faible)"
+      },
+      {
+        "max": 1.0,
+        "label": "Paiements réguliers ou légèrement anticipés (risque faible)"
+      },
+      {
+        "max": 1.0,
+        "label": "Paiements réguliers (risque modéré)"
+      },
+      {
+        "max": 1.2487,
+        "label": "Paiements légèrement en retard (risque élevé)"
+      },
+      {
+        "max": 999999,
+        "label": "Paiements très en retard (risque très élevé)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "bureau_active_count",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Rapport de crédit détaillé",
+    "famille": "F5",
+    "formule": null,
+    "gabarit_aggravant": "Le client présente {label} ({valeur:.0f} crédits actifs), ce qui représente un facteur de risque additionnel.",
+    "gabarit_attenuant": "Le client présente {label} ({valeur:.0f} crédits actifs), ce qui contribue à atténuer son risque.",
+    "gabarit_fallback": "Le {libelle} {direction} le risque de l'emprunteur d'un facteur de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0599,
+    "libelle_agent": "Nombre de crédits actifs aux bureaux",
+    "seuils": [
+      {
+        "max": 1.0,
+        "label": "Très peu de crédits actifs"
+      },
+      {
+        "max": 2.0,
+        "label": "Nombre limité de crédits actifs"
+      },
+      {
+        "max": 3.0,
+        "label": "Nombre raisonnable de crédits actifs"
+      },
+      {
+        "max": 5.0,
+        "label": "Plusieurs crédits actifs"
+      },
+      {
+        "max": 999999,
+        "label": "Nombre élevé de crédits actifs"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "bureau_debt_total",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Relevés de comptes bancaires des 3-6 derniers mois et/ou contrats de crédit existants pour vérifier l'endettement",
+    "famille": "F5",
+    "formule": null,
+    "gabarit_aggravant": "L'encours de crédit total enregistré au bureau est {label} ({valeur:.2f}), ce qui constitue un facteur aggravant le risque.",
+    "gabarit_attenuant": "L'encours de crédit total enregistré au bureau est {label} ({valeur:.2f}), ce qui est un facteur atténuant le risque.",
+    "gabarit_fallback": "La variable {libelle} a un impact {direction} de {shap_value:+.3f} sur le score.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0469,
+    "libelle_agent": "Encours de crédit total (Bureau)",
+    "seuils": [
+      {
+        "max": 0.0,
+        "label": "Absence d'endettement enregistré"
+      },
+      {
+        "max": 166284.0,
+        "label": "Endettement très faible (P25-P50)"
+      },
+      {
+        "max": 649340.8875,
+        "label": "Endettement modéré (P50-P75)"
+      },
+      {
+        "max": 2617932.9487,
+        "label": "Endettement élevé (P75-P95)"
+      },
+      {
+        "max": 999999999,
+        "label": "Endettement très élevé (>P95)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "employment_years",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "anciennete_emploi_mois",
+        "label": "Ancienneté dans l'emploi actuel (mois)",
+        "type": "number",
+        "obligatoire": false
+      }
+    ],
+    "document_recommande": "Certificat de travail",
+    "famille": "F2",
+    "formule": "anciennete_emploi_mois / 12",
+    "gabarit_aggravant": "Avec {valeur:.2f} années d'ancienneté ({label}), votre profil présente un risque accru.",
+    "gabarit_attenuant": "Avec {valeur:.2f} années d'ancienneté ({label}), votre profil est un atout pour l'obtention de ce crédit.",
+    "gabarit_fallback": "L'ancienneté professionnelle contribue au score de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.1079,
+    "libelle_agent": "Ancienneté professionnelle",
+    "seuils": [
+      {
+        "max": 2.2752,
+        "label": "Très faible ancienneté professionnelle"
+      },
+      {
+        "max": 4.898,
+        "label": "Faible ancienneté professionnelle"
+      },
+      {
+        "max": 9.1718,
+        "label": "Ancienneté professionnelle moyenne"
+      },
+      {
+        "max": 20.2404,
+        "label": "Bonne ancienneté professionnelle"
+      },
+      {
+        "max": 999999,
+        "label": "Très forte ancienneté professionnelle"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "goods_to_credit",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "valeur_bien",
+        "label": "Valeur du bien financé (FCFA)",
+        "type": "number",
+        "obligatoire": false
+      },
+      {
+        "nom": "montant_credit_demande",
+        "label": "Montant du crédit demandé (FCFA)",
+        "type": "number",
+        "obligatoire": true
+      }
+    ],
+    "document_recommande": "Justificatifs de propriété des biens ou d'actifs (ex: titres de propriété, factures d'achat importantes).",
+    "famille": "F8",
+    "formule": "valeur_bien / montant_credit_demande",
+    "gabarit_aggravant": "Le ratio Biens / Crédit est {label} ({valeur:.2f}), ce qui augmente le risque de crédit.",
+    "gabarit_attenuant": "Le ratio Biens / Crédit est {label} ({valeur:.2f}), ce qui diminue le risque de crédit.",
+    "gabarit_fallback": "Le Ratio Biens / Crédit {direction} le risque de crédit avec un impact de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.0792,
+    "libelle_agent": "Ratio Biens / Crédit",
+    "seuils": [
+      {
+        "max": 0.8347,
+        "label": "Très faible (risque très élevé)"
+      },
+      {
+        "max": 0.8938,
+        "label": "Faible (risque élevé)"
+      },
+      {
+        "max": 1.0,
+        "label": "Moyen (risque modéré)"
+      },
+      {
+        "max": 1.0,
+        "label": "Bon (risque faible)"
+      },
+      {
+        "max": 999999,
+        "label": "Très bon (risque très faible)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": true
+  },
+  {
+    "feature": "history_length_days",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Historique bancaire interne ou rapport du bureau de crédit.",
+    "famille": "F1",
+    "formule": null,
+    "gabarit_aggravant": "L'ancienneté du client ({label}) est de {valeur:.2f} jours, ce qui contribue à un risque de défaut plus élevé.",
+    "gabarit_attenuant": "L'ancienneté du client ({label}) est de {valeur:.2f} jours, ce qui contribue à un risque de défaut plus faible.",
+    "gabarit_fallback": "L'ancienneté du client a un impact {direction} de {shap_value:+.3f} sur le risque.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0361,
+    "libelle_agent": "Ancienneté du client",
+    "seuils": [
+      {
+        "max": 682.0,
+        "label": "Moins de 2 ans"
+      },
+      {
+        "max": 1574.0,
+        "label": "Entre 2 et 4 ans"
+      },
+      {
+        "max": 2487.0,
+        "label": "Entre 4 et 7 ans"
+      },
+      {
+        "max": 2909.0,
+        "label": "Entre 7 et 8 ans"
+      },
+      {
+        "max": 999999,
+        "label": "Plus de 8 ans"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "inst_ever_late",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Relevé de compte bancaire détaillé sur les 6 derniers mois ou rapport de crédit local.",
+    "famille": "F4",
+    "formule": null,
+    "gabarit_aggravant": "L'historique de paiement indique **{label}** (valeur: **{valeur:.2f}**), ce qui est un facteur de **risque accru**.",
+    "gabarit_attenuant": "L'historique de paiement indique **{label}** (valeur: **{valeur:.2f}**), ce qui est un facteur de **risque réduit**.",
+    "gabarit_fallback": "Le facteur **{libelle}** est un élément **{direction}** avec une contribution de **{shap_value:+.3f}** au score.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0413,
+    "libelle_agent": "Historique de retards de paiement",
+    "seuils": [
+      {
+        "max": 0.0,
+        "label": "Jamais eu de retard de paiement (Très faible risque)"
+      },
+      {
+        "max": 1.0,
+        "label": "A eu au moins un retard de paiement (Risque élevé)"
+      },
+      {
+        "max": 999999,
+        "label": "Valeur inattendue pour les retards (Risque inconnu)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "pos_avg_dpd_all",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Historique de remboursement POS",
+    "famille": "F3",
+    "formule": null,
+    "gabarit_aggravant": "Un retard moyen de {valeur:.1f} jours sur les paiements POS aggrave le risque de défaut.",
+    "gabarit_attenuant": "Les paiements POS sont effectués sans retard significatif ({valeur:.1f} jours en moyenne).",
+    "gabarit_fallback": "La variable {libelle} contribue a {direction} le risque (contribution: {shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0238,
+    "libelle_agent": "Retard moyen de paiement POS (jours)",
+    "seuils": [],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "prev_avg_down_payment",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Relevés bancaires ou justificatifs de versements antérieurs",
+    "famille": "F6",
+    "formule": null,
+    "gabarit_aggravant": "Le montant moyen des acomptes précédents est {label} ({valeur:.2f}), ce qui augmente le risque de crédit.",
+    "gabarit_attenuant": "Le montant moyen des acomptes précédents est {label} ({valeur:.2f}), ce qui réduit le risque de crédit.",
+    "gabarit_fallback": "La variable '{libelle_agent}' est interprétée comme suit : '{direction}'. Son impact sur le score est de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.033,
+    "libelle_agent": "Montant moyen des acomptes versés précédemment",
+    "seuils": [
+      {
+        "max": 0.0,
+        "label": "Acompte très faible ou nul"
+      },
+      {
+        "max": 3375.0,
+        "label": "Acompte faible"
+      },
+      {
+        "max": 8291.16,
+        "label": "Acompte modéré"
+      },
+      {
+        "max": 24642.0,
+        "label": "Acompte élevé"
+      },
+      {
+        "max": 999999,
+        "label": "Acompte très élevé"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "prev_refused_ratio",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Historique de crédit auprès des bureaux de crédit (Credit Bureau) ou archives des demandes de prêt antérieures.",
+    "famille": "F6",
+    "formule": null,
+    "gabarit_aggravant": "Un {label} de {valeur:.2f} indique une exposition au risque plus élevée, ce qui aggrave le profil de crédit du demandeur.",
+    "gabarit_attenuant": "Un {label} de {valeur:.2f} est un indicateur positif, suggérant une gestion de crédit prudente et réduisant le risque perçu.",
+    "gabarit_fallback": "Pour le {libelle}, la valeur observée {direction} avec un impact de {shap_value:+.3f}.",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0703,
+    "libelle_agent": "Taux de refus de crédit antérieur",
+    "seuils": [
+      {
+        "max": 0.0,
+        "label": "Aucun refus antérieur (0%)"
+      },
+      {
+        "max": 0.2,
+        "label": "Faible taux de refus antérieur (entre 0% et 20%)"
+      },
+      {
+        "max": 0.5,
+        "label": "Taux de refus antérieur modéré (entre 20% et 50%)"
+      },
+      {
+        "max": 999999,
+        "label": "Taux de refus antérieur élevé (plus de 50%)"
+      }
+    ],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "registration_years",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [
+      {
+        "nom": "anciennete_domicile_mois",
+        "label": "Ancienneté à l'adresse actuelle (mois)",
+        "type": "number",
+        "obligatoire": false
+      }
+    ],
+    "document_recommande": "Justificatif de domicile",
+    "famille": "F2",
+    "formule": "anciennete_domicile_mois / 12",
+    "gabarit_aggravant": "Une faible ancienneté d enregistrement de {valeur:.1f} an(s) indique une instabilité résidentielle.",
+    "gabarit_attenuant": "Une ancienneté d enregistrement de {valeur:.1f} an(s) témoigne d une stabilité résidentielle.",
+    "gabarit_fallback": "La variable {libelle} contribue a {direction} le risque (contribution: {shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": true,
+    "iv": 0.029,
+    "libelle_agent": "Ancienneté d enregistrement du domicile (années)",
+    "seuils": [],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  },
+  {
+    "feature": "std_payment_ratio",
+    "run_id": "lgbm-run-v1",
+    "champs_source": [],
+    "document_recommande": "Relevés bancaires des 6 derniers mois",
+    "famille": "F4",
+    "formule": null,
+    "gabarit_aggravant": "Une forte variabilité des remboursements ({valeur:.2f}) indique une instabilité financière.",
+    "gabarit_attenuant": "Les remboursements sont réguliers et stables (variabilité : {valeur:.2f}).",
+    "gabarit_fallback": "La variable {libelle} contribue a {direction} le risque (contribution: {shap_value:+.3f}).",
+    "genere_le": {
+      "$date": "2026-05-31T10:29:50.416Z"
+    },
+    "is_declarative": false,
+    "iv": 0.0423,
+    "libelle_agent": "Variabilité des ratios de remboursement",
+    "seuils": [],
+    "type": "numeric",
+    "valide_le": null,
+    "valide_par": null,
+    "is_request_specific": false
+  }
+]

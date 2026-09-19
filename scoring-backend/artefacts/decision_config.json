@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "jeu_seuils": "Jeu 2 — équilibré",
+  "offset": 515.06,
+  "factor": 28.85390081777927,
+  "ancrage_pd": 0.05,
+  "ancrage_score": 600.02,
+  "pd_accorde": 0.1,
+  "pd_refuse": 0.3,
+  "score_equiv_accorde": 578.5,
+  "score_equiv_refuse": 539.5,
+  "note": "Décision raisonnée EN PD, affichée EN score. Hypothèse de travail sur proxy Home Credit (Niveau III)."
+}

@@ -1232,7 +1232,7 @@ PARTIE 6 — RÉSULTATS DES TESTS (tous validés)
 
 TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "Admin2026!"}' \
+  -d '{"username": "admin", "password": "<mot_de_passe_admin>"}' \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
 
 F1 override-stats     ✅ total_revue=38, overrides=2, "Seuils bien calibrés"

@@ -1,0 +1,121 @@
+<mxfile host="app.diagrams.net" agent="CREDIX" version="24.0.0">
+  <diagram id="fig2_5b" name="Fig 2.5b - Pipeline controle">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="titre" value="Flux de controle &amp;#8212; du corpus aux seuils d'atypicite figes" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="180" y="0" width="600" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="start" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="335" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="corpus" value="&lt;b&gt;Corpus d'apprentissage&lt;/b&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#707070;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="100" width="340" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="restriction" value="&lt;b&gt;Restriction aux bons payeurs&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;y = 0 uniquement&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#FFE9CC;strokeColor=#D79B00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="180" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="note_restriction" value="Detection de nouveaute, non de defaut.&#10;Le reseau apprend la structure du profil&#10;regulier ; tout ecart devient un signal.&#10;Justification : chandola2009anomaly." style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="175" width="340" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="link_restriction" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_restriction" target="restriction">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- partition = conteneur reel (swimlane) : e1a, e1b sont ENFANTS de "espace_repr" -->
+        <mxCell id="espace_repr" value="Espace de representation" style="swimlane;startSize=26;whiteSpace=wrap;html=1;fillColor=#FFFDF5;strokeColor=#D6B656;fontStyle=1;fontSize=12;container=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="280" width="420" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="e1a" value="&lt;b&gt;Reprise des 27 variables NAP&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;dans leur forme brute, non encodee en WOE&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF4D6;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="espace_repr">
+          <mxGeometry x="40" y="34" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e1b" value="&lt;b&gt;Construction de l'espace a 61 dimensions&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;indicateurs de presence, ratios, formes brutes&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF4D6;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="espace_repr">
+          <mxGeometry x="40" y="98" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="note_61d" value="61 dimensions" style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="600" y="378" width="300" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="link_61d" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_61d" target="e1b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- partition = conteneur reel (swimlane) : e2a, e2b sont ENFANTS de "autoencodeur" -->
+        <mxCell id="autoencodeur" value="Apprentissage de l'autoencodeur" style="swimlane;startSize=26;whiteSpace=wrap;html=1;fillColor=#FBFDFB;strokeColor=#82B366;fontStyle=1;fontSize=12;container=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="510" width="420" height="245" as="geometry" />
+        </mxCell>
+        <mxCell id="e2a" value="&lt;b&gt;Architecture symetrique 61 -&amp;gt; 22 -&amp;gt; 8 -&amp;gt; 22 -&amp;gt; 61&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;couche intermediaire : regle de la pyramide geometrique&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;goulot a 8 dimensions : balayage empirique&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#E6F4E6;strokeColor=#4A8B4A;fontSize=11;" vertex="1" parent="autoencodeur">
+          <mxGeometry x="40" y="34" width="340" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="e2b" value="&lt;b&gt;Entrainement&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;minimisation de l'erreur quadratique moyenne&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;optimiseur Adam, 200 epoques max, arret anticipe&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#E6F4E6;strokeColor=#4A8B4A;fontSize=11;" vertex="1" parent="autoencodeur">
+          <mxGeometry x="40" y="123" width="340" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="calc_erreur" value="&lt;b&gt;Calcul de l'erreur de reconstruction&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;score d'atypicite = ecart entre le profil et sa reconstruction&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#E8F0FB;strokeColor=#4A72B0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="780" width="340" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="seuils" value="&lt;b&gt;Determination des seuils par percentiles&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;sur la distribution des bons payeurs&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#E8F0FB;strokeColor=#4A72B0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="870" width="340" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="note_seuils" value="P95 = 0,1775 (seuil retenu)&#10;P99 = 0,2451&#10;Les seuils sont des artefacts figes,&#10;non des parametres administrables." style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="600" y="860" width="320" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="link_seuils" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_seuils" target="seuils">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="score_final" value="&lt;b&gt;Score d'atypicite + seuil de declenchement&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;consommes par le dispositif de fusion&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#D6E4F7;strokeColor=#2F5C9E;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="970" width="340" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="stop" value="" style="shape=endState;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="335" y="1060" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note_bottom" value="Ce flux ne produit aucune estimation du risque de defaut.&#10;Son orthogonalite au defaut est un resultat attendu, verifie au chapitre 3." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="140" y="1120" width="760" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="link_bottom" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_bottom" target="stop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e0" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="start" target="corpus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="corpus" target="restriction">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="restriction" target="e1a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="e1a" target="e1b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="e1b" target="e2a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="e2a" target="e2b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="e2b" target="calc_erreur">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="calc_erreur" target="seuils">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="seuils" target="score_final">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="score_final" target="stop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

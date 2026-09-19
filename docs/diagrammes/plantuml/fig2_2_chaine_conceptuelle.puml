@@ -1,0 +1,45 @@
+@startuml fig2_2_chaine_conceptuelle
+' =====================================================================
+'  FIGURE 2.2 — Chaine conceptuelle des objets du domaine
+'  Emplacement : chapitre 2, §2.2.3 « Vocabulaire du domaine »
+'  Remplace la figure 2.2 actuelle (Client -> Demande -> Decision)
+' =====================================================================
+
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+skinparam ArrowColor #333333
+skinparam rectangle {
+  BorderThickness 1.4
+}
+
+title Ce qui evolue, ce qui est fige
+
+rectangle "**Client**\n<size:10>entite evolutive</size>\n<size:10>revenu, adresse, historique changent</size>" as C #E8F0FB;line:4A72B0
+
+rectangle "**Demande**\n<size:10>photographie figee a l'instant t</size>\n<size:10>declaratif + vecteur de caracteristiques</size>" as D #F2F2F2;line:707070
+
+rectangle "**Decision**\n<size:10>resultat immuable</size>\n<size:10>score, D<sub>i</sub>, D<sub>f</sub>, rho_c, SHAP</size>" as E #E6F4E6;line:4A8B4A
+
+rectangle "**Version de modele**\n<size:10>artefacts figes</size>" as M #FBE9E7;line:B85450
+
+C -right-> D : soumet
+D -right-> E : est evaluee
+M -down-> E : produit
+
+note bottom of E
+  Rejouer une decision passee = recombiner
+  la **Demande** figee et la **Version de modele**
+  qui l'a produite. Aucun des deux ne change
+  apres coup : c'est la condition de la reproductibilite.
+end note
+
+note top of C
+  Seul le Client evolue dans le temps.
+  Evaluer « un client » plutot qu'une demande
+  rendrait la decision non reproductible.
+end note
+
+@enduml

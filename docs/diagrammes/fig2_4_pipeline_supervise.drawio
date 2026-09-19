@@ -1,0 +1,157 @@
+<mxfile host="app.diagrams.net" agent="CREDIX" version="24.0.0">
+  <diagram id="fig2_4" name="Fig 2.4 - Pipeline supervise">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="titre" value="Flux supervise &amp;#8212; de la donnee brute a la decision initiale" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="180" y="0" width="600" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="start" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="335" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="corpus" value="&lt;b&gt;Corpus historique&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;construction des caracteristiques&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#707070;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="100" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="note_corpus" value="63 variables construites" style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="108" width="320" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="link_corpus" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_corpus" target="corpus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="separation" value="&lt;b&gt;Separation temporelle&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;apprentissage / validation / test&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#707070;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="190" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="note_separation" value="Encodage, selection et apprentissage&#10;sont ajustes sur le seul ensemble&#10;d'apprentissage, puis appliques de&#10;maniere deterministe aux autres." style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="180" width="320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="link_separation" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_separation" target="separation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- partition = conteneur reel (swimlane) : p1a..p1d sont ENFANTS de "reduction" -->
+        <mxCell id="reduction" value="Reduction et transformation" style="swimlane;startSize=26;whiteSpace=wrap;html=1;fillColor=#FFFDF5;strokeColor=#D6B656;fontStyle=1;fontSize=12;container=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="300" width="420" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="p1a" value="&lt;b&gt;Pre-filtrage univarie (IV)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;elimination des variables non predictives&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF4D6;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="reduction">
+          <mxGeometry x="40" y="34" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p1b" value="&lt;b&gt;Encodage WOE&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;mise a l'echelle continue commune&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF4D6;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="reduction">
+          <mxGeometry x="40" y="98" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p1c" value="&lt;b&gt;Selection multivariee (NAP)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;importance par permutation&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF4D6;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="reduction">
+          <mxGeometry x="40" y="162" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p1d" value="&lt;b&gt;Controle de colinearite (VIF)&lt;/b&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF4D6;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="reduction">
+          <mxGeometry x="40" y="226" width="340" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note_iv" value="27 variables retenues" style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="600" y="326" width="300" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="link_iv" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_iv" target="p1a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_nap" value="les 27 resistent" style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="600" y="454" width="300" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="link_nap" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_nap" target="p1c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_vif" value="les 27 conservees" style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="600" y="518" width="300" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="link_vif" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_vif" target="p1d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- partition = conteneur reel (swimlane) : p2a, p2b sont ENFANTS de "modelisation" -->
+        <mxCell id="modelisation" value="Modelisation" style="swimlane;startSize=26;whiteSpace=wrap;html=1;fillColor=#FBFDFB;strokeColor=#82B366;fontStyle=1;fontSize=12;container=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="650" width="420" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="p2a" value="&lt;b&gt;Apprentissage LightGBM&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;produit PD brute&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#E6F4E6;strokeColor=#4A8B4A;fontSize=11;" vertex="1" parent="modelisation">
+          <mxGeometry x="40" y="34" width="340" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="p2b" value="&lt;b&gt;Calibration isotonique&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;PD brute -&amp;gt; PD calibree&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#E6F4E6;strokeColor=#4A8B4A;fontSize=11;" vertex="1" parent="modelisation">
+          <mxGeometry x="40" y="103" width="340" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- FIX barre de fork : rectangle noir plein, PAS shape=line;direction=north (voir fig activite du dispositif de decision) -->
+        <mxCell id="fork" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="180" y="880" width="560" height="10" as="geometry" />
+        </mxCell>
+
+        <mxCell id="branchA1" value="&lt;b&gt;Conversion en score PDO&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;puis application des seuils metier&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#E8F0FB;strokeColor=#4A72B0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="910" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="branchA2" value="Decision initiale D&lt;sub&gt;i&lt;/sub&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#D6E4F7;strokeColor=#2F5C9E;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="140" y="990" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="endA" value="" style="shape=endState;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="275" y="1060" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="branchB1" value="&lt;b&gt;Explication SHAP&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;sortie complementaire&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF9E0;strokeColor=#C9A227;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="910" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="endB" value="" style="shape=endState;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="655" y="1000" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="note_shap" value="N'altere pas le calcul du risque :&#10;branche parallele a la chaine decisionnelle." style="shape=note;whiteSpace=wrap;html=1;size=12;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="850" y="905" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="link_shap" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1" source="note_shap" target="branchB1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e0" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="start" target="corpus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="corpus" target="separation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="separation" target="p1a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="p1a" target="p1b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="p1b" target="p1c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="p1c" target="p1d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="p1d" target="p2a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="p2a" target="p2b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="p2b" target="fork">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.2;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="fork" target="branchA1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.87;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="fork" target="branchB1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="branchA1" target="branchA2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="branchA2" target="endA">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="branchB1" target="endB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

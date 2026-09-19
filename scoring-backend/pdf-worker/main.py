@@ -16,8 +16,35 @@ class PDFRequest(BaseModel):
     demande_id: str
     decision: dict
     client: dict
+    declaratif: dict = {}
     agent_id: str
     generated_at: str
+
+
+# ── Libellés lisibles pour les champs déclaratifs (cf. lib/feature-labels.ts) ──
+DECLARATIF_LABELS = {
+    "montant_annuite": "Annuité mensuelle (FCFA)",
+    "montant_credit_demande": "Montant du crédit demandé (FCFA)",
+    "valeur_bien": "Valeur du bien financé (FCFA)",
+    "type_contrat": "Type de contrat",
+    "OCCUPATION_TYPE": "Profession du demandeur",
+    "anciennete_emploi_mois": "Ancienneté dans l'emploi actuel (mois)",
+    "niveau_education": "Niveau d'éducation",
+    "genre": "Genre",
+    "date_naissance": "Date de naissance",
+    "type_revenu": "Type de revenu",
+    "anciennete_domicile_mois": "Ancienneté à l'adresse actuelle (mois)",
+}
+
+
+def format_valeur(v) -> str:
+    if v is None or v == "":
+        return "—"
+    if isinstance(v, float):
+        return f"{v:,.2f}".replace(",", " ")
+    if isinstance(v, int):
+        return f"{v:,}".replace(",", " ")
+    return str(v)
 
 
 def decision_color(decision: str) -> str:
@@ -118,6 +145,55 @@ def build_html(data: PDFRequest) -> str:
 
     nom_client = f"{profile.get('prenom', '')} {profile.get('nom', '')}".strip() or data.client.get("client_id", "N/A")
 
+    # ── DONNÉES DE LA DEMANDE (déclaratif saisi par l'agent) ─────────────────
+    declaratif_html = ""
+    if data.declaratif:
+        cards = "".join(
+            f"<div class='card'><div class='card-label'>{DECLARATIF_LABELS.get(k, k)}</div>"
+            f"<div class='card-value'>{format_valeur(v)}</div></div>"
+            for k, v in data.declaratif.items()
+        )
+        declaratif_html = f"""
+    <div class="section">
+      <div class="section-title">Données de la demande</div>
+      <div class="grid-2">{cards}</div>
+    </div>"""
+
+    # ── DÉTECTION D'ANOMALIE (Flux B) ─────────────────────────────────────
+    is_anomaly = d.get("is_anomaly", False)
+    anomaly_score = d.get("anomaly_score")
+    if is_anomaly:
+        facteurs = d.get("top_facteurs_anomalie") or []
+        facteurs_html = "".join(
+            f"<li style='margin:6px 0;font-size:12px'><strong>{f.get('libelle_agent', f.get('feature',''))}</strong>"
+            f" — {f.get('explication_naturelle','')}</li>"
+            for f in facteurs
+        )
+        anomaly_html = f"""
+    <div class="section">
+      <div class="section-title">Détection d'anomalie (Flux B)</div>
+      <div style="background:#fff7ed;border:1px solid #f59e0b;border-radius:8px;padding:16px">
+        <p style="margin:0 0 8px;font-weight:bold;color:#92400e">
+          Profil jugé statistiquement atypique{" — revue forcée en manuel" if d.get("if_escalade") else ""}
+        </p>
+        <p style="margin:0 0 8px;font-size:12px;color:#78350f">
+          Score d'anomalie : <strong>{anomaly_score:.3f}</strong> · Détecteur : {d.get("if_detecteur","N/A")}
+          · Percentile de référence : P{d.get("if_percentile","N/A")}
+        </p>
+        {f"<ul style='margin:8px 0 0;padding-left:20px'>{facteurs_html}</ul>" if facteurs_html else ""}
+      </div>
+    </div>"""
+    else:
+        anomaly_html = f"""
+    <div class="section">
+      <div class="section-title">Détection d'anomalie (Flux B)</div>
+      <div style="background:#f0fdf4;border:1px solid #16a34a;border-radius:8px;padding:12px">
+        <p style="margin:0;font-size:12px;color:#166534">
+          Aucune anomalie détectée{f" (score : {anomaly_score:.3f})" if anomaly_score is not None else ""}.
+        </p>
+      </div>
+    </div>"""
+
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -192,6 +268,9 @@ def build_html(data: PDFRequest) -> str:
   <!-- RECOMMANDATION DOCUMENTAIRE -->
   {docs_html}
 
+  <!-- DONNÉES DE LA DEMANDE -->
+  {declaratif_html}
+
   <!-- PROFIL CLIENT -->
   <div class="section">
     <div class="section-title">Profil client</div>
@@ -211,6 +290,9 @@ def build_html(data: PDFRequest) -> str:
       <tbody>{shap_rows}</tbody>
     </table>
   </div>
+
+  <!-- ANOMALIE -->
+  {anomaly_html}
 
 </div>
 
