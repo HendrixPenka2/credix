@@ -44,7 +44,7 @@ export function HistCharts({ historique }: { historique: ScoringHistoryItem[] })
               <CartesianGrid strokeDasharray="3 3" stroke="var(--outline-variant)" vertical={false} />
               <XAxis dataKey="date" tick={{ fontSize: 11, fill: "var(--on-surface-variant)" }} axisLine={{ stroke: "var(--outline-variant)" }} />
               <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: "var(--on-surface-variant)" }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: "var(--surface-container-lowest)", border: "1px solid var(--outline-variant)", borderRadius: 8, fontSize: 12 }} formatter={(v: number) => [`${v}%`, "ρc"]} />
+              <Tooltip contentStyle={{ background: "var(--surface-container-lowest)", border: "1px solid var(--outline-variant)", borderRadius: 8, fontSize: 12 }} formatter={(v) => [`${v}%`, "ρc"]} />
               <ReferenceLine y={DEFAULT_RHO_SEUIL_SUFFISANTE * 100} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: "Seuil min.", fontSize: 10, fill: "#f59e0b", position: "insideTopLeft" }} />
               <Line type="monotone" dataKey="rho" stroke="var(--outline)" strokeDasharray="4 2" strokeWidth={2} dot={{ r: 3 }} name="Couverture ρc" />
             </LineChart>

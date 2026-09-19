@@ -367,7 +367,6 @@ Tapez votre **nom d'utilisateur GitHub**, puis, à la ligne « Password », **co
 credix-v2  docs  README.md  scoring-backend  stitch_credix_design_system
 ```
 
-`[À CONFIRMER EN 1.4 : liste exacte après un clone neuf]`
 
 ### 4.3 Vérifier la copie
 
@@ -445,9 +444,15 @@ docker compose up -d --build
 - `-d` les lance **en arrière-plan** (vous récupérez la main dans le terminal) ;
 - `--build` **fabrique d'abord les images** qui en ont besoin (l'API et le service PDF).
 
-**Ce qu'il faut savoir :** au **premier lancement**, Docker télécharge des images (MongoDB, MLflow) et fabrique celles de l'API (qui contient TensorFlow, une grosse bibliothèque). C'est **long** : plusieurs minutes, parfois davantage selon votre connexion. Les lancements suivants sont rapides. `[À CONFIRMER EN 1.4 : durée mesurée]`
+**Ce qu'il faut savoir :** au **premier lancement**, Docker télécharge des images (MongoDB, MLflow) et **fabrique celles de l'API et du service PDF** : il installe des paquets système puis des bibliothèques Python, dont TensorFlow (250 Mo à lui seul). Il y a **environ 700 Mo à télécharger**, donc la durée dépend surtout de votre connexion. Lors de notre test, avec une connexion lente (de 75 à 300 Ko/s), cela a duré **environ 50 minutes** (dont 45 pour l'installation des bibliothèques Python de l'API) ; avec une bonne connexion, comptez nettement moins. Prévoyez aussi **de la place sur le disque** : la construction a besoin d'environ 4 Go de marge temporaire à la toute fin (voir la section 3.1). Les lancements suivants sont rapides : environ **une minute** (les images sont déjà fabriquées).
 
-**Résultat attendu à la fin :** des lignes de ce type, sans mot « error » :
+**Comment savoir que c'est terminé ?**
+
+- La commande affiche beaucoup de lignes (`#15 [api ...] Downloading ...`) et **ne vous rend pas la main** tant qu'elle travaille : l'invite du terminal (le `$`) ne réapparaît pas.
+- Pendant le téléchargement d'un gros fichier comme TensorFlow, **rien ne s'affiche pendant plusieurs minutes** : ce n'est pas un blocage. Pour le vérifier, ouvrez un **autre terminal** et tapez `docker ps` : tant que vos conteneurs `scoring-...` n'apparaissent pas dans la liste, la construction est en cours.
+- C'est **terminé** quand l'invite du terminal **réapparaît**, après les lignes `Container ... Started` ci-dessous. Passez alors à la section 5.3.
+
+**Résultat attendu à la fin :** des lignes de ce type (le mot « error » ne doit pas apparaître) :
 
 ```text
  Container scoring-mongodb Started
@@ -455,8 +460,6 @@ docker compose up -d --build
  Container scoring-pdf Started
  Container scoring-api Started
 ```
-
-`[À CONFIRMER EN 1.4 : sortie exacte du premier lancement]`
 
 ### 5.3 Vérifier que le backend tourne
 
@@ -492,11 +495,15 @@ docker compose logs -f --tail 60 api
 
 **Ce que fait la commande :** `logs` affiche les messages écrits par le service `api` ; `--tail 60` limite aux 60 dernières lignes ; `-f` **suit les messages en direct**. Pour arrêter de suivre, tapez `Ctrl` + `C` : cela **n'arrête pas** l'application.
 
-**Résultat attendu (au tout premier lancement, l'ordre de quelques lignes peut varier) :**
+**Résultat attendu au tout premier lancement** (l'ordre de quelques lignes peut varier légèrement) :
 
 ```text
 INFO:     Started server process [1]
 INFO:     Waiting for application startup.
+2026-09-19 17:32:02.014168: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ==================================================
   Scoring Backend — Démarrage
 ==================================================
@@ -506,22 +513,31 @@ INFO:     Waiting for application startup.
 [Artefacts] ✓ woe_transformers.pkl
 [Artefacts] ✓ nap_features.pkl
 [Artefacts] ✓ lgbm_final.pkl
-...(une ligne ✓ par fichier du modèle, 14 au total)...
+[Artefacts] ✓ iv_scores_final.csv
+[Artefacts] ✓ feature_stats.json
+[Artefacts] ✓ isotonic_calibrator.pkl
+[Artefacts] ✓ decision_config.json
+[Artefacts] ✓ autoencoder.keras
+[Artefacts] ✓ ae_metadata.json
+[Artefacts] ✓ isolation_forest.pkl
+[Artefacts] ✓ if_metadata.json
+[Artefacts] ✓ scaler_if.pkl
+[Artefacts] ✓ encoder_hybrid.pkl
+[Artefacts] ✓ colonnes_ordonnees_61.json
 [Artefacts] Seed chargé — 27 features NAP
 [Metadata] 0 documents feature_metadata chargés
+[Seuils] Premier démarrage — seuils PDO initialisés depuis decision_config.json : accorde=578.5, refuse=539.5
 [OK] Backend prêt
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
-
-`[À CONFIRMER EN 1.4 : lignes exactes sur une installation neuve]`
 
 **Comment lire ces messages :**
 
 - `Aucun modèle GridFS en PRODUCTION — fallback seed` : normal au premier lancement. Comme aucune version du modèle n'a été chargée depuis l'interface, l'API prend **le modèle fourni dans le dossier `artefacts/`**.
 - Les lignes `✓` confirment que **chaque fichier du modèle** est chargé.
 - `[Metadata] 0 documents ... chargés` : normal pour l'instant, les phrases d'explication seront chargées à l'étape 5.4.
-- `[OK] Backend prêt` : **c'est la ligne à attendre**. Elle signifie que le backend est opérationnel.
+- `[Seuils] Premier démarrage ...` : les **seuils de décision** sont initialisés (accordé à partir de 578,5, refusé en dessous de 539,5).
+- Le message `I tensorflow/... This TensorFlow binary is optimized ...` est une **simple information** de TensorFlow : ce n'est pas une erreur.
+- `[OK] Backend prêt` : **c'est la ligne à attendre**. Elle signifie que le backend est opérationnel. (Les lignes `INFO:` s'affichent parfois **avant** les autres : c'est normal.)
 - Une ligne contenant `[WARNING]` signale un fichier facultatif du modèle absent ; une ligne `Traceback` ou `FileNotFoundError` signale une erreur (voir section 10).
 
 Après quelques minutes, vous verrez aussi, toutes les 30 secondes, des lignes `GET /health HTTP/1.1" 200 OK` : ce sont les **contrôles de santé** automatiques de Docker. Elles sont bon signe.
@@ -656,7 +672,13 @@ curl -s -X POST http://localhost:8080/api/auth/login \
 
 **Ce que fait la commande :** elle envoie à l'API un identifiant et un mot de passe, exactement comme le fera la page de connexion.
 
-**Résultat attendu :** une réponse contenant un `token` (une longue suite de caractères), `"role":"ADMIN"` et la date d'expiration du jeton. `[À CONFIRMER EN 1.4 : réponse exacte]`
+**Résultat attendu** (une seule ligne ; le `token` est une longue suite de caractères, ici raccourcie) :
+
+```json
+{"token":"eyJhbGciOiJIUzI1NiIsInR5...","role":"ADMIN","user_id":"3628800d-5f36-4d9b-94bd-b8012a95660f","nom":"Administrateur","prenom":"Systeme","expires_at":"2026-09-20T01:34:23.430433+00:00"}
+```
+
+Le jeton est valable **8 heures** (`expires_at`).
 
 **Avec un mauvais mot de passe**, la réponse est (code 401) :
 
@@ -706,9 +728,18 @@ cat .env.local
 npm ci
 ```
 
-**Ce que fait la commande :** elle télécharge et installe, dans un dossier `node_modules/`, **exactement les bibliothèques listées dans `package-lock.json`** (les mêmes versions que celles utilisées par l'auteur). Comptez une à trois minutes.
+**Ce que fait la commande :** elle télécharge et installe, dans un dossier `node_modules/`, **exactement les bibliothèques listées dans `package-lock.json`** (les mêmes versions que celles utilisées par l'auteur). Comptez de 30 secondes à quelques minutes selon la connexion.
 
-**Résultat attendu :** une phrase du type `added 5xx packages in 1m`. Des lignes `npm warn` sont **sans gravité**. `[À CONFIRMER EN 1.4 : sortie exacte]`
+**Résultat attendu (le nombre de paquets et la durée peuvent varier un peu) :**
+
+```text
+added 477 packages in 28s
+
+154 packages are looking for funding
+  run `npm fund` for details
+```
+
+Sur la machine de test, l'installation a pris **28 secondes** et le dossier `node_modules/` occupe environ **520 Mo**. Des lignes `npm warn` éventuelles sont **sans gravité**.
 
 **Si vous obtenez `EBADENGINE` ou une erreur de version :** votre Node.js est trop ancien. Vérifiez `node --version` (il faut 18.18 au minimum, 22 conseillé) et reprenez la section 3.4.
 
@@ -723,12 +754,50 @@ npm run start
 
 | Commande | Effet |
 |---|---|
-| `npm run build` | **Compile** l'application : elle vérifie le code TypeScript, transforme chaque page en fichiers optimisés et les range dans le dossier `.next/`. Cela prend une à deux minutes. |
+| `npm run build` | **Compile** l'application : elle vérifie le code TypeScript, transforme chaque page en fichiers optimisés et les range dans le dossier `.next/`. Comptez de 30 secondes à deux minutes. |
 | `npm run start` | **Démarre le serveur web** sur le port 3001 avec la version compilée |
 
-**Résultat attendu de `npm run build` :** un tableau qui liste les pages (`/login`, `/dashboard`, `/admin`…) et se termine sans erreur. `[À CONFIRMER EN 1.4 : sortie exacte]`
+**Résultat attendu de `npm run build`** (une quarantaine de secondes sur la machine de test) :
 
-**Résultat attendu de `npm run start` :** un message indiquant que le serveur est prêt et écoute sur `http://localhost:3001`. **Laissez ce terminal ouvert** : si vous le fermez, le frontend s'arrête. `[À CONFIRMER EN 1.4 : sortie exacte]`
+```text
+   ▲ Next.js 15.5.23
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 9.0s
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+ ✓ Generating static pages (29/29)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      128 B         102 kB
+├ ○ /admin                               2.35 kB         161 kB
+├ ○ /admin/audit                         4.08 kB         168 kB
+...(une ligne par page, 28 au total)...
+└ ○ /superviseur/tranches                3.31 kB         136 kB
++ First Load JS shared by all             102 kB
+```
+
+La commande **se termine sans message d'erreur** et crée un dossier `.next/`. Si elle affiche `Failed to compile.` suivi de `Type error`, le code contient une erreur de type : voir la section 10.2.
+
+**Résultat attendu de `npm run start` :**
+
+```text
+> credix-v2@0.1.0 start
+> next start -p 3001
+
+   ▲ Next.js 15.5.23
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.1.20:3001
+
+ ✓ Starting...
+ ✓ Ready in 857ms
+```
+
+(l'adresse « Network » sera celle de votre machine). **Laissez ce terminal ouvert** : si vous le fermez, le frontend s'arrête. Si vous voyez `EADDRINUSE: address already in use :::3001`, le port 3001 est déjà pris (voir la section 10.2).
 
 **Variante pour développer (mode « développement ») :** `npm run dev` démarre le frontend sur le même port, **sans compilation préalable**, et recharge la page automatiquement à chaque modification du code. C'est le mode à utiliser si vous modifiez le frontend (section 9).
 
@@ -760,7 +829,7 @@ Ce parcours vérifie que **les trois espaces fonctionnent et communiquent**. Il 
 
 **Résultat attendu :** vous arrivez sur la **Vue générale** de l'espace Administrateur, avec 4 indicateurs et le tableau des versions du modèle.
 
-**Si vous voyez « Identifiant ou mot de passe incorrect » :** vérifiez le mot de passe. **Si le navigateur affiche une erreur réseau ou de type CORS :** l'adresse `http://localhost:3001` n'est pas dans `ALLOWED_ORIGINS` (section 10).
+**Si vous voyez « Identifiants incorrects » (message rouge sous le mot de passe) :** vérifiez le mot de passe. **Si le navigateur affiche une erreur réseau ou de type CORS :** l'adresse `http://localhost:3001` n'est pas dans `ALLOWED_ORIGINS` (section 10).
 
 ### 7.2 Créer un compte Agent et un compte Superviseur
 
@@ -773,7 +842,7 @@ Ce parcours vérifie que **les trois espaces fonctionnent et communiquent**. Il 
 
 Recommencez avec le rôle **Superviseur** (identifiant `superviseur.test` par exemple). **Notez les deux mots de passe.**
 
-Puis ouvrez de nouveau **« Utilisateurs »** : **Résultat attendu :** la liste montre `admin`, `agent.test` et `superviseur.test`.
+Puis ouvrez de nouveau **« Utilisateurs »**. **Résultat attendu :** la page indique **« 3 comptes enregistrés »** et liste les trois comptes par leur **nom et leur e-mail** (« Systeme Administrateur », « Awa Agent », « Samir Superviseur »), avec leur rôle (Admin, Agent, Superviseur) et le statut « Actif ». La liste n'affiche pas les identifiants de connexion.
 
 > Un compte n'est **jamais supprimé** dans l'application : il peut seulement être désactivé puis réactivé.
 
@@ -797,13 +866,29 @@ Puis ouvrez de nouveau **« Utilisateurs »** : **Résultat attendu :** la liste
    | Montant du crédit demandé (FCFA) | `1000000` |
    | Valeur du bien financé (FCFA), facultatif | `800000` |
 
-4. Lancez le calcul.
+4. Cliquez sur **« Continuer »** : le calcul démarre (quelques secondes).
 
-**Résultat attendu (étape 3) :** un écran de résultat avec une **jauge de score** (entre 300 et 850), la **décision** (Accordé, Refusé ou Revue manuelle), un **anneau de couverture ρc**, la position du client par rapport aux autres (percentile), les **5 facteurs qui ont le plus pesé** (SHAP) expliqués en phrases, et un bloc **« anomalie »**. Un bouton permet de **télécharger le rapport PDF** (il utilise le service PDF de la section 5).
+**Résultat attendu (étape 3), pour `HC-100001` avec ces valeurs :** un écran de résultat avec la jauge **« Score PDO global »** (**603**, sur une échelle de 300 à 850), la décision **`ACCORDÉ`**, une **couverture de données de 100 %**, les **5 facteurs qui ont le plus pesé** (« Facteurs d'influence ») expliqués en phrases, un bloc **« Analyse de profil (Flux B) — Aucune anomalie »** quand le profil est normal, un bloc **« Positionnement »** (le percentile du client), et trois boutons : **« Télécharger le rapport PDF »**, « Lancer une simulation » et « Recommencer ». Le rapport PDF est fabriqué par le service PDF de la section 5 ; sur la machine de test, le fichier pèse environ 21 Ko.
 
-**Ce que vous pouvez comparer :** lors des essais de l'auteur, `HC-100001`, `HC-100141` et `HC-101449` ont été envoyés en **revue manuelle** (profil détecté comme atypique), tandis que `HC-100042` et `HC-100271` ont été **accordés**. Le résultat exact peut varier selon les valeurs saisies. `[À CONFIRMER EN 1.4 : résultats obtenus sur une installation neuve]`
+**Pour voir tous les cas de décision**, scorez les clients ci-dessous **avec les mêmes valeurs d'exemple** (résultats vérifiés sur une installation neuve). Avec d'autres montants, le score et la décision changent.
 
-**Essayez aussi un client aux données incomplètes**, par exemple `HC-102878` (10 variables sur 27 sont vides) : la couverture ρc doit être **nettement plus basse**, avec le bandeau « confiance limitée » et une recommandation de documents à demander. `[À CONFIRMER EN 1.4]`
+| Ce que l'on veut voir | Client | Score | Décision | Couverture ρc |
+|---|---|---|---|---|
+| Un accord net | `HC-101368` | 660 | `ACCORDÉ` | 100 % |
+| Un accord (parcours ci-dessus) | `HC-100001` | 603 | `ACCORDÉ` | 100 % |
+| Une revue à cause du **score** (zone entre 539,5 et 578,5) | `HC-100241` | 571 | `EN REVUE` | 77 % |
+| Un **refus** (probabilité de défaut de 32 %) | `HC-101327` | 536 | `REFUSÉ` | 89 % |
+| Une revue à cause d'une **anomalie** (Flux B), alors que le score seul accorderait | `HC-100169` | 589 | `EN REVUE` | 91 % |
+
+Pour `HC-100169`, l'écran contient un bloc **« Détection d'anomalie (Flux B) — Revue forcée »**, qui explique que le profil a été jugé statistiquement atypique par le détecteur secondaire (l'autoencodeur) et que la décision a été forcée en revue manuelle, quel que soit le score initial.
+
+**Voir une couverture faible.** Aucun des 150 clients de démonstration n'a une couverture inférieure à 42 %. Pour voir ce cas, **créez un nouveau client**, dont on ne connaît que les informations déclarées :
+
+1. Menu **« Nouveau client »**, puis remplissez le formulaire, par exemple : Prénom `Awa`, Nom `Ndiaye`, Date de naissance `1996-02-18`, Genre `Femme`, Situation familiale `Célibataire`, Enfants à charge `0`, Téléphone `+237 677 12 34 56`, Agence `Agence Centrale`, Type de poste `Sales staff`, Type de revenu `Salarié`, Niveau d'éducation `Secondaire`, Ancienneté emploi (mois) `18`, Ancienneté domicile (mois) `24`.
+2. Cliquez sur **« Créer le dossier »** : la fiche du client s'ouvre, avec les onglets « Vue d'ensemble », « Nouveau scoring », « Simulation », « Historique », « Explicabilité » et « Progression ».
+3. Ouvrez l'onglet **« Nouveau scoring »**. Comme ce client est nouveau, le formulaire compte **11 champs** (et non 4). Saisissez : Annuité mensuelle `35000`, Montant du crédit demandé `650000`, Valeur du bien financé `700000`, Type de contrat `Cash loans`, Profession du demandeur `Sales staff`, Ancienneté dans l'emploi actuel (mois) `18`, Niveau d'éducation `Secondary / secondary special`, Genre `F`, Date de naissance `1996-02-18`, Type de revenu `Working`, Ancienneté à l'adresse actuelle (mois) `24`, puis cliquez sur **« Continuer »**.
+
+**Résultat attendu :** une couverture de **35 %**, un bandeau **« Confiance limitée — ce score repose principalement sur les données déclaratives »**, une liste de **documents recommandés** à demander au client, un score de **565** et la décision **`EN REVUE`**.
 
 Explorez ensuite : **« Simulateur »** (même parcours, mais le résultat n'est **pas enregistré**), **« Historique »**, **« Mes rapports »**, et la **fiche du client** (menu **« Rechercher »**).
 
@@ -812,22 +897,22 @@ Explorez ensuite : **« Simulateur »** (même parcours, mais le résultat n'est
 1. Déconnectez-vous, puis connectez-vous avec `superviseur.test`.
 2. Sur la **Vue d'ensemble**, la cloche en haut indique le **nombre de dossiers en attente**.
 3. Menu **« Dossiers en revue »** : sélectionnez un dossier dans la liste.
-4. Lisez l'analyse (score, couverture, anomalie, profil, facteurs), choisissez **Accordé** ou **Refusé** et écrivez un **commentaire de justification d'au moins 20 caractères**, puis validez.
+4. Lisez l'analyse (score, couverture, anomalie, profil, facteurs), choisissez **Accordé** ou **Refusé**, écrivez un **commentaire de justification d'au moins 20 caractères** (champ « Expliquez votre décision (minimum 20 caractères)... »), puis cliquez sur **« Valider la décision »**.
 
 **Résultat attendu :** le dossier quitte la file ; il apparaît dans **« Mes validations »**.
 
-**S'il n'y a aucun dossier en revue :** scorez d'abord, en tant qu'agent, l'un des clients listés en 7.4 (par exemple `HC-100001`).
+**S'il n'y a aucun dossier en revue :** revenez en agent (section 7.3) et scorez `HC-100241` (score 571, en revue), `HC-100169` (revue pour anomalie) ou le nouveau client créé en 7.4. Chaque dossier `EN REVUE` attend alors dans la file du superviseur.
 
 ### 7.6 Contrôler le journal d'audit et la configuration (espace Administrateur)
 
 1. Reconnectez-vous en `admin`.
 2. Menu **« Journal d'audit »**.
 
-   **Résultat attendu :** la liste des actions faites pendant ce test (connexions, création des comptes, scoring, décision du superviseur), avec la date et l'utilisateur.
+   **Résultat attendu :** une liste datée des actions faites pendant ce test : pour chaque ligne, l'utilisateur, l'**action** (`AUTH_LOGIN` pour une connexion, `USER_CREATE` pour une création de compte, `SCORING_REQUEST` pour un scoring, `DECISION_OVERRIDE` pour la décision du superviseur), la ressource concernée et le statut « Succès ».
 3. Menu **« Versions du modèle »**.
 
-   **Résultat attendu :** une version au statut **PRODUCTION** (identifiant `lgbm-run-v1`, version 1.0.0). `[À CONFIRMER EN 1.4 : affichage exact]`
-4. Menu **« Configuration »** : vous voyez les **seuils de décision** (refusé 539,5 ; accordé 578,5) et la sensibilité du détecteur d'anomalies. Ne modifiez rien pour ce test. `[À CONFIRMER EN 1.4 : valeurs affichées]`
+   **Résultat attendu :** une carte **« Production »** indiquant la version **1.0.0** avec **AUC 0.751, Gini 0.502 et KS 0.373**, et, dessous, un tableau des versions avec cette même ligne.
+4. Menu **« Configuration »**. **Résultat attendu :** les **seuils de décision** « Seuil Refusé / Revue » à **539,5** et « Seuil Revue / Accordé » à **578,5**, une carte **« Règle active »** (refus sous 540, revue de 540 à 579, accord au-dessus), les **seuils de couverture ρc** (critique : moins de 25 % ; partielle : de 25 à 42 % ; suffisante : à partir de 42 %) et la **sensibilité du détecteur d'anomalies** (percentile de référence P95). Ne modifiez rien pour ce test.
 
 ### 7.7 Liste de contrôle finale
 
@@ -951,7 +1036,7 @@ Après chaque modification, **refaites les vérifications** de la section 5.6 (b
 |---|---|
 | Annuler les changements **non enregistrés** d'un fichier | `git restore chemin/vers/le/fichier` |
 | Retirer un fichier de la liste `git add` | `git restore --staged chemin/vers/le/fichier` |
-| Annuler un enregistrement déjà validé, **en gardant l'historique** | `git revert <numéro du commit>` (les numéros s'affichent avec `git log --oneline`) |
+| Annuler un enregistrement déjà validé, **en gardant l'historique** | `git revert <numéro du commit>` (les numéros s'affichent avec `git log --oneline`). Un éditeur de texte s'ouvre pour le message : enregistrez et fermez-le (dans `nano` : `Ctrl` + `O`, `Entrée`, puis `Ctrl` + `X`). |
 
 ### 9.5 Ce qu'il ne faut jamais publier
 
@@ -970,7 +1055,7 @@ Le fichier `.gitignore` de la racine bloque déjà ces éléments. **Vérifiez t
 | `Connection refused` sur le port 22 avec SSH | Votre réseau bloque SSH. Faites passer SSH par le port 443 (voir l'encadré sous ce tableau) ou utilisez l'adresse HTTPS. |
 | `Permission denied (publickey)` | Votre clé SSH n'est pas enregistrée sur GitHub (section 9.1). |
 | `Authentication failed` avec HTTPS | Vous avez saisi le mot de passe du compte au lieu du **jeton** (section 9.1). |
-| `rejected ... non-fast-forward` au `git push` | Quelqu'un a modifié la branche entre-temps : faites `git pull`, résolvez les éventuels conflits, puis `git push`. |
+| `! [rejected] main -> main (fetch first)` (ou `non-fast-forward`) au `git push` | Quelqu'un a envoyé des modifications entre-temps : faites `git pull`, résolvez les éventuels conflits, puis `git push`. |
 | `CONFLICT` pendant un `git pull` ou `git merge` | Deux personnes ont modifié les mêmes lignes. Git marque les zones en conflit dans les fichiers (`<<<<<<<`, `=======`, `>>>>>>>`) : gardez la bonne version, retirez les marqueurs, puis `git add` et `git commit`. |
 
 **Faire passer SSH par le port 443** (quand le port 22 est bloqué) : créez ou complétez le fichier `~/.ssh/config` avec ces quatre lignes, puis testez avec `ssh -T git@github.com`.
@@ -1013,7 +1098,8 @@ Quand quelque chose ne marche pas, **lisez d'abord le message d'erreur**, puis c
 | Sur la page de connexion : erreur réseau, ou message CORS dans la console du navigateur | L'API n'autorise pas l'adresse du frontend | Vérifiez que `ALLOWED_ORIGINS` (fichier `scoring-backend/.env`) contient `http://localhost:3001`, puis `docker compose up -d --force-recreate api` |
 | La page se charge mais aucune donnée ne s'affiche | Le frontend n'atteint pas le backend | `curl -s http://localhost:8080/health` doit répondre ; vérifiez `NEXT_PUBLIC_API_URL` dans `credix-v2/.env.local`. **Après l'avoir modifié, refaites `npm run build`** (l'adresse est intégrée à la compilation). |
 | `npm ci` échoue, `EBADENGINE` | Node.js trop ancien | Installez Node 22 (section 3.4) |
-| `Port 3001 is in use` | Un autre frontend tourne déjà | Fermez son terminal, ou cherchez-le avec `ss -ltnp \| grep 3001` |
+| `Failed to start server` puis `EADDRINUSE: address already in use :::3001` | Le port 3001 est déjà pris (souvent par un autre frontend qui tourne) | Fermez le terminal de cet autre frontend, ou cherchez le programme avec `ss -ltnp \| grep 3001` |
+| `Failed to compile.` suivi de `Type error: ...` pendant `npm run build` | Le code contient une erreur de type TypeScript | Lisez le fichier et la ligne indiqués. `npx tsc --noEmit` liste **toutes** les erreurs d'un coup (`npm run build` n'en affiche qu'une à la fois) |
 | Le navigateur affiche la page de connexion en boucle | Le jeton de connexion a expiré (il dure 8 heures) ou est invalide | Reconnectez-vous |
 | Un agent qui tape `/admin` dans l'adresse voit un écran d'administration vide | Limite connue du frontend : il ne bloque pas l'affichage de la coquille. **Le backend, lui, refuse toutes les données** d'un espace non autorisé | Comportement sans danger pour les données |
 

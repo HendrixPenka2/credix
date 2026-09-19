@@ -38,7 +38,7 @@ export function ScoreDistributionChart({ distribution, seuilRefuse, seuilAccorde
             <YAxis tick={{ fontSize: 11, fill: "var(--on-surface-variant)" }} axisLine={false} tickLine={false} />
             <Tooltip
               contentStyle={{ background: "var(--surface-container-lowest)", border: "1px solid var(--outline-variant)", borderRadius: 8, fontSize: 12 }}
-              formatter={(value: number) => [`${value} dossiers`, "Total"]}
+              formatter={(value) => [`${value} dossiers`, "Total"]}
             />
             <ReferenceLine x={nearestBucket(seuilRefuse)} stroke="#f43f5e" strokeDasharray="4 4" label={{ value: "Refus", fontSize: 10, fill: "#f43f5e" }} />
             <ReferenceLine x={nearestBucket(seuilAccorde)} stroke="#10b981" strokeDasharray="4 4" label={{ value: "Accord", fontSize: 10, fill: "#10b981" }} />

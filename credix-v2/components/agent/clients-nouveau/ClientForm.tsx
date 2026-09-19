@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
@@ -19,7 +19,8 @@ export function ClientForm() {
   const [submitting, setSubmitting] = useState(false);
 
   const form = useForm<ClientFormValues>({
-    resolver: zodResolver(clientFormSchema),
+    // zod 4 : l'entrée de z.coerce.number() est typée "unknown", alors que le résolveur renvoie bien des ClientFormValues.
+    resolver: zodResolver(clientFormSchema) as unknown as Resolver<ClientFormValues>,
     defaultValues: { nb_enfants: 0, genre: "F" },
   });
 

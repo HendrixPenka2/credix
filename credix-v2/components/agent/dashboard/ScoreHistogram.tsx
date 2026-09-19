@@ -37,7 +37,7 @@ export function ScoreHistogram({ distribution, loading }: { distribution: ScoreD
             <YAxis tick={{ fontSize: 11, fill: "var(--on-surface-variant)" }} axisLine={false} tickLine={false} />
             <Tooltip
               contentStyle={{ background: "var(--surface-container-lowest)", border: "1px solid var(--outline-variant)", borderRadius: 8, fontSize: 12 }}
-              formatter={(value: number) => [`${value} dossiers`, "Total"]}
+              formatter={(value) => [`${value} dossiers`, "Total"]}
             />
             <Bar dataKey="count" radius={[4, 4, 0, 0]}>
               {data.map((entry, i) => (
