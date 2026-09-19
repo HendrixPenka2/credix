@@ -372,9 +372,25 @@ pdfinfo /tmp/exemple.pdf | grep Pages
 
 ### 8.3 Insérer des images dans le fichier `.tex`
 
-Les documents contiennent des cadres **« CAPTURE À INSÉRER »** aux endroits où une capture d'écran est attendue. Deux façons de les remplacer :
+Dans chaque fichier `.tex`, **chaque image est un bloc LaTeX standard** :
 
-**Façon 1, sans rien modifier (la plus simple).** Le cadre indique un nom de fichier, par exemple `../images/guides/01-01_claude_ai_accueil.png`. Déposez votre capture **sous ce nom exact** dans `docs/images/guides/`, puis recompilez, deux fois, depuis `docs/tex/` :
+```text
+% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai avant la connexion
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-01_claude_ai_accueil.png}
+  \caption{Page d'accueil de claude.ai.}
+\end{figure}
+```
+
+Pour mettre votre capture, **changez seulement le nom du fichier** entre les accolades de `\includegraphics{...}`. Le chemin est relatif au dossier `docs/tex/` : d'où le `../images/`. Deux façons de faire :
+
+- **Sans toucher au `.tex`.** Déposez votre capture **sous le nom exact** déjà écrit dans le bloc, dans `docs/images/guides/` (ou `docs/images/readme/`).
+- **En changeant le nom dans le `.tex`.** Remplacez `01-01_claude_ai_accueil.png` par le nom de votre fichier.
+
+Tant que le fichier est absent, le PDF affiche à sa place un cadre **« CAPTURE À INSÉRER »** et la compilation ne s'arrête pas. Pour trouver un bloc dans le `.tex`, cherchez le nom du fichier ou le mot `CAPTURE :`, écrit en commentaire au-dessus de chaque bloc. Le texte de la légende se change avec `\caption{...}`.
+
+Ensuite, recompilez **deux fois**, depuis `docs/tex/` :
 
 ```bash
 cd docs/tex
@@ -382,21 +398,7 @@ pdflatex 02_Guide1_Outils_Claude.tex
 pdflatex 02_Guide1_Outils_Claude.tex
 ```
 
-La capture apparaît à la place du cadre. La deuxième compilation met à jour la table des matières. Le PDF est créé à côté du `.tex`.
-
-**Façon 2, en modifiant le `.tex`.** Cherchez la ligne du cadre :
-
-```text
-\CredixCapture{Page d'accueil de claude.ai}{../images/guides/01-01_claude_ai_accueil.png}
-```
-
-et remplacez-la par votre propre commande :
-
-```text
-\begin{center}
-  \includegraphics[width=\linewidth]{../images/guides/mon_image.png}
-\end{center}
-```
+La deuxième compilation met à jour la table des matières. Le PDF est créé à côté du `.tex`.
 
 > **Attention.** Le `.tex` est **fabriqué** à partir du Markdown : quand on relance `docs/build/build_all.sh`, il est **réécrit**, et les modifications faites directement dedans sont perdues. Choisissez donc une source : le Markdown (recommandé) ou le `.tex`. Le fichier `docs/tex/LISEZMOI.md` résume la marche à suivre.
 

@@ -1,20 +1,6 @@
 -- Filtre pandoc pour les PDF CREDIX : sommaire manuel, images manquantes, tableaux, liens de fichiers.
 
--- 1. Retire le sommaire manuel entre <!-- toc --> et <!-- /toc --> (le PDF a son propre sommaire)
-function Pandoc(doc)
-  local out, skipping = {}, false
-  for _, b in ipairs(doc.blocks) do
-    if b.t == 'RawBlock' and b.text:match('<!%-%-%s*toc%s*%-%->') then
-      skipping = true
-    elseif b.t == 'RawBlock' and b.text:match('<!%-%-%s*/toc%s*%-%->') then
-      skipping = false
-    elseif not skipping then
-      table.insert(out, b)
-    end
-  end
-  doc.blocks = out
-  return doc
-end
+-- 1. (voir la fonction Pandoc, plus bas : sommaire manuel et figures)
 
 -- 2. Image absente : cadre « CAPTURE À INSÉRER » ; image présente : largeur bornée
 local function latex_escape(s)
@@ -51,13 +37,105 @@ local function tex_path(src)
   return relpath(mddir .. '/' .. src, texdir)
 end
 
--- L'image est cherchée au moment de la compilation LaTeX (macro \CredixCapture) :
--- présente, elle est insérée ; absente, un cadre « CAPTURE À INSÉRER » la remplace.
-function Image(img)
-  if img.src:match('^https?://') then return nil end
-  local alt = pandoc.utils.stringify(img.caption)
-  if alt == '' then alt = 'Capture' end
-  return pandoc.RawInline('latex', '\\CredixCapture{' .. latex_escape(alt) .. '}{' .. tex_path(img.src) .. '}')
+-- Figures : chaque image (et chaque schéma Mermaid déjà fabriqué) devient un vrai bloc LaTeX
+--   \begin{figure}[H] ... \includegraphics{fichier} ... \caption{légende} ... \end{figure}
+-- que l'auteur peut modifier à la main : il suffit de changer le nom du fichier dans \includegraphics.
+-- La légende est reprise du paragraphe « *Figure N. ...* » qui suit l'image dans le Markdown.
+local function file_exists(path)
+  local f = io.open(path, 'rb')
+  if f then f:close(); return true end
+  return false
+end
+
+local function lone_image(b)
+  if b.t ~= 'Para' and b.t ~= 'Plain' then return nil end
+  local img, other = nil, false
+  for _, il in ipairs(b.content) do
+    if il.t == 'Image' and not img then img = il
+    elseif il.t ~= 'Space' and il.t ~= 'SoftBreak' then other = true end
+  end
+  if img and not other and not img.src:match('^https?://') then return img end
+  return nil
+end
+
+-- Paragraphe « *Figure N. texte* » : renvoie le texte sans le préfixe « Figure N. »
+local function caption_inlines(b)
+  if not b or b.t ~= 'Para' or #b.content ~= 1 or b.content[1].t ~= 'Emph' then return nil end
+  local il = pandoc.List(b.content[1].content)
+  if #il >= 3 and il[1].t == 'Str' and il[1].text == 'Figure' and il[2].t == 'Space'
+     and il[3].t == 'Str' and il[3].text:match('^%d+[%.:]?$') then
+    il:remove(1); il:remove(1); il:remove(1)
+    if il[1] and il[1].t == 'Space' then il:remove(1) end
+    return il
+  end
+  return nil
+end
+
+local function latex_of(inlines)
+  local s = pandoc.write(pandoc.Pandoc({ pandoc.Plain(inlines) }), 'latex')
+  s = s:gsub('%s+$', '')
+  s = s:gsub('\n', ' ')
+  return s
+end
+
+local function figure_latex(fig, caption)
+  local base = fig.src:match('([^/]+)$') or fig.src
+  local L = {}
+  L[#L + 1] = '% ' .. string.rep('-', 68)
+  L[#L + 1] = '% ' .. fig.kind .. ' : ' .. base .. (fig.alt ~= '' and (' : ' .. fig.alt:gsub('\n', ' ')) or '')
+  L[#L + 1] = '% Pour mettre votre image : changez seulement le nom du fichier dans \\includegraphics{...}'
+  L[#L + 1] = '\\begin{figure}[H]'
+  L[#L + 1] = '  \\centering'
+  if fig.alt ~= '' then L[#L + 1] = '  \\def\\CredixAlt{' .. latex_escape(fig.alt) .. '}%' end
+  L[#L + 1] = '  \\includegraphics[width=' .. fig.width .. ',height=' .. fig.height .. ',keepaspectratio]{' .. fig.src .. '}'
+  if caption then L[#L + 1] = '  \\caption{' .. caption .. '}' end
+  L[#L + 1] = '\\end{figure}'
+  return table.concat(L, '\n')
+end
+
+local mermaid_seen = 0
+function Pandoc(doc)
+  local blocks, out, skipping, i = doc.blocks, {}, false, 1
+  local docname = os.getenv('DOCNAME') or 'doc'
+  local mddir = os.getenv('MDDIR') or '.'
+  while i <= #blocks do
+    local b = blocks[i]
+    if b.t == 'RawBlock' and b.text:match('<!%-%-%s*toc%s*%-%->') then
+      skipping = true     -- retire le sommaire manuel (le PDF a son propre sommaire)
+    elseif b.t == 'RawBlock' and b.text:match('<!%-%-%s*/toc%s*%-%->') then
+      skipping = false
+    elseif not skipping then
+      local fig = nil
+      local img = lone_image(b)
+      if img then
+        local alt = pandoc.utils.stringify(img.caption)
+        fig = { kind = 'CAPTURE', src = tex_path(img.src), alt = alt == '' and 'Capture' or alt,
+                width = '\\linewidth', height = '0.75\\textheight' }
+      elseif b.t == 'CodeBlock' and b.classes:includes('mermaid') then
+        mermaid_seen = mermaid_seen + 1
+        local src = '../images/mermaid/' .. docname .. '_' .. mermaid_seen .. '.png'
+        if file_exists(mddir .. '/' .. src) then
+          fig = { kind = 'SCHEMA', src = tex_path(src), alt = '', width = '0.95\\linewidth', height = '0.8\\textheight' }
+        end
+      end
+      if fig then
+        local cap = caption_inlines(blocks[i + 1])
+        local caption = nil
+        if cap then caption = latex_of(cap); i = i + 1 end
+        -- un titre en gras juste avant l'image reste avec elle (pas de titre seul en bas de page)
+        local prev = out[#out]
+        if prev and prev.t == 'Para' and #prev.content == 1 and prev.content[1].t == 'Strong' then
+          table.insert(out, #out, pandoc.RawBlock('latex', '\\needspace{0.5\\textheight}'))
+        end
+        table.insert(out, pandoc.RawBlock('latex', figure_latex(fig, caption)))
+      else
+        table.insert(out, b)
+      end
+    end
+    i = i + 1
+  end
+  doc.blocks = out
+  return doc
 end
 
 -- 3. Largeurs de colonnes : proportionnelles au contenu, mais jamais plus étroites que le plus long mot
@@ -129,10 +207,8 @@ function CodeBlock(cb)
   if cb.classes:includes('mermaid') then
     mermaid_n = mermaid_n + 1
     local src = '../images/mermaid/' .. (os.getenv('DOCNAME') or 'doc') .. '_' .. mermaid_n .. '.png'
-    local f = io.open((os.getenv('MDDIR') or '.') .. '/' .. src, 'rb')
-    if f then
-      f:close()
-      return pandoc.RawBlock('latex', '\\CredixFigure{' .. tex_path(src) .. '}')
+    if file_exists((os.getenv('MDDIR') or '.') .. '/' .. src) then
+      return nil          -- traité par la fonction Pandoc (figure)
     end
   end
   local opts = 'breaklines=true,breakanywhere=true,fontsize=\\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm'

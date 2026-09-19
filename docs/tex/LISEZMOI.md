@@ -31,23 +31,25 @@ Le PDF est créé **à côté du `.tex`** (les fichiers `.aux`, `.log`, `.out`, 
 
 ## Insérer une capture d'écran
 
-**Façon 1, sans rien modifier dans le `.tex`.** Chaque cadre « CAPTURE À INSÉRER » affiche le nom du fichier attendu, par exemple `../images/guides/01-01_claude_ai_accueil.png`. Déposez votre image **sous ce nom exact** dans `docs/images/guides/` (ou `docs/images/readme/` pour le README), puis recompilez : l'image remplace le cadre.
-
-**Façon 2, en modifiant le `.tex`.** Cherchez la commande du cadre :
+Dans chaque `.tex`, **chaque image est un bloc LaTeX standard**, précédé d'un commentaire qui indique le nom du fichier et ce qu'il faut montrer :
 
 ```text
-\CredixCapture{Description}{../images/guides/01-01_claude_ai_accueil.png}
+% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai avant la connexion
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-01_claude_ai_accueil.png}
+  \caption{Page d'accueil de claude.ai.}
+\end{figure}
 ```
 
-et remplacez-la par :
+Pour mettre votre capture, **changez seulement le nom du fichier** dans `\includegraphics{...}`, puis recompilez. Le chemin est relatif à **ce dossier** (`docs/tex/`), d'où le `../images/`.
 
-```text
-\begin{center}
-  \includegraphics[width=\linewidth]{../images/guides/mon_image.png}
-\end{center}
-```
+Deux façons de faire :
 
-Les chemins d'images sont relatifs à **ce dossier** (`docs/tex/`), d'où le `../images/`.
+1. **Sans modifier le `.tex`** : déposez votre image **sous le nom exact** déjà écrit dans le bloc, dans `docs/images/guides/` (ou `docs/images/readme/` pour le README).
+2. **En modifiant le `.tex`** : remplacez le nom du fichier par celui de votre image.
+
+Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place dans le PDF, et la compilation continue. Pour retrouver un bloc dans le `.tex`, cherchez le nom du fichier ou `CAPTURE :`. Le texte sous l'image se change avec `\caption{...}`.
 
 ## Refaire tous les fichiers d'un coup
 

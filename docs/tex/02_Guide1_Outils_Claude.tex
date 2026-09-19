@@ -65,9 +65,10 @@
 % Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 01_outils_claude.md.
 % Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
 %   pdflatex 02_Guide1_Outils_Claude.tex
-% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
-% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
-% par votre propre \includegraphics.
+% Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
+% (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
+% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
 \newcommand{\CredixShortTitle}{Guide 1 : outils Claude}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
 \usepackage[scaled=.92]{helvet}
@@ -147,15 +148,18 @@
   \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
   \end{tcolorbox}}
 
-% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
-% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+% Figures : chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Si le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place et la compilation continue.
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}.
 \usepackage{graphicx}
-\newcommand{\CredixCapture}[2]{%
-  \IfFileExists{#2}{%
-    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
-  {\CaptureManquante{#1}{\detokenize{#2}}}}
-\newcommand{\CredixFigure}[1]{%
-  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{float}
+\usepackage{needspace}
+\newcommand{\CredixAlt}{Capture}
+\let\CredixOrigIncludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+  \IfFileExists{#2}%
+    {\CredixOrigIncludegraphics[#1]{#2}}%
+    {\CaptureManquante{\CredixAlt}{\detokenize{#2}}}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -324,9 +328,15 @@ abonnement}\label{3-cruxe9er-un-compte-et-choisir-un-abonnement}
   Vous arrivez sur la page de discussion.
 \end{enumerate}
 
-\CredixCapture{Page d'accueil de claude.ai avant la connexion}{../images/guides/01-01_claude_ai_accueil.png}
-
-\emph{Figure 1. Page d\textquotesingle accueil de claude.ai.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai avant la connexion
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Page d'accueil de claude.ai avant la connexion}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-01_claude_ai_accueil.png}
+  \caption{Page d\textquotesingle accueil de claude.ai.}
+\end{figure}
 
 \subsubsection{3.2 Les abonnements et leurs
 prix}\label{32-les-abonnements-et-leurs-prix}
@@ -390,10 +400,15 @@ avec un commercial à partir de 50. \\
   centralisée.
 \end{itemize}
 
-\CredixCapture{Page officielle des abonnements de Claude}{../images/guides/01-02_claude_ai_tarifs.png}
-
-\emph{Figure 2. Page des abonnements (prix à vérifier au moment de
-l\textquotesingle achat).}
+% --------------------------------------------------------------------
+% CAPTURE : 01-02_claude_ai_tarifs.png : Page officielle des abonnements de Claude
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Page officielle des abonnements de Claude}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-02_claude_ai_tarifs.png}
+  \caption{Page des abonnements (prix à vérifier au moment de l\textquotesingle achat).}
+\end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -474,14 +489,25 @@ consommation}\label{43-ouxf9-surveiller-sa-consommation}
   zéro.
 \end{enumerate}
 
-\CredixCapture{Menu du profil en bas à gauche}{../images/guides/01-03_menu_profil.png}
+% --------------------------------------------------------------------
+% CAPTURE : 01-03_menu_profil.png : Menu du profil en bas à gauche
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Menu du profil en bas à gauche}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-03_menu_profil.png}
+  \caption{Le menu du profil, en bas à gauche.}
+\end{figure}
 
-\emph{Figure 3. Le menu du profil, en bas à gauche.}
-
-\CredixCapture{Page Paramètres, onglet Utilisation}{../images/guides/01-04_parametres_utilisation.png}
-
-\emph{Figure 4. L\textquotesingle onglet Utilisation : barres de la
-session en cours et de la limite hebdomadaire.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-04_parametres_utilisation.png : Page Paramètres, onglet Utilisation
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Page Paramètres, onglet Utilisation}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-04_parametres_utilisation.png}
+  \caption{L\textquotesingle onglet Utilisation : barres de la session en cours et de la limite hebdomadaire.}
+\end{figure}
 
 \subsubsection{4.4 Comment consommer
 moins}\label{44-comment-consommer-moins}
@@ -541,9 +567,15 @@ conversation}\label{51-une-premiuxe8re-conversation}
   images, tableaux) avec le bouton de pièce jointe.
 \end{enumerate}
 
-\CredixCapture{Une nouvelle conversation dans claude.ai}{../images/guides/01-05_nouveau_chat.png}
-
-\emph{Figure 5. Une conversation dans claude.ai.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-05_nouveau_chat.png : Une nouvelle conversation dans claude.ai
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Une nouvelle conversation dans claude.ai}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-05_nouveau_chat.png}
+  \caption{Une conversation dans claude.ai.}
+\end{figure}
 
 \textbf{Exemples de demandes utiles :}
 
@@ -596,10 +628,15 @@ littérature »} d\textquotesingle un projet (guide 2). Sa disponibilité
 dépend de votre abonnement et de votre pays : vérifiez dans le menu
 d\textquotesingle outils de votre compte.
 
-\CredixCapture{Menu d'outils de la zone de saisie}{../images/guides/01-06_outils_recherche.png}
-
-\emph{Figure 6. Les outils de la zone de saisie (recherche web,
-réflexion étendue, recherche approfondie).}
+% --------------------------------------------------------------------
+% CAPTURE : 01-06_outils_recherche.png : Menu d'outils de la zone de saisie
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Menu d'outils de la zone de saisie}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-06_outils_recherche.png}
+  \caption{Les outils de la zone de saisie (recherche web, réflexion étendue, recherche approfondie).}
+\end{figure}
 
 \begin{quote}
 \textbf{Toujours vérifier les sources.} Même avec des citations, ouvrez
@@ -676,13 +713,25 @@ pas}\label{62-cruxe9er-un-projet-pas-uxe0-pas}
   projet.
 \end{enumerate}
 
-\CredixCapture{Liste des projets et bouton Nouveau projet}{../images/guides/01-07_liste_projets.png}
+% --------------------------------------------------------------------
+% CAPTURE : 01-07_liste_projets.png : Liste des projets et bouton Nouveau projet
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Liste des projets et bouton Nouveau projet}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-07_liste_projets.png}
+  \caption{La liste des projets.}
+\end{figure}
 
-\emph{Figure 7. La liste des projets.}
-
-\CredixCapture{Création d'un projet : nom et description}{../images/guides/01-08_creation_projet.png}
-
-\emph{Figure 8. Création d\textquotesingle un projet.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-08_creation_projet.png : Création d'un projet : nom et description
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Création d'un projet : nom et description}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-08_creation_projet.png}
+  \caption{Création d\textquotesingle un projet.}
+\end{figure}
 
 \subsubsection{6.3 Bien écrire les instructions du
 projet}\label{63-bien-uxe9crire-les-instructions-du-projet}
@@ -707,9 +756,15 @@ Règles de travail :
    ce qui a été fait, ce qui a été décidé, ce qui reste à faire.
 \end{Verbatim}
 
-\CredixCapture{Instructions du projet}{../images/guides/01-09_instructions_projet.png}
-
-\emph{Figure 9. Les instructions du projet.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-09_instructions_projet.png : Instructions du projet
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Instructions du projet}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-09_instructions_projet.png}
+  \caption{Les instructions du projet.}
+\end{figure}
 
 \subsubsection{6.4 Que mettre dans la base de connaissances
 ?}\label{64-que-mettre-dans-la-base-de-connaissances-}
@@ -737,15 +792,25 @@ Pour CREDIX, la première séance de travail a justement consisté à
 à rédiger les instructions du projet, avant de poser la moindre question
 de fond.
 
-\CredixCapture{Ajout de fichiers à la base de connaissances}{../images/guides/01-10_ajout_fichiers.png}
+% --------------------------------------------------------------------
+% CAPTURE : 01-10_ajout_fichiers.png : Ajout de fichiers à la base de connaissances
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Ajout de fichiers à la base de connaissances}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-10_ajout_fichiers.png}
+  \caption{Ajout de fichiers à la base de connaissances du projet.}
+\end{figure}
 
-\emph{Figure 10. Ajout de fichiers à la base de connaissances du
-projet.}
-
-\CredixCapture{Une conversation dans un projet}{../images/guides/01-11_conversation_projet.png}
-
-\emph{Figure 11. Une conversation à l\textquotesingle intérieur
-d\textquotesingle un projet : les documents du projet sont disponibles.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-11_conversation_projet.png : Une conversation dans un projet
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Une conversation dans un projet}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-11_conversation_projet.png}
+  \caption{Une conversation à l\textquotesingle intérieur d\textquotesingle un projet : les documents du projet sont disponibles.}
+\end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -801,14 +866,25 @@ Code}\label{73-installer-lextension-dans-vs-code}
   Si VS Code le demande, \textbf{redémarrez-le}.
 \end{enumerate}
 
-\CredixCapture{Recherche « Claude Code » dans les extensions de VS Code}{../images/guides/01-12_vscode_recherche_extension.png}
+% --------------------------------------------------------------------
+% CAPTURE : 01-12_vscode_recherche_extension.png : Recherche « Claude Code » dans les extensions de VS Code
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Recherche « Claude Code » dans les extensions de VS Code}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-12_vscode_recherche_extension.png}
+  \caption{Recherche de l\textquotesingle extension dans VS Code.}
+\end{figure}
 
-\emph{Figure 12. Recherche de l\textquotesingle extension dans VS Code.}
-
-\CredixCapture{Page de l'extension officielle avec le bouton Installer}{../images/guides/01-13_vscode_installer.png}
-
-\emph{Figure 13. L\textquotesingle extension officielle (badge de
-vérification) et le bouton Installer.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-13_vscode_installer.png : Page de l'extension officielle avec le bouton Installer
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Page de l'extension officielle avec le bouton Installer}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-13_vscode_installer.png}
+  \caption{L\textquotesingle extension officielle (badge de vérification) et le bouton Installer.}
+\end{figure}
 
 \subsubsection{7.4 Ouvrir Claude Code et se
 connecter}\label{74-ouvrir-claude-code-et-se-connecter}
@@ -839,19 +915,35 @@ Au premier lancement, l\textquotesingle extension demande de
 vous revenez dans VS Code. Sélectionnez le compte lié à votre
 \textbf{abonnement Claude}.
 
-\CredixCapture{L'icône d'étincelle de Claude Code dans VS Code}{../images/guides/01-14_vscode_icone_etincelle.png}
+% --------------------------------------------------------------------
+% CAPTURE : 01-14_vscode_icone_etincelle.png : L'icône d'étincelle de Claude Code dans VS Code
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{L'icône d'étincelle de Claude Code dans VS Code}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-14_vscode_icone_etincelle.png}
+  \caption{L\textquotesingle icône d\textquotesingle étincelle : barre d\textquotesingle outils de l\textquotesingle éditeur et barre d\textquotesingle activité.}
+\end{figure}
 
-\emph{Figure 14. L\textquotesingle icône d\textquotesingle étincelle :
-barre d\textquotesingle outils de l\textquotesingle éditeur et barre
-d\textquotesingle activité.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-15_vscode_panneau_ouvert.png : Panneau Claude Code ouvert dans VS Code
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Panneau Claude Code ouvert dans VS Code}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-15_vscode_panneau_ouvert.png}
+  \caption{Le panneau Claude Code, à sa première ouverture.}
+\end{figure}
 
-\CredixCapture{Panneau Claude Code ouvert dans VS Code}{../images/guides/01-15_vscode_panneau_ouvert.png}
-
-\emph{Figure 15. Le panneau Claude Code, à sa première ouverture.}
-
-\CredixCapture{Fenêtre de connexion dans le navigateur}{../images/guides/01-16_connexion_navigateur.png}
-
-\emph{Figure 16. La connexion dans le navigateur.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-16_connexion_navigateur.png : Fenêtre de connexion dans le navigateur
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Fenêtre de connexion dans le navigateur}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-16_connexion_navigateur.png}
+  \caption{La connexion dans le navigateur.}
+\end{figure}
 
 \begin{quote}
 \textbf{Alternative en ligne de commande.} Claude Code
@@ -885,9 +977,15 @@ Claude lit les fichiers dont il a besoin : vous n\textquotesingle avez
 pas à les lui fournir un par un. Vous pouvez aussi lui désigner un
 fichier précis avec le symbole \texttt{@} suivi du nom du fichier.
 
-\CredixCapture{Première question posée à Claude Code}{../images/guides/01-17_premiere_question.png}
-
-\emph{Figure 17. Une première question à Claude Code.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-17_premiere_question.png : Première question posée à Claude Code
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Première question posée à Claude Code}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-17_premiere_question.png}
+  \caption{Une première question à Claude Code.}
+\end{figure}
 
 \textbf{Quelques commandes utiles}, à taper dans la zone de saisie :
 
@@ -979,10 +1077,15 @@ Sur les abonnements Pro, Max et Team, le mode de départ est
 \textbf{Auto}. Les libellés peuvent légèrement varier selon la version
 de l\textquotesingle extension.
 
-\CredixCapture{Indicateur de mode et liste des modes}{../images/guides/01-18_modes_permission.png}
-
-\emph{Figure 18. L\textquotesingle indicateur de mode, en bas de la zone
-de saisie.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-18_modes_permission.png : Indicateur de mode et liste des modes
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Indicateur de mode et liste des modes}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-18_modes_permission.png}
+  \caption{L\textquotesingle indicateur de mode, en bas de la zone de saisie.}
+\end{figure}
 
 \subsubsection{8.2 Le mode Plan : réfléchir avant
 d\textquotesingle agir}\label{82-le-mode-plan--ruxe9fluxe9chir-avant-dagir}
@@ -1038,14 +1141,25 @@ C\textquotesingle est le mode à utiliser :
   \end{itemize}
 \end{enumerate}
 
-\CredixCapture{Un plan proposé par Claude Code en mode Plan}{../images/guides/01-19_mode_plan_document.png}
+% --------------------------------------------------------------------
+% CAPTURE : 01-19_mode_plan_document.png : Un plan proposé par Claude Code en mode Plan
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Un plan proposé par Claude Code en mode Plan}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-19_mode_plan_document.png}
+  \caption{Le plan affiché comme un document Markdown commentable.}
+\end{figure}
 
-\emph{Figure 19. Le plan affiché comme un document Markdown
-commentable.}
-
-\CredixCapture{Options d'approbation du plan}{../images/guides/01-20_mode_plan_approbation.png}
-
-\emph{Figure 20. Les options d\textquotesingle approbation du plan.}
+% --------------------------------------------------------------------
+% CAPTURE : 01-20_mode_plan_approbation.png : Options d'approbation du plan
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Options d'approbation du plan}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-20_mode_plan_approbation.png}
+  \caption{Les options d\textquotesingle approbation du plan.}
+\end{figure}
 
 \begin{quote}
 \textbf{Règle pratique.} Un travail qui touche plusieurs fichiers

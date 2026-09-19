@@ -65,9 +65,10 @@
 % Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 02_methode_conception.md.
 % Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
 %   pdflatex 03_Guide2_Methode_de_conception.tex
-% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
-% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
-% par votre propre \includegraphics.
+% Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
+% (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
+% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
 \newcommand{\CredixShortTitle}{Guide 2 : méthode}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
 \usepackage[scaled=.92]{helvet}
@@ -147,15 +148,18 @@
   \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
   \end{tcolorbox}}
 
-% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
-% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+% Figures : chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Si le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place et la compilation continue.
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}.
 \usepackage{graphicx}
-\newcommand{\CredixCapture}[2]{%
-  \IfFileExists{#2}{%
-    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
-  {\CaptureManquante{#1}{\detokenize{#2}}}}
-\newcommand{\CredixFigure}[1]{%
-  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{float}
+\usepackage{needspace}
+\newcommand{\CredixAlt}{Capture}
+\let\CredixOrigIncludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+  \IfFileExists{#2}%
+    {\CredixOrigIncludegraphics[#1]{#2}}%
+    {\CaptureManquante{\CredixAlt}{\detokenize{#2}}}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -773,9 +777,15 @@ Puis fais un diagnostic honnête : ce qui est prêt, ce qui manque, ce qui se
 contredit. Termine par les trois prochaines actions que tu recommandes.
 \end{Verbatim}
 
-\CredixCapture{Base de connaissances d'un projet avec les documents chargés}{../images/guides/02-01_base_connaissances.png}
-
-\emph{Figure 1. La base de connaissances du projet.}
+% --------------------------------------------------------------------
+% CAPTURE : 02-01_base_connaissances.png : Base de connaissances d'un projet avec les documents chargés
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Base de connaissances d'un projet avec les documents chargés}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-01_base_connaissances.png}
+  \caption{La base de connaissances du projet.}
+\end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -896,9 +906,15 @@ Wiener (2010) sont restées marquées « à vérifier » tant
 qu\textquotesingle elles n\textquotesingle étaient pas contrôlées.
 \end{quote}
 
-\CredixCapture{Rapport de recherche approfondie avec ses citations}{../images/guides/02-02_recherche_approfondie.png}
-
-\emph{Figure 2. Un résultat de recherche approfondie avec citations.}
+% --------------------------------------------------------------------
+% CAPTURE : 02-02_recherche_approfondie.png : Rapport de recherche approfondie avec ses citations
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Rapport de recherche approfondie avec ses citations}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-02_recherche_approfondie.png}
+  \caption{Un résultat de recherche approfondie avec citations.}
+\end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1073,9 +1089,15 @@ Markdown : contexte, options comparées, critères, décision retenue, alternati
 ni aucun chiffre.
 \end{Verbatim}
 
-\CredixCapture{Un extrait du registre des décisions}{../images/guides/02-03_registre_decisions.png}
-
-\emph{Figure 3. Un extrait du registre des décisions méthodologiques.}
+% --------------------------------------------------------------------
+% CAPTURE : 02-03_registre_decisions.png : Un extrait du registre des décisions
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Un extrait du registre des décisions}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-03_registre_decisions.png}
+  \caption{Un extrait du registre des décisions méthodologiques.}
+\end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1209,9 +1231,15 @@ Vous \textbf{relisez le plan}, l\textquotesingle annotez dans VS Code,
 le faites corriger, puis vous l\textquotesingle{}\textbf{approuvez}. Ce
 plan devient la \textbf{TODO} du projet.
 
-\CredixCapture{Claude Code en mode Plan : plan de réalisation}{../images/guides/02-04_plan_todo.png}
-
-\emph{Figure 4. Le plan produit à partir du document de conception.}
+% --------------------------------------------------------------------
+% CAPTURE : 02-04_plan_todo.png : Claude Code en mode Plan : plan de réalisation
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Claude Code en mode Plan : plan de réalisation}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/02-04_plan_todo.png}
+  \caption{Le plan produit à partir du document de conception.}
+\end{figure}
 
 \subsubsection{11.2 Étape 7 : un module à la fois, avec des
 tests}\label{112-uxe9tape-7--un-module-uxe0-la-fois-avec-des-tests}

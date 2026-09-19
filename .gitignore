@@ -54,3 +54,9 @@ docs/tex/*.log
 docs/tex/*.out
 docs/tex/*.toc
 docs/tex/*.pdf
+docs/tex/*.fdb_latexmk
+docs/tex/*.fls
+docs/tex/*.synctex.gz
+docs/tex/*.xdv
+docs/tex/*.bbl
+docs/tex/*.blg

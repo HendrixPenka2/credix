@@ -20,7 +20,7 @@ Ce fichier est un **outil de travail** pour l'auteur : il n'est pas à envoyer �
 
    Les cadres « CAPTURE À INSÉRER » sont alors remplacés par vos images.
 
-   Vous pouvez aussi **recompiler vous-même le fichier `.tex`** d'un seul document (dossier `docs/tex/`) : les images sont retrouvées automatiquement. Voir `docs/tex/LISEZMOI.md` et le guide 4, section 8.3.
+   Vous pouvez aussi **recompiler vous-même le fichier `.tex`** d'un seul document (dossier `docs/tex/`) : chaque image y est un bloc `\begin{figure}` avec `\includegraphics{nom-du-fichier}` ; il suffit de changer le nom du fichier. Voir `docs/tex/LISEZMOI.md` et le guide 4, section 8.3.
 
 **Priorité :** **A** = indispensable pour la démonstration ; **B** = utile, à faire si le temps le permet.
 
@@ -36,15 +36,15 @@ Ce fichier est un **outil de travail** pour l'auteur : il n'est pas à envoyer �
 
 ---
 
-## 1. README (3 captures, à prendre sur l'application CREDIX lancée)
+## 1. README (3 captures : fournies le 19 septembre 2026)
 
-À prendre avec l'application qui tourne (README, section 6) : espace Agent, Superviseur et Administrateur.
+Les trois captures ont été prises sur l'application qui tourne (README, section 6) et déposées dans `docs/images/readme/`. Cette section est faite ; elle reste ici pour mémoire.
 
 | ID | Priorité | Ce qu'il faut montrer | Nom du fichier | Fait |
 |---|---|---|---|---|
-| R-01 | **A** | Espace **Agent** connecté : page principale (tableau de bord) | `docs/images/readme/01_espace_agent.png` | ☐ |
-| R-02 | **A** | Espace **Superviseur** connecté : page principale (vue d'ensemble) | `docs/images/readme/02_espace_superviseur.png` | ☐ |
-| R-03 | **A** | Espace **Administrateur** connecté : page principale (vue générale) | `docs/images/readme/03_espace_admin.png` | ☐ |
+| R-01 | **A** | Espace **Agent** connecté : page principale (tableau de bord) | `docs/images/readme/01_espace_agent.png` | ☑ |
+| R-02 | **A** | Espace **Superviseur** connecté : page principale (vue d'ensemble) | `docs/images/readme/02_espace_superviseur.png` | ☑ |
+| R-03 | **A** | Espace **Administrateur** connecté : page principale (vue générale) | `docs/images/readme/03_espace_admin.png` | ☑ |
 
 ---
 
@@ -107,13 +107,13 @@ Les captures 04-02 et 04-03 se prennent en **suivant la recette PDF vers PowerPo
 
 | Document | Captures | Priorité A |
 |---|---|---|
-| README | 3 | 3 |
+| README | 3 (fournies) | 3 |
 | Guide 1 | 20 | 14 |
 | Guide 2 | 4 | 3 |
 | Guide 3 (MVP) | 0 (les schémas sont déjà fabriqués) | 0 |
 | Guide 4 | 6 | 1 |
 | **Total** | **33** | **21** |
 
-**Minimum pour la démonstration : les 21 captures de priorité A.**
+**Déjà fournies : les 3 captures du README. Il en reste 30, dont 18 de priorité A, à prendre pour la démonstration.**
 
 Le guide 3 (MVP) et la fiche de démonstration ne contiennent **aucune capture à fournir**.

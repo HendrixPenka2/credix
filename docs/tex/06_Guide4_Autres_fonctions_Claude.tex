@@ -65,9 +65,10 @@
 % Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 04_autres_fonctions_claude.md.
 % Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
 %   pdflatex 06_Guide4_Autres_fonctions_Claude.tex
-% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
-% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
-% par votre propre \includegraphics.
+% Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
+% (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
+% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
 \newcommand{\CredixShortTitle}{Guide 4 : autres fonctions}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
 \usepackage[scaled=.92]{helvet}
@@ -147,15 +148,18 @@
   \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
   \end{tcolorbox}}
 
-% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
-% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+% Figures : chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Si le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place et la compilation continue.
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}.
 \usepackage{graphicx}
-\newcommand{\CredixCapture}[2]{%
-  \IfFileExists{#2}{%
-    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
-  {\CaptureManquante{#1}{\detokenize{#2}}}}
-\newcommand{\CredixFigure}[1]{%
-  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{float}
+\usepackage{needspace}
+\newcommand{\CredixAlt}{Capture}
+\let\CredixOrigIncludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+  \IfFileExists{#2}%
+    {\CredixOrigIncludegraphics[#1]{#2}}%
+    {\CaptureManquante{\CredixAlt}{\detokenize{#2}}}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -321,10 +325,15 @@ mobile.
   creation »} (exécution de code et création de fichiers).
 \end{enumerate}
 
-\CredixCapture{Paramètres, onglet Capacités : l'option de création de fichiers}{../images/guides/04-01_parametres_capacites.png}
-
-\emph{Figure 1. L\textquotesingle option « Code execution and file
-creation ».}
+% --------------------------------------------------------------------
+% CAPTURE : 04-01_parametres_capacites.png : Paramètres, onglet Capacités : l'option de création de fichiers
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Paramètres, onglet Capacités : l'option de création de fichiers}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/04-01_parametres_capacites.png}
+  \caption{L\textquotesingle option « Code execution and file creation ».}
+\end{figure}
 
 Sur les abonnements d\textquotesingle équipe (Team, Enterprise),
 l\textquotesingle option est activée par défaut au niveau de
@@ -424,9 +433,15 @@ mémoire de CREDIX devient le support de soutenance.
   3.4).
 \end{enumerate}
 
-\CredixCapture{Un PDF joint à une conversation}{../images/guides/04-02_pdf_joint.png}
-
-\emph{Figure 2. Le PDF joint à la conversation.}
+% --------------------------------------------------------------------
+% CAPTURE : 04-02_pdf_joint.png : Un PDF joint à une conversation
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Un PDF joint à une conversation}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/04-02_pdf_joint.png}
+  \caption{Le PDF joint à la conversation.}
+\end{figure}
 
 \subsubsection{3.2 Le prompt à copier}\label{32-le-prompt-uxe0-copier}
 
@@ -490,10 +505,15 @@ d\textquotesingle auteurs sont-ils correctement écrits ? \\
 ? Rien d\textquotesingle ajouté, rien de déformé ? \\
 \end{longtable}
 
-\CredixCapture{Le diaporama créé, ouvert dans PowerPoint ou LibreOffice}{../images/guides/04-03_resultat_pptx.png}
-
-\emph{Figure 3. Le fichier \texttt{.pptx} produit, ouvert pour
-relecture.}
+% --------------------------------------------------------------------
+% CAPTURE : 04-03_resultat_pptx.png : Le diaporama créé, ouvert dans PowerPoint ou LibreOffice
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Le diaporama créé, ouvert dans PowerPoint ou LibreOffice}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/04-03_resultat_pptx.png}
+  \caption{Le fichier \texttt{.pptx} produit, ouvert pour relecture.}
+\end{figure}
 
 \subsubsection{3.4 Demander des
 corrections}\label{34-demander-des-corrections}
@@ -646,9 +666,15 @@ claude.ai}\label{52-ouxf9-les-trouver-dans-claudeai}
   (\emph{Browse skills}) pour ouvrir l\textquotesingle annuaire.
 \end{enumerate}
 
-\CredixCapture{Menu Personnaliser, liste des Skills}{../images/guides/04-04_skills_annuaire.png}
-
-\emph{Figure 4. L\textquotesingle annuaire des Skills.}
+% --------------------------------------------------------------------
+% CAPTURE : 04-04_skills_annuaire.png : Menu Personnaliser, liste des Skills
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Menu Personnaliser, liste des Skills}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/04-04_skills_annuaire.png}
+  \caption{L\textquotesingle annuaire des Skills.}
+\end{figure}
 
 \subsubsection{5.3 Dans Claude Code : écrire son propre
 Skill}\label{53-dans-claude-code--uxe9crire-son-propre-skill}
@@ -751,9 +777,15 @@ Les artefacts sont disponibles sur tous les abonnements. Des fonctions
 de présentation (Claude Slides) et de documents sont proposées,
 \textbf{en version bêta}, sur les abonnements payants.
 
-\CredixCapture{Un artefact ouvert à côté de la conversation}{../images/guides/04-05_artefact.png}
-
-\emph{Figure 5. Un artefact à côté de la conversation.}
+% --------------------------------------------------------------------
+% CAPTURE : 04-05_artefact.png : Un artefact ouvert à côté de la conversation
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Un artefact ouvert à côté de la conversation}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/04-05_artefact.png}
+  \caption{Un artefact à côté de la conversation.}
+\end{figure}
 
 \subsubsection{6.2 Les connecteurs}\label{62-les-connecteurs}
 
@@ -783,9 +815,15 @@ Sur les abonnements Team et Enterprise, un propriétaire ajoute
 d\textquotesingle abord les connecteurs dans \textbf{Paramètres de
 l\textquotesingle organisation}.
 
-\CredixCapture{Menu Connecteurs}{../images/guides/04-06_connecteurs.png}
-
-\emph{Figure 6. Le menu des connecteurs.}
+% --------------------------------------------------------------------
+% CAPTURE : 04-06_connecteurs.png : Menu Connecteurs
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Menu Connecteurs}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/04-06_connecteurs.png}
+  \caption{Le menu des connecteurs.}
+\end{figure}
 
 \begin{quote}
 \textbf{Prudence.} Ne connectez Claude qu\textquotesingle à des services
@@ -918,16 +956,45 @@ pdfinfo /tmp/exemple.pdf | grep Pages
 \subsubsection{\texorpdfstring{8.3 Insérer des images dans le fichier
 \texttt{.tex}}{8.3 Insérer des images dans le fichier .tex}}\label{83-insuxe9rer-des-images-dans-le-fichier-tex}
 
-Les documents contiennent des cadres \textbf{« CAPTURE À INSÉRER »} aux
-endroits où une capture d\textquotesingle écran est attendue. Deux
-façons de les remplacer :
+Dans chaque fichier \texttt{.tex}, \textbf{chaque image est un bloc
+LaTeX standard} :
 
-\textbf{Façon 1, sans rien modifier (la plus simple).} Le cadre indique
-un nom de fichier, par exemple
-\texttt{.\allowbreak{}.\allowbreak{}/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}01-\allowbreak{}01\_\allowbreak{}claude\_\allowbreak{}ai\_\allowbreak{}accueil.\allowbreak{}png}.
-Déposez votre capture \textbf{sous ce nom exact} dans
-\texttt{docs/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}},
-puis recompilez, deux fois, depuis \texttt{docs/tex/} :
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+% CAPTURE : 01-01_claude_ai_accueil.png : Page d'accueil de claude.ai avant la connexion
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/guides/01-01_claude_ai_accueil.png}
+  \caption{Page d'accueil de claude.ai.}
+\end{figure}
+\end{Verbatim}
+
+Pour mettre votre capture, \textbf{changez seulement le nom du fichier}
+entre les accolades de \texttt{\textbackslash{}includegraphics\{...\}}.
+Le chemin est relatif au dossier \texttt{docs/tex/} :
+d\textquotesingle où le \texttt{../images/}. Deux façons de faire :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Sans toucher au \texttt{.tex}.} Déposez votre capture
+  \textbf{sous le nom exact} déjà écrit dans le bloc, dans
+  \texttt{docs/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}}
+  (ou
+  \texttt{docs/\allowbreak{}images/\allowbreak{}readme/\allowbreak{}}).
+\item
+  \textbf{En changeant le nom dans le \texttt{.tex}.} Remplacez
+  \texttt{01-\allowbreak{}01\_\allowbreak{}claude\_\allowbreak{}ai\_\allowbreak{}accueil.\allowbreak{}png}
+  par le nom de votre fichier.
+\end{itemize}
+
+Tant que le fichier est absent, le PDF affiche à sa place un cadre
+\textbf{« CAPTURE À INSÉRER »} et la compilation ne
+s\textquotesingle arrête pas. Pour trouver un bloc dans le
+\texttt{.tex}, cherchez le nom du fichier ou le mot \texttt{CAPTURE\ :},
+écrit en commentaire au-dessus de chaque bloc. Le texte de la légende se
+change avec \texttt{\textbackslash{}caption\{...\}}.
+
+Ensuite, recompilez \textbf{deux fois}, depuis \texttt{docs/tex/} :
 
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
 cd docs/tex
@@ -935,23 +1002,8 @@ pdflatex 02_Guide1_Outils_Claude.tex
 pdflatex 02_Guide1_Outils_Claude.tex
 \end{Verbatim}
 
-La capture apparaît à la place du cadre. La deuxième compilation met à
-jour la table des matières. Le PDF est créé à côté du \texttt{.tex}.
-
-\textbf{Façon 2, en modifiant le \texttt{.tex}.} Cherchez la ligne du
-cadre :
-
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
-\CredixCapture{Page d'accueil de claude.ai}{../images/guides/01-01_claude_ai_accueil.png}
-\end{Verbatim}
-
-et remplacez-la par votre propre commande :
-
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
-\begin{center}
-  \includegraphics[width=\linewidth]{../images/guides/mon_image.png}
-\end{center}
-\end{Verbatim}
+La deuxième compilation met à jour la table des matières. Le PDF est
+créé à côté du \texttt{.tex}.
 
 \begin{quote}
 \textbf{Attention.} Le \texttt{.tex} est \textbf{fabriqué} à partir du

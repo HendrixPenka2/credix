@@ -65,9 +65,10 @@
 % Fichier LaTeX généré par docs/build/build_pdf.sh à partir de README.md.
 % Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
 %   pdflatex 01_README.tex
-% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
-% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
-% par votre propre \includegraphics.
+% Chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Pour mettre votre capture : changez seulement le nom du fichier dans \includegraphics{...}
+% (chemin relatif à ce dossier, par exemple ../images/guides/ma_capture.png), puis recompilez.
+% Tant que le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place.
 \newcommand{\CredixShortTitle}{README CREDIX}
 % Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
 \usepackage[scaled=.92]{helvet}
@@ -147,15 +148,18 @@
   \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
   \end{tcolorbox}}
 
-% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
-% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+% Figures : chaque image est un bloc \begin{figure} ... \includegraphics{fichier} ... \end{figure}.
+% Si le fichier est absent, un cadre « CAPTURE À INSÉRER » s'affiche à sa place et la compilation continue.
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}.
 \usepackage{graphicx}
-\newcommand{\CredixCapture}[2]{%
-  \IfFileExists{#2}{%
-    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
-  {\CaptureManquante{#1}{\detokenize{#2}}}}
-\newcommand{\CredixFigure}[1]{%
-  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{float}
+\usepackage{needspace}
+\newcommand{\CredixAlt}{Capture}
+\let\CredixOrigIncludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+  \IfFileExists{#2}%
+    {\CredixOrigIncludegraphics[#1]{#2}}%
+    {\CaptureManquante{\CredixAlt}{\detokenize{#2}}}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -369,23 +373,47 @@ versions \\
 \textbf{journal d\textquotesingle audit} \\
 \end{longtable}
 
+\needspace{0.5\textheight}
+
 \textbf{Page principale de l\textquotesingle espace Agent}
 
-\CredixCapture{Page principale de l'espace Agent (tableau de bord)}{../images/readme/01_espace_agent.png}
+% --------------------------------------------------------------------
+% CAPTURE : 01_espace_agent.png : Page principale de l'espace Agent (tableau de bord)
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Page principale de l'espace Agent (tableau de bord)}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/readme/01_espace_agent.png}
+  \caption{Espace Agent : tableau de bord.}
+\end{figure}
 
-\emph{Figure 1. Espace Agent : tableau de bord.}
+\needspace{0.5\textheight}
 
 \textbf{Page principale de l\textquotesingle espace Superviseur}
 
-\CredixCapture{Page principale de l'espace Superviseur (vue d'ensemble)}{../images/readme/02_espace_superviseur.png}
+% --------------------------------------------------------------------
+% CAPTURE : 02_espace_superviseur.png : Page principale de l'espace Superviseur (vue d'ensemble)
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Page principale de l'espace Superviseur (vue d'ensemble)}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/readme/02_espace_superviseur.png}
+  \caption{Espace Superviseur : vue d\textquotesingle ensemble.}
+\end{figure}
 
-\emph{Figure 2. Espace Superviseur : vue d\textquotesingle ensemble.}
+\needspace{0.5\textheight}
 
 \textbf{Page principale de l\textquotesingle espace Administrateur}
 
-\CredixCapture{Page principale de l'espace Administrateur (vue générale)}{../images/readme/03_espace_admin.png}
-
-\emph{Figure 3. Espace Administrateur : vue générale.}
+% --------------------------------------------------------------------
+% CAPTURE : 03_espace_admin.png : Page principale de l'espace Administrateur (vue générale)
+% Pour mettre votre image : changez seulement le nom du fichier dans \includegraphics{...}
+\begin{figure}[H]
+  \centering
+  \def\CredixAlt{Page principale de l'espace Administrateur (vue générale)}%
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{../images/readme/03_espace_admin.png}
+  \caption{Espace Administrateur : vue générale.}
+\end{figure}
 
 La liste détaillée de tous les écrans se trouve dans
 \texttt{credix-\allowbreak{}v2/\allowbreak{}FONCTIONNALITES.\allowbreak{}md}.
