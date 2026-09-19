@@ -205,7 +205,7 @@ credix/                          dossier créé par « git clone »
 |   `-- FONCTIONNALITES.md       la liste détaillée des écrans
 |-- docs/                        schémas (diagrammes/), captures (captures_memoire/),
 |                                images (images/), guides (guides/), PDF (pdf/),
-|                                outils de fabrication des PDF (build/)
+|                                fichiers LaTeX (tex/), outils de fabrication (build/)
 `-- stitch_credix_design_system/ cahier des charges du frontend et système de design
 ```
 
@@ -1177,4 +1177,5 @@ docker compose down -v   # tout effacer
 | [`stitch_credix_design_system/`](stitch_credix_design_system/) | Cahier des charges du frontend et système de design |
 | [`docs/guides/`](docs/guides/) | Guides sur la méthode de conception avec Claude : fiche de démonstration (`00_`), outils Claude (`01_`), méthode de conception (`02_`), conception du MVP (`03_`), autres fonctions de Claude (`04_`) |
 | [`docs/pdf/`](docs/pdf/) | Les mêmes documents en PDF, dont le dossier de remise complet (`00_Dossier_de_remise.pdf`) |
-| [`docs/build/`](docs/build/) | Outils qui fabriquent les PDF à partir des fichiers Markdown (guide 4, section 8) |
+| [`docs/tex/`](docs/tex/) | Le code LaTeX (`.tex`) de chaque document, à recompiler pour y insérer des images (voir `docs/tex/LISEZMOI.md`) |
+| [`docs/build/`](docs/build/) | Outils qui fabriquent les `.tex` et les PDF à partir des fichiers Markdown (guide 4, section 8) |

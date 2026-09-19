@@ -181,7 +181,7 @@ Les notes de la diapositive 4 sont trop longues : garde trois phrases.
 
 ### 3.5 Une variante sans intelligence artificielle
 
-Si vous avez une version **Markdown** de votre document (comme les guides de ce dossier), la commande `pandoc` fabrique un `.pptx` **sans rien changer au texte** (section 8.3). Le résultat est plus austère, mais **fidèle au mot près**.
+Si vous avez une version **Markdown** de votre document (comme les guides de ce dossier), la commande `pandoc` fabrique un `.pptx` **sans rien changer au texte** (section 8.4). Le résultat est plus austère, mais **fidèle au mot près**.
 
 ---
 
@@ -344,7 +344,7 @@ pdflatex --version | head -1
 
 Chacune doit afficher un numéro de version. Le paquet `poppler-utils` fournit `pdfunite` (assembler des PDF) et `pdfinfo` (compter les pages).
 
-### 8.2 Fabriquer un PDF de la même mise en page que ce dossier
+### 8.2 Fabriquer un PDF et son fichier LaTeX
 
 Depuis la racine du dépôt :
 
@@ -353,15 +353,54 @@ docs/build/build_pdf.sh docs/guides/04_autres_fonctions_claude.md \
   /tmp/exemple.pdf "Guide 4" "Autres fonctions de Claude"
 ```
 
-Les quatre paramètres sont : le fichier Markdown, le PDF à produire, le titre de la page de garde, son sous-titre. Le script applique la page de garde, la table des matières, les en-têtes, et remplace les images manquantes par un cadre « CAPTURE À INSÉRER ».
+Les quatre paramètres sont : le fichier Markdown, le PDF à produire, le titre de la page de garde, son sous-titre. Le script fait deux choses :
 
-Pour compter les pages du résultat :
+1. il convertit le Markdown en un fichier **LaTeX autonome** (`/tmp/exemple.tex`), avec la page de garde, la table des matières et les en-têtes ;
+2. il **compile ce fichier** en PDF (`/tmp/exemple.pdf`).
+
+Pour tout le dossier de remise, une seule commande refait les six PDF, leurs fichiers `.tex` (dans `docs/tex/`) et le PDF regroupé :
+
+```bash
+docs/build/build_all.sh
+```
+
+Pour compter les pages d'un PDF :
 
 ```bash
 pdfinfo /tmp/exemple.pdf | grep Pages
 ```
 
-### 8.3 Fabriquer un fichier Word ou PowerPoint
+### 8.3 Insérer des images dans le fichier `.tex`
+
+Les documents contiennent des cadres **« CAPTURE À INSÉRER »** aux endroits où une capture d'écran est attendue. Deux façons de les remplacer :
+
+**Façon 1, sans rien modifier (la plus simple).** Le cadre indique un nom de fichier, par exemple `../images/guides/01-01_claude_ai_accueil.png`. Déposez votre capture **sous ce nom exact** dans `docs/images/guides/`, puis recompilez, deux fois, depuis `docs/tex/` :
+
+```bash
+cd docs/tex
+pdflatex 02_Guide1_Outils_Claude.tex
+pdflatex 02_Guide1_Outils_Claude.tex
+```
+
+La capture apparaît à la place du cadre. La deuxième compilation met à jour la table des matières. Le PDF est créé à côté du `.tex`.
+
+**Façon 2, en modifiant le `.tex`.** Cherchez la ligne du cadre :
+
+```text
+\CredixCapture{Page d'accueil de claude.ai}{../images/guides/01-01_claude_ai_accueil.png}
+```
+
+et remplacez-la par votre propre commande :
+
+```text
+\begin{center}
+  \includegraphics[width=\linewidth]{../images/guides/mon_image.png}
+\end{center}
+```
+
+> **Attention.** Le `.tex` est **fabriqué** à partir du Markdown : quand on relance `docs/build/build_all.sh`, il est **réécrit**, et les modifications faites directement dedans sont perdues. Choisissez donc une source : le Markdown (recommandé) ou le `.tex`. Le fichier `docs/tex/LISEZMOI.md` résume la marche à suivre.
+
+### 8.4 Fabriquer un fichier Word ou PowerPoint
 
 Depuis un fichier Markdown, `pandoc` produit directement :
 
@@ -373,13 +412,13 @@ pandoc -f gfm mon_document.md -s -o ma_page.html
 
 Vérifié sur un petit document d'essai : les trois commandes réussissent. Pour la présentation, **un titre de niveau 1 (`#`) donne la diapositive de titre, et chaque titre de niveau 2 (`##`) donne une diapositive**, dont le contenu est le texte placé dessous. Structurez donc votre Markdown en conséquence : peu de texte sous chaque titre `##`.
 
-### 8.4 Quand utiliser quoi ?
+### 8.5 Quand utiliser quoi ?
 
 | Besoin | Outil |
 |---|---|
 | Un diaporama **rédigé et mis en forme** à partir d'un PDF, avec résumé et notes | **Claude** (section 3) |
 | Un diaporama, un Word ou un PDF **exactement fidèle** au texte d'un `.md` | **pandoc** (section 8) |
-| Un PDF soigné (page de garde, table des matières) | **pandoc + LaTeX** (section 8.2) |
+| Un PDF soigné (page de garde, table des matières), et le fichier LaTeX pour y ajouter des images | **pandoc + LaTeX** (sections 8.2 et 8.3) |
 
 ---
 

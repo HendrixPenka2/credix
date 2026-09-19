@@ -1,5 +1,4 @@
 -- Filtre pandoc pour les PDF CREDIX : sommaire manuel, images manquantes, tableaux, liens de fichiers.
-local system = require 'pandoc.system'
 
 -- 1. Retire le sommaire manuel entre <!-- toc --> et <!-- /toc --> (le PDF a son propre sommaire)
 function Pandoc(doc)
@@ -25,34 +24,65 @@ local function latex_escape(s)
   return s
 end
 
-function Image(img)
-  if img.src:match('^https?://') then return nil end
-  if not system.get_working_directory or true then
-    local f = io.open(img.src, 'rb')
-    if f then
-      f:close()
-      img.attributes['width'] = '100%'
-      return img
-    end
+-- Chemin d'une image, exprimé par rapport au dossier des fichiers .tex (variable TEXDIR),
+-- pour que le .tex fourni se compile tel quel depuis son dossier.
+local function normalize(p)
+  local out = {}
+  for seg in p:gmatch('[^/]+') do
+    if seg == '..' then table.remove(out) elseif seg ~= '.' then out[#out + 1] = seg end
   end
-  local alt = pandoc.utils.stringify(img.caption)
-  if alt == '' then alt = 'Capture' end
-  return pandoc.RawInline('latex', '\\CaptureManquante{' .. latex_escape(alt) .. '}{' .. latex_escape(img.src) .. '}')
+  return out
 end
 
--- 3. Largeurs de colonnes proportionnelles au contenu (les tableaux Markdown n'en fournissent pas)
-local function cell_len(cell) return #pandoc.utils.stringify(cell.contents) end
+local function relpath(target_abs, base_abs)
+  local t, b = normalize(target_abs), normalize(base_abs)
+  local i = 1
+  while i <= #t and i <= #b and t[i] == b[i] do i = i + 1 end
+  local parts = {}
+  for _ = i, #b do parts[#parts + 1] = '..' end
+  for j = i, #t do parts[#parts + 1] = t[j] end
+  return table.concat(parts, '/')
+end
+
+local function tex_path(src)
+  local mddir = os.getenv('MDDIR') or '.'
+  local texdir = os.getenv('TEXDIR')
+  if not texdir then return src end
+  return relpath(mddir .. '/' .. src, texdir)
+end
+
+-- L'image est cherchée au moment de la compilation LaTeX (macro \CredixCapture) :
+-- présente, elle est insérée ; absente, un cadre « CAPTURE À INSÉRER » la remplace.
+function Image(img)
+  if img.src:match('^https?://') then return nil end
+  local alt = pandoc.utils.stringify(img.caption)
+  if alt == '' then alt = 'Capture' end
+  return pandoc.RawInline('latex', '\\CredixCapture{' .. latex_escape(alt) .. '}{' .. tex_path(img.src) .. '}')
+end
+
+-- 3. Largeurs de colonnes : proportionnelles au contenu, mais jamais plus étroites que le plus long mot
+--    de la colonne (sinon le texte déborde sur la colonne voisine)
+local function words_max(cell)
+  local m = 0
+  for w in pandoc.utils.stringify(cell.contents):gmatch('%S+') do
+    if #w > m then m = #w end
+  end
+  return m
+end
+
 function Table(tbl)
   local n = #tbl.colspecs
   if n < 2 then return nil end
-  local maxlen = {}
-  for j = 1, n do maxlen[j] = 3 end
+  local maxlen, maxword = {}, {}
+  for j = 1, n do maxlen[j] = 3; maxword[j] = 1 end
   local function scan(rows)
     for _, row in ipairs(rows) do
       for j, cell in ipairs(row.cells) do
         if j <= n then
-          local l = cell_len(cell)
+          local l = #pandoc.utils.stringify(cell.contents)
           if l > maxlen[j] then maxlen[j] = l end
+          local w = words_max(cell)
+          if w > maxword[j] then maxword[j] = w end
         end
       end
     end
@@ -67,9 +97,22 @@ function Table(tbl)
     w[j] = math.max(math.min(maxlen[j], 70), 9)
     total = total + w[j]
   end
+  local fr, fixed, fixed_sum, free_sum = {}, {}, 0, 0
   for j = 1, n do
-    tbl.colspecs[j] = { tbl.colspecs[j][1], (w[j] / total) * 0.97 }
+    local floor = math.min(maxword[j] * 0.0125 + 0.05, 0.4)
+    local f = (w[j] / total) * 0.97
+    if f < floor then
+      fixed[j] = true; fr[j] = floor; fixed_sum = fixed_sum + floor
+    else
+      fr[j] = f; free_sum = free_sum + f
+    end
   end
+  local avail = 0.97 - fixed_sum
+  if free_sum > avail and free_sum > 0 and avail > 0 then
+    local k = avail / free_sum
+    for j = 1, n do if not fixed[j] then fr[j] = fr[j] * k end end
+  end
+  for j = 1, n do tbl.colspecs[j] = { tbl.colspecs[j][1], fr[j] } end
   return tbl
 end
 
@@ -85,13 +128,23 @@ local mermaid_n = 0
 function CodeBlock(cb)
   if cb.classes:includes('mermaid') then
     mermaid_n = mermaid_n + 1
-    local path = '../images/mermaid/' .. (os.getenv('DOCNAME') or 'doc') .. '_' .. mermaid_n .. '.png'
-    local f = io.open(path, 'rb')
+    local src = '../images/mermaid/' .. (os.getenv('DOCNAME') or 'doc') .. '_' .. mermaid_n .. '.png'
+    local f = io.open((os.getenv('MDDIR') or '.') .. '/' .. src, 'rb')
     if f then
       f:close()
-      return pandoc.Para({ pandoc.Image({}, path, '', { width = '95%' }) })
+      return pandoc.RawBlock('latex', '\\CredixFigure{' .. tex_path(src) .. '}')
     end
   end
   local opts = 'breaklines=true,breakanywhere=true,fontsize=\\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm'
   return pandoc.RawBlock('latex', '\\begin{Verbatim}[' .. opts .. ']\n' .. cb.text .. '\n\\end{Verbatim}')
+end
+
+-- 6. Noms de fichiers et identifiants en police à chasse fixe : coupure autorisée après _ . / -
+--    (sans cela, un long nom déborde de sa colonne). Les autres codes en ligne restent gérés par pandoc.
+function Code(c)
+  if c.text:match('^[%w_%.%-/:=@+]+$') and #c.text > 14 then
+    local t = c.text:gsub('_', '\\_'):gsub('([%.%-/])', '%1\\allowbreak{}'):gsub('(\\_)', '%1\\allowbreak{}')
+    return pandoc.RawInline('latex', '\\texttt{' .. t .. '}')
+  end
+  return nil
 end

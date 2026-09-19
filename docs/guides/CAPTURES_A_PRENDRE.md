@@ -20,6 +20,8 @@ Ce fichier est un **outil de travail** pour l'auteur : il n'est pas à envoyer �
 
    Les cadres « CAPTURE À INSÉRER » sont alors remplacés par vos images.
 
+   Vous pouvez aussi **recompiler vous-même le fichier `.tex`** d'un seul document (dossier `docs/tex/`) : les images sont retrouvées automatiquement. Voir `docs/tex/LISEZMOI.md` et le guide 4, section 8.3.
+
 **Priorité :** **A** = indispensable pour la démonstration ; **B** = utile, à faire si le temps le permet.
 
 ---

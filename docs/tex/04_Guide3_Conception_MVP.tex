@@ -1,0 +1,1269 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\documentclass[
+  french,
+  10pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 03_conception_MVP.md.
+% Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
+%   pdflatex 04_Guide3_Conception_MVP.tex
+% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
+% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
+% par votre propre \includegraphics.
+\newcommand{\CredixShortTitle}{Guide 3 : MVP}
+% Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
+\usepackage[scaled=.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{pifont}
+\usepackage{amssymb}
+% Caractères Unicode utilisés dans les documents (pdfLaTeX ne les connaît pas d'office)
+\DeclareUnicodeCharacter{03C1}{\ensuremath{\rho}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2190}{\ensuremath{\leftarrow}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2713}{\ding{51}}
+\DeclareUnicodeCharacter{2714}{\ding{52}}
+\DeclareUnicodeCharacter{2717}{\ding{55}}
+\DeclareUnicodeCharacter{25B2}{\ensuremath{\blacktriangle}}
+\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
+\DeclareUnicodeCharacter{2500}{-}
+\DeclareUnicodeCharacter{2502}{|}
+\DeclareUnicodeCharacter{250C}{+}
+\DeclareUnicodeCharacter{2510}{+}
+\DeclareUnicodeCharacter{2514}{+}
+\DeclareUnicodeCharacter{2518}{+}
+\DeclareUnicodeCharacter{251C}{+}
+\DeclareUnicodeCharacter{2524}{+}
+\DeclareUnicodeCharacter{252C}{+}
+\DeclareUnicodeCharacter{2534}{+}
+\DeclareUnicodeCharacter{253C}{+}
+\DeclareUnicodeCharacter{0192}{\textit{f}}
+\DeclareUnicodeCharacter{2011}{-}
+\DeclareUnicodeCharacter{202F}{\,}
+\DeclareUnicodeCharacter{2009}{\,}
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{25A0}{\ensuremath{\blacksquare}}
+\DeclareUnicodeCharacter{2022}{\ensuremath{\bullet}}
+\DeclareUnicodeCharacter{2026}{\ldots}
+\DeclareUnicodeCharacter{2460}{\ding{172}}
+\DeclareUnicodeCharacter{2461}{\ding{173}}
+\DeclareUnicodeCharacter{2462}{\ding{174}}
+\DeclareUnicodeCharacter{2463}{\ding{175}}
+\DeclareUnicodeCharacter{2464}{\ding{176}}
+\DeclareUnicodeCharacter{2465}{\ding{177}}
+\DeclareUnicodeCharacter{2466}{\ding{178}}
+\DeclareUnicodeCharacter{2467}{\ding{179}}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\fvset{breaklines=true,breakanywhere=true}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\definecolor{credixblue}{HTML}{1F3A5F}
+\definecolor{credixgray}{HTML}{5F6B7A}
+\definecolor{boxbg}{HTML}{F3F5F8}
+\setlength{\emergencystretch}{4em}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist{itemsep=0.15em,topsep=0.3em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
+\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyfoot[C]{\small\color{credixgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\color{credixgray}\thepage}\renewcommand{\headrulewidth}{0pt}}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{credixblue}}{}{0em}{}[\vspace{-0.2em}\color{credixblue}\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{credixblue}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{credixblue}}{}{0em}{}
+% Cadre de repère pour une capture manquante
+\newcommand{\CaptureManquante}[2]{%
+  \begin{tcolorbox}[colback=boxbg,colframe=credixgray,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm,halign=center]
+  \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
+  \end{tcolorbox}}
+
+% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
+% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+\usepackage{graphicx}
+\newcommand{\CredixCapture}[2]{%
+  \IfFileExists{#2}{%
+    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
+  {\CaptureManquante{#1}{\detokenize{#2}}}}
+\newcommand{\CredixFigure}[1]{%
+  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Guide 3 : conception du MVP},
+  pdfauthor={SINGHE PENKA Hendrix Donavan},
+  pdflang={fr},
+  colorlinks=true,
+  linkcolor={credixblue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={credixblue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{3.2cm}
+{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
+\vspace{2.2cm}
+{\Huge\bfseries\color{credixblue} Guide 3 : conception du MVP\par}
+\vspace{0.8cm}
+{\Large Un scoring de crédit réduit, à construire avec Claude Code\par}
+\vspace{2cm}
+{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
+\vspace{1.2cm}
+{\large SINGHE PENKA Hendrix Donavan\par}
+{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\vfill
+{\color{credixgray}\small Version du 19/09/2026\par}
+\end{titlepage}
+
+
+\renewcommand*\contentsname{Table des matières}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{CREDIX-MVP : document de
+conception}\label{credix-mvp--document-de-conception}
+
+\textbf{Un mini-système de scoring de crédit, conçu pour être construit
+avec Claude Code en suivant la méthode du guide 2.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. Introduction}\label{1-introduction}
+
+\subsubsection{1.1 Contexte}\label{11-contexte}
+
+\textbf{CREDIX} est un système complet de scoring de crédit (voir le
+README du dépôt). Il compte plusieurs dizaines de routes, deux modèles
+complémentaires, une base documentaire, un service de rapports PDF et
+trois espaces utilisateurs. Il est \textbf{trop grand} pour servir
+d\textquotesingle exercice à une démonstration.
+
+\textbf{CREDIX-MVP} en est une version \textbf{réduite} : le plus petit
+système qui garde l\textquotesingle idée essentielle. \emph{Un agent
+saisit une demande de crédit ; le système calcule une probabilité de
+défaut, la convertit en score, propose une décision et explique les
+trois facteurs qui pèsent le plus.}
+
+Ce document est écrit pour être donné à \textbf{Claude Code} en mode
+Plan (guide 1, section 8) : il contient tout ce qu\textquotesingle il
+faut pour produire un plan de réalisation, puis un système qui tourne.
+
+\subsubsection{1.2 Objectifs}\label{12-objectifs}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1105}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8595}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+N°
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Objectif
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{O1} & Disposer d\textquotesingle un système de scoring
+\textbf{de bout en bout} (données, modèle, API, interface, tests)
+réalisable en quelques modules \\
+\textbf{O2} & \textbf{Valider la méthode} du guide 2 : à partir de ce
+seul document, Claude Code doit produire un plan cohérent, puis un
+premier module qui passe ses tests \\
+\textbf{O3} & Garder les \textbf{principes de CREDIX} : score de 300 à
+850, décision à trois issues, explication des facteurs, traçabilité,
+seuils réglables \\
+\end{longtable}
+
+\subsubsection{1.3 Périmètre}\label{13-puxe9rimuxe8tre}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4942}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4758}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Inclus dans le MVP
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Exclu (voir la section 13)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Deux rôles : \textbf{Agent} et \textbf{Administrateur} & Rôle
+\textbf{Superviseur} et file de revue manuelle \\
+Un modèle \textbf{statistique simple} (régression logistique) & Deux
+flux, autoencodeur, calibration isotonique, WoE \\
+Six variables explicatives & Vingt-sept variables et indice de
+couverture ρc \\
+Base \textbf{SQLite}, aucun Docker & MongoDB, conteneurs, service PDF \\
+Une page web unique & Trois espaces, thème sombre, graphiques \\
+Données \textbf{synthétiques} générées par un script & Jeu de données
+réel \\
+\end{longtable}
+
+\subsubsection{1.4 Comment utiliser ce document avec Claude
+Code}\label{14-comment-utiliser-ce-document-avec-claude-code}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Créez un dossier vide et ouvrez-le dans \textbf{VS Code}.
+\item
+  Copiez-y ce fichier sous
+  \texttt{docs/\allowbreak{}conception\_\allowbreak{}mvp.\allowbreak{}md}.
+\item
+  Ouvrez Claude Code et passez en \textbf{mode Plan}.
+\item
+  Donnez le prompt de l\textquotesingle{}\textbf{annexe B}.
+\end{enumerate}
+
+Le déroulé complet de la démonstration est dans la fiche de
+démonstration.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Exigences}\label{2-exigences}
+
+\subsubsection{2.1 Exigences
+fonctionnelles}\label{21-exigences-fonctionnelles}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1125}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4287}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4287}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+N°
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Exigence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Critère d\textquotesingle acceptation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{EF-1} & Un utilisateur se \textbf{connecte} avec un identifiant
+et un mot de passe et reçoit un \textbf{jeton} valable 8 heures & Bons
+identifiants : jeton reçu ; mauvais identifiants : refus (401) \\
+\textbf{EF-2} & L\textquotesingle accès aux routes dépend du
+\textbf{rôle} (Agent, Administrateur) & Un Agent qui appelle une route
+d\textquotesingle administration reçoit 403 \\
+\textbf{EF-3} & Un agent \textbf{crée un client} (nom, prénom, âge,
+revenu mensuel, ancienneté d\textquotesingle emploi, nombre
+d\textquotesingle incidents de paiement) & Le client créé est
+retrouvable ; une valeur invalide (âge négatif) est refusée (422) \\
+\textbf{EF-4} & Un agent \textbf{recherche} un client par nom ou prénom
+et \textbf{consulte} sa fiche & La recherche « ndi » retrouve « Ndiaye
+» \\
+\textbf{EF-5} & Un agent \textbf{demande un scoring} pour un client,
+avec un montant et une durée de crédit & Le résultat contient une
+probabilité de défaut, un \textbf{score entre 300 et 850} et une
+\textbf{décision} \\
+\textbf{EF-6} & Le résultat contient \textbf{trois facteurs} qui
+expliquent le score (libellé, contribution, sens) & Trois facteurs,
+triés par importance décroissante \\
+\textbf{EF-7} & Un agent consulte l\textquotesingle{}\textbf{historique
+des scorings} d\textquotesingle un client & Les scorings sont listés du
+plus récent au plus ancien \\
+\textbf{EF-8} & Un administrateur \textbf{crée un compte} (agent ou
+administrateur) & Le nouveau compte peut se connecter \\
+\textbf{EF-9} & Un administrateur \textbf{règle les deux seuils} de
+décision & Un seuil incohérent (accord supérieur au refus) est refusé
+(422) \\
+\textbf{EF-10} & Un script \textbf{génère les données} et
+\textbf{entraîne le modèle}, puis affiche ses performances & Le script
+écrit le modèle et affiche une AUC d\textquotesingle au moins 0,70 \\
+\end{longtable}
+
+\subsubsection{2.2 Exigences non
+fonctionnelles}\label{22-exigences-non-fonctionnelles}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1125}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4547}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4028}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+N°
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Exigence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Critère d\textquotesingle acceptation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{ENF-1} & \textbf{Traçabilité} : chaque scoring garde la version
+du modèle, les seuils appliqués, l\textquotesingle utilisateur et la
+date & Ces quatre informations figurent dans
+l\textquotesingle historique \\
+\textbf{ENF-2} & \textbf{Sécurité} : mots de passe hachés, jamais en
+clair ; secret du jeton dans une variable
+d\textquotesingle environnement & Aucun mot de passe lisible dans la
+base ni dans le code \\
+\textbf{ENF-3} & \textbf{Reproductibilité} : deux exécutions du script
+avec la même graine donnent le même modèle & Mêmes coefficients à la
+troisième décimale \\
+\textbf{ENF-4} & \textbf{Lancement simple} : installation et démarrage
+en six commandes, sans Docker & Le README est suivi à la lettre sur une
+machine neuve \\
+\textbf{ENF-5} & \textbf{Réactivité} : le modèle est chargé une seule
+fois au démarrage & Un scoring répond en moins de 500 ms en local \\
+\textbf{ENF-6} & \textbf{Testabilité} : une commande unique lance tous
+les tests & \texttt{pytest} passe, avec au moins un test par exigence
+fonctionnelle \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Acteurs et cas
+d\textquotesingle utilisation}\label{3-acteurs-et-cas-dutilisation}
+
+Le système a \textbf{deux acteurs}.
+L\textquotesingle{}\textbf{Administrateur} peut faire tout ce que fait
+l\textquotesingle Agent, et en plus gérer les comptes et les seuils : il
+\textbf{hérite} du rôle Agent.
+
+La figure 1 présente les cas d\textquotesingle utilisation de chaque
+acteur.
+
+\CredixFigure{../images/mermaid/03_conception_MVP_1.png}
+
+\emph{Figure 1. Cas d\textquotesingle utilisation de CREDIX-MVP. Les
+ovales sont les cas d\textquotesingle utilisation, les cercles les
+acteurs. La flèche en pointillés indique que
+l\textquotesingle Administrateur hérite de tout ce que fait
+l\textquotesingle Agent.}
+
+\subsubsection{3.1 Spécification du cas « Demander un scoring
+»}\label{31-spuxe9cification-du-cas--demander-un-scoring-}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7450}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Élément
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contenu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Acteur} & Agent (ou Administrateur) \\
+\textbf{Objectif} & Obtenir une décision expliquée pour une demande de
+crédit \\
+\textbf{Préconditions} & L\textquotesingle agent est connecté ; le
+client existe \\
+\textbf{Scénario nominal} & 1. L\textquotesingle agent ouvre la fiche du
+client. 2. Il saisit le \textbf{montant} et la \textbf{durée} du crédit.
+3. Il valide. 4. Le système calcule la probabilité de défaut, le score
+et la décision, et sélectionne les trois facteurs principaux. 5. Le
+système enregistre le scoring. 6. Il affiche le résultat. \\
+\textbf{Alternatives} & \textbf{3a.} Montant ou durée invalides : le
+système refuse (422) et l\textquotesingle indique. \textbf{4a.} Le
+modèle n\textquotesingle est pas disponible : erreur 503 avec un message
+clair. \\
+\textbf{Postcondition} & Un scoring est enregistré avec sa version de
+modèle, ses seuils, son auteur et sa date \\
+\end{longtable}
+
+\subsubsection{3.2 Spécification du cas « Créer un compte
+»}\label{32-spuxe9cification-du-cas--cruxe9er-un-compte-}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7450}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Élément
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contenu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Acteur} & Administrateur \\
+\textbf{Préconditions} & L\textquotesingle administrateur est
+connecté \\
+\textbf{Scénario nominal} & 1. L\textquotesingle administrateur saisit
+un identifiant, un mot de passe (8 caractères minimum) et un rôle. 2. Le
+système vérifie que l\textquotesingle identifiant est libre. 3. Il
+enregistre le compte, mot de passe \textbf{haché}. \\
+\textbf{Alternatives} & \textbf{2a.} Identifiant déjà pris : refus
+(409). \textbf{1a.} Mot de passe trop court : refus (422). \\
+\end{longtable}
+
+\subsubsection{3.3 Spécification du cas « Régler les seuils de décision
+»}\label{33-spuxe9cification-du-cas--ruxe9gler-les-seuils-de-duxe9cision-}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1895}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7805}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Élément
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contenu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Acteur} & Administrateur \\
+\textbf{Scénario nominal} & 1. L\textquotesingle administrateur saisit
+un \textbf{seuil d\textquotesingle accord} et un \textbf{seuil de refus}
+(probabilités de défaut). 2. Le système vérifie que 0 \textless{} accord
+\textless{} refus \textless{} 1. 3. Il enregistre une \textbf{nouvelle
+version} des seuils (l\textquotesingle historique est conservé). \\
+\textbf{Règle métier} & Probabilité de défaut \textbf{inférieure au
+seuil d\textquotesingle accord} : décision ACCORDÉ. \textbf{Supérieure
+au seuil de refus} : REFUSÉ. \textbf{Entre les deux} : REVUE (un humain
+doit trancher). Valeurs initiales : 0,10 et 0,30 (les mêmes que
+CREDIX). \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Modèle du domaine}\label{4-moduxe8le-du-domaine}
+
+Le domaine compte cinq classes principales, trois types énumérés, et les
+associations qui les relient. La figure 2 présente le diagramme de
+classes.
+
+\CredixFigure{../images/mermaid/03_conception_MVP_2.png}
+
+\emph{Figure 2. Diagramme de classes du domaine. Les losanges pleins
+indiquent une composition : un Facteur n\textquotesingle existe que dans
+le Scoring qu\textquotesingle il explique. Les types énumérés portent le
+stéréotype « enumeration ». Les attributs sont privés (signe moins), les
+opérations publiques (signe plus).}
+
+\textbf{Règles de lecture et de conception :}
+
+\begin{itemize}
+\tightlist
+\item
+  Aucun attribut n\textquotesingle a pour type une autre classe du
+  diagramme : les liens entre classes sont des \textbf{associations},
+  avec leurs multiplicités aux deux extrémités.
+\item
+  Un \textbf{Scoring} garde les seuils \textbf{appliqués}
+  (\texttt{seuilAccordApplique}, \texttt{seuilRefusApplique}) : ils ne
+  changent pas si les seuils sont modifiés plus tard (traçabilité,
+  ENF-1).
+\item
+  Un \textbf{Scoring} est toujours produit par \textbf{un} modèle,
+  \textbf{un} utilisateur, pour \textbf{un} client.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Scénario principal : demander un
+scoring}\label{5-scuxe9nario-principal--demander-un-scoring}
+
+La figure 3 montre les échanges entre l\textquotesingle agent et les
+composants du système lors d\textquotesingle un scoring.
+
+\CredixFigure{../images/mermaid/03_conception_MVP_3.png}
+
+\emph{Figure 3. Diagramme de séquence du cas « Demander un scoring ».
+Les flèches pleines sont des appels, les flèches pointillées des
+retours.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Architecture et
+technologies}\label{6-architecture-et-technologies}
+
+\subsubsection{6.1 Vue
+d\textquotesingle ensemble}\label{61-vue-densemble}
+
+La figure 4 présente les composants et leurs liens.
+
+\CredixFigure{../images/mermaid/03_conception_MVP_4.png}
+
+\emph{Figure 4. Architecture de CREDIX-MVP. Le navigateur ne parle
+qu\textquotesingle aux routes ; les services portent la logique ; le
+modèle est chargé une seule fois en mémoire.}
+
+\subsubsection{6.2 Choix technologiques}\label{62-choix-technologiques}
+
+Chaque choix répond à une exigence.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2484}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4140}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3076}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Choix
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Sert l\textquotesingle exigence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Alternative écartée
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Python 3.12} & EF-10, ENF-3 : un seul langage pour
+l\textquotesingle entraînement et l\textquotesingle exploitation, pas
+d\textquotesingle écart entre les deux & Java : deux langages à faire
+dialoguer \\
+\textbf{FastAPI} & EF-2, EF-3, ENF-5 : validation automatique des
+données, droits centralisés, rapidité & Flask : validation à écrire à la
+main \\
+\textbf{SQLite} (via SQLAlchemy) & ENF-4 : aucune installation, un
+fichier & PostgreSQL, MongoDB : trop lourds pour ce MVP \\
+\textbf{scikit-learn} (régression logistique) & EF-6, ENF-3 : modèle
+\textbf{explicable} (contribution = coefficient × valeur standardisée),
+reproductible & LightGBM : explications plus complexes (voir CREDIX) \\
+\textbf{PyJWT} et \texttt{hashlib} (PBKDF2) & EF-1, ENF-2 : jeton signé,
+mots de passe hachés, sans dépendance lourde & bcrypt : dépendance
+native inutile ici \\
+\textbf{Page HTML et JavaScript} servie par FastAPI & ENF-4 : aucun
+outil de compilation & React, Next.js : chaîne de compilation en plus \\
+\textbf{pytest} et \textbf{httpx} & ENF-6 & --- \\
+\end{longtable}
+
+\subsubsection{6.3 Organisation des
+dossiers}\label{63-organisation-des-dossiers}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+credix-mvp/
+|-- README.md
+|-- requirements.txt
+|-- .env.example              (SECRET_JWT)
+|-- app/
+|   |-- main.py               création de l'application, chargement du modèle
+|   |-- config.py
+|   |-- database.py           connexion SQLite, création des tables
+|   |-- models.py             tables (Utilisateur, Client, Scoring, ...)
+|   |-- schemas.py            formats des requêtes et des réponses
+|   |-- security.py           hachage, jeton, contrôle des rôles
+|   |-- routers/              auth.py, clients.py, scorings.py, admin.py
+|   `-- services/             scoring.py, comptes.py, seuils.py
+|-- scripts/
+|   |-- generer_donnees.py    données synthétiques (annexe A)
+|   |-- entrainer_modele.py   entraînement et sauvegarde du modèle
+|   `-- creer_admin.py        premier compte administrateur
+|-- modele/                   modele.joblib et meta.json (générés)
+|-- frontend/                 index.html, app.js, style.css
+`-- tests/                    un fichier de tests par module
+\end{Verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. Modèle de données}\label{7-moduxe8le-de-donnuxe9es}
+
+Base SQLite, une table par classe (les facteurs sont stockés avec leur
+scoring).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3725}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3725}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Table
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Colonnes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contraintes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{utilisateur} & \texttt{id} (clé), \texttt{identifiant},
+\texttt{mot\_\allowbreak{}de\_\allowbreak{}passe\_\allowbreak{}hache},
+\texttt{role}, \texttt{actif} & \texttt{identifiant} unique ;
+\texttt{role} parmi AGENT, ADMIN \\
+\textbf{client} & \texttt{id} (clé), \texttt{nom}, \texttt{prenom},
+\texttt{age}, \texttt{revenu\_mensuel},
+\texttt{anciennete\_\allowbreak{}emploi\_\allowbreak{}mois},
+\texttt{nb\_\allowbreak{}incidents\_\allowbreak{}paiement},
+\texttt{date\_creation}, \texttt{cree\_par} (vers utilisateur) &
+\texttt{age} entre 18 et 80 ; \texttt{revenu\_mensuel} \textgreater{} 0
+; ancienneté et incidents ≥ 0 \\
+\textbf{modele\_scoring} & \texttt{id} (clé), \texttt{version},
+\texttt{auc}, \texttt{date\_\allowbreak{}entrainement} &
+\texttt{version} unique \\
+\textbf{seuils} & \texttt{id} (clé), \texttt{seuil\_accord},
+\texttt{seuil\_refus}, \texttt{date\_effet}, \texttt{defini\_par} (vers
+utilisateur) & 0 \textless{} accord \textless{} refus \textless{} 1 \\
+\textbf{scoring} & \texttt{id} (clé), \texttt{client\_id},
+\texttt{utilisateur\_id}, \texttt{modele\_id}, \texttt{montant\_credit},
+\texttt{duree\_mois}, \texttt{probabilite\_\allowbreak{}defaut},
+\texttt{score}, \texttt{decision},
+\texttt{seuil\_\allowbreak{}accord\_\allowbreak{}applique},
+\texttt{seuil\_\allowbreak{}refus\_\allowbreak{}applique},
+\texttt{date\_heure} & \texttt{montant\_credit} \textgreater{} 0 ;
+\texttt{duree\_mois} entre 6 et 60 \\
+\textbf{facteur} & \texttt{id} (clé), \texttt{scoring\_id},
+\texttt{libelle}, \texttt{contribution}, \texttt{sens} & trois lignes
+par scoring \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Le modèle de scoring}\label{8-le-moduxe8le-de-scoring}
+
+\subsubsection{8.1 Variables du modèle}\label{81-variables-du-moduxe8le}
+
+Six variables explicatives, dont deux \textbf{calculées} à partir des
+données saisies :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5217}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2608}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Variable
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Origine
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Libellé affiché
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{age} & Fiche du client & « Âge » \\
+\texttt{log\_revenu} & Logarithme népérien du revenu mensuel & « Revenu
+mensuel » \\
+\texttt{anciennete\_\allowbreak{}emploi\_\allowbreak{}mois} & Fiche du
+client & « Ancienneté dans l\textquotesingle emploi » \\
+\texttt{taux\_effort} & (montant du crédit ÷ durée) ÷ revenu mensuel :
+\textbf{part du revenu mensuel consacrée au remboursement} & « Taux
+d\textquotesingle effort » \\
+\texttt{duree\_mois} & Saisie de la demande & « Durée du crédit » \\
+\texttt{nb\_\allowbreak{}incidents\_\allowbreak{}paiement} & Fiche du
+client & « Incidents de paiement passés » \\
+\end{longtable}
+
+\subsubsection{8.2 Entraînement}\label{82-entrauxeenement}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Le script \texttt{generer\_\allowbreak{}donnees.\allowbreak{}py}
+  produit 3 000 clients synthétiques (annexe A), avec une variable cible
+  \texttt{defaut} (0 ou 1).
+\item
+  \texttt{entrainer\_\allowbreak{}modele.\allowbreak{}py} sépare les
+  données (80 \% entraînement, 20 \% test, \textbf{graine 42}, découpage
+  stratifié).
+\item
+  Les six variables sont \textbf{standardisées} (moyenne 0, écart-type
+  1), en apprenant les moyennes et écarts-types \textbf{sur
+  l\textquotesingle entraînement seulement}.
+\item
+  Une \textbf{régression logistique} est entraînée.
+\item
+  Le script affiche l\textquotesingle{}\textbf{AUC sur le jeu de test}
+  et sauvegarde le modèle, les moyennes, les écarts-types, les
+  coefficients et l\textquotesingle AUC dans \texttt{modele/}.
+\end{enumerate}
+
+\subsubsection{8.3 Calcul d\textquotesingle un
+scoring}\label{83-calcul-dun-scoring}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2700}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Étape
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Formule
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Probabilité de défaut} & Sortie de la régression logistique sur
+les variables standardisées \\
+\textbf{Score} &
+\texttt{score\ =\ 515,06\ −\ 28,85\ ×\ ln(\ PD\ ÷\ (1\ −\ PD)\ )}, borné
+entre 300 et 850, arrondi à l\textquotesingle entier (les constantes de
+CREDIX) \\
+\textbf{Décision} & PD \textless{} seuil d\textquotesingle accord :
+\textbf{ACCORDÉ} ; PD \textgreater{} seuil de refus : \textbf{REFUSÉ} ;
+sinon \textbf{REVUE} \\
+\textbf{Contribution d\textquotesingle une variable} &
+\texttt{coefficient\ ×\ valeur\ standardisée} \\
+\textbf{Trois facteurs} & Les trois variables dont la contribution est
+la plus grande \textbf{en valeur absolue} ; le sens est
+AUGMENTE\_LE\_RISQUE si la contribution est positive,
+DIMINUE\_LE\_RISQUE sinon \\
+\end{longtable}
+
+\subsubsection{8.4 Valeurs de
+référence}\label{84-valeurs-de-ruxe9fuxe9rence}
+
+Avec le jeu de données de l\textquotesingle annexe A (graine 42), un
+premier essai a donné une \textbf{AUC de test d\textquotesingle environ
+0,75}, un taux de défaut d\textquotesingle environ 8 \% et, sur les 3
+000 clients, environ 78 \% d\textquotesingle accords, 17 \% de revues et
+5 \% de refus. Les valeurs exactes dépendent de
+l\textquotesingle implémentation ; \textbf{les critères de recette de la
+section 12 sont donc écrits avec des marges.}
+
+Trois profils d\textquotesingle exemple, avec le résultat
+\textbf{indicatif} obtenu :
+
+\begin{longtable}[]{@{}llllllllll@{}}
+\toprule\noalign{}
+Profil & Âge & Revenu & Ancienneté & Montant & Durée & Incidents & PD &
+Score & Décision \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{A} solide & 42 & 450 000 & 120 mois & 1 500 000 & 24 mois & 0 &
+0,5 \% & 667 & ACCORDÉ \\
+\textbf{B} intermédiaire & 33 & 220 000 & 36 mois & 2 600 000 & 24 mois
+& 2 & 24,5 \% & 548 & REVUE \\
+\textbf{C} fragile & 24 & 120 000 & 6 mois & 1 800 000 & 12 mois & 3 &
+95 \% & 429 & REFUSÉ \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Interface de programmation
+(API)}\label{9-interface-de-programmation-api}
+
+Format des échanges : \textbf{JSON}, avec des noms en
+\texttt{snake\_case}. Toutes les routes, sauf \texttt{/health} et
+\texttt{/\allowbreak{}api/\allowbreak{}auth/\allowbreak{}login}, exigent
+l\textquotesingle en-tête
+\texttt{Authorization:\ Bearer\ \textless{}jeton\textgreater{}}.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1220}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3151}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1830}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Méthode et route
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Rôle requis
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Codes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{GET\ /health} & aucun & État du système et du modèle & 200 \\
+\texttt{POST\ /api/auth/login} & aucun & Connexion & 200, 401 \\
+\texttt{POST\ /api/clients} & Agent, Admin & Créer un client & 201,
+422 \\
+\texttt{GET\ /api/clients?recherche=} & Agent, Admin & Rechercher (nom
+ou prénom) & 200 \\
+\texttt{GET\ /api/clients/\{id\}} & Agent, Admin & Fiche
+d\textquotesingle un client & 200, 404 \\
+\texttt{POST\ /api/scorings} & Agent, Admin & Demander un scoring & 201,
+404, 422, 503 \\
+\texttt{GET\ /api/scorings?client\_id=} & Agent, Admin & Historique
+d\textquotesingle un client & 200 \\
+\texttt{POST\ /api/admin/utilisateurs} & Admin & Créer un compte & 201,
+403, 409, 422 \\
+\texttt{GET\ /api/admin/seuils} & Admin & Seuils actifs & 200, 403 \\
+\texttt{PUT\ /api/admin/seuils} & Admin & Nouvelle version des seuils &
+200, 403, 422 \\
+\end{longtable}
+
+Sans jeton ou avec un jeton invalide : \textbf{401}. Avec un rôle
+insuffisant : \textbf{403}.
+
+\textbf{Exemple : connexion}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+POST /api/auth/login
+{ "identifiant": "agent1", "mot_de_passe": "MotDePasse2026" }
+
+200 OK
+{ "jeton": "eyJhbGciOi...", "role": "AGENT", "expire_a": "2026-09-20T09:00:00Z" }
+\end{Verbatim}
+
+\textbf{Exemple : demande de scoring}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+POST /api/scorings
+{ "client_id": 12, "montant_credit": 2600000, "duree_mois": 24 }
+
+201 Created
+{
+  "id": 57,
+  "client_id": 12,
+  "probabilite_defaut": 0.245,
+  "score": 548,
+  "decision": "REVUE",
+  "facteurs": [
+    { "libelle": "Incidents de paiement passés", "contribution": 0.931, "sens": "AUGMENTE_LE_RISQUE" },
+    { "libelle": "Taux d'effort", "contribution": 0.408, "sens": "AUGMENTE_LE_RISQUE" },
+    { "libelle": "Âge", "contribution": 0.256, "sens": "AUGMENTE_LE_RISQUE" }
+  ],
+  "modele_version": "1.0",
+  "seuil_accord": 0.10,
+  "seuil_refus": 0.30,
+  "date_heure": "2026-09-19T14:03:11Z"
+}
+\end{Verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{10. Interface utilisateur}\label{10-interface-utilisateur}
+
+Une \textbf{page web unique}, sans compilation, servie à la racine
+\texttt{/}. Trois zones, affichées selon le rôle.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3233}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6467}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Zone
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contenu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Connexion} & Identifiant, mot de passe, bouton « Se connecter »
+; message clair en cas d\textquotesingle échec \\
+\textbf{Clients et scoring} (Agent et Admin) & Barre de recherche ;
+formulaire « Nouveau client » ; fiche d\textquotesingle un client avec
+le formulaire de scoring (montant, durée) ; \textbf{résultat} : score,
+décision (colorée : vert, orange, rouge), probabilité de défaut, trois
+facteurs avec leur sens ; \textbf{historique} du client \\
+\textbf{Administration} (Admin seulement) & Création
+d\textquotesingle un compte ; réglage des deux seuils, avec le rappel de
+la règle « accord \textless{} refus » \\
+\end{longtable}
+
+Un bouton « Se déconnecter » efface le jeton.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{11. Plan de réalisation par
+modules}\label{11-plan-de-ruxe9alisation-par-modules}
+
+L\textquotesingle ordre va du plus indépendant au plus dépendant. Chaque
+module se termine quand ses tests passent.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1750}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2850}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2850}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Module
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Objectif
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fichiers principaux
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Terminé quand
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{M1 Socle} & Structure du projet, configuration, base et tables &
+\texttt{app/config.py}, \texttt{database.py}, \texttt{models.py},
+\texttt{requirements.\allowbreak{}txt} & Les tables sont créées ; test
+de connexion à la base \\
+\textbf{M2 Données et modèle} & Générer les données, entraîner et
+sauvegarder le modèle (\textbf{EF-10}, ENF-3) &
+\texttt{scripts/\allowbreak{}generer\_\allowbreak{}donnees.\allowbreak{}py},
+\texttt{scripts/\allowbreak{}entrainer\_\allowbreak{}modele.\allowbreak{}py}
+& AUC de test au moins égale à 0,70 ; deux exécutions donnent les mêmes
+coefficients \\
+\textbf{M3 Service de scoring} & PD, score, décision, trois facteurs
+(\textbf{EF-5, EF-6}) &
+\texttt{app/\allowbreak{}services/\allowbreak{}scoring.\allowbreak{}py}
+& Les profils A et C donnent ACCORDÉ et REFUSÉ ; plus
+d\textquotesingle incidents implique une PD plus élevée \\
+\textbf{M4 Sécurité et comptes} & Hachage, jeton, rôles (\textbf{EF-1,
+EF-2, EF-8}) & \texttt{app/\allowbreak{}security.\allowbreak{}py},
+\texttt{routers/\allowbreak{}auth.\allowbreak{}py},
+\texttt{routers/\allowbreak{}admin.\allowbreak{}py},
+\texttt{scripts/\allowbreak{}creer\_\allowbreak{}admin.\allowbreak{}py}
+& Connexion réussie ou refusée ; 403 pour un Agent sur une route
+d\textquotesingle administration \\
+\textbf{M5 API métier} & Clients, scorings, historique, seuils
+(\textbf{EF-3, EF-4, EF-7, EF-9}, ENF-1) &
+\texttt{routers/\allowbreak{}clients.\allowbreak{}py},
+\texttt{routers/\allowbreak{}scorings.\allowbreak{}py},
+\texttt{services/\allowbreak{}seuils.\allowbreak{}py} & Tous les tests
+d\textquotesingle API passent \\
+\textbf{M6 Interface et livraison} & Page web, README de lancement
+(ENF-4) & \texttt{frontend/*}, \texttt{README.md} & Le README est suivi
+à la lettre sur une machine neuve \\
+\end{longtable}
+
+\textbf{Dépendances :} M1 avant tout ; M2 avant M3 ; M4 avant M5 ; M3 et
+M5 avant M6.
+
+\textbf{Règles de conduite pour Claude Code :} un seul module à la fois
+; les tests d\textquotesingle abord ; ne jamais modifier un module déjà
+validé sans le dire ; ne jamais écrire de mot de passe ni de secret dans
+le code.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{12. Plan de tests et
+recette}\label{12-plan-de-tests-et-recette}
+
+\subsubsection{12.1 Tests automatiques}\label{121-tests-automatiques}
+
+Une commande, \texttt{pytest}, lance tous les tests. Il y a \textbf{au
+moins un test par exigence fonctionnelle}, plus :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{monotonie} : à profil identique, la PD \textbf{augmente} avec
+  le nombre d\textquotesingle incidents (0, 1, 2, 3) ;
+\item
+  \textbf{bornes} : le score est toujours entre 300 et 850 ;
+\item
+  \textbf{traçabilité} : un scoring enregistré contient la version du
+  modèle et les seuils appliqués ;
+\item
+  \textbf{sécurité} : le hachage du mot de passe est différent du mot de
+  passe, et la vérification réussit.
+\end{itemize}
+
+\subsubsection{12.2 Scénario de recette (à la
+main)}\label{122-scuxe9nario-de-recette-uxe0-la-main}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+N°
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Action
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Résultat attendu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Lancer les commandes du README & L\textquotesingle application
+répond sur \texttt{http:/\allowbreak{}/\allowbreak{}localhost:8000} ;
+\texttt{/health} indique « ok » \\
+2 & Se connecter avec le compte administrateur & Accès à
+l\textquotesingle écran d\textquotesingle administration \\
+3 & Créer un compte « agent1 » & Le compte apparaît ; il peut se
+connecter \\
+4 & Se connecter en agent1 & Pas d\textquotesingle accès à
+l\textquotesingle administration \\
+5 & Créer le client du profil \textbf{A} & Le client est retrouvable par
+recherche \\
+6 & Demander un scoring (1 500 000 sur 24 mois) & Décision
+\textbf{ACCORDÉ}, score élevé, trois facteurs \\
+7 & Créer le client du profil \textbf{C} et demander un scoring (1 800
+000 sur 12 mois) & Décision \textbf{REFUSÉ} \\
+8 & Consulter l\textquotesingle historique du client \textbf{A} & Le
+scoring figure, avec version du modèle et seuils \\
+9 & En administrateur, passer le seuil de refus de 0,30 à 0,20, puis
+rejouer le scoring du profil \textbf{B} (probabilité de défaut
+d\textquotesingle environ 24,5 \%) & La décision passe de \textbf{REVUE
+à REFUSÉ} ; l\textquotesingle ancien scoring \textbf{garde} ses seuils
+d\textquotesingle origine (0,30) \\
+10 & Essayer un seuil d\textquotesingle accord de 0,40 avec un seuil de
+refus de 0,20 & Le système refuse (422) et explique que
+l\textquotesingle accord doit être inférieur au refus \\
+\end{longtable}
+
+\subsubsection{12.3 Critères de succès de la
+démonstration}\label{123-crituxe8res-de-succuxe8s-de-la-duxe9monstration}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6117}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3583}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Résultat
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Signification
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Le \textbf{plan} produit par Claude Code couvre tous les modules M1 à
+M6, dans un ordre cohérent & Le document de conception est
+\textbf{exploitable} \\
+Le module \textbf{M2} livre une AUC d\textquotesingle au moins 0,70 & Le
+premier module tient ses promesses \\
+Les tests du module \textbf{M3} passent & La logique métier est
+correcte \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{13. Limites et évolution vers
+CREDIX}\label{13-limites-et-uxe9volution-vers-credix}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3706}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2180}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3815}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Ce que fait CREDIX
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Le MVP
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Comment y arriver
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Deux flux : score et détection des profils atypiques (autoencodeur) & Un
+seul flux & Ajouter un second modèle non supervisé qui peut
+\textbf{durcir} une décision \\
+WoE, sélection de variables, LightGBM & Régression logistique sur six
+variables & Remplacer le modèle derrière la même interface de scoring \\
+Calibration isotonique des probabilités & Aucune & Ajouter une étape
+entre le modèle et le score \\
+Indice de couverture ρc et clients à dossier incomplet & Aucun &
+Calculer la part d\textquotesingle information disponible par client \\
+Explications par SHAP, phrases en langage naturel & Contributions du
+modèle linéaire & Remplacer par SHAP et un gabarit de phrases \\
+Rôle \textbf{Superviseur} et file de revue & La décision REVUE
+n\textquotesingle a pas de suite & Ajouter le rôle, la file, la décision
+justifiée \\
+MongoDB, Docker, service PDF, journal d\textquotesingle audit & SQLite,
+aucun conteneur & Voir l\textquotesingle architecture de CREDIX \\
+\end{longtable}
+
+Le MVP n\textquotesingle a \textbf{aucune valeur prédictive réelle} :
+ses données sont synthétiques. Il sert à \textbf{valider la méthode},
+pas à évaluer un risque.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{14. Glossaire}\label{14-glossaire}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2771}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6929}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Terme
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Définition
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Probabilité de défaut (PD)} & Chance estimée
+qu\textquotesingle un client ne rembourse pas son crédit \\
+\textbf{Score} & La PD convertie en un nombre de 300 à 850 : plus il est
+haut, plus le risque est faible \\
+\textbf{Décision} & ACCORDÉ, REFUSÉ ou REVUE (à trancher par un
+humain) \\
+\textbf{Seuils} & Les deux probabilités qui séparent les trois
+décisions \\
+\textbf{Taux d\textquotesingle effort} & Part du revenu mensuel
+consacrée au remboursement du crédit \\
+\textbf{AUC} & Mesure de la capacité d\textquotesingle un modèle à
+séparer bons et mauvais payeurs (0,5 : aucun pouvoir ; 1 : parfait) \\
+\textbf{Régression logistique} & Modèle statistique simple qui calcule
+une probabilité à partir d\textquotesingle une somme pondérée de
+variables \\
+\textbf{Variable standardisée} & Variable ramenée à une moyenne de 0 et
+un écart-type de 1 \\
+\textbf{JWT (jeton)} & Justificatif temporaire délivré après
+connexion \\
+\textbf{PBKDF2} & Méthode de hachage de mot de passe \\
+\textbf{Recette} & Vérification finale, à la main, que le système répond
+au besoin \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{15. Annexes}\label{15-annexes}
+
+\subsubsection{Annexe A : générateur de données synthétiques
+(référence)}\label{annexe-a--guxe9nuxe9rateur-de-donnuxe9es-synthuxe9tiques-ruxe9fuxe9rence}
+
+Ce script définit le « monde » du MVP. Le donner tel quel à Claude Code
+garantit des données \textbf{identiques d\textquotesingle une exécution
+à l\textquotesingle autre} (graine 42).
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+import numpy as np
+import pandas as pd
+
+rng = np.random.default_rng(42)
+n = 3000
+age = np.clip(rng.normal(38, 10, n), 21, 65).round().astype(int)
+revenu = np.clip(np.exp(rng.normal(np.log(250000), 0.5, n)), 80000, 2000000).round(-3)
+anciennete = np.clip(rng.exponential(60, n), 0, 360).round().astype(int)
+duree = rng.choice([6, 12, 18, 24, 36, 48], n, p=[.10, .25, .20, .25, .15, .05])
+montant = (revenu * rng.uniform(1, 10, n)).round(-4)
+incidents = np.clip(rng.poisson(0.6, n), 0, 8)
+taux_effort = (montant / duree) / revenu
+
+logit = (-4.4 - 0.035 * (age - 38) - 1.1 * (np.log(revenu) - np.log(250000))
+         - 0.004 * (anciennete - 60) + 3.0 * taux_effort
+         + 0.02 * (duree - 18) + 0.55 * incidents)
+probabilite = 1 / (1 + np.exp(-logit))
+defaut = rng.binomial(1, probabilite)
+
+donnees = pd.DataFrame({
+    "age": age, "revenu_mensuel": revenu, "anciennete_emploi_mois": anciennete,
+    "montant_credit": montant, "duree_mois": duree,
+    "nb_incidents_paiement": incidents, "defaut": defaut,
+})
+donnees.to_csv("clients_synthetiques.csv", index=False)
+\end{Verbatim}
+
+\subsubsection{Annexe B : prompt de
+démonstration}\label{annexe-b--prompt-de-duxe9monstration}
+
+À donner à Claude Code, en \textbf{mode Plan}, dans un dossier contenant
+ce document sous
+\texttt{docs/\allowbreak{}conception\_\allowbreak{}mvp.\allowbreak{}md}.
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+/plan Lis docs/conception_mvp.md en entier. Propose un plan de réalisation par
+modules (M1 à M6 ou mieux, si tu vois une meilleure découpe). Pour chaque
+module : l'objectif, les fichiers à créer, les tests à écrire, le critère qui
+dit qu'il est terminé, les dépendances. Signale les points du document qui te
+paraissent ambigus ou contradictoires. Ne crée aucun fichier pour l'instant.
+\end{Verbatim}
+
+Puis, après relecture et approbation du plan :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Réalise le module M2 du plan. Écris d'abord les tests, puis le code. Lance les
+tests et montre-moi le résultat, dont l'AUC de test. Ne touche à aucun autre module.
+\end{Verbatim}
+
+\subsubsection{Annexe C : commandes de lancement attendues à la
+fin}\label{annexe-c--commandes-de-lancement-attendues-uxe0-la-fin}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python scripts/generer_donnees.py && python scripts/entrainer_modele.py
+python scripts/creer_admin.py
+uvicorn app.main:app --port 8000
+\end{Verbatim}
+
+\subsubsection{Annexe D : ce que ce document ne dit pas
+volontairement}\label{annexe-d--ce-que-ce-document-ne-dit-pas-volontairement}
+
+Le \textbf{code} des modules M3 à M6, la structure exacte des tests et
+l\textquotesingle aspect visuel de la page. C\textquotesingle est le
+travail de Claude Code, et c\textquotesingle est ce que la démonstration
+cherche à observer.
+
+\end{document}

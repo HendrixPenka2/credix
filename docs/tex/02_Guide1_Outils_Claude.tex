@@ -1,0 +1,1189 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\documentclass[
+  french,
+  10pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 01_outils_claude.md.
+% Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
+%   pdflatex 02_Guide1_Outils_Claude.tex
+% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
+% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
+% par votre propre \includegraphics.
+\newcommand{\CredixShortTitle}{Guide 1 : outils Claude}
+% Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
+\usepackage[scaled=.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{pifont}
+\usepackage{amssymb}
+% Caractères Unicode utilisés dans les documents (pdfLaTeX ne les connaît pas d'office)
+\DeclareUnicodeCharacter{03C1}{\ensuremath{\rho}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2190}{\ensuremath{\leftarrow}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2713}{\ding{51}}
+\DeclareUnicodeCharacter{2714}{\ding{52}}
+\DeclareUnicodeCharacter{2717}{\ding{55}}
+\DeclareUnicodeCharacter{25B2}{\ensuremath{\blacktriangle}}
+\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
+\DeclareUnicodeCharacter{2500}{-}
+\DeclareUnicodeCharacter{2502}{|}
+\DeclareUnicodeCharacter{250C}{+}
+\DeclareUnicodeCharacter{2510}{+}
+\DeclareUnicodeCharacter{2514}{+}
+\DeclareUnicodeCharacter{2518}{+}
+\DeclareUnicodeCharacter{251C}{+}
+\DeclareUnicodeCharacter{2524}{+}
+\DeclareUnicodeCharacter{252C}{+}
+\DeclareUnicodeCharacter{2534}{+}
+\DeclareUnicodeCharacter{253C}{+}
+\DeclareUnicodeCharacter{0192}{\textit{f}}
+\DeclareUnicodeCharacter{2011}{-}
+\DeclareUnicodeCharacter{202F}{\,}
+\DeclareUnicodeCharacter{2009}{\,}
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{25A0}{\ensuremath{\blacksquare}}
+\DeclareUnicodeCharacter{2022}{\ensuremath{\bullet}}
+\DeclareUnicodeCharacter{2026}{\ldots}
+\DeclareUnicodeCharacter{2460}{\ding{172}}
+\DeclareUnicodeCharacter{2461}{\ding{173}}
+\DeclareUnicodeCharacter{2462}{\ding{174}}
+\DeclareUnicodeCharacter{2463}{\ding{175}}
+\DeclareUnicodeCharacter{2464}{\ding{176}}
+\DeclareUnicodeCharacter{2465}{\ding{177}}
+\DeclareUnicodeCharacter{2466}{\ding{178}}
+\DeclareUnicodeCharacter{2467}{\ding{179}}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\fvset{breaklines=true,breakanywhere=true}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\definecolor{credixblue}{HTML}{1F3A5F}
+\definecolor{credixgray}{HTML}{5F6B7A}
+\definecolor{boxbg}{HTML}{F3F5F8}
+\setlength{\emergencystretch}{4em}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist{itemsep=0.15em,topsep=0.3em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
+\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyfoot[C]{\small\color{credixgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\color{credixgray}\thepage}\renewcommand{\headrulewidth}{0pt}}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{credixblue}}{}{0em}{}[\vspace{-0.2em}\color{credixblue}\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{credixblue}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{credixblue}}{}{0em}{}
+% Cadre de repère pour une capture manquante
+\newcommand{\CaptureManquante}[2]{%
+  \begin{tcolorbox}[colback=boxbg,colframe=credixgray,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm,halign=center]
+  \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
+  \end{tcolorbox}}
+
+% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
+% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+\usepackage{graphicx}
+\newcommand{\CredixCapture}[2]{%
+  \IfFileExists{#2}{%
+    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
+  {\CaptureManquante{#1}{\detokenize{#2}}}}
+\newcommand{\CredixFigure}[1]{%
+  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Guide 1 : les outils Claude},
+  pdfauthor={SINGHE PENKA Hendrix Donavan},
+  pdflang={fr},
+  colorlinks=true,
+  linkcolor={credixblue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={credixblue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{3.2cm}
+{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
+\vspace{2.2cm}
+{\Huge\bfseries\color{credixblue} Guide 1 : les outils Claude\par}
+\vspace{0.8cm}
+{\Large Abonnements, sessions, mode Projet et Claude Code\par}
+\vspace{2cm}
+{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
+\vspace{1.2cm}
+{\large SINGHE PENKA Hendrix Donavan\par}
+{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\vfill
+{\color{credixgray}\small Version du 19/09/2026\par}
+\end{titlepage}
+
+
+\renewcommand*\contentsname{Table des matières}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Guide 1 : les outils Claude}\label{guide-1--les-outils-claude}
+
+\textbf{Abonnements, sessions, mode Projet et Claude Code dans VS Code :
+tout ce qu\textquotesingle il faut savoir pour commencer, même sans
+aucune expérience.}
+
+\begin{quote}
+\textbf{À propos des captures d\textquotesingle écran.} Ce guide
+contient des cadres « CAPTURE À INSÉRER », numérotés de 01-01 à 01-20.
+Chaque cadre indique ce qu\textquotesingle il faut montrer et le nom du
+fichier attendu, dans
+\texttt{docs/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}}. La
+liste complète est dans
+\texttt{docs/\allowbreak{}guides/\allowbreak{}CAPTURES\_\allowbreak{}A\_\allowbreak{}PRENDRE.\allowbreak{}md}.
+
+\textbf{À propos des prix et des menus.} Les prix et les noms de menus
+de Claude changent avec le temps. Ceux de ce guide ont été
+\textbf{vérifiés sur les pages officielles le 19 septembre 2026}
+(sources en section 10). En cas de doute, la page officielle des tarifs
+fait foi.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. À quoi sert ce guide}\label{1-uxe0-quoi-sert-ce-guide}
+
+Ce guide est le premier d\textquotesingle une série. Il répond à une
+question simple : \textbf{comment prendre en main Claude pour mener un
+vrai projet, comme la conception d\textquotesingle une application ?}
+
+À la fin de ce guide, vous saurez :
+
+\begin{itemize}
+\tightlist
+\item
+  choisir un \textbf{abonnement} adapté et savoir \textbf{ce
+  qu\textquotesingle il coûte} ;
+\item
+  comprendre le mécanisme de \textbf{session} et \textbf{surveiller
+  votre consommation} ;
+\item
+  travailler dans le \textbf{navigateur} (claude.ai), et surtout en
+  \textbf{mode Projet}, qui est bien plus adapté à un travail long
+  qu\textquotesingle un simple « nouveau chat » ;
+\item
+  \textbf{installer Claude Code dans VS Code},
+  l\textquotesingle assistant qui lit et modifie les fichiers de votre
+  projet ;
+\item
+  utiliser le \textbf{mode Plan}, qui fait d\textquotesingle abord
+  réfléchir Claude avant de toucher au moindre fichier.
+\end{itemize}
+
+Les guides suivants montrent comment ces outils ont servi à concevoir
+CREDIX (guide 2, la méthode) et comment rejouer la démarche sur un
+exemple réduit (guide 3, le MVP).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Ce qu\textquotesingle est
+Claude}\label{2-ce-quest-claude}
+
+\textbf{Claude} est un assistant d\textquotesingle intelligence
+artificielle développé par l\textquotesingle entreprise
+\textbf{Anthropic}. On le fait travailler en lui écrivant en langage
+courant, comme à un collègue. Il sait lire des documents, rédiger,
+analyser, programmer.
+
+On l\textquotesingle utilise de deux façons principales, complémentaires
+:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Outil
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce que c\textquotesingle est
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+On s\textquotesingle en sert pour
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Claude sur le web} (claude.ai) & Une page web de discussion,
+avec des conversations, des projets et l\textquotesingle envoi de
+fichiers & Réfléchir, cadrer le besoin, chercher dans la littérature,
+rédiger les documents de conception \\
+\textbf{Claude Code} & Un assistant de programmation qui travaille
+\textbf{directement dans vos dossiers} : il lit vos fichiers, les
+modifie, lance des commandes & Écrire, tester et corriger le code
+d\textquotesingle une application \\
+\end{longtable}
+
+Claude Code existe dans le terminal, dans \textbf{VS Code}
+(l\textquotesingle éditeur de code utilisé ici), dans les environnements
+JetBrains, en application de bureau et sur le web.
+
+\textbf{Règle d\textquotesingle or du travail avec Claude :}
+\emph{Claude propose, vous décidez.} Il peut se tromper : chaque
+décision importante doit être relue et validée par une personne.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Créer un compte et choisir un
+abonnement}\label{3-cruxe9er-un-compte-et-choisir-un-abonnement}
+
+\subsubsection{3.1 Créer un compte}\label{31-cruxe9er-un-compte}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ouvrez un navigateur et tapez \textbf{claude.ai} dans la barre
+  d\textquotesingle adresse.
+\item
+  Créez un compte avec votre adresse e-mail (ou un compte existant
+  proposé par la page) et confirmez-la.
+\item
+  Vous arrivez sur la page de discussion.
+\end{enumerate}
+
+\CredixCapture{Page d'accueil de claude.ai avant la connexion}{../images/guides/01-01_claude_ai_accueil.png}
+
+\emph{Figure 1. Page d\textquotesingle accueil de claude.ai.}
+
+\subsubsection{3.2 Les abonnements et leurs
+prix}\label{32-les-abonnements-et-leurs-prix}
+
+Un compte gratuit existe, mais un \textbf{abonnement payant} est
+nécessaire pour un vrai projet : il donne beaucoup plus
+d\textquotesingle usage, et il est \textbf{indispensable pour utiliser
+Claude Code} (avec, à défaut, un compte de développeur « Console »
+facturé à l\textquotesingle usage).
+
+Prix relevés sur les pages officielles le 19 septembre 2026 (en dollars
+américains, hors taxes) :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1750}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3975}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3975}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Abonnement
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pour qui
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Prix
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Gratuit} & Découvrir & 0 \$, usage limité \\
+\textbf{Pro} & \textbf{Usage personnel} (étudiant, indépendant) : le
+plus courant & \textbf{20 \$ par mois} (un tarif annuel, plus
+avantageux, existe) \\
+\textbf{Max} & Usage personnel intensif, notamment beaucoup de Claude
+Code & \textbf{100 \$ par mois} (« 5x » : cinq fois
+l\textquotesingle usage de Pro) ou \textbf{200 \$ par mois} (« 20x » :
+vingt fois) \\
+\textbf{Team} & Une \textbf{équipe} ou une petite entreprise (au moins 2
+membres) & Siège standard : \textbf{25 \$ par membre et par mois} (20 \$
+si facturé à l\textquotesingle année) ; siège premium : \textbf{125 \$}
+(100 \$ à l\textquotesingle année) \\
+\textbf{Enterprise} & Une \textbf{grande organisation} : sécurité et
+administration renforcées (connexion unique, journaux
+d\textquotesingle audit, etc.) & Non publics : le siège donne accès à la
+plateforme, et l\textquotesingle usage est facturé à part, aux tarifs de
+l\textquotesingle API. Achat en libre-service à partir de 20 sièges,
+avec un commercial à partir de 50. \\
+\end{longtable}
+
+\textbf{Lequel choisir ?}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Pour ce projet, un compte Pro suffit} pour commencer. Si vous
+  utilisez beaucoup Claude Code, vous atteindrez plus vite les limites
+  et Max peut devenir utile.
+\item
+  \textbf{Team} et \textbf{Enterprise} sont pensés pour le travail en
+  entreprise : partage de projets entre collègues, administration
+  centralisée.
+\end{itemize}
+
+\CredixCapture{Page officielle des abonnements de Claude}{../images/guides/01-02_claude_ai_tarifs.png}
+
+\emph{Figure 2. Page des abonnements (prix à vérifier au moment de
+l\textquotesingle achat).}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Comprendre les limites et les
+sessions}\label{4-comprendre-les-limites-et-les-sessions}
+
+C\textquotesingle est le point que les débutants comprennent le moins,
+et celui qui « bloque » le plus souvent. Il faut distinguer \textbf{deux
+limites} et \textbf{deux sens du mot « session »}.
+
+\subsubsection{4.1 Les deux limites}\label{41-les-deux-limites}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4100}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4100}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Limite
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce qu\textquotesingle elle mesure
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce qui se passe quand on l\textquotesingle atteint
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Limite d\textquotesingle usage} & Le « budget de conversation »
+sur une période : combien vous avez interagi avec Claude (sur claude.ai,
+dans Claude Code, dans l\textquotesingle application de bureau) & Il
+faut attendre la remise à zéro \\
+\textbf{Limite de longueur} & La taille de la « mémoire de travail » de
+Claude dans \textbf{une même conversation} (sa fenêtre de contexte) & Il
+faut ouvrir une nouvelle conversation, ou laisser Claude résumer les
+échanges anciens \\
+\end{longtable}
+
+\subsubsection{4.2 La « session d\textquotesingle usage » de 5
+heures}\label{42-la--session-dusage--de-5-heures}
+
+Sur les abonnements Pro et Max, l\textquotesingle usage se mesure par
+\textbf{sessions} :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{toutes les cinq heures}, votre limite de session est
+  \textbf{remise à zéro} ;
+\item
+  en plus, il existe une \textbf{limite hebdomadaire}, qui
+  s\textquotesingle applique à l\textquotesingle ensemble des modèles ;
+\item
+  ce qui compte n\textquotesingle est pas le nombre de messages mais
+  leur « poids » : la longueur du message, les fichiers joints, la
+  complexité de la réponse.
+\end{itemize}
+
+\textbf{Ce qui consomme le plus :} les conversations très longues, les
+nombreuses pièces jointes, la réflexion étendue,
+l\textquotesingle effort élevé, les connecteurs et la recherche sur le
+web. Claude Code, qui lit beaucoup de fichiers, consomme aussi vite.
+
+\subsubsection{4.3 Où surveiller sa
+consommation}\label{43-ouxf9-surveiller-sa-consommation}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cliquez sur \textbf{votre profil, en bas à gauche} de claude.ai.
+\item
+  Choisissez \textbf{Paramètres} (\emph{Settings}).
+\item
+  Ouvrez l\textquotesingle onglet \textbf{Utilisation} (\emph{Usage}) :
+  vous y voyez où vous en êtes dans la session en cours, dans la limite
+  hebdomadaire, et l\textquotesingle heure de la prochaine remise à
+  zéro.
+\end{enumerate}
+
+\CredixCapture{Menu du profil en bas à gauche}{../images/guides/01-03_menu_profil.png}
+
+\emph{Figure 3. Le menu du profil, en bas à gauche.}
+
+\CredixCapture{Page Paramètres, onglet Utilisation}{../images/guides/01-04_parametres_utilisation.png}
+
+\emph{Figure 4. L\textquotesingle onglet Utilisation : barres de la
+session en cours et de la limite hebdomadaire.}
+
+\subsubsection{4.4 Comment consommer
+moins}\label{44-comment-consommer-moins}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Une conversation par sujet.} Une conversation qui
+  s\textquotesingle allonge coûte de plus en plus cher : ouvrez-en une
+  nouvelle quand vous changez de sujet.
+\item
+  \textbf{Utilisez le mode Projet} (section 6) : les documents y sont
+  chargés une fois, sans les rejoindre à chaque message.
+\item
+  \textbf{Retirez les fichiers inutiles} d\textquotesingle un projet.
+\item
+  \textbf{Coupez les options non nécessaires} : réflexion étendue,
+  recherche web, connecteurs.
+\item
+  \textbf{Demandez des choses précises} plutôt que de faire refaire
+  plusieurs fois le même travail.
+\end{itemize}
+
+\subsubsection{4.5 Le deuxième sens de « session » : la session de
+travail}\label{45-le-deuxiuxe8me-sens-de--session---la-session-de-travail}
+
+Au-delà de la limite technique, on parle de \textbf{session de travail}
+: un moment de travail suivi (une demi-journée, par exemple) sur un
+objectif. C\textquotesingle est une notion de \textbf{méthode},
+expliquée dans le guide 2 :
+
+\begin{quote}
+\textbf{Les produits d\textquotesingle une session sont les entrées de
+la session suivante.} À la fin d\textquotesingle une session, on demande
+à Claude de produire un document de reprise (ce qui a été fait, décidé,
+ce qui reste). Ce document est déposé dans le projet et sert de point de
+départ à la session suivante.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Utiliser Claude dans le navigateur
+(claude.ai)}\label{5-utiliser-claude-dans-le-navigateur-claudeai}
+
+\subsubsection{5.1 Une première
+conversation}\label{51-une-premiuxe8re-conversation}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sur claude.ai, cliquez sur \textbf{Nouveau chat} (en haut à gauche).
+\item
+  Écrivez votre demande dans la zone de saisie en bas, puis validez.
+\item
+  Vous pouvez \textbf{joindre des fichiers} (documents PDF, texte,
+  images, tableaux) avec le bouton de pièce jointe.
+\end{enumerate}
+
+\CredixCapture{Une nouvelle conversation dans claude.ai}{../images/guides/01-05_nouveau_chat.png}
+
+\emph{Figure 5. Une conversation dans claude.ai.}
+
+\textbf{Exemples de demandes utiles :}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Explique-moi en termes simples la différence entre un score de crédit
+et une probabilité de défaut.
+\end{Verbatim}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Voici un article scientifique en PDF. Résume-le en dix lignes et dis-moi
+en quoi il concerne le choix d'une méthode de sélection de variables.
+\end{Verbatim}
+
+\subsubsection{5.2 Les trois outils de
+réflexion}\label{52-les-trois-outils-de-ruxe9flexion}
+
+Dans la zone de saisie, un menu d\textquotesingle outils permet
+d\textquotesingle activer des fonctions qui changent la façon dont
+Claude répond :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3912}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Outil
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quand l\textquotesingle utiliser
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+En bref
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Recherche sur le web} & Une question factuelle, une information
+récente & Claude fait une ou deux recherches et répond \\
+\textbf{Réflexion étendue} & Un raisonnement difficile, sans besoin
+d\textquotesingle Internet : mathématiques, déboguer du code, comparer
+des choix & Claude réfléchit plus longtemps avant de répondre \\
+\textbf{Recherche approfondie} (\emph{Research}) & Un vrai travail de
+recherche : état de l\textquotesingle art, comparaison de méthodes &
+Claude enchaîne au moins cinq recherches pendant une à trois minutes et
+rédige un \textbf{rapport avec des citations} vers ses sources \\
+\end{longtable}
+
+La recherche approfondie est \textbf{très utile pour la partie «
+littérature »} d\textquotesingle un projet (guide 2). Sa disponibilité
+dépend de votre abonnement et de votre pays : vérifiez dans le menu
+d\textquotesingle outils de votre compte.
+
+\CredixCapture{Menu d'outils de la zone de saisie}{../images/guides/01-06_outils_recherche.png}
+
+\emph{Figure 6. Les outils de la zone de saisie (recherche web,
+réflexion étendue, recherche approfondie).}
+
+\begin{quote}
+\textbf{Toujours vérifier les sources.} Même avec des citations, ouvrez
+les références importantes et vérifiez qu\textquotesingle elles disent
+bien ce que Claude rapporte. C\textquotesingle est une règle de rigueur
+pour tout travail académique.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Le mode Projet, indispensable pour un travail
+long}\label{6-le-mode-projet-indispensable-pour-un-travail-long}
+
+\subsubsection{6.1 Chat ou Projet ?}\label{61-chat-ou-projet-}
+
+Un \textbf{nouveau chat} est une conversation isolée : Claude ne connaît
+que ce qui s\textquotesingle y dit. Un \textbf{Projet} est un
+\textbf{espace de travail} qui regroupe plusieurs conversations et des
+documents partagés.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2125}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2525}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5050}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Nouveau chat
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Projet
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Documents & À rejoindre à chaque conversation & \textbf{Chargés une
+fois} dans la « base de connaissances » du projet, disponibles dans
+toutes ses conversations \\
+Consignes & À répéter & \textbf{Instructions du projet}, appliquées
+automatiquement à chaque conversation \\
+Mémoire entre conversations & Aucune & Les conversations partagent le
+même contexte documentaire \\
+Volume de documents & Limité à la conversation & Plus grand : sur les
+abonnements payants, quand le contenu s\textquotesingle approche de la
+limite, Claude passe en mode de recherche (RAG) et \textbf{peut
+multiplier par 10 la capacité} \\
+Travail d\textquotesingle équipe & Non & Partage possible (Team et
+Enterprise) : « Peut voir » ou « Peut modifier » \\
+Adapté à & Une question rapide & \textbf{Un projet qui dure plusieurs
+jours ou semaines} \\
+\end{longtable}
+
+Les projets sont disponibles pour tous les comptes, y compris gratuits
+(dans la limite de cinq projets).
+
+\subsubsection{6.2 Créer un projet, pas à
+pas}\label{62-cruxe9er-un-projet-pas-uxe0-pas}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Dans le menu de gauche de claude.ai, ouvrez \textbf{Projets}.
+\item
+  Cliquez sur \textbf{Nouveau projet}, donnez un \textbf{nom} (par
+  exemple « CREDIX »), puis une courte \textbf{description}.
+\item
+  Ouvrez les \textbf{instructions du projet} et rédigez les consignes
+  qui s\textquotesingle appliqueront à toutes les conversations.
+\item
+  Dans la base de connaissances, \textbf{ajoutez vos fichiers}.
+\item
+  Démarrez une conversation \textbf{à l\textquotesingle intérieur} du
+  projet.
+\end{enumerate}
+
+\CredixCapture{Liste des projets et bouton Nouveau projet}{../images/guides/01-07_liste_projets.png}
+
+\emph{Figure 7. La liste des projets.}
+
+\CredixCapture{Création d'un projet : nom et description}{../images/guides/01-08_creation_projet.png}
+
+\emph{Figure 8. Création d\textquotesingle un projet.}
+
+\subsubsection{6.3 Bien écrire les instructions du
+projet}\label{63-bien-uxe9crire-les-instructions-du-projet}
+
+Les instructions décrivent \textbf{qui est Claude dans ce projet et
+comment il doit travailler}. Exemple utilisé pour CREDIX, à adapter :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Tu es mon assistant de conception pour un mémoire d'ingénieur sur un système
+de scoring de crédit.
+
+Règles de travail :
+1. Tu proposes, je décide. Avant toute décision importante, tu présentes les
+   options, leurs avantages et leurs limites, puis tu attends mon accord.
+2. Aucun chiffre inventé : tout chiffre vient d'un document du projet ou d'un
+   calcul que je t'ai transmis. Sinon, tu dis que tu ne sais pas.
+3. Tu cites tes sources (auteur, année) et tu signales quand une référence
+   reste à vérifier.
+4. Tu réponds en français, en termes simples, en structurant avec des titres
+   et des listes.
+5. À la fin de chaque session, tu produis un document de reprise en Markdown :
+   ce qui a été fait, ce qui a été décidé, ce qui reste à faire.
+\end{Verbatim}
+
+\CredixCapture{Instructions du projet}{../images/guides/01-09_instructions_projet.png}
+
+\emph{Figure 9. Les instructions du projet.}
+
+\subsubsection{6.4 Que mettre dans la base de connaissances
+?}\label{64-que-mettre-dans-la-base-de-connaissances-}
+
+\begin{itemize}
+\tightlist
+\item
+  le \textbf{cahier des charges} et les documents de conception déjà
+  produits ;
+\item
+  les \textbf{articles scientifiques} (PDF) sur lesquels
+  s\textquotesingle appuient les choix ;
+\item
+  les \textbf{résultats} d\textquotesingle expériences (exports,
+  rapports) ;
+\item
+  les \textbf{documents de reprise} de chaque session précédente ;
+\item
+  le \textbf{journal de bord} et le \textbf{registre des décisions}
+  (voir guide 2).
+\end{itemize}
+
+Pour CREDIX, la première séance de travail a justement consisté à
+\textbf{faire l\textquotesingle inventaire des ressources du projet} et
+à rédiger les instructions du projet, avant de poser la moindre question
+de fond.
+
+\CredixCapture{Ajout de fichiers à la base de connaissances}{../images/guides/01-10_ajout_fichiers.png}
+
+\emph{Figure 10. Ajout de fichiers à la base de connaissances du
+projet.}
+
+\CredixCapture{Une conversation dans un projet}{../images/guides/01-11_conversation_projet.png}
+
+\emph{Figure 11. Une conversation à l\textquotesingle intérieur
+d\textquotesingle un projet : les documents du projet sont disponibles.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. Claude Code : installer et utiliser
+l\textquotesingle assistant dans VS
+Code}\label{7-claude-code--installer-et-utiliser-lassistant-dans-vs-code}
+
+\subsubsection{7.1 Ce que fait Claude
+Code}\label{71-ce-que-fait-claude-code}
+
+Claude Code est l\textquotesingle assistant qui \textbf{travaille dans
+votre projet} : il lit les fichiers, comprend
+l\textquotesingle organisation du code, propose et effectue des
+modifications, lance des commandes (tests, installation) et sait
+utiliser Git. Vous lui parlez en français, comme dans claude.ai, mais
+\textbf{il agit sur vos fichiers}.
+
+\subsubsection{7.2 Ce qu\textquotesingle il faut avant
+d\textquotesingle installer}\label{72-ce-quil-faut-avant-dinstaller}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{VS Code, version 1.94 ou plus} (menu \emph{Aide}, puis \emph{À
+  propos}, pour voir votre version) ;
+\item
+  un \textbf{abonnement Claude payant} (Pro, Max, Team ou Enterprise),
+  ou un compte développeur « Console » : aucune clé
+  d\textquotesingle API n\textquotesingle est nécessaire avec un
+  abonnement.
+\end{itemize}
+
+\subsubsection{7.3 Installer l\textquotesingle extension dans VS
+Code}\label{73-installer-lextension-dans-vs-code}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ouvrez \textbf{VS Code}.
+\item
+  Ouvrez la vue des \textbf{extensions} : cliquez sur
+  l\textquotesingle icône des extensions dans la barre latérale gauche,
+  ou tapez \texttt{Ctrl} + \texttt{Maj} + \texttt{X} (sur Mac :
+  \texttt{Cmd} + \texttt{Maj} + \texttt{X}).
+\item
+  Dans la barre de recherche, tapez \textbf{Claude Code}.
+\item
+  Repérez l\textquotesingle extension \textbf{officielle publiée par
+  Anthropic} (elle porte le \textbf{badge bleu de vérification}) et
+  cliquez sur \textbf{Installer}.
+\item
+  Si VS Code le demande, \textbf{redémarrez-le}.
+\end{enumerate}
+
+\CredixCapture{Recherche « Claude Code » dans les extensions de VS Code}{../images/guides/01-12_vscode_recherche_extension.png}
+
+\emph{Figure 12. Recherche de l\textquotesingle extension dans VS Code.}
+
+\CredixCapture{Page de l'extension officielle avec le bouton Installer}{../images/guides/01-13_vscode_installer.png}
+
+\emph{Figure 13. L\textquotesingle extension officielle (badge de
+vérification) et le bouton Installer.}
+
+\subsubsection{7.4 Ouvrir Claude Code et se
+connecter}\label{74-ouvrir-claude-code-et-se-connecter}
+
+Une fois installée, l\textquotesingle extension est signalée par une
+\textbf{icône en forme d\textquotesingle étincelle}. Trois façons de
+l\textquotesingle ouvrir :
+
+\begin{itemize}
+\tightlist
+\item
+  cliquer sur l\textquotesingle{}\textbf{icône
+  d\textquotesingle étincelle en haut à droite de
+  l\textquotesingle éditeur} (elle n\textquotesingle apparaît que
+  lorsqu\textquotesingle un fichier est ouvert) ;
+\item
+  cliquer sur l\textquotesingle{}\textbf{icône
+  d\textquotesingle étincelle dans la barre d\textquotesingle activité}
+  (barre latérale de gauche), qui ouvre la liste des sessions ;
+\item
+  ouvrir la \textbf{palette de commandes} (\texttt{Ctrl} + \texttt{Maj}
+  + \texttt{P}), taper « Claude Code » et choisir \textbf{Open in New
+  Tab} (raccourci : \texttt{Ctrl} + \texttt{Maj} + \texttt{Échap}).
+\end{itemize}
+
+Au premier lancement, l\textquotesingle extension demande de
+\textbf{vous connecter} : elle ouvre votre navigateur, vous acceptez, et
+vous revenez dans VS Code. Sélectionnez le compte lié à votre
+\textbf{abonnement Claude}.
+
+\CredixCapture{L'icône d'étincelle de Claude Code dans VS Code}{../images/guides/01-14_vscode_icone_etincelle.png}
+
+\emph{Figure 14. L\textquotesingle icône d\textquotesingle étincelle :
+barre d\textquotesingle outils de l\textquotesingle éditeur et barre
+d\textquotesingle activité.}
+
+\CredixCapture{Panneau Claude Code ouvert dans VS Code}{../images/guides/01-15_vscode_panneau_ouvert.png}
+
+\emph{Figure 15. Le panneau Claude Code, à sa première ouverture.}
+
+\CredixCapture{Fenêtre de connexion dans le navigateur}{../images/guides/01-16_connexion_navigateur.png}
+
+\emph{Figure 16. La connexion dans le navigateur.}
+
+\begin{quote}
+\textbf{Alternative en ligne de commande.} Claude Code
+s\textquotesingle installe aussi dans un terminal. Sous Linux, macOS ou
+WSL :
+\texttt{curl\ -fsSL\ https://claude.ai/install.sh\ \textbar{}\ bash}.
+Puis \texttt{claude\ -\/-version} vérifie
+l\textquotesingle installation, et la commande \texttt{claude}, tapée
+dans le dossier d\textquotesingle un projet, démarre
+l\textquotesingle assistant (connexion au premier lancement).
+\end{quote}
+
+\subsubsection{7.5 Première
+utilisation}\label{75-premiuxe8re-utilisation}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Ouvrez le dossier de votre projet} dans VS Code (menu
+  \emph{Fichier}, puis \emph{Ouvrir le dossier}).
+\item
+  Ouvrez Claude Code et posez une première question :
+\end{enumerate}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Que fait ce projet ? Explique-moi son organisation en quelques lignes.
+\end{Verbatim}
+
+Claude lit les fichiers dont il a besoin : vous n\textquotesingle avez
+pas à les lui fournir un par un. Vous pouvez aussi lui désigner un
+fichier précis avec le symbole \texttt{@} suivi du nom du fichier.
+
+\CredixCapture{Première question posée à Claude Code}{../images/guides/01-17_premiere_question.png}
+
+\emph{Figure 17. Une première question à Claude Code.}
+
+\textbf{Quelques commandes utiles}, à taper dans la zone de saisie :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2477}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7223}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Commande
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Effet
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{/help} & Affiche l\textquotesingle aide et les commandes
+disponibles \\
+\texttt{/clear} & Efface la conversation courante (repartir
+d\textquotesingle un contexte propre) \\
+\texttt{/resume} & Reprend une conversation précédente \\
+\texttt{/plan} devant une demande & Fait d\textquotesingle abord un
+plan, sans rien modifier (section 8) \\
+\texttt{/init} & Crée automatiquement un fichier \texttt{CLAUDE.md}
+décrivant le projet (voir ci-dessous) \\
+\end{longtable}
+
+\subsubsection{\texorpdfstring{7.6 Le fichier \texttt{CLAUDE.md} : la
+mémoire du
+projet}{7.6 Le fichier CLAUDE.md : la mémoire du projet}}\label{76-le-fichier-claudemd--la-muxe9moire-du-projet}
+
+Chaque nouvelle conversation de Claude Code démarre « à blanc ». Pour
+qu\textquotesingle il connaisse les règles de \textbf{votre} projet, on
+les écrit dans un fichier \textbf{\texttt{CLAUDE.md}}, placé à la racine
+du dossier : Claude le lit au début de chaque conversation.
+
+On y met, par exemple : les commandes pour lancer et tester le projet,
+les conventions de code, les décisions d\textquotesingle architecture,
+les interdits (« ne jamais modifier tel dossier »). La commande
+\texttt{/init} en produit une première version automatiquement, que
+l\textquotesingle on complète ensuite.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Les modes de Claude Code, dont le mode
+Plan}\label{8-les-modes-de-claude-code-dont-le-mode-plan}
+
+\subsubsection{8.1 Les modes de
+permission}\label{81-les-modes-de-permission}
+
+Claude Code peut lire, modifier des fichiers et lancer des commandes. Le
+\textbf{mode de permission} règle ce qu\textquotesingle il peut faire
+\textbf{sans vous demander}. On le change en cliquant sur
+l\textquotesingle{}\textbf{indicateur de mode}, en bas de la zone de
+saisie (dans le terminal : touches \texttt{Maj} + \texttt{Tab}).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4083}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2742}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Mode
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce qui s\textquotesingle exécute sans demander
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quand l\textquotesingle utiliser
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Manuel} (\emph{default}) & La lecture seulement : tout le reste
+demande votre accord & Travail sensible, on veut tout relire \\
+\textbf{Modifier automatiquement} (\emph{acceptEdits}) & Lecture,
+modification de fichiers et commandes simples (créer un dossier,
+copier\ldots) & On relit le code au fur et à mesure \\
+\textbf{Plan} (\emph{plan}) & Lecture seulement : Claude \textbf{explore
+et propose un plan, sans rien modifier} & \textbf{Avant de changer quoi
+que ce soit} \\
+\textbf{Auto} (\emph{auto}) & Presque tout, avec des vérifications de
+sécurité en arrière-plan & Longues tâches, moins
+d\textquotesingle interruptions \\
+\textbf{Contournement} (\emph{bypassPermissions}) & Tout, sans aucune
+vérification & \textbf{À éviter} (réservé à des machines isolées) \\
+\end{longtable}
+
+Sur les abonnements Pro, Max et Team, le mode de départ est
+\textbf{Auto}. Les libellés peuvent légèrement varier selon la version
+de l\textquotesingle extension.
+
+\CredixCapture{Indicateur de mode et liste des modes}{../images/guides/01-18_modes_permission.png}
+
+\emph{Figure 18. L\textquotesingle indicateur de mode, en bas de la zone
+de saisie.}
+
+\subsubsection{8.2 Le mode Plan : réfléchir avant
+d\textquotesingle agir}\label{82-le-mode-plan--ruxe9fluxe9chir-avant-dagir}
+
+En \textbf{mode Plan}, Claude Code \textbf{explore le projet et rédige
+un plan d\textquotesingle action, mais ne modifie rien}.
+C\textquotesingle est le mode à utiliser :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{au début d\textquotesingle un travail} : à partir
+  d\textquotesingle un document de conception, il produit la
+  \textbf{liste des tâches à réaliser} (la « TODO ») ;
+\item
+  \textbf{avant chaque ajout ou modification} d\textquotesingle un
+  module : on relit ce que Claude compte faire, on corrige, puis on
+  valide.
+\end{itemize}
+
+\textbf{Comment l\textquotesingle utiliser :}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Passez en mode \textbf{Plan} (indicateur de mode) ou commencez votre
+  demande par \texttt{/plan}.
+\item
+  Donnez votre demande. Par exemple : « Lis le document
+  docs/guides/03\_conception\_MVP.md et propose un plan de réalisation,
+  module par module. »
+\item
+  Claude explore, puis \textbf{présente son plan}. Dans VS Code, le plan
+  s\textquotesingle ouvre comme un \textbf{document Markdown} où vous
+  pouvez \textbf{ajouter des commentaires} pour demander des
+  corrections.
+\item
+  Quand le plan vous convient, \textbf{approuvez-le}. Trois réponses
+  sont proposées :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Oui, en mode Auto} : Claude passe à la réalisation avec un
+    minimum d\textquotesingle interruptions ;
+  \item
+    \textbf{Oui, en approuvant chaque modification à la main}
+    (recommandé au début) ;
+  \item
+    \textbf{Non, continuer à planifier} : on reste en mode Plan et on
+    précise ce qu\textquotesingle il faut changer.
+  \end{itemize}
+\end{enumerate}
+
+\CredixCapture{Un plan proposé par Claude Code en mode Plan}{../images/guides/01-19_mode_plan_document.png}
+
+\emph{Figure 19. Le plan affiché comme un document Markdown
+commentable.}
+
+\CredixCapture{Options d'approbation du plan}{../images/guides/01-20_mode_plan_approbation.png}
+
+\emph{Figure 20. Les options d\textquotesingle approbation du plan.}
+
+\begin{quote}
+\textbf{Règle pratique.} Un travail qui touche plusieurs fichiers
+commence \textbf{toujours} par un plan. C\textquotesingle est moins cher
+(pas de fausses pistes) et plus sûr (vous validez avant que le code
+change).
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Bonnes pratiques et
+précautions}\label{9-bonnes-pratiques-et-pruxe9cautions}
+
+\subsubsection{9.1 Bien demander}\label{91-bien-demander}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Soyez précis.} Au lieu de « corrige le bug », écrivez : «
+  corrige le bug où l\textquotesingle écran reste blanc après une erreur
+  de mot de passe ».
+\item
+  \textbf{Procédez par étapes.} Découpez un gros travail : une base de
+  données, puis les routes, puis l\textquotesingle écran.
+\item
+  \textbf{Faites explorer d\textquotesingle abord.} « Analyse la
+  structure de la base de données » avant « ajoute un tableau de bord ».
+\item
+  \textbf{Parlez comme à un collègue} : décrivez
+  l\textquotesingle objectif, pas seulement la tâche.
+\end{itemize}
+
+\subsubsection{9.2 Précautions}\label{92-pruxe9cautions}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ne collez jamais de secrets} (mots de passe, clés
+  d\textquotesingle API, contenu d\textquotesingle un fichier
+  \texttt{.env}) dans une conversation.
+\item
+  \textbf{Relisez les modifications} avant de les accepter (VS Code
+  montre les différences ligne par ligne).
+\item
+  \textbf{Travaillez sous Git} : chaque étape validée est enregistrée,
+  on peut revenir en arrière.
+\item
+  \textbf{Vérifiez ce qui compte} : chiffres, références, résultats de
+  tests. Claude peut se tromper, y compris avec assurance.
+\item
+  \textbf{Données réelles de clients} : ne les confiez pas à un outil
+  externe sans autorisation. CREDIX a été conçu sur un jeu de données
+  public pour cette raison.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{10. Glossaire et sources
+officielles}\label{10-glossaire-et-sources-officielles}
+
+\subsubsection{10.1 Glossaire}\label{101-glossaire}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2238}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7462}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Terme
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Explication simple
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Anthropic} & L\textquotesingle entreprise qui développe
+Claude \\
+\textbf{Abonnement} & Formule payante (Pro, Max, Team, Enterprise) qui
+donne accès à plus d\textquotesingle usage \\
+\textbf{Session (d\textquotesingle usage)} & Période de 5 heures au bout
+de laquelle la limite de session est remise à zéro \\
+\textbf{Session (de travail)} & Moment de travail suivi sur un objectif,
+qui se conclut par un document de reprise \\
+\textbf{Contexte} & Ce que Claude « a en mémoire » dans une
+conversation \\
+\textbf{Projet} & Espace de travail regroupant conversations,
+instructions et documents \\
+\textbf{Base de connaissances} & Les documents chargés dans un projet \\
+\textbf{RAG} & Technique où Claude cherche les passages utiles dans une
+grande masse de documents, au lieu de tout lire \\
+\textbf{Claude Code} & L\textquotesingle assistant de programmation qui
+travaille dans vos dossiers \\
+\textbf{Mode Plan} & Mode où Claude propose un plan sans rien
+modifier \\
+\textbf{CLAUDE.md} & Fichier de consignes permanentes
+d\textquotesingle un projet, lu à chaque conversation \\
+\textbf{Markdown (.md)} & Format de texte simple avec titres et listes ;
+c\textquotesingle est le format « naturel » de Claude \\
+\end{longtable}
+
+\subsubsection{10.2 Sources officielles (consultées le 19 septembre
+2026)}\label{102-sources-officielles-consultuxe9es-le-19-septembre-2026}
+
+\begin{itemize}
+\tightlist
+\item
+  Abonnement Pro :
+  \url{https://support.claude.com/en/articles/8325606-what-is-the-pro-plan}
+\item
+  Abonnement Max :
+  \url{https://support.claude.com/en/articles/11049741-what-is-the-max-plan}
+\item
+  Abonnement Team :
+  \url{https://support.claude.com/en/articles/9266767-what-is-the-team-plan}
+\item
+  Abonnement Enterprise :
+  \url{https://support.claude.com/en/articles/9797531-what-is-the-enterprise-plan}
+\item
+  Limites d\textquotesingle usage et de longueur :
+  \url{https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work}
+\item
+  Projets :
+  \url{https://support.claude.com/en/articles/9517075-what-are-projects}
+\item
+  Recherche web, réflexion étendue et recherche approfondie :
+  \url{https://support.claude.com/en/articles/11095361-when-should-i-use-web-search-extended-thinking-and-research}
+\item
+  Claude Code dans VS Code :
+  \url{https://code.claude.com/docs/en/vs-code}
+\item
+  Claude Code, démarrage rapide :
+  \url{https://code.claude.com/docs/en/quickstart}
+\item
+  Modes de permission (dont le mode Plan) :
+  \url{https://code.claude.com/docs/en/permission-modes}
+\item
+  Mémoire du projet (\texttt{CLAUDE.md}) :
+  \url{https://code.claude.com/docs/en/memory}
+\end{itemize}
+
+\end{document}

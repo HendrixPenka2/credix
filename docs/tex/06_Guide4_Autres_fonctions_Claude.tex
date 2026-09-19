@@ -1,0 +1,1105 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\documentclass[
+  french,
+  10pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 04_autres_fonctions_claude.md.
+% Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
+%   pdflatex 06_Guide4_Autres_fonctions_Claude.tex
+% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
+% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
+% par votre propre \includegraphics.
+\newcommand{\CredixShortTitle}{Guide 4 : autres fonctions}
+% Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
+\usepackage[scaled=.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{pifont}
+\usepackage{amssymb}
+% Caractères Unicode utilisés dans les documents (pdfLaTeX ne les connaît pas d'office)
+\DeclareUnicodeCharacter{03C1}{\ensuremath{\rho}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2190}{\ensuremath{\leftarrow}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2713}{\ding{51}}
+\DeclareUnicodeCharacter{2714}{\ding{52}}
+\DeclareUnicodeCharacter{2717}{\ding{55}}
+\DeclareUnicodeCharacter{25B2}{\ensuremath{\blacktriangle}}
+\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
+\DeclareUnicodeCharacter{2500}{-}
+\DeclareUnicodeCharacter{2502}{|}
+\DeclareUnicodeCharacter{250C}{+}
+\DeclareUnicodeCharacter{2510}{+}
+\DeclareUnicodeCharacter{2514}{+}
+\DeclareUnicodeCharacter{2518}{+}
+\DeclareUnicodeCharacter{251C}{+}
+\DeclareUnicodeCharacter{2524}{+}
+\DeclareUnicodeCharacter{252C}{+}
+\DeclareUnicodeCharacter{2534}{+}
+\DeclareUnicodeCharacter{253C}{+}
+\DeclareUnicodeCharacter{0192}{\textit{f}}
+\DeclareUnicodeCharacter{2011}{-}
+\DeclareUnicodeCharacter{202F}{\,}
+\DeclareUnicodeCharacter{2009}{\,}
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{25A0}{\ensuremath{\blacksquare}}
+\DeclareUnicodeCharacter{2022}{\ensuremath{\bullet}}
+\DeclareUnicodeCharacter{2026}{\ldots}
+\DeclareUnicodeCharacter{2460}{\ding{172}}
+\DeclareUnicodeCharacter{2461}{\ding{173}}
+\DeclareUnicodeCharacter{2462}{\ding{174}}
+\DeclareUnicodeCharacter{2463}{\ding{175}}
+\DeclareUnicodeCharacter{2464}{\ding{176}}
+\DeclareUnicodeCharacter{2465}{\ding{177}}
+\DeclareUnicodeCharacter{2466}{\ding{178}}
+\DeclareUnicodeCharacter{2467}{\ding{179}}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\fvset{breaklines=true,breakanywhere=true}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\definecolor{credixblue}{HTML}{1F3A5F}
+\definecolor{credixgray}{HTML}{5F6B7A}
+\definecolor{boxbg}{HTML}{F3F5F8}
+\setlength{\emergencystretch}{4em}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist{itemsep=0.15em,topsep=0.3em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
+\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyfoot[C]{\small\color{credixgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\color{credixgray}\thepage}\renewcommand{\headrulewidth}{0pt}}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{credixblue}}{}{0em}{}[\vspace{-0.2em}\color{credixblue}\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{credixblue}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{credixblue}}{}{0em}{}
+% Cadre de repère pour une capture manquante
+\newcommand{\CaptureManquante}[2]{%
+  \begin{tcolorbox}[colback=boxbg,colframe=credixgray,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm,halign=center]
+  \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
+  \end{tcolorbox}}
+
+% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
+% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+\usepackage{graphicx}
+\newcommand{\CredixCapture}[2]{%
+  \IfFileExists{#2}{%
+    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
+  {\CaptureManquante{#1}{\detokenize{#2}}}}
+\newcommand{\CredixFigure}[1]{%
+  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Guide 4 : autres fonctions de Claude},
+  pdfauthor={SINGHE PENKA Hendrix Donavan},
+  pdflang={fr},
+  colorlinks=true,
+  linkcolor={credixblue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={credixblue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{3.2cm}
+{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
+\vspace{2.2cm}
+{\Huge\bfseries\color{credixblue} Guide 4 : autres fonctions de Claude\par}
+\vspace{0.8cm}
+{\Large Fichiers Excel, Word, PowerPoint, Skills, artefacts, connecteurs\par}
+\vspace{2cm}
+{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
+\vspace{1.2cm}
+{\large SINGHE PENKA Hendrix Donavan\par}
+{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\vfill
+{\color{credixgray}\small Version du 19/09/2026\par}
+\end{titlepage}
+
+
+\renewcommand*\contentsname{Table des matières}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Guide 4 : les autres fonctions de
+Claude}\label{guide-4--les-autres-fonctions-de-claude}
+
+\textbf{Créer des fichiers Excel, Word, PowerPoint et PDF, transformer
+un PDF en présentation, utiliser les Skills, les artefacts et les
+connecteurs, et fabriquer soi-même les PDF de ce dossier.}
+
+\begin{quote}
+\textbf{À propos des captures d\textquotesingle écran.} Ce guide
+contient des cadres « CAPTURE À INSÉRER », numérotés de 04-01 à 04-06.
+Chaque cadre indique ce qu\textquotesingle il faut montrer et le nom du
+fichier attendu, dans
+\texttt{docs/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}}. La
+liste complète est dans
+\texttt{docs/\allowbreak{}guides/\allowbreak{}CAPTURES\_\allowbreak{}A\_\allowbreak{}PRENDRE.\allowbreak{}md}.
+
+\textbf{À propos des menus.} Les noms de menus de Claude changent avec
+le temps, et leur libellé français peut différer de
+l\textquotesingle anglais. Ceux de ce guide ont été \textbf{vérifiés sur
+les pages officielles le 19 septembre 2026} (sources en section 11).
+
+\textbf{Ce qui est vérifié, et ce qui ne l\textquotesingle est pas.} Les
+fonctions décrites (formats, limites, menus) viennent de la
+documentation officielle. Les \textbf{recettes} (sections 3 et 4) sont
+des façons de les utiliser : \textbf{essayez-les une fois avant de les
+présenter}, et relisez toujours le résultat.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. À quoi sert ce guide}\label{1-uxe0-quoi-sert-ce-guide}
+
+Les guides 1 à 3 montrent comment concevoir une application avec Claude.
+Ce guide, \textbf{à part}, répond à une autre question : \textbf{que
+sait faire Claude en dehors de la conception ?}
+
+Vous y trouverez :
+
+\begin{itemize}
+\tightlist
+\item
+  la création de \textbf{fichiers} (Excel, Word, PowerPoint, PDF)
+  directement dans une conversation ;
+\item
+  une recette complète pour \textbf{transformer un PDF en présentation
+  PowerPoint}, par exemple un mémoire en diaporama de soutenance ;
+\item
+  les \textbf{Skills}, qui apprennent à Claude vos consignes de travail
+  une fois pour toutes ;
+\item
+  les \textbf{artefacts} et les \textbf{connecteurs} (Google Drive,
+  GitHub, etc.) ;
+\item
+  ce que \textbf{Claude Code} sait faire en plus
+  d\textquotesingle écrire du code ;
+\item
+  la fabrication \textbf{sans intelligence artificielle} de PDF, de
+  documents Word et de présentations à partir de fichiers Markdown,
+  comme pour ce dossier.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Créer des fichiers avec
+Claude}\label{2-cruxe9er-des-fichiers-avec-claude}
+
+\subsubsection{2.1 Ce que Claude peut
+produire}\label{21-ce-que-claude-peut-produire}
+
+Claude peut \textbf{créer et modifier des fichiers} directement dans une
+conversation. Vous les téléchargez ensuite, ou vous les enregistrez dans
+Google Drive.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2153}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1625}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5922}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Type de fichier
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Extension
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Exemples d\textquotesingle usage
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Tableur Excel} & \texttt{.xlsx} & Un tableau de données trié, un
+budget, une analyse de résultats \\
+\textbf{Présentation PowerPoint} & \texttt{.pptx} & Un diaporama de
+soutenance, un support de formation \\
+\textbf{Document Word} & \texttt{.docx} & Un rapport, une lettre, un
+compte rendu \\
+\textbf{PDF} & \texttt{.pdf} & Un document figé prêt à envoyer \\
+\textbf{Image de graphique} & \texttt{.png} & Une courbe, un histogramme
+tracés à partir de vos données \\
+\textbf{Script Python} & \texttt{.py} & Un programme
+d\textquotesingle analyse que vous pouvez relancer \\
+\end{longtable}
+
+Cette fonction est disponible sur \textbf{tous les abonnements}
+(Gratuit, Pro, Max, Team, Enterprise), sur le site web,
+l\textquotesingle application de bureau et l\textquotesingle application
+mobile.
+
+\subsubsection{2.2 L\textquotesingle activer}\label{22-lactiver}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cliquez sur votre profil (en bas à gauche), puis \textbf{Paramètres}
+  (\emph{Settings}).
+\item
+  Ouvrez \textbf{Capacités} (\emph{Capabilities}).
+\item
+  Activez l\textquotesingle option \textbf{« Code execution and file
+  creation »} (exécution de code et création de fichiers).
+\end{enumerate}
+
+\CredixCapture{Paramètres, onglet Capacités : l'option de création de fichiers}{../images/guides/04-01_parametres_capacites.png}
+
+\emph{Figure 1. L\textquotesingle option « Code execution and file
+creation ».}
+
+Sur les abonnements d\textquotesingle équipe (Team, Enterprise),
+l\textquotesingle option est activée par défaut au niveau de
+l\textquotesingle organisation, et un propriétaire peut la désactiver.
+
+\subsubsection{2.3 Les limites à
+connaître}\label{23-les-limites-uxe0-connauxeetre}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5033}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Limite
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Valeur
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Taille d\textquotesingle un fichier créé ou téléchargé & \textbf{30 Mo}
+au maximum \\
+Fichiers envoyés dans une conversation & \textbf{20 fichiers} au maximum
+par conversation \\
+Taille d\textquotesingle un fichier envoyé dans une conversation & 500
+Mo au maximum ; \textbf{30 Mo} dans un projet \\
+PDF envoyé & \textbf{1 000 pages} au maximum \\
+Ce que Claude lit dans un PDF de \textbf{100 pages ou moins} & Le
+\textbf{texte et les éléments visuels} (images, graphiques) \\
+Ce que Claude lit dans un PDF de \textbf{101 à 1 000 pages} & Le
+\textbf{texte seulement} \\
+Formats de documents acceptés & PDF, DOCX, CSV, TXT, HTML, ODT, RTF,
+EPUB, JSON, XLSX \\
+Formats d\textquotesingle images acceptés & JPEG, PNG, GIF, WebP \\
+\end{longtable}
+
+\begin{quote}
+\textbf{Conséquence pratique.} Un mémoire de plus de 100 pages est lu
+\textbf{sans ses graphiques}. Si les schémas comptent, envoyez les
+chapitres séparément (moins de 100 pages chacun), ou ajoutez les images
+vous-même à la fin.
+\end{quote}
+
+\subsubsection{2.4 Un point de
+sécurité}\label{24-un-point-de-suxe9curituxe9}
+
+Quand Claude peut créer des fichiers, il exécute du code dans un
+environnement séparé. Deux précautions vous concernent :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Le partage public} d\textquotesingle une conversation qui
+  contient des fichiers créés est \textbf{désactivé} sur les abonnements
+  Gratuit, Pro et Max.
+\item
+  \textbf{L\textquotesingle accès à Internet} de cet environnement est
+  réglable. Une page web piégée pourrait, en théorie, pousser Claude à
+  envoyer vos données ailleurs : \textbf{n\textquotesingle envoyez pas
+  de documents confidentiels} sans avoir vérifié les réglages réseau.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Recette : transformer un PDF en présentation
+PowerPoint}\label{3-recette--transformer-un-pdf-en-pruxe9sentation-powerpoint}
+
+\textbf{Cas d\textquotesingle usage :} vous avez un rapport ou un
+mémoire en PDF, et vous voulez un diaporama de présentation. Ici, le
+mémoire de CREDIX devient le support de soutenance.
+
+\subsubsection{3.1 Étape par étape}\label{31-uxe9tape-par-uxe9tape}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Activez} la création de fichiers (section 2.2).
+\item
+  \textbf{Ouvrez une nouvelle conversation}, de préférence \textbf{dans
+  un Projet} (guide 1, section 6), où vous aurez déposé vos consignes.
+\item
+  \textbf{Joignez le PDF} avec le bouton de pièce jointe. Vérifiez sa
+  taille (moins de 30 Mo) et son nombre de pages (section 2.3).
+\item
+  \textbf{Collez le prompt} de la section 3.2 et complétez les crochets.
+\item
+  \textbf{Attendez le fichier} \texttt{.pptx} : Claude
+  l\textquotesingle affiche dans la conversation, avec un bouton pour le
+  télécharger.
+\item
+  \textbf{Téléchargez-le}, ouvrez-le (PowerPoint ou LibreOffice Impress)
+  et \textbf{relisez tout} (section 3.3).
+\item
+  \textbf{Demandez les corrections} dans la même conversation (section
+  3.4).
+\end{enumerate}
+
+\CredixCapture{Un PDF joint à une conversation}{../images/guides/04-02_pdf_joint.png}
+
+\emph{Figure 2. Le PDF joint à la conversation.}
+
+\subsubsection{3.2 Le prompt à copier}\label{32-le-prompt-uxe0-copier}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Voici mon mémoire en PDF. Crée une présentation PowerPoint (.pptx) de
+soutenance à partir de ce document.
+
+Contexte :
+- Public : [un jury de trois enseignants, non spécialistes du sujet]
+- Durée : [20] minutes, soit environ [15] diapositives
+- Langue : français
+
+Structure demandée :
+1. Titre et présentation
+2. Contexte et problème posé
+3. Objectifs
+4. Méthode
+5. Résultats principaux
+6. Limites
+7. Conclusion et perspectives
+8. Questions
+
+Règles à respecter :
+- Une idée par diapositive, un titre clair, cinq lignes au plus.
+- Aucun chiffre inventé : tout chiffre doit venir du PDF. Pour chacun,
+  indique la page du PDF dans les notes de la diapositive.
+- Ajoute des notes de présentation (ce que je dirai à l'oral).
+- Style sobre : fond clair, une couleur principale, texte lisible de loin.
+- À la fin, donne-moi la liste des diapositives avec leur titre, et
+  signale tout passage que tu n'as pas pu résumer fidèlement.
+\end{Verbatim}
+
+\subsubsection{3.3 Ce qu\textquotesingle il faut
+vérifier}\label{33-ce-quil-faut-vuxe9rifier}
+
+Claude peut se tromper, y compris avec assurance. Avant
+d\textquotesingle utiliser le diaporama :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2627}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7073}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Vérification
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Comment
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Les chiffres} & Comparez chaque chiffre de chaque diapositive
+avec le PDF (aide : les numéros de page dans les notes) \\
+\textbf{Le nombre de diapositives} & Correspond-il à la durée ? Comptez
+environ une diapositive par minute \\
+\textbf{Les graphiques et schémas} & Sont-ils repris, et lisibles ?
+Sinon, insérez vos images vous-même \\
+\textbf{Les mots} & Les noms de méthodes, de variables,
+d\textquotesingle auteurs sont-ils correctement écrits ? \\
+\textbf{La cohérence} & Le diaporama dit-il la même chose que le mémoire
+? Rien d\textquotesingle ajouté, rien de déformé ? \\
+\end{longtable}
+
+\CredixCapture{Le diaporama créé, ouvert dans PowerPoint ou LibreOffice}{../images/guides/04-03_resultat_pptx.png}
+
+\emph{Figure 3. Le fichier \texttt{.pptx} produit, ouvert pour
+relecture.}
+
+\subsubsection{3.4 Demander des
+corrections}\label{34-demander-des-corrections}
+
+Restez dans la \textbf{même conversation} : Claude garde le fichier en
+mémoire et le modifie.
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Réduis la présentation à 12 diapositives : fusionne le contexte et
+les objectifs, et supprime la diapositive sur les limites de la méthode.
+\end{Verbatim}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+La diapositive 6 est trop chargée : sépare-la en deux, avec un
+graphique par diapositive.
+\end{Verbatim}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Les notes de la diapositive 4 sont trop longues : garde trois phrases.
+\end{Verbatim}
+
+\subsubsection{3.5 Une variante sans intelligence
+artificielle}\label{35-une-variante-sans-intelligence-artificielle}
+
+Si vous avez une version \textbf{Markdown} de votre document (comme les
+guides de ce dossier), la commande \texttt{pandoc} fabrique un
+\texttt{.pptx} \textbf{sans rien changer au texte} (section 8.4). Le
+résultat est plus austère, mais \textbf{fidèle au mot près}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. D\textquotesingle autres recettes du même
+genre}\label{4-dautres-recettes-du-muxeame-genre}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1995}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3580}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2125}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Besoin
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fichier joint
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce que vous demandez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Résultat
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Mettre des données en tableau} & Un CSV ou un PDF contenant des
+tableaux & « Extrais les tableaux de ce PDF dans un fichier Excel, un
+onglet par tableau, et indique les cellules que tu as dû deviner. » &
+\texttt{.xlsx} \\
+\textbf{Analyser des résultats} & Un CSV de résultats & « Calcule les
+moyennes par groupe, trace un histogramme, et donne-moi le graphique en
+image. » & \texttt{.png} \\
+\textbf{Rédiger un compte rendu} & Vos notes de réunion en texte & «
+Rédige un compte rendu Word : décisions, actions, responsables,
+échéances. » & \texttt{.docx} \\
+\textbf{Résumer un article scientifique} & L\textquotesingle article en
+PDF & « Résume en 10 lignes, puis dis en quoi il concerne le choix
+d\textquotesingle une méthode de sélection de variables. » & Texte dans
+la conversation \\
+\textbf{Comparer deux documents} & Deux PDF & « Liste les différences de
+contenu entre ces deux versions, section par section. » & Tableau dans
+la conversation, ou \texttt{.xlsx} \\
+\textbf{Corriger un document Word} & Un \texttt{.docx} & « Corrige
+l\textquotesingle orthographe et les tournures, en gardant ma mise en
+forme. Liste tes modifications. » & \texttt{.docx} corrigé \\
+\end{longtable}
+
+\textbf{Règle commune :} demandez toujours à Claude de \textbf{signaler
+ce qu\textquotesingle il a deviné ou n\textquotesingle a pas pu lire}.
+C\textquotesingle est là que se cachent les erreurs.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Les Skills : apprendre à Claude votre façon de
+travailler}\label{5-les-skills--apprendre-uxe0-claude-votre-fauxe7on-de-travailler}
+
+\subsubsection{5.1 Ce que c\textquotesingle est}\label{51-ce-que-cest}
+
+Un \textbf{Skill} (« compétence ») est un \textbf{dossier
+d\textquotesingle instructions}, parfois accompagné de scripts, que
+Claude charge \textbf{uniquement quand la tâche le demande}. Il enseigne
+à Claude \emph{comment} faire une tâche précise, de façon répétable.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1552}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3259}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4889}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Projet
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Skill
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Nature} & Documents et consignes générales & Une
+\textbf{procédure} pour une tâche \\
+\textbf{Quand c\textquotesingle est utilisé} & Toujours, dans les
+conversations du projet & \textbf{Seulement} si la demande correspond \\
+\textbf{Exemple} & Le cahier des charges de CREDIX & « Comment rédiger
+un diagramme UML conforme à nos règles » \\
+\end{longtable}
+
+Il en existe de plusieurs sortes :
+
+\begin{itemize}
+\tightlist
+\item
+  les Skills \textbf{d\textquotesingle Anthropic} (création de fichiers
+  Excel, Word, PowerPoint, PDF), que Claude utilise
+  \textbf{automatiquement} ;
+\item
+  les Skills \textbf{personnels}, que vous écrivez (en Markdown : aucune
+  programmation nécessaire pour un Skill simple) ;
+\item
+  les Skills \textbf{d\textquotesingle organisation}, distribués par les
+  administrateurs d\textquotesingle une équipe ;
+\item
+  des Skills de \textbf{partenaires} (Notion, Figma, Atlassian, etc.).
+\end{itemize}
+
+Les Skills sont disponibles sur tous les abonnements, et demandent que
+l\textquotesingle option de création de fichiers soit activée (section
+2.2).
+
+\subsubsection{5.2 Où les trouver dans
+claude.ai}\label{52-ouxf9-les-trouver-dans-claudeai}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cliquez sur \textbf{Personnaliser} (\emph{Customize}) dans votre
+  compte.
+\item
+  Ouvrez \textbf{Skills}.
+\item
+  Cliquez sur \textbf{+}, puis \textbf{Parcourir les skills}
+  (\emph{Browse skills}) pour ouvrir l\textquotesingle annuaire.
+\end{enumerate}
+
+\CredixCapture{Menu Personnaliser, liste des Skills}{../images/guides/04-04_skills_annuaire.png}
+
+\emph{Figure 4. L\textquotesingle annuaire des Skills.}
+
+\subsubsection{5.3 Dans Claude Code : écrire son propre
+Skill}\label{53-dans-claude-code--uxe9crire-son-propre-skill}
+
+Un Skill est un dossier contenant un fichier \textbf{\texttt{SKILL.md}},
+qui commence par un en-tête (nom et description) puis contient les
+instructions.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4157}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5543}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Portée
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Emplacement
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Personnel} (tous vos projets) &
+\texttt{\textasciitilde{}/.claude/skills/\textless{}nom-du-skill\textgreater{}/SKILL.md} \\
+\textbf{Projet} (ce dépôt uniquement) &
+\texttt{.claude/skills/\textless{}nom-du-skill\textgreater{}/SKILL.md} \\
+\end{longtable}
+
+Exemple minimal, à placer dans
+\texttt{.\allowbreak{}claude/\allowbreak{}skills/\allowbreak{}relecture-\allowbreak{}conception/\allowbreak{}SKILL.\allowbreak{}md}
+:
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+---
+name: relecture-conception
+description: Relit un document de conception et signale les exigences sans critère de test, les ambiguïtés et les incohérences de vocabulaire.
+---
+
+Quand on te demande de relire un document de conception :
+
+1. Liste chaque exigence et indique si elle a un critère de test mesurable.
+2. Signale les termes utilisés avec deux sens différents.
+3. Ne réécris rien : propose des corrections sous forme de liste.
+4. Termine par les cinq problèmes les plus importants.
+\end{Verbatim}
+
+Le Skill se déclenche \textbf{de deux façons} :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{automatiquement}, quand votre demande correspond à sa
+  description (d\textquotesingle où l\textquotesingle importance
+  d\textquotesingle une description précise) ;
+\item
+  \textbf{manuellement}, en tapant
+  \texttt{/\allowbreak{}relecture-\allowbreak{}conception} dans Claude
+  Code.
+\end{itemize}
+
+\begin{quote}
+\textbf{Un exemple concret dans ce projet.} Un Skill « génie logiciel »
+regroupe les règles de rédaction des diagrammes UML (une association
+plutôt qu\textquotesingle un attribut, multiplicités aux deux
+extrémités, etc.). Il a servi à écrire les diagrammes du guide 3, sans
+qu\textquotesingle on ait à répéter ces règles à chaque conversation.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Les artefacts et les
+connecteurs}\label{6-les-artefacts-et-les-connecteurs}
+
+\subsubsection{6.1 Les artefacts}\label{61-les-artefacts}
+
+Un \textbf{artefact} est un contenu que Claude produit et qui
+\textbf{s\textquotesingle ouvre à côté de la conversation} : vous pouvez
+le modifier, y revenir et le partager par un lien.
+
+Il peut s\textquotesingle agir de : un \textbf{document} (Markdown ou
+texte), un \textbf{extrait de code}, une \textbf{page web}
+d\textquotesingle une seule page (HTML), une image \textbf{SVG}, un
+\textbf{schéma} ou un organigramme, un \textbf{composant interactif}.
+
+\begin{itemize}
+\tightlist
+\item
+  Pour modifier un artefact, demandez à Claude, ou, pour un document
+  Markdown, surlignez le passage, cliquez sur \textbf{Edit with Claude}
+  et écrivez votre demande.
+\item
+  En bas à droite de la fenêtre de l\textquotesingle artefact, vous
+  pouvez \textbf{voir le code}, \textbf{copier} le contenu ou
+  \textbf{télécharger} le fichier.
+\item
+  La fonction \textbf{Publier et partager} permet de partager un
+  artefact par un lien.
+\end{itemize}
+
+Les artefacts sont disponibles sur tous les abonnements. Des fonctions
+de présentation (Claude Slides) et de documents sont proposées,
+\textbf{en version bêta}, sur les abonnements payants.
+
+\CredixCapture{Un artefact ouvert à côté de la conversation}{../images/guides/04-05_artefact.png}
+
+\emph{Figure 5. Un artefact à côté de la conversation.}
+
+\subsubsection{6.2 Les connecteurs}\label{62-les-connecteurs}
+
+Un \textbf{connecteur} relie Claude à un \textbf{service extérieur} pour
+qu\textquotesingle il lise ou utilise vos données : Google Workspace
+(Gmail, Drive, Agenda), GitHub, Microsoft 365, etc. On peut aussi
+ajouter des connecteurs personnalisés.
+
+\textbf{Activation (abonnements Gratuit, Pro et Max) :}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ouvrez \textbf{Personnaliser}, puis \textbf{Connecteurs}
+  (\emph{Customize \textgreater{} Connectors}).
+\item
+  Ajoutez le connecteur voulu et autorisez l\textquotesingle accès quand
+  la page vous le demande.
+\item
+  Dans une conversation, cliquez sur le bouton \textbf{+}, puis
+  \textbf{Connecteurs}, pour l\textquotesingle activer pour cette
+  conversation.
+\end{enumerate}
+
+Sur les abonnements Team et Enterprise, un propriétaire ajoute
+d\textquotesingle abord les connecteurs dans \textbf{Paramètres de
+l\textquotesingle organisation}.
+
+\CredixCapture{Menu Connecteurs}{../images/guides/04-06_connecteurs.png}
+
+\emph{Figure 6. Le menu des connecteurs.}
+
+\begin{quote}
+\textbf{Prudence.} Ne connectez Claude qu\textquotesingle à des services
+\textbf{de confiance}. Un connecteur peut \textbf{lire, créer, modifier
+ou supprimer} des données. Lisez attentivement les autorisations
+demandées, et n\textquotesingle acceptez que celles dont vous avez
+besoin.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. Claude Code : au-delà de l\textquotesingle écriture de
+code}\label{7-claude-code--au-deluxe0-de-luxe9criture-de-code}
+
+Claude Code (guide 1, sections 7 et 8) sait faire plus que programmer.
+D\textquotesingle après la documentation officielle :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2071}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7629}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Fonction
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+À quoi elle sert
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{\texttt{CLAUDE.md}} & Fichier lu au début de chaque session :
+règles du projet, commandes, conventions \\
+\textbf{Skills} & Procédures réutilisables (\texttt{/nom-du-skill}),
+partageables avec l\textquotesingle équipe (section 5.3) \\
+\textbf{Hooks} & Commandes lancées automatiquement avant ou après une
+action de Claude (par exemple : reformater un fichier après chaque
+modification) \\
+\textbf{Sous-agents} & Plusieurs agents Claude qui travaillent en
+parallèle sur des parties différentes d\textquotesingle une tâche \\
+\textbf{MCP} & Connexion à des outils extérieurs (documents Google
+Drive, tickets Jira, Slack\ldots) \\
+\textbf{Git} & Enregistrer des modifications, créer des branches,
+rédiger les messages, ouvrir des demandes de fusion \\
+\textbf{Mode non interactif} & Lancer une seule demande depuis le
+terminal, par exemple \texttt{claude\ -p\ "ta\ demande"}, pour
+l\textquotesingle enchaîner avec d\textquotesingle autres commandes \\
+\textbf{Tâches planifiées} & Répéter une demande à intervalles
+réguliers \\
+\textbf{Autres surfaces} & Terminal, VS Code, JetBrains, application de
+bureau, navigateur (claude.ai/code) \\
+\end{longtable}
+
+\textbf{Une idée utile pour ce projet :} vous pouvez demander à Claude
+Code de \textbf{transformer un document} (par exemple, écrire un fichier
+\texttt{.pptx} ou \texttt{.docx} à partir d\textquotesingle un
+\texttt{.md}), puis de \textbf{relire ce qu\textquotesingle il a
+produit}. Comme pour tout ce qui précède, \textbf{relisez le résultat}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Fabriquer soi-même des PDF, Word et PowerPoint à partir
+de
+Markdown}\label{8-fabriquer-soi-muxeame-des-pdf-word-et-powerpoint-uxe0-partir-de-markdown}
+
+Tous les PDF de ce dossier sont fabriqués \textbf{sans intelligence
+artificielle}, à partir des fichiers Markdown, avec deux outils libres :
+\textbf{pandoc} (convertisseur de documents) et \textbf{LaTeX} (mise en
+page). Avantage : le texte est identique au mot près, et vous refaites
+le PDF en une commande dès que le \texttt{.md} change.
+
+\subsubsection{8.1 Installer les outils
+(Linux)}\label{81-installer-les-outils-linux}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+sudo apt update
+sudo apt install pandoc texlive-latex-recommended texlive-latex-extra \
+  texlive-fonts-recommended texlive-lang-french poppler-utils
+\end{Verbatim}
+
+Vérifiez :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+pandoc --version | head -1
+pdflatex --version | head -1
+\end{Verbatim}
+
+Chacune doit afficher un numéro de version. Le paquet
+\texttt{poppler-utils} fournit \texttt{pdfunite} (assembler des PDF) et
+\texttt{pdfinfo} (compter les pages).
+
+\subsubsection{8.2 Fabriquer un PDF et son fichier
+LaTeX}\label{82-fabriquer-un-pdf-et-son-fichier-latex}
+
+Depuis la racine du dépôt :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+docs/build/build_pdf.sh docs/guides/04_autres_fonctions_claude.md \
+  /tmp/exemple.pdf "Guide 4" "Autres fonctions de Claude"
+\end{Verbatim}
+
+Les quatre paramètres sont : le fichier Markdown, le PDF à produire, le
+titre de la page de garde, son sous-titre. Le script fait deux choses :
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  il convertit le Markdown en un fichier \textbf{LaTeX autonome}
+  (\texttt{/\allowbreak{}tmp/\allowbreak{}exemple.\allowbreak{}tex}),
+  avec la page de garde, la table des matières et les en-têtes ;
+\item
+  il \textbf{compile ce fichier} en PDF
+  (\texttt{/\allowbreak{}tmp/\allowbreak{}exemple.\allowbreak{}pdf}).
+\end{enumerate}
+
+Pour tout le dossier de remise, une seule commande refait les six PDF,
+leurs fichiers \texttt{.tex} (dans \texttt{docs/tex/}) et le PDF
+regroupé :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+docs/build/build_all.sh
+\end{Verbatim}
+
+Pour compter les pages d\textquotesingle un PDF :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+pdfinfo /tmp/exemple.pdf | grep Pages
+\end{Verbatim}
+
+\subsubsection{\texorpdfstring{8.3 Insérer des images dans le fichier
+\texttt{.tex}}{8.3 Insérer des images dans le fichier .tex}}\label{83-insuxe9rer-des-images-dans-le-fichier-tex}
+
+Les documents contiennent des cadres \textbf{« CAPTURE À INSÉRER »} aux
+endroits où une capture d\textquotesingle écran est attendue. Deux
+façons de les remplacer :
+
+\textbf{Façon 1, sans rien modifier (la plus simple).} Le cadre indique
+un nom de fichier, par exemple
+\texttt{.\allowbreak{}.\allowbreak{}/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}01-\allowbreak{}01\_\allowbreak{}claude\_\allowbreak{}ai\_\allowbreak{}accueil.\allowbreak{}png}.
+Déposez votre capture \textbf{sous ce nom exact} dans
+\texttt{docs/\allowbreak{}images/\allowbreak{}guides/\allowbreak{}},
+puis recompilez, deux fois, depuis \texttt{docs/tex/} :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+cd docs/tex
+pdflatex 02_Guide1_Outils_Claude.tex
+pdflatex 02_Guide1_Outils_Claude.tex
+\end{Verbatim}
+
+La capture apparaît à la place du cadre. La deuxième compilation met à
+jour la table des matières. Le PDF est créé à côté du \texttt{.tex}.
+
+\textbf{Façon 2, en modifiant le \texttt{.tex}.} Cherchez la ligne du
+cadre :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\CredixCapture{Page d'accueil de claude.ai}{../images/guides/01-01_claude_ai_accueil.png}
+\end{Verbatim}
+
+et remplacez-la par votre propre commande :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+\begin{center}
+  \includegraphics[width=\linewidth]{../images/guides/mon_image.png}
+\end{center}
+\end{Verbatim}
+
+\begin{quote}
+\textbf{Attention.} Le \texttt{.tex} est \textbf{fabriqué} à partir du
+Markdown : quand on relance
+\texttt{docs/\allowbreak{}build/\allowbreak{}build\_\allowbreak{}all.\allowbreak{}sh},
+il est \textbf{réécrit}, et les modifications faites directement dedans
+sont perdues. Choisissez donc une source : le Markdown (recommandé) ou
+le \texttt{.tex}. Le fichier
+\texttt{docs/\allowbreak{}tex/\allowbreak{}LISEZMOI.\allowbreak{}md}
+résume la marche à suivre.
+\end{quote}
+
+\subsubsection{8.4 Fabriquer un fichier Word ou
+PowerPoint}\label{84-fabriquer-un-fichier-word-ou-powerpoint}
+
+Depuis un fichier Markdown, \texttt{pandoc} produit directement :
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+pandoc -f gfm mon_document.md -o mon_document.docx
+pandoc -f gfm mon_document.md -o ma_presentation.pptx
+pandoc -f gfm mon_document.md -s -o ma_page.html
+\end{Verbatim}
+
+Vérifié sur un petit document d\textquotesingle essai : les trois
+commandes réussissent. Pour la présentation, \textbf{un titre de niveau
+1 (\texttt{\#}) donne la diapositive de titre, et chaque titre de niveau
+2 (\texttt{\#\#}) donne une diapositive}, dont le contenu est le texte
+placé dessous. Structurez donc votre Markdown en conséquence : peu de
+texte sous chaque titre \texttt{\#\#}.
+
+\subsubsection{8.5 Quand utiliser quoi ?}\label{85-quand-utiliser-quoi-}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6406}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3294}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Besoin
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Outil
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Un diaporama \textbf{rédigé et mis en forme} à partir
+d\textquotesingle un PDF, avec résumé et notes & \textbf{Claude}
+(section 3) \\
+Un diaporama, un Word ou un PDF \textbf{exactement fidèle} au texte
+d\textquotesingle un \texttt{.md} & \textbf{pandoc} (section 8) \\
+Un PDF soigné (page de garde, table des matières), et le fichier LaTeX
+pour y ajouter des images & \textbf{pandoc + LaTeX} (sections 8.2 et
+8.3) \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Quel outil pour quel besoin
+?}\label{9-quel-outil-pour-quel-besoin-}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4128}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3646}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1926}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Je veux\ldots{}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+J\textquotesingle utilise
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Où lire
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Réfléchir, cadrer un besoin, chercher dans la littérature & claude.ai,
+en mode \textbf{Projet} & Guide 1, sections 5 et 6 \\
+Concevoir une application, de A à Z & La \textbf{méthode} (Projet,
+sessions, documents, décisions) & Guide 2 \\
+Écrire, tester et corriger le code & \textbf{Claude Code}, en mode
+\textbf{Plan} & Guide 1, section 8 ; guide 3 \\
+Créer un Excel, un Word ou un PowerPoint & claude.ai avec
+\textbf{création de fichiers} & Sections 2 à 4 \\
+Que Claude applique toujours mes règles pour une tâche & Un
+\textbf{Skill} & Section 5 \\
+Que Claude lise mes documents Drive ou mon dépôt GitHub & Un
+\textbf{connecteur} & Section 6.2 \\
+Un PDF ou un document fidèle au mot près & \textbf{pandoc} & Section
+8 \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{10. Précautions}\label{10-pruxe9cautions}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Relisez tout.} Un fichier bien présenté n\textquotesingle est
+  pas forcément exact. Chiffres, noms et références se vérifient à la
+  main.
+\item
+  \textbf{Confidentialité.} Ne donnez à Claude ni mot de passe, ni clé
+  d\textquotesingle API, ni donnée personnelle de clients réels.
+  Vérifiez les réglages réseau si des fichiers sont créés (section 2.4).
+\item
+  \textbf{Connecteurs et Skills de tiers.} N\textquotesingle installez
+  que ceux dont la source est fiable : un Skill peut contenir des
+  scripts, un connecteur peut modifier vos données.
+\item
+  \textbf{Gardez la source.} Conservez toujours
+  l\textquotesingle original (le PDF, le Markdown) : le fichier produit
+  par Claude en est une \textbf{dérivation}, pas le remplacement.
+\item
+  \textbf{Fonctions en évolution.} Les menus, les limites et les
+  fonctions en version bêta changent : en cas de doute, la page
+  officielle fait foi.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{11. Sources officielles}\label{11-sources-officielles}
+
+Pages consultées le 19 septembre 2026 :
+
+\begin{itemize}
+\tightlist
+\item
+  Créer et modifier des fichiers avec Claude :
+  \url{https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude}
+\item
+  Envoyer des fichiers à Claude (limites, PDF) :
+  \url{https://support.claude.com/en/articles/8241126-upload-files-to-claude}
+\item
+  Qu\textquotesingle est-ce qu\textquotesingle un Skill :
+  \url{https://support.claude.com/en/articles/12512176-what-are-skills}
+\item
+  Skills dans Claude Code : \url{https://code.claude.com/docs/en/skills}
+\item
+  Artefacts :
+  \url{https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them}
+\item
+  Connecteurs personnalisés :
+  \url{https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp}
+\item
+  Claude Code, vue d\textquotesingle ensemble :
+  \url{https://code.claude.com/docs/en/overview}
+\end{itemize}
+
+\end{document}

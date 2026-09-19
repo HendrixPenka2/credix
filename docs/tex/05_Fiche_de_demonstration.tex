@@ -1,0 +1,762 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\documentclass[
+  french,
+  10pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 00_fiche_demo.md.
+% Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
+%   pdflatex 05_Fiche_de_demonstration.tex
+% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
+% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
+% par votre propre \includegraphics.
+\newcommand{\CredixShortTitle}{Fiche de démonstration}
+% Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
+\usepackage[scaled=.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{pifont}
+\usepackage{amssymb}
+% Caractères Unicode utilisés dans les documents (pdfLaTeX ne les connaît pas d'office)
+\DeclareUnicodeCharacter{03C1}{\ensuremath{\rho}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2190}{\ensuremath{\leftarrow}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2713}{\ding{51}}
+\DeclareUnicodeCharacter{2714}{\ding{52}}
+\DeclareUnicodeCharacter{2717}{\ding{55}}
+\DeclareUnicodeCharacter{25B2}{\ensuremath{\blacktriangle}}
+\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
+\DeclareUnicodeCharacter{2500}{-}
+\DeclareUnicodeCharacter{2502}{|}
+\DeclareUnicodeCharacter{250C}{+}
+\DeclareUnicodeCharacter{2510}{+}
+\DeclareUnicodeCharacter{2514}{+}
+\DeclareUnicodeCharacter{2518}{+}
+\DeclareUnicodeCharacter{251C}{+}
+\DeclareUnicodeCharacter{2524}{+}
+\DeclareUnicodeCharacter{252C}{+}
+\DeclareUnicodeCharacter{2534}{+}
+\DeclareUnicodeCharacter{253C}{+}
+\DeclareUnicodeCharacter{0192}{\textit{f}}
+\DeclareUnicodeCharacter{2011}{-}
+\DeclareUnicodeCharacter{202F}{\,}
+\DeclareUnicodeCharacter{2009}{\,}
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{25A0}{\ensuremath{\blacksquare}}
+\DeclareUnicodeCharacter{2022}{\ensuremath{\bullet}}
+\DeclareUnicodeCharacter{2026}{\ldots}
+\DeclareUnicodeCharacter{2460}{\ding{172}}
+\DeclareUnicodeCharacter{2461}{\ding{173}}
+\DeclareUnicodeCharacter{2462}{\ding{174}}
+\DeclareUnicodeCharacter{2463}{\ding{175}}
+\DeclareUnicodeCharacter{2464}{\ding{176}}
+\DeclareUnicodeCharacter{2465}{\ding{177}}
+\DeclareUnicodeCharacter{2466}{\ding{178}}
+\DeclareUnicodeCharacter{2467}{\ding{179}}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\fvset{breaklines=true,breakanywhere=true}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\definecolor{credixblue}{HTML}{1F3A5F}
+\definecolor{credixgray}{HTML}{5F6B7A}
+\definecolor{boxbg}{HTML}{F3F5F8}
+\setlength{\emergencystretch}{4em}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist{itemsep=0.15em,topsep=0.3em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
+\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyfoot[C]{\small\color{credixgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\color{credixgray}\thepage}\renewcommand{\headrulewidth}{0pt}}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{credixblue}}{}{0em}{}[\vspace{-0.2em}\color{credixblue}\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{credixblue}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{credixblue}}{}{0em}{}
+% Cadre de repère pour une capture manquante
+\newcommand{\CaptureManquante}[2]{%
+  \begin{tcolorbox}[colback=boxbg,colframe=credixgray,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm,halign=center]
+  \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
+  \end{tcolorbox}}
+
+% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
+% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+\usepackage{graphicx}
+\newcommand{\CredixCapture}[2]{%
+  \IfFileExists{#2}{%
+    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
+  {\CaptureManquante{#1}{\detokenize{#2}}}}
+\newcommand{\CredixFigure}[1]{%
+  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Fiche de démonstration},
+  pdfauthor={SINGHE PENKA Hendrix Donavan},
+  pdflang={fr},
+  colorlinks=true,
+  linkcolor={credixblue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={credixblue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{3.2cm}
+{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
+\vspace{2.2cm}
+{\Huge\bfseries\color{credixblue} Fiche de démonstration\par}
+\vspace{0.8cm}
+{\Large Déroulé de la séance avec l'encadrant\par}
+\vspace{2cm}
+{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
+\vspace{1.2cm}
+{\large SINGHE PENKA Hendrix Donavan\par}
+{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\vfill
+{\color{credixgray}\small Version du 19/09/2026\par}
+\end{titlepage}
+
+
+\renewcommand*\contentsname{Table des matières}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Fiche de démonstration}\label{fiche-de-duxe9monstration}
+
+\textbf{Déroulé de la séance avec l\textquotesingle encadrant : vérifier
+le projet, comprendre la méthode, tester la méthode sur un exemple.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. Objectifs et déroulé de la
+séance}\label{1-objectifs-et-duxe9rouluxe9-de-la-suxe9ance}
+
+L\textquotesingle encadrant veut vérifier \textbf{trois choses}, dans
+cet ordre :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3361}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3361}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1728}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Partie
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Question de l\textquotesingle encadrant
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce qu\textquotesingle on lui montre
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Document
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{1} & \emph{« Ce qui a été fait est-il bien sur Git,
+fonctionne-t-il et est-il utilisable ? »} & Le projet récupéré depuis
+GitHub, lancé et testé & README \\
+\textbf{2} & \emph{« Comment avez-vous procédé pour y arriver ? »} & La
+méthode de travail avec Claude, avec les vrais documents du projet &
+Guide 2 (et guide 1 pour les outils) \\
+\textbf{3} & \emph{« Cette méthode marche-t-elle vraiment ?
+Montrez-le-moi. »} & Une conception réduite (MVP) confiée à Claude Code,
+en direct & Guide 3 (MVP) \\
+\end{longtable}
+
+\textbf{Répartition indicative du temps} (à ajuster) : partie 1, environ
+15 minutes ; partie 2, environ 25 minutes ; partie 3, environ 40
+minutes.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Avant la séance : les préparatifs
+indispensables}\label{2-avant-la-suxe9ance--les-pruxe9paratifs-indispensables}
+
+\begin{quote}
+\textbf{Le point critique : la première installation est longue.} La
+construction des conteneurs Docker télécharge environ 700 Mo et a duré
+\textbf{environ 50 minutes} sur une connexion lente lors de nos essais.
+Elle ne doit \textbf{jamais} être lancée en direct pendant la séance.
+\textbf{Elle doit être faite avant.}
+\end{quote}
+
+\subsubsection{2.1 Accès au dépôt (à faire la
+veille)}\label{21-accuxe8s-au-duxe9puxf4t-uxe0-faire-la-veille}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Inviter l\textquotesingle encadrant} sur GitHub : ouvrir le
+  dépôt, puis \emph{Settings}, \emph{Collaborators}, \emph{Add people},
+  et saisir son nom d\textquotesingle utilisateur GitHub. Le dépôt est
+  \textbf{privé} : sans invitation acceptée, il ne peut pas le cloner.
+\item
+  Lui demander de \textbf{créer un jeton d\textquotesingle accès
+  personnel} (README, section 4.1) : sans lui, Git refuse le mot de
+  passe du compte.
+\item
+  Se rappeler qu\textquotesingle un collaborateur d\textquotesingle un
+  dépôt personnel peut \textbf{lire et modifier} le dépôt.
+\end{enumerate}
+
+\subsubsection{2.2 Ordinateur de l\textquotesingle encadrant (idéalement
+la veille)}\label{22-ordinateur-de-lencadrant-iduxe9alement-la-veille}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2071}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7629}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+À vérifier
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Minimum
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Système & Linux 64 bits \\
+Espace disque libre & 10 Go (la construction a besoin
+d\textquotesingle environ 4 Go de marge temporaire à la fin) \\
+Outils & Git, Docker et Docker Compose, Node.js 18.18 ou plus, curl,
+OpenSSL (README, section 3) \\
+Ports libres & 3001, 8080, 8001, 5000, 27017 \\
+\end{longtable}
+
+\textbf{Lancer, la veille, la première installation} en suivant le
+README (sections 4 à 6). Le README indique, à chaque étape, ce
+qu\textquotesingle il faut voir. Le lancement suivant ne prend
+qu\textquotesingle une minute environ.
+
+\subsubsection{2.3 Pour la partie 3 (Claude
+Code)}\label{23-pour-la-partie-3-claude-code}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{VS Code 1.94 ou plus} avec l\textquotesingle extension
+  \textbf{Claude Code} installée (guide 1, section 7) ;
+\item
+  un \textbf{abonnement Claude payant} (Pro au minimum) ou un compte
+  Console : sans lui, Claude Code ne démarre pas ;
+\item
+  \textbf{être connecté} dans l\textquotesingle extension avant la
+  séance ;
+\item
+  avoir \textbf{copié}
+  \texttt{docs/\allowbreak{}guides/\allowbreak{}03\_\allowbreak{}conception\_\allowbreak{}MVP.\allowbreak{}md}
+  dans un dossier de travail vide, sous le nom
+  \texttt{docs/\allowbreak{}conception\_\allowbreak{}mvp.\allowbreak{}md}.
+\end{itemize}
+
+\subsubsection{2.4 Côté auteur}\label{24-cuxf4tuxe9-auteur}
+
+\begin{itemize}
+\tightlist
+\item
+  Garder \textbf{votre propre pile en marche} (Docker et frontend) :
+  elle sert de \textbf{plan B} si l\textquotesingle installation de
+  l\textquotesingle encadrant n\textquotesingle est pas terminée.
+\item
+  Avoir sous la main : le lien du dépôt, le README en PDF, les guides en
+  PDF, le journal et les documents de passation du projet,
+  l\textquotesingle abonnement Claude.
+\item
+  Une connexion Internet stable.
+\end{itemize}
+
+\subsubsection{2.5 Plan B}\label{25-plan-b}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4354}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5346}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Problème
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Solution
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+L\textquotesingle installation de l\textquotesingle encadrant
+n\textquotesingle est pas terminée & Faire la partie 1 \textbf{sur votre
+machine} (partage d\textquotesingle écran), et laisser
+l\textquotesingle encadrant terminer son installation pendant les
+parties 2 et 3 \\
+Pas d\textquotesingle abonnement Claude disponible pour
+l\textquotesingle encadrant & Faire la partie 3 \textbf{sur votre
+compte} (partage d\textquotesingle écran), l\textquotesingle encadrant
+relit et dirige \\
+Claude Code est lent ou saturé (limite d\textquotesingle usage atteinte)
+& Vérifier votre consommation (guide 1, section 4.3) ; se limiter au
+plan et au module M2 \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Partie 1 : vérifier que le projet fonctionne depuis
+Git}\label{3-partie-1--vuxe9rifier-que-le-projet-fonctionne-depuis-git}
+
+\textbf{Objectif :} l\textquotesingle encadrant constate que ce qui est
+sur GitHub se lance et se teste.
+
+\subsubsection{3.1 Déroulé}\label{31-duxe9rouluxe9}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6646}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1804}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Étape
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Action
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Référence
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Cloner le projet & README, section 4.2 \\
+2 & Vérifier la copie : 16 fichiers de modèle & README, section 4.3 \\
+3 & Vérifier l\textquotesingle état du backend :
+\texttt{docker\ compose\ ps}, les logs, \texttt{/health} & README,
+section 5.3 \\
+4 & Premier lancement (administrateur et données de démonstration) &
+README, section 5.4 \\
+5 & Vérifier le frontend & README, section 6.4 \\
+6 & Parcours de test : connexion, création d\textquotesingle un agent,
+scoring de \texttt{HC-100001}, dossier en revue avec \texttt{HC-100241},
+journal d\textquotesingle audit & README, section 7 \\
+\end{longtable}
+
+\subsubsection{3.2 Ce que l\textquotesingle encadrant doit
+constater}\label{32-ce-que-lencadrant-doit-constater}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7450}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Contrôle
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Réussi si\ldots{}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Récupération & Le \texttt{git\ clone} réussit ; `ls
+scoring-backend/artefacts \\
+Backend & 4 conteneurs \texttt{Up}, l\textquotesingle API
+\texttt{healthy} ; \texttt{/health} : \texttt{"statut":"ok"}, 27
+variables, 27 phrases, \texttt{"mock\_mode":false} \\
+Frontend & La page de connexion s\textquotesingle affiche ; les trois
+espaces (Agent, Superviseur, Administrateur) sont accessibles \\
+Scoring & \texttt{HC-100001} : score 603, \texttt{ACCORDÉ} ;
+\texttt{HC-100241} : score 571, \texttt{EN\ REVUE} ; \texttt{HC-101327}
+: score 536, \texttt{REFUSÉ} \\
+Traçabilité & Le journal d\textquotesingle audit montre connexions,
+création de compte, scorings et décision du superviseur \\
+\end{longtable}
+
+\subsubsection{3.3 Si quelque chose ne marche
+pas}\label{33-si-quelque-chose-ne-marche-pas}
+
+Ne pas improviser : ouvrir la \textbf{section 10 du README} (dépannage),
+qui liste les symptômes et les solutions vérifiées. Les cas les plus
+probables sont un port déjà utilisé, un manque d\textquotesingle espace
+disque, et l\textquotesingle oubli de redémarrer l\textquotesingle API
+après le chargement des données.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Partie 2 : comprendre comment le projet a été
+conçu}\label{4-partie-2--comprendre-comment-le-projet-a-uxe9tuxe9-conuxe7u}
+
+\textbf{Objectif :} l\textquotesingle encadrant comprend la
+\textbf{méthode}, pas seulement le résultat. On s\textquotesingle appuie
+sur le \textbf{guide 2}.
+
+\subsubsection{4.1 Les cinq messages à faire
+passer}\label{41-les-cinq-messages-uxe0-faire-passer}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4412}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+N°
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Message
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Preuve à montrer
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{1} & On \textbf{conçoit avant de coder}, et on écrit tout en
+Markdown & Le cahier des charges et la conception ; le README
+lui-même \\
+\textbf{2} & \textbf{Claude propose, l\textquotesingle humain décide} :
+aucun livrable sans accord explicite & Les instructions du projet
+(section 5, workflow de collaboration) \\
+\textbf{3} & Le projet tient sur des \textbf{sessions}, grâce à des
+documents : instructions, journal, passations, registre des décisions &
+Le prompt de démarrage de session, le rapport de passation, le
+journal \\
+\textbf{4} & Chaque \textbf{choix} est justifié et classé par
+\textbf{niveau de preuve} & L\textquotesingle exemple du WoE (guide 2,
+section 8) \\
+\textbf{5} & Claude \textbf{se trompe} ; la méthode permet de \textbf{le
+voir} & Le tableau des erreurs réelles (guide 2, section 14) \\
+\end{longtable}
+
+\subsubsection{4.2 Les fichiers à ouvrir pendant la
+présentation}\label{42-les-fichiers-uxe0-ouvrir-pendant-la-pruxe9sentation}
+
+\begin{itemize}
+\tightlist
+\item
+  les \textbf{instructions du projet} Claude (six sections) ;
+\item
+  un \textbf{prompt de démarrage de session} et un \textbf{rapport de
+  passation} ;
+\item
+  le \textbf{journal de bord} et le \textbf{journal de rédaction}
+  (règles actées, pièges) ;
+\item
+  le \textbf{registre des décisions méthodologiques} ;
+\item
+  le fichier \texttt{scanner.sh} et l\textquotesingle instantané de
+  contexte qu\textquotesingle il produit.
+\end{itemize}
+
+\subsubsection{4.3 La démonstration des
+outils}\label{43-la-duxe9monstration-des-outils}
+
+Montrer, dans l\textquotesingle ordre : le \textbf{Projet} claude.ai
+(instructions, base de connaissances) ; la page \textbf{Utilisation}
+(limites de session) ; \textbf{Claude Code} dans VS Code et son
+\textbf{mode Plan} (guide 1).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Partie 3 : tester la méthode sur le
+MVP}\label{5-partie-3--tester-la-muxe9thode-sur-le-mvp}
+
+\textbf{Objectif :} montrer que la méthode \textbf{fonctionne sur un cas
+qu\textquotesingle on ne connaît pas}. L\textquotesingle encadrant
+regarde, ou fait lui-même, ce qui suit. On s\textquotesingle appuie sur
+le \textbf{guide 3}.
+
+\subsubsection{5.1 Protocole pas à pas}\label{51-protocole-pas-uxe0-pas}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6632}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1818}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Étape
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Action
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Durée indicative
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{1} & Créer un dossier vide \texttt{demo\_mvp},
+l\textquotesingle ouvrir dans VS Code & 1 min \\
+\textbf{2} & Y copier
+\texttt{03\_\allowbreak{}conception\_\allowbreak{}MVP.\allowbreak{}md}
+sous
+\texttt{docs/\allowbreak{}conception\_\allowbreak{}mvp.\allowbreak{}md}
+& 1 min \\
+\textbf{3} & Ouvrir Claude Code, \textbf{passer en mode Plan}
+(indicateur de mode) & 1 min \\
+\textbf{4} & Donner le \textbf{prompt de l\textquotesingle annexe B} du
+guide 3 & 1 min \\
+\textbf{5} & \textbf{Lire le plan} proposé et le juger avec la grille
+ci-dessous & 5 à 10 min \\
+\textbf{6} & Corriger si besoin (commentaires dans le plan), puis
+\textbf{approuver} & 5 min \\
+\textbf{7} & Demander la réalisation du \textbf{module M2} (données et
+modèle) & 5 à 10 min \\
+\textbf{8} & Vérifier le résultat : l\textquotesingle AUC de test et la
+reproductibilité & 3 min \\
+\end{longtable}
+
+\subsubsection{5.2 Grille d\textquotesingle évaluation du plan (étape
+5)}\label{52-grille-duxe9valuation-du-plan-uxe9tape-5}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8595}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1105}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Question
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Oui / Non
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Le plan couvre-t-il les six modules (socle, données et modèle, service
+de scoring, sécurité, API, interface) ? & \\
+Les modules sont-ils \textbf{ordonnés} selon leurs dépendances (M1, puis
+M2, puis M3\ldots) ? & \\
+Chaque module a-t-il ses \textbf{fichiers}, ses \textbf{tests} et son
+\textbf{critère de fin} ? & \\
+Le plan \textbf{reprend-il les exigences} (EF et ENF) du document, sans
+en inventer ? & \\
+Signale-t-il des \textbf{ambiguïtés} du document ? (un bon signe) & \\
+\textbf{Ne crée-t-il aucun fichier} à ce stade (mode Plan) ? & \\
+\end{longtable}
+
+\subsubsection{5.3 Critères de succès du module
+M2}\label{53-crituxe8res-de-succuxe8s-du-module-m2}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4261}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5439}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Vérification
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Attendu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Le script de génération produit 3 000 clients & Fichier
+\texttt{clients\_\allowbreak{}synthetiques.\allowbreak{}csv} de 3 000
+lignes \\
+L\textquotesingle AUC de test affichée & \textbf{Au moins 0,70} (environ
+0,75 avec les données de l\textquotesingle annexe A) \\
+Deux exécutions successives & Mêmes coefficients à la troisième
+décimale \\
+Les tests du module & Ils passent \\
+\end{longtable}
+
+\subsubsection{5.4 Si le plan ou le module n\textquotesingle est pas
+satisfaisant}\label{54-si-le-plan-ou-le-module-nest-pas-satisfaisant}
+
+C\textquotesingle est \textbf{normal et instructif} :
+c\textquotesingle est ce que la méthode est censée révéler.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Identifier ce qui manque} dans le plan (un module oublié, un
+  ordre incohérent).
+\item
+  \textbf{Le dire à Claude} en mode Plan (« il manque \ldots{} », « M3
+  dépend de M2 »), ou par commentaire dans le plan.
+\item
+  Si le document lui-même est ambigu, \textbf{le corriger} : la
+  conception est la source de vérité.
+\item
+  \textbf{Recommencer le plan}, puis approuver.
+\end{enumerate}
+
+\subsubsection{5.5 Ce que la séance ne cherche pas à
+prouver}\label{55-ce-que-la-suxe9ance-ne-cherche-pas-uxe0-prouver}
+
+Que Claude écrit un système parfait en une passe. Elle cherche à prouver
+que \textbf{la méthode (conception écrite, mode Plan, un module à la
+fois, tests)} donne un travail \textbf{vérifiable et reprenable}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Questions probables et éléments de
+réponse}\label{6-questions-probables-et-uxe9luxe9ments-de-ruxe9ponse}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4134}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5566}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Question de l\textquotesingle encadrant
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Éléments de réponse
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\emph{Pourquoi concevoir avant de coder ?} & Une conception écrite est
+relisible et corrigeable à coût presque nul ; du code écrit sans
+conception cache ses erreurs. La conception est aussi la \textbf{source
+de vérité} que Claude Code lit. \\
+\emph{Comment savez-vous que Claude ne s\textquotesingle est pas trompé
+?} & On \textbf{ne le croit pas sur parole} : chiffres vérifiés contre
+l\textquotesingle exécution réelle, tests, relecture, registre des
+décisions. Des erreurs réelles ont été trouvées ainsi (guide 2, section
+14). \\
+\emph{Que vaut la littérature apportée par Claude ?} & Elle est
+\textbf{un point de départ}. Chaque référence importante est vérifiée,
+et les incertaines restent marquées « à vérifier ». \\
+\emph{Peut-on refaire la démarche sur un autre sujet ?} & Oui : le guide
+2 donne les prompts, les modèles de documents et le cycle de session. Le
+MVP en est un exemple complet. \\
+\emph{Combien cela coûte-t-il ?} & Un abonnement Pro à 20 \$ par mois
+suffit pour commencer ; Max (100 ou 200 \$) si l\textquotesingle usage
+de Claude Code est intensif (guide 1, section 3). Prix vérifiés le 19
+septembre 2026. \\
+\emph{Et la confidentialité des données ?} & CREDIX a été conçu sur un
+\textbf{jeu de données public} (Home Credit), sans données de clients
+réels. Ne jamais confier de données réelles ni de secrets à un outil
+externe sans autorisation. \\
+\emph{Que fait CREDIX que le MVP ne fait pas ?} & Deux flux (score et
+détection des profils atypiques), WoE, calibration, indice de couverture
+ρc, trois rôles, base documentaire, PDF (guide 3, section 13). \\
+\emph{Peut-on modifier le projet ?} & Oui : README, section 9 (Git), et
+méthode du guide 2, section 13 (toujours en mode Plan). \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. Liste de contrôle de la
+séance}\label{7-liste-de-contruxf4le-de-la-suxe9ance}
+
+\subsubsection{La veille}\label{la-veille}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  L\textquotesingle encadrant est \textbf{invité} sur le dépôt et a
+  accepté l\textquotesingle invitation
+\item[$\square$]
+  Il a créé son \textbf{jeton d\textquotesingle accès}
+\item[$\square$]
+  Sa \textbf{première installation} est lancée, ou terminée
+  (\texttt{docker\ compose\ ps} : 4 conteneurs, API \texttt{healthy})
+\item[$\square$]
+  VS Code, l\textquotesingle extension Claude Code et
+  l\textquotesingle abonnement sont prêts
+\item[$\square$]
+  Votre propre pile fonctionne (plan B)
+\item[$\square$]
+  Espace disque suffisant (au moins 10 Go libres) des deux côtés
+\end{itemize}
+
+\subsubsection{Pendant la séance}\label{pendant-la-suxe9ance}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Partie 1 : \texttt{git\ clone}, \texttt{/health}, connexion, un
+  scoring
+\item[$\square$]
+  Partie 2 : les cinq messages, les vrais documents du projet
+\item[$\square$]
+  Partie 3 : plan en mode Plan, grille d\textquotesingle évaluation,
+  module M2
+\end{itemize}
+
+\subsubsection{Après la séance}\label{apruxe8s-la-suxe9ance}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Noter les remarques et corrections de l\textquotesingle encadrant
+\item[$\square$]
+  Mettre à jour les documents concernés (le \texttt{.md} est la source ;
+  le \texttt{.tex} et le PDF se régénèrent avec
+  \texttt{docs/\allowbreak{}build/\allowbreak{}build\_\allowbreak{}all.\allowbreak{}sh})
+\item[$\square$]
+  Enregistrer et envoyer les modifications avec Git (README, section 9)
+\end{itemize}
+
+\end{document}

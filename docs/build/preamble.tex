@@ -75,3 +75,13 @@
   \begin{tcolorbox}[colback=boxbg,colframe=credixgray,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm,halign=center]
   \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
   \end{tcolorbox}}
+
+% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
+% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+\usepackage{graphicx}
+\newcommand{\CredixCapture}[2]{%
+  \IfFileExists{#2}{%
+    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
+  {\CaptureManquante{#1}{\detokenize{#2}}}}
+\newcommand{\CredixFigure}[1]{%
+  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}

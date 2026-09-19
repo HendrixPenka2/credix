@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Fabrique tous les PDF du dossier de remise, puis le PDF regroupé.
 # Usage (depuis la racine du dépôt) : docs/build/build_all.sh
+# Pour chaque document : le .tex (docs/tex/) puis le PDF (docs/pdf/). Le PDF est compilé depuis le .tex.
 # Les schémas Mermaid du guide 3 sont déjà fabriqués (docs/images/mermaid/) : ils ne sont pas refaits ici.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -52,14 +53,14 @@ gen_sommaire() {  # $1 = nombre de pages du sommaire (décalage)
     echo
     echo "## Les sources"
     echo
-    echo "Les documents sont écrits en Markdown (dossier \`docs/guides/\`) et fabriqués en PDF avec \`docs/build/build_all.sh\`. Le Markdown est la source : si vous corrigez un texte, refaites les PDF."
+    echo "Chaque document existe en trois formats : Markdown (\`docs/guides/\`, la source), LaTeX (\`docs/tex/\`, pour ajouter des images ou changer la mise en page) et PDF (\`docs/pdf/\`). \`docs/build/build_all.sh\` refait les .tex et les PDF."
   } > "$TMPD/sommaire.md"
 }
 gen_sommaire 0
-NOTOC=1 "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Projet CREDIX : README et guides" "Dossier de remise" >/dev/null
+NOTOC=1 TEXDIR="$TMPD/tex" "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Projet CREDIX : README et guides" "Dossier de remise" >/dev/null
 NS=$(pdfinfo "$TMPD/sommaire.pdf" | awk '/^Pages:/{print $2}')
 gen_sommaire "$NS"
-NOTOC=1 "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Projet CREDIX : README et guides" "Dossier de remise" >/dev/null
+NOTOC=1 TEXDIR="$TMPD/tex" "$B" "$TMPD/sommaire.md" "$TMPD/sommaire.pdf" "Dossier de remise" "Projet CREDIX : README et guides" "Dossier de remise" >/dev/null
 pdfunite "$TMPD/sommaire.pdf" "${DOCS[@]}" "$P/00_Dossier_de_remise.pdf"
 echo "PDF regroupé : $P/00_Dossier_de_remise.pdf ($(pdfinfo "$P/00_Dossier_de_remise.pdf" | awk '/^Pages:/{print $2}') pages)"
 echo

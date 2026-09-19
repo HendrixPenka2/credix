@@ -1,0 +1,1546 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\documentclass[
+  french,
+  10pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Fichier LaTeX généré par docs/build/build_pdf.sh à partir de 02_methode_conception.md.
+% Compilation (depuis le dossier de ce fichier), deux fois pour la table des matières :
+%   pdflatex 03_Guide2_Methode_de_conception.tex
+% Pour insérer une capture : déposez le fichier PNG au nom indiqué dans le cadre « CAPTURE À INSÉRER »
+% (dossier ../images/...), puis recompilez. Vous pouvez aussi remplacer la commande \CredixCapture{...}{...}
+% par votre propre \includegraphics.
+\newcommand{\CredixShortTitle}{Guide 2 : méthode}
+% Préambule commun aux PDF du dossier de remise CREDIX (compilé avec pdfLaTeX via pandoc)
+\usepackage[scaled=.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{pifont}
+\usepackage{amssymb}
+% Caractères Unicode utilisés dans les documents (pdfLaTeX ne les connaît pas d'office)
+\DeclareUnicodeCharacter{03C1}{\ensuremath{\rho}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2190}{\ensuremath{\leftarrow}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2713}{\ding{51}}
+\DeclareUnicodeCharacter{2714}{\ding{52}}
+\DeclareUnicodeCharacter{2717}{\ding{55}}
+\DeclareUnicodeCharacter{25B2}{\ensuremath{\blacktriangle}}
+\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
+\DeclareUnicodeCharacter{2500}{-}
+\DeclareUnicodeCharacter{2502}{|}
+\DeclareUnicodeCharacter{250C}{+}
+\DeclareUnicodeCharacter{2510}{+}
+\DeclareUnicodeCharacter{2514}{+}
+\DeclareUnicodeCharacter{2518}{+}
+\DeclareUnicodeCharacter{251C}{+}
+\DeclareUnicodeCharacter{2524}{+}
+\DeclareUnicodeCharacter{252C}{+}
+\DeclareUnicodeCharacter{2534}{+}
+\DeclareUnicodeCharacter{253C}{+}
+\DeclareUnicodeCharacter{0192}{\textit{f}}
+\DeclareUnicodeCharacter{2011}{-}
+\DeclareUnicodeCharacter{202F}{\,}
+\DeclareUnicodeCharacter{2009}{\,}
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{25A0}{\ensuremath{\blacksquare}}
+\DeclareUnicodeCharacter{2022}{\ensuremath{\bullet}}
+\DeclareUnicodeCharacter{2026}{\ldots}
+\DeclareUnicodeCharacter{2460}{\ding{172}}
+\DeclareUnicodeCharacter{2461}{\ding{173}}
+\DeclareUnicodeCharacter{2462}{\ding{174}}
+\DeclareUnicodeCharacter{2463}{\ding{175}}
+\DeclareUnicodeCharacter{2464}{\ding{176}}
+\DeclareUnicodeCharacter{2465}{\ding{177}}
+\DeclareUnicodeCharacter{2466}{\ding{178}}
+\DeclareUnicodeCharacter{2467}{\ding{179}}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=single,framerule=0.3pt,rulecolor=\color[gray]{0.7},framesep=2mm,xleftmargin=1mm,xrightmargin=1mm}
+\fvset{breaklines=true,breakanywhere=true}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\definecolor{credixblue}{HTML}{1F3A5F}
+\definecolor{credixgray}{HTML}{5F6B7A}
+\definecolor{boxbg}{HTML}{F3F5F8}
+\setlength{\emergencystretch}{4em}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist{itemsep=0.15em,topsep=0.3em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{credixgray}\textsc{\CredixShortTitle}}
+\fancyhead[R]{\small\color{credixgray}CREDIX --- Dossier de remise}
+\fancyfoot[C]{\small\color{credixgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\color{credixgray}\thepage}\renewcommand{\headrulewidth}{0pt}}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{credixblue}}{}{0em}{}[\vspace{-0.2em}\color{credixblue}\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{credixblue}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{credixblue}}{}{0em}{}
+% Cadre de repère pour une capture manquante
+\newcommand{\CaptureManquante}[2]{%
+  \begin{tcolorbox}[colback=boxbg,colframe=credixgray,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm,halign=center]
+  \textbf{CAPTURE À INSÉRER}\\[0.4em]#1\\[0.4em]{\footnotesize\ttfamily #2}
+  \end{tcolorbox}}
+
+% Images : insérées si le fichier existe au moment de la compilation, sinon cadre « CAPTURE À INSÉRER ».
+% Pour ajouter une capture : déposer le PNG au nom indiqué dans le cadre, puis recompiler.
+\usepackage{graphicx}
+\newcommand{\CredixCapture}[2]{%
+  \IfFileExists{#2}{%
+    \begin{center}\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{#2}\end{center}}%
+  {\CaptureManquante{#1}{\detokenize{#2}}}}
+\newcommand{\CredixFigure}[1]{%
+  \begin{center}\includegraphics[width=0.95\linewidth,height=0.8\textheight,keepaspectratio]{#1}\end{center}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Guide 2 : la méthode de conception},
+  pdfauthor={SINGHE PENKA Hendrix Donavan},
+  pdflang={fr},
+  colorlinks=true,
+  linkcolor={credixblue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={credixblue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{3.2cm}
+{\color{credixgray}\large\textsc{Projet de fin d'études --- ENSPY, Université de Yaoundé I}\par}
+\vspace{2.2cm}
+{\Huge\bfseries\color{credixblue} Guide 2 : la méthode de conception\par}
+\vspace{0.8cm}
+{\Large Concevoir une application avec Claude, de A à Z\par}
+\vspace{2cm}
+{\color{credixblue}\rule{0.5\linewidth}{0.8pt}\par}
+\vspace{1.2cm}
+{\large SINGHE PENKA Hendrix Donavan\par}
+{\color{credixgray}Dépôt GitHub : HendrixPenka2/credix\par}
+\vfill
+{\color{credixgray}\small Version du 19/09/2026\par}
+\end{titlepage}
+
+
+\renewcommand*\contentsname{Table des matières}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Guide 2 : la méthode de travail avec Claude, de A à
+Z}\label{guide-2--la-muxe9thode-de-travail-avec-claude-de-a-uxe0-z}
+
+\textbf{Comment conduire un projet d\textquotesingle application avec
+Claude, du besoin à l\textquotesingle application lancée. Illustrée par
+la conception réelle de CREDIX.}
+
+\begin{quote}
+\textbf{Comment lire ce guide.} Les blocs intitulés \textbf{« Prompt »}
+sont à copier dans Claude, après avoir remplacé ce qui est entre
+crochets \texttt{{[}...{]}}. Les encadrés \textbf{« Dans CREDIX »}
+montrent ce qui a été réellement fait, d\textquotesingle après les
+documents du projet (instructions du projet, journaux de sessions et de
+rédaction, rapports, documents de passation). Les prompts marqués
+\textbf{« extrait réel »} sont tirés de ces fichiers ; les autres sont
+des prompts types, construits sur le même modèle.
+
+Ce guide suppose que vous avez lu le \textbf{guide 1} (abonnement, mode
+Projet, Claude Code).
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. Le principe en une page}\label{1-le-principe-en-une-page}
+
+Concevoir une application avec Claude ne consiste pas à lui dire «
+fais-moi une application de crédit ». Cela donne un résultat fragile,
+sans traçabilité. La méthode qui a servi pour CREDIX repose sur
+\textbf{six principes}.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3471}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6229}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Principe
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce que cela veut dire concrètement
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{1. On conçoit avant de coder} & Un cahier des charges, puis une
+conception écrite, \textbf{avant} la première ligne de code. Règle du
+projet professionnel : \emph{« ne jamais coder avant
+d\textquotesingle avoir clarifié la conception »} \\
+\textbf{2. Claude propose, l\textquotesingle humain décide} & Claude
+explique ce qu\textquotesingle il va produire \textbf{avant} de le
+produire. Aucun livrable final sans \textbf{accord explicite} \\
+\textbf{3. Une seule tâche à la fois} & Le travail est découpé ; chaque
+tâche suit les mêmes étapes \\
+\textbf{4. Chaque décision est écrite} & Un registre consigne le choix,
+les alternatives écartées, la justification et le \textbf{niveau de
+preuve} \\
+\textbf{5. Tout passe par des fichiers Markdown} & Le travail
+d\textquotesingle une session devient un document, qui \textbf{alimente
+la session suivante} \\
+\textbf{6. On vérifie par l\textquotesingle exécution} & Chaque module
+est testé ; les commandes de lancement sont rejouées sur une machine
+neuve \\
+\end{longtable}
+
+\begin{quote}
+\textbf{Pourquoi le Markdown (\texttt{.md}) ?} Claude écrit
+naturellement en Markdown : du texte simple, avec titres, listes et
+tableaux. Il est lisible par une personne \textbf{et} par un assistant
+comme Claude Code, comparable ligne à ligne dans Git, et convertible
+ensuite en PDF, en Word ou en présentation. \textbf{On garde toujours le
+\texttt{.md} comme source}, même si le livrable final est un PDF (les
+documents de ce dossier sont produits ainsi, avec LaTeX : voir le guide
+4).
+\end{quote}
+
+\textbf{Le fil rouge de CREDIX, écrit dans le mémoire :} \emph{« chaque
+bloc du pipeline sert un objectif précis, et on le prouve. »} La même
+exigence vaut pour la méthode : \emph{chaque étape produit un document
+vérifiable.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Vue d\textquotesingle ensemble : trois niveaux et neuf
+étapes}\label{2-vue-densemble--trois-niveaux-et-neuf-uxe9tapes}
+
+\subsubsection{2.1 Les trois niveaux de la
+méthode}\label{21-les-trois-niveaux-de-la-muxe9thode}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2153}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5797}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1750}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Niveau
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce que c\textquotesingle est
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Où en parle-t-on
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{A. Les outils} & Un \textbf{Projet} claude.ai (instructions et
+base de connaissances), \textbf{Claude Code} dans VS Code, des
+\textbf{fichiers Markdown} & Guide 1 \\
+\textbf{B. Le cycle de session} & Une façon
+\textbf{d\textquotesingle ouvrir, de conduire et de fermer} chaque
+séance de travail, pour ne jamais perdre le fil & Section 3 \\
+\textbf{C. Les documents du projet} & Instructions, journal, registre de
+décisions, pièges, TODO, documents de passation : la \textbf{mémoire} du
+projet & Section 4 \\
+\end{longtable}
+
+\subsubsection{2.2 Les neuf étapes d\textquotesingle un
+projet}\label{22-les-neuf-uxe9tapes-dun-projet}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3434}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2891}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2125}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Étape
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ce qu\textquotesingle on fait
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Où
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Livrable
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{0} & Préparer l\textquotesingle espace : Projet Claude,
+instructions, journal & claude.ai & Projet configuré, journal \\
+\textbf{1} & Passer du besoin au \textbf{cahier des charges} & claude.ai
+(Projet) &
+\texttt{cahier\_\allowbreak{}des\_\allowbreak{}charges.\allowbreak{}md} \\
+\textbf{2} & Chercher dans la \textbf{littérature} & claude.ai
+(recherche approfondie) + articles PDF & Fiches de lecture,
+références \\
+\textbf{3} & Faire les \textbf{choix méthodologiques} et les consigner &
+claude.ai (Projet) & \textbf{Registre des décisions} \\
+\textbf{4} & Choisir les \textbf{langages et technologies} & claude.ai
+(Projet) & Section « choix techniques » \\
+\textbf{5} & Rédiger le \textbf{document de conception} (UML, flux,
+données) & claude.ai (Projet) & \texttt{conception.md} \\
+\textbf{6} & Passer à \textbf{Claude Code} : mode \textbf{Plan}, TODO &
+VS Code & Plan validé \\
+\textbf{7} & \textbf{Prototyper module par module}, avec tests & VS Code
+& Modules testés \\
+\textbf{8} & \textbf{Livrer} : README de lancement, tests à la main & VS
+Code + terminal & Projet lançable \\
+\textbf{9} & \textbf{Modifier}, documenter, transmettre & VS Code (mode
+Plan) & Documents de reprise \\
+\end{longtable}
+
+Chaque étape est conduite \textbf{à l\textquotesingle intérieur
+d\textquotesingle une session}, selon le cycle de la section suivante.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Le cycle de session : ouvrir, travailler,
+fermer}\label{3-le-cycle-de-session--ouvrir-travailler-fermer}
+
+Un projet long se déroule sur \textbf{de nombreuses sessions}. Claude ne
+se souvient pas d\textquotesingle une session à l\textquotesingle autre
+: c\textquotesingle est \textbf{vous} qui organisez la continuité, avec
+des documents. Toutes les sessions de CREDIX suivent le même cycle.
+
+\subsubsection{3.1 Ouvrir la session : le prompt de
+démarrage}\label{31-ouvrir-la-session--le-prompt-de-duxe9marrage}
+
+\textbf{Principe.} On ne pose pas de question tout de suite. Le premier
+message impose \textbf{ce que Claude doit lire, dans quel ordre}, et lui
+interdit de commencer avant votre accord.
+
+\textbf{Prompt de démarrage (extrait réel, phase de rédaction du
+chapitre 2 de CREDIX)}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Voici la suite du travail sur le mémoire CREDIX, chapitre 2. Avant de répondre
+quoi que ce soit, lis dans cet ordre, entièrement :
+
+1. HANDOVER_SESSION_SUIVANTE.md : à jour, fin de la session précédente.
+2. JOURNAL_REDACTION_CREDIX_CH2_A_JOUR.md : lis en entier la section « Pièges
+   méthodologiques déjà identifiés » avant toute chose : ce ne sont pas des
+   recommandations générales, ce sont des erreurs déjà commises dans ce projet.
+3. chap02_en_cours.tex : le chapitre en cours.
+4. TODO_CHAPITRE2_CREDIX_MAJ.md : le plan détaillé à jour. Le journal fait foi
+   en cas de désaccord entre les deux fichiers.
+5. Dans le project knowledge : [les rapports à lire en entier avant d'écrire].
+6. Le notebook joint : nécessaire pour vérifier tout chiffre cité.
+
+Avant d'ouvrir la section suivante, j'ai des remarques groupées sur ma relecture :
+je te les donne d'abord, on les traite, puis on passe à la suite. Ne commence pas
+la rédaction avant que je te dise que c'est bon.
+\end{Verbatim}
+
+\textbf{Ce que ce prompt impose, et pourquoi :}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4311}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5389}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Élément
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Effet
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Ordre de lecture explicite} & Claude part du même état que vous,
+sans oublier les documents essentiels \\
+\textbf{Le journal « fait foi »} en cas de désaccord & Il y a
+\textbf{une} source de vérité \\
+\textbf{Lire d\textquotesingle abord les pièges} & On évite de
+\textbf{refaire} des erreurs déjà commises \\
+\textbf{« Ne commence pas avant que je te dise que c\textquotesingle est
+bon »} & Vous gardez la main : Claude propose, vous décidez \\
+\end{longtable}
+
+\textbf{Variante pour un projet de programmation (extrait réel, projet
+professionnel)}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Tu es mon pair-programmer principal. Règles absolues : tu travailles une seule
+tâche à la fois ; tu respectes l'architecture existante et les conventions ;
+tu ne codes jamais avant d'avoir clarifié la conception.
+Méthode obligatoire en 5 étapes : 1) analyse de l'existant, 2) conception
+fonctionnelle, 3) conception technique, 4) mise en place, 5) tests.
+Je vais te fournir le contexte (fichiers, TODO, éventuellement un rapport de
+passation). Attends mes instructions.
+\end{Verbatim}
+
+Et le message de démarrage de ce même kit : \emph{« Ta première mission
+AVANT toute action : 1. lire CONTEXT.md pour comprendre la stack et les
+fichiers clés ; 2. lire TODO.md et identifier les tâches non cochées ;
+3. me dire quelle est la prochaine tâche logique ; 4. attendre ma
+validation avant de commencer. \textbf{Ne propose aucun code pour
+l\textquotesingle instant.} »}
+
+\subsubsection{3.2 Conduire la session : une tâche à la fois, en cinq
+étapes}\label{32-conduire-la-session--une-tuxe2che-uxe0-la-fois-en-cinq-uxe9tapes}
+
+Pendant la session, on respecte les règles inscrites dans les
+instructions du projet (voir section 4.1) :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Claude explique chaque initiative avant de produire quoi que
+  ce soit.}
+\item
+  \textbf{On travaille sur une seule tâche}, définie au début de la
+  session, et on ne touche pas au reste. Exemple réel : \emph{« Cette
+  session a un seul objectif : exécuter le bloc A de la TODO. Ne pas
+  toucher au backend. Ne pas travailler sur le mémoire. Uniquement le
+  notebook. »}
+\item
+  Pour une tâche technique, on suit les \textbf{cinq étapes} :
+  \textbf{analyse de l\textquotesingle existant → conception
+  fonctionnelle → conception technique → mise en place → tests}.
+\item
+  Pour une tâche de rédaction, on procède \textbf{sous-section par
+  sous-section} : décider ce qui entre, ce qui sort, ce qui part dans un
+  autre chapitre ; proposer un sous-plan ; discuter le contenu ; rédiger
+  ; faire une vérification technique courte ; réserver
+  l\textquotesingle{}\textbf{audit critique complet} aux sous-sections à
+  risque, identifiées ensemble.
+\item
+  \textbf{Claude signale quand le contexte devient chargé} et propose de
+  changer de session. Si vous acceptez, il prépare la documentation de
+  clôture.
+\end{itemize}
+
+\subsubsection{3.3 Fermer la session : le rapport de
+passation}\label{33-fermer-la-session--le-rapport-de-passation}
+
+\textbf{Prompt de fin de session (extrait réel, projet professionnel)}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Nous allons bientôt changer de session. Génère-moi un « Handoff Report »
+(résumé de passation) très concis. Il doit contenir :
+1. Ce qui a été complété avec succès aujourd'hui.
+2. Ce qui est actuellement en cours (avec le fichier exact et la ligne si possible).
+3. La prochaine étape immédiate selon notre méthode en 5 étapes.
+4. Les éventuels points d'attention ou bugs laissés en suspens.
+Ne génère pas de code, juste ce rapport en markdown.
+\end{Verbatim}
+
+\textbf{La règle de clôture des instructions du projet de CREDIX :}
+\emph{les livrables de clôture ne sont produits qu\textquotesingle après
+l\textquotesingle accord explicite de l\textquotesingle auteur, et
+Claude explique ce qu\textquotesingle il va produire avant de le
+produire.} Ce sont :
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  les \textbf{instructions du projet} mises à jour, si elles ont changé
+  ;
+\item
+  une \textbf{nouvelle entrée du journal de bord}, datée, en
+  \textbf{ajout seulement} (on ne réécrit jamais le passé) ;
+\item
+  le \textbf{plan} et la \textbf{TODO} mis à jour ;
+\item
+  le \textbf{document de passation}, qui devient
+  l\textquotesingle entrée de la session suivante.
+\end{enumerate}
+
+Ces documents sont ensuite \textbf{déposés dans le projet Claude} (ou
+dans le dossier du projet de code) : c\textquotesingle est ce qui rend
+la session suivante possible.
+
+\begin{quote}
+\textbf{Dans CREDIX.} Le résultat est visible dans le dépôt : des
+documents de passation (\texttt{HANDOVER\_...}), un journal de bord, des
+rapports de session par sujet (par exemple le rapport de la séance sur
+le flux de contrôle des profils atypiques), une « copie miroir » des
+notes que Claude conserve d\textquotesingle une session à
+l\textquotesingle autre, et des prompts de démarrage propres à chaque
+type de séance (notebook, rédaction du mémoire, codage).
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Les documents qui font tenir le
+projet}\label{4-les-documents-qui-font-tenir-le-projet}
+
+\subsubsection{4.1 Les instructions du projet (six
+sections)}\label{41-les-instructions-du-projet-six-sections}
+
+C\textquotesingle est le document le plus important : il est chargé
+\textbf{une fois} dans le Projet Claude et s\textquotesingle applique à
+\textbf{toutes} les conversations. Voici la structure réelle de celui de
+CREDIX.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2125}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4494}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3081}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Section
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contenu
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pourquoi
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{1. Contexte} & Qui, quoi, pour qui, dates clés, encadrants,
+sujet, état d\textquotesingle avancement & Claude sait dans quel cadre
+il travaille \\
+\textbf{2. Ressources permanentes} & La liste \textbf{classée} des
+documents du projet, avec pour chacun \textbf{« consulter pour\ldots{}
+»} : modèles de référence, documents techniques, normes de rédaction,
+norme bibliographique, modèle LaTeX, version courante du mémoire &
+Claude sait \textbf{où chercher} selon la tâche \\
+\textbf{3. Décisions techniques figées} & Treize décisions prises, à ne
+remettre en question que sur contradiction logique majeure (modèle
+final, ordre des étapes du pipeline, traitement des manquants, découpage
+des données, métriques principales, pile technique\ldots) & Évite de
+rediscuter sans cesse les mêmes choix \\
+\textbf{4. Consignes permanentes} & Langue, niveau attendu, style,
+règles anti-plagiat, outil pour les diagrammes, cohérence code/rapport ;
+\textbf{« à faire systématiquement »} et \textbf{« ce que Claude ne doit
+pas faire »} & Uniformise toutes les réponses \\
+\textbf{5. Workflow de collaboration} & Ce qui se passe \textbf{au
+début, pendant et à la fin} de chaque session (voir section 3) & Le
+cycle de session est écrit noir sur blanc \\
+\textbf{6. État courant} & Où en est le projet, mis à jour à chaque
+session & Claude connaît la situation \\
+\end{longtable}
+
+\textbf{Extrait réel de la section 4 (consignes permanentes) :}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+À faire systématiquement :
+- Lire le journal de bord en début de chaque session
+- Consulter [le document de méthodologie] avant tout chapitre technique
+- Consulter [le rapport de pipeline] pour tous les résultats numériques
+- Signaler immédiatement tout doublon détecté dans la base de connaissances
+- Demander l'OK explicite de l'auteur avant de produire les livrables finaux
+
+Ce que Claude ne doit pas faire :
+- Rédiger sans avoir consulté les ressources pertinentes
+- Produire des livrables sans OK explicite de l'auteur
+\end{Verbatim}
+
+\textbf{Extrait réel de la section 5 (workflow) :}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+En début de session : Claude lit le journal ; propose un objectif de session ;
+l'auteur confirme ou ajuste.
+Pendant la session : on itère ; Claude explique chaque initiative avant de produire.
+En fin de session : Claude produit les livrables de clôture UNIQUEMENT après OK
+explicite : instructions à jour, journal (nouvelle entrée datée, ajout seulement),
+plans à jour.
+Règle fondamentale : aucun livrable final n'est produit sans OK explicite.
+\end{Verbatim}
+
+\subsubsection{4.2 Les autres documents, en un
+tableau}\label{42-les-autres-documents-en-un-tableau}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2912}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2038}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2250}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Document
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Rôle
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Règle d\textquotesingle or
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Exemple dans CREDIX
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Journal de bord} & Une entrée par session : \emph{réalisé,
+décisions prises, en attente} & \textbf{Ajout seulement}, jamais de
+réécriture du passé &
+\texttt{journal\_\allowbreak{}sessions\_\allowbreak{}memoire\_\allowbreak{}hendrix.\allowbreak{}txt} \\
+\textbf{Journal de rédaction} & État consolidé d\textquotesingle un
+chapitre : plan, \textbf{règles de rédaction actées}, \textbf{décisions
+verrouillées}, \textbf{pièges}, points ouverts & \textbf{Fait foi} en
+cas de désaccord avec la TODO &
+\texttt{JOURNAL\_\allowbreak{}REDACTION\_\allowbreak{}CREDIX\_\allowbreak{}CH2\_\allowbreak{}A\_\allowbreak{}JOUR.\allowbreak{}md} \\
+\textbf{Registre des décisions} & Chaque choix : options, justification,
+niveau de preuve & Toute décision importante y figure &
+\texttt{RAPPORT\_\allowbreak{}DECISIONS\_\allowbreak{}METHODOLOGIQUES\_\allowbreak{}CREDIX.\allowbreak{}md} \\
+\textbf{Rapport de résultats} & Résultats validés, consolidés &
+\textbf{Aucun chiffre inventé} : il vient d\textquotesingle un calcul &
+\texttt{RAPPORT\_\allowbreak{}RESULTATS\_\allowbreak{}CONCLUSIONS\_\allowbreak{}CREDIX.\allowbreak{}md} \\
+\textbf{Pièges méthodologiques} & La liste des \textbf{erreurs déjà
+commises} & À relire \textbf{avant} de reprendre le travail & Section
+4bis du journal de rédaction \\
+\textbf{TODO} & Le plan détaillé, tâche par tâche & Une tâche = une case
+à cocher & \texttt{TODO\_...md} \\
+\textbf{Document de passation} & Ce qui est fait, en cours, à faire,
+règles absolues & Écrit à la fin de \textbf{chaque} session ou phase &
+\texttt{HANDOVER\_...md} \\
+\textbf{État miroir} & Copie des notes que Claude garde
+d\textquotesingle une session à l\textquotesingle autre & Doit rester
+identique à la mémoire interne &
+\texttt{ETAT\_\allowbreak{}MEMOIRE\_\allowbreak{}CLAUDE\_\allowbreak{}CREDIX.\allowbreak{}md} \\
+\textbf{Instantané de contexte} & Un fichier qui résume \textbf{tout le
+code} d\textquotesingle un projet, fabriqué par un script & À régénérer
+avant d\textquotesingle en parler à Claude & \texttt{scanner.sh} produit
+\texttt{contexte\_\allowbreak{}fastapi.\allowbreak{}txt} \\
+\end{longtable}
+
+\subsubsection{4.3 Deux exemples réels qui montrent la valeur de ces
+documents}\label{43-deux-exemples-ruxe9els-qui-montrent-la-valeur-de-ces-documents}
+
+\textbf{Des règles de rédaction « actées »} (extraits du journal de
+rédaction, sur trente-huit règles) :
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{« Un paragraphe = une fonction argumentative. »}
+\item
+  \emph{« Aucun composant sans fonction énonçable en une phrase. »}
+\item
+  \emph{« Séparation stricte conception / résultats : jamais "meilleure"
+  avant les résultats. »}
+\item
+  \emph{« \textbf{Grille des quatre questions pour chaque bloc
+  technique} : ① le problème ② la solution ③ pourquoi celle-là ④ comment
+  elle est validée. »}
+\item
+  \emph{« Terminologie : un seul terme, "dispositif de décision". Jamais
+  "dispositif de contrôle". »}
+\end{itemize}
+
+\textbf{Des pièges consignés, avec leur histoire} (extraits de la
+section « Pièges méthodologiques ») :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Vérifier tout chiffre reçu d\textquotesingle une source
+  externe, même quand le raisonnement est juste.} Deux documents
+  externes utilisaient une variable comme exemple, avec un indicateur
+  d\textquotesingle une valeur de 0,13. Vérifié contre
+  l\textquotesingle exécution réelle : la valeur réelle était de
+  \textbf{0,0199}, dans une autre catégorie. Le raisonnement général
+  restait correct et a été conservé ; \textbf{seul le chiffre était
+  faux}.
+\item
+  \textbf{Ne jamais présenter le système autrement qu\textquotesingle il
+  n\textquotesingle est}, « même sur un détail », pour paraître plus
+  conforme à la littérature.
+\item
+  \textbf{Ne jamais dire « on a gardé le moins bon »} : une décision se
+  justifie par des critères, pas par un aveu.
+\end{itemize}
+
+\subsubsection{4.4 Comment les créer avec
+Claude}\label{44-comment-les-cruxe9er-avec-claude}
+
+\textbf{Prompt : rédiger le journal ou le document de passation}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Fais le document de reprise de cette session en Markdown : 1) l'objectif de la
+session, 2) ce qui a été fait, 3) les décisions prises et leur justification,
+4) ce qui a été écarté et pourquoi, 5) les fichiers créés ou modifiés,
+6) ce qui reste à faire dans l'ordre, 7) les pièges à éviter. Sois factuel :
+aucun chiffre que nous n'avons pas obtenu.
+\end{Verbatim}
+
+Les modèles prêts à remplir sont en section 16.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Étape 0 : préparer l\textquotesingle espace de
+travail}\label{5-uxe9tape-0--pruxe9parer-lespace-de-travail}
+
+\subsubsection{5.1 Ce qu\textquotesingle il faut mettre en
+place}\label{51-ce-quil-faut-mettre-en-place}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Un Projet Claude} (guide 1, section 6), avec ses
+  \textbf{instructions en six sections} (section 4.1 de ce guide).
+\item
+  \textbf{Un journal de bord}, en ajout seulement.
+\item
+  \textbf{Un dossier de projet} sur l\textquotesingle ordinateur, sous
+  \textbf{Git}, dès le début.
+\end{enumerate}
+
+\subsubsection{5.2 La toute première
+session}\label{52-la-toute-premiuxe8re-session}
+
+\begin{quote}
+\textbf{Dans CREDIX (27 mai 2026).} La première session a servi à
+\textbf{initialiser le projet Claude} : inventaire des ressources de la
+base de connaissances (cahier des charges v2.0, conception v2.1,
+méthodologie complète v2, rapport de pipeline, modèles de mémoire de
+référence), \textbf{diagnostic} de l\textquotesingle existant (pipeline
+documenté à environ 75 \%, backend à 0 \%, frontend à environ 15 \%),
+rédaction des instructions du projet, d\textquotesingle un plan du
+mémoire, d\textquotesingle un \textbf{plan de travail daté} et du
+\textbf{journal de bord}.
+\end{quote}
+
+\textbf{Prompt 0 : faire l\textquotesingle inventaire du projet}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Fais l'inventaire de tous les documents de la base de connaissances de ce projet.
+Pour chacun : son titre, son rôle, sa date, et s'il est à jour ou périmé.
+Puis fais un diagnostic honnête : ce qui est prêt, ce qui manque, ce qui se
+contredit. Termine par les trois prochaines actions que tu recommandes.
+\end{Verbatim}
+
+\CredixCapture{Base de connaissances d'un projet avec les documents chargés}{../images/guides/02-01_base_connaissances.png}
+
+\emph{Figure 1. La base de connaissances du projet.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Étape 1 : du besoin au cahier des
+charges}\label{6-uxe9tape-1--du-besoin-au-cahier-des-charges}
+
+\subsubsection{6.1 Laisser Claude vous
+interroger}\label{61-laisser-claude-vous-interroger}
+
+Le piège du débutant est de rédiger seul un long descriptif. Il vaut
+mieux \textbf{demander à Claude de vous poser des questions}, une à la
+fois.
+
+\textbf{Prompt 1 : cadrer le besoin par des questions}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Je veux concevoir [décrire l'application en une phrase], pour [qui].
+Avant de rédiger quoi que ce soit, pose-moi une question à la fois pour
+clarifier : le problème à résoudre, les utilisateurs, ce que l'application
+doit faire, ce qu'elle ne doit pas faire, les contraintes (temps, budget,
+données, règles légales). Attends ma réponse avant la question suivante.
+Quand tu estimes avoir assez d'éléments, dis-le-moi.
+\end{Verbatim}
+
+\subsubsection{6.2 Rédiger et faire critiquer le cahier des
+charges}\label{62-ruxe9diger-et-faire-critiquer-le-cahier-des-charges}
+
+\textbf{Prompt 2 : rédiger le cahier des charges}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+À partir de notre échange, rédige le cahier des charges en Markdown avec :
+1. Contexte et objectifs
+2. Acteurs et leurs rôles
+3. Périmètre (inclus) et hors périmètre (exclu)
+4. Exigences fonctionnelles, numérotées EF-1, EF-2...
+5. Exigences non fonctionnelles (performance, sécurité, traçabilité...), ENF-1...
+6. Contraintes et hypothèses
+7. Critères d'acceptation : pour chaque exigence, comment vérifier qu'elle est atteinte
+Exigences courtes, vérifiables, sans ambiguïté.
+\end{Verbatim}
+
+\textbf{Prompt 3 : faire critiquer le cahier des charges}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Relis ce cahier des charges comme un examinateur sévère. Liste : les ambiguïtés,
+les contradictions, les exigences impossibles à vérifier, ce qui manque.
+Classe tes remarques par gravité. Ne corrige rien : propose seulement.
+\end{Verbatim}
+
+\begin{quote}
+\textbf{Dans CREDIX.} Les exigences du mémoire sont numérotées (EM-1 à
+EM-9). Un cahier des charges séparé a été produit pour le frontend
+(\texttt{cdc\_credix.md} : produit, trois rôles, lexique métier, plan de
+navigation de 36 routes) avant de dessiner les écrans.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. Étape 2 : la recherche dans la
+littérature}\label{7-uxe9tape-2--la-recherche-dans-la-littuxe9rature}
+
+Un choix technique important s\textquotesingle appuie sur la
+\textbf{littérature}. Claude peut faire une grande partie de ce travail,
+à condition de \textbf{ne rien croire sans vérifier}. On combine trois
+outils :
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  la \textbf{recherche approfondie} de claude.ai (guide 1, section 5.2),
+  qui produit un rapport \textbf{avec citations} ;
+\item
+  les \textbf{articles PDF} chargés dans le Projet : Claude répond
+  \textbf{à partir d\textquotesingle eux} ;
+\item
+  \textbf{votre vérification} : ouvrir les références clés.
+\end{enumerate}
+
+\textbf{Prompt 4 : balayer la littérature}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Fais une recherche approfondie sur : [question précise, par exemple
+« méthodes de sélection de variables pour un scoring de crédit explicable »].
+Je veux : les approches principales, leurs avantages et limites, les références
+les plus citées (auteur, année, titre). Cite tes sources. Indique ce qui est un
+consensus et ce qui est discuté. Termine par les références dont tu n'es pas
+sûr, marquées [à vérifier].
+\end{Verbatim}
+
+\textbf{Prompt 5 : interroger un article chargé dans le Projet}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Dans l'article [titre ou auteur] chargé dans ce projet :
+1. Quelle est la méthode proposée, en termes simples ?
+2. Sur quelles données est-elle évaluée, et avec quels résultats ?
+3. Quelles sont ses limites, d'après les auteurs et d'après toi ?
+4. Que peut-on en retenir pour mon choix de [sujet] ?
+Cite les passages sur lesquels tu t'appuies.
+\end{Verbatim}
+
+\textbf{Les garde-fous :} vérifier chaque référence importante ; faire
+marquer les références incertaines par \texttt{{[}à\ vérifier{]}} ;
+\textbf{distinguer} ce que dit la littérature, ce qu\textquotesingle ont
+montré vos essais et ce qui est un choix assumé (échelle de preuve,
+section 8).
+
+\begin{quote}
+\textbf{Dans CREDIX.} Une session de recherche approfondie a été
+conservée sous forme de PDF. Pour le seuil de 50 \% de valeurs
+manquantes, la recherche a établi qu\textquotesingle{}\textbf{il
+n\textquotesingle existe pas de règle universelle} : le package de
+référence \texttt{scorecard} (langage R) fixe 95 \% par défaut, et la
+littérature utilise des seuils très variables. Conclusion consignée :
+\emph{ne pas attribuer ce seuil à un auteur} ; le présenter comme un
+\textbf{choix assumé}. Des références comme Chow (1970) ou El-Yaniv et
+Wiener (2010) sont restées marquées « à vérifier » tant
+qu\textquotesingle elles n\textquotesingle étaient pas contrôlées.
+\end{quote}
+
+\CredixCapture{Rapport de recherche approfondie avec ses citations}{../images/guides/02-02_recherche_approfondie.png}
+
+\emph{Figure 2. Un résultat de recherche approfondie avec citations.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Étape 3 : les choix méthodologiques, exemple du
+WoE}\label{8-uxe9tape-3--les-choix-muxe9thodologiques-exemple-du-woe}
+
+C\textquotesingle est le cœur de la méthode. Chaque choix suit la même
+séquence : \textbf{question, options, critères, décision, preuve,
+consignation.}
+
+\subsubsection{8.1 L\textquotesingle échelle de preuve à trois
+niveaux}\label{81-luxe9chelle-de-preuve-uxe0-trois-niveaux}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4244}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3456}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Niveau
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Signification
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Exemple
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{I : démontré} & Établi par une expérience sur nos données
+(mesure, ablation, partition) & « L\textquotesingle AUC augmente quand
+la couverture ρc augmente » \\
+\textbf{II : ancré dans la littérature} & Fait connu, cité, non refait &
+« Le WoE est standard en scoring de crédit (Siddiqi) » \\
+\textbf{III : hypothèse assumée} & Choix de conception justifié comme
+tel & « Seuil de refus à 30 \% de probabilité de défaut » \\
+\end{longtable}
+
+Et la \textbf{grille des quatre questions} pour chaque bloc technique :
+\textbf{① le problème, ② la solution, ③ pourquoi celle-là, ④ comment
+elle est validée.}
+
+\subsubsection{8.2 L\textquotesingle exemple complet : pourquoi le WoE
+?}\label{82-lexemple-complet--pourquoi-le-woe-}
+
+La séquence ci-dessous est \textbf{reconstituée à partir des décisions
+réellement consignées} dans les documents du projet.
+
+\textbf{A. Poser la question, avec les contraintes.}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Mon pipeline de scoring doit rester explicable variable par variable (contrainte
+réglementaire) et gérer des valeurs manquantes nombreuses. Comment encoder mes
+variables numériques et catégorielles avant le modèle ? Compare au moins :
+standardisation + encodage one-hot, encodage par la cible, et le WoE.
+Critères : explicabilité, traitement des manquants, stabilité, risque de fuite
+de données. Termine par une recommandation et ses risques.
+\end{Verbatim}
+
+\textbf{B. Claude compare.} Le WoE (\emph{Weight of Evidence}) découpe
+chaque variable en tranches et remplace chaque valeur par le logarithme
+du rapport entre bons et mauvais payeurs de sa tranche.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2294}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3478}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2375}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1554}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Critère
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+WoE
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+One-hot + standardisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Encodage par la cible
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Explicabilité & \textbf{Très bonne} : chaque tranche a un poids lisible
+& Moyenne & Faible \\
+Valeurs manquantes & \textbf{Tranche « Manquant » dédiée} & Imputation
+arbitraire & À gérer à part \\
+Stabilité (tranches monotones) & \textbf{Contrainte possible} & Non &
+Non \\
+Risque de fuite & Réel : à apprendre \textbf{sur le train seul} & Faible
+& Élevé \\
+\end{longtable}
+
+\textbf{C. L\textquotesingle avocat du diable.}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Donne-moi les cinq meilleures objections à ce choix. Pour chacune, dis si elle
+est décisive ou si on peut la traiter.
+\end{Verbatim}
+
+\textbf{D. La décision, écrite dans le registre} (faits tirés du
+récapitulatif de méthodologie du projet) :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2399}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7301}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Champ
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contenu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Décision} & Encodage \textbf{WoE} réalisé par la bibliothèque
+\texttt{optbinning} (classe \texttt{OptimalBinning}) \\
+\textbf{Pourquoi} & Explicabilité par variable exigée par la
+réglementation ; gestion native des manquants ; tranches monotones \\
+\textbf{Mécanisme} & Pré-découpage fin par arbre de décision, puis un
+solveur de programmation par contraintes fusionne les tranches voisines
+pour maximiser l\textquotesingle IV, sous contraintes de taille
+minimale, de nombre maximal de tranches et de \textbf{monotonie du
+WoE} \\
+\textbf{Valeurs manquantes} & Jamais imputées : regroupées dans une
+tranche \textbf{« Manquant »} dont le WoE est calculé sur la vraie
+proportion de bons et de mauvais payeurs \\
+\textbf{Garde-fou anti-fuite} & Découpage appris \textbf{sur le jeu
+d\textquotesingle entraînement uniquement}, puis appliqué à la
+validation et au test \\
+\textbf{Filtre associé} & Variables retenues si \textbf{IV ≥ 0,02}
+(seuil classique) \\
+\textbf{Choix assumé} & Une variable avec \textbf{plus de 50 \% de
+manquants} est exclue, sauf si son IV atteint \textbf{0,10} : plus
+conservateur que le défaut de certains outils (95 \%) \\
+\textbf{Niveau de preuve} & \textbf{II} pour le WoE et le seuil
+d\textquotesingle IV ; \textbf{III} pour le seuil de 50 \% (à présenter
+comme tel) \\
+\textbf{Alternatives écartées} & Standardisation + one-hot ; encodage
+par la cible \\
+\textbf{Risques restants} & Perte d\textquotesingle information par
+découpage en tranches \\
+\end{longtable}
+
+\textbf{E. Vérifier par une expérience quand c\textquotesingle est
+possible.} Un contrôle cellule par cellule du notebook a révélé un
+\textbf{défaut réel} : pour recalculer l\textquotesingle IV des colonnes
+exclues, le code associait la valeur d\textquotesingle une colonne
+(ordre brut du fichier) à la cible du découpage temporel (ordre trié).
+Les deux ordres différaient : l\textquotesingle IV de ces colonnes ne
+mesurait rien de fiable (valeurs quasi nulles pour une quarantaine de
+colonnes). La correction (fusion sur l\textquotesingle identifiant
+client) a fait passer 20 colonnes dans la catégorie « couverture faible
+», \textbf{prévue mais jamais déclenchée}. Sans cette vérification, un
+résultat faux serait entré dans le mémoire.
+
+\subsubsection{8.3 Les mêmes réflexes pour tout autre
+choix}\label{83-les-muxeames-ruxe9flexes-pour-tout-autre-choix}
+
+La même séquence a servi pour : LightGBM contre XGBoost,
+l\textquotesingle autoencodeur pour le contrôle des profils atypiques,
+la calibration isotonique, les seuils de décision,
+l\textquotesingle indice de couverture ρc.
+
+\textbf{Prompt 6 : produire une fiche de décision}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Nous venons de discuter du choix de [sujet]. Rédige la fiche de décision en
+Markdown : contexte, options comparées, critères, décision retenue, alternatives
+écartées avec leur raison, niveau de preuve (I, II ou III), références (marque
+[à vérifier] si nécessaire), risques restants. N'invente aucune référence
+ni aucun chiffre.
+\end{Verbatim}
+
+\CredixCapture{Un extrait du registre des décisions}{../images/guides/02-03_registre_decisions.png}
+
+\emph{Figure 3. Un extrait du registre des décisions méthodologiques.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Étape 4 : choisir les langages et les
+technologies}\label{9-uxe9tape-4--choisir-les-langages-et-les-technologies}
+
+\textbf{À faire avant tout prototype.} Un mauvais choix technique se
+paie à chaque étape suivante.
+
+\textbf{Prompt 7 : proposer une pile technologique justifiée}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+À partir des exigences du cahier des charges (EF et ENF), propose une pile
+technologique : langage(s), cadre de développement, base de données, outils
+de test, moyen de lancement. Pour chaque choix : l'exigence qu'il sert,
+deux alternatives écartées et pourquoi, les risques. Contraintes : je débute
+sur [technologie], je dois pouvoir tout lancer en local en quelques commandes.
+\end{Verbatim}
+
+\textbf{Règle utilisée pour CREDIX :} \emph{chaque technologie répond à
+une exigence formulée plus haut.} Exemples du mémoire : \textbf{Python}
+pour l\textquotesingle apprentissage \textbf{et}
+l\textquotesingle exploitation, afin d\textquotesingle éviter tout écart
+silencieux entre le modèle entraîné et le modèle exécuté ;
+\textbf{FastAPI} pour la vérification déclarative des requêtes et le
+contrôle centralisé des droits ; \textbf{Next.js} avec
+\textbf{TypeScript}, dont le typage fait apparaître les écarts de format
+avant l\textquotesingle exécution ; \textbf{MongoDB} pour conserver des
+demandes de structures variables sans migration ; un \textbf{service PDF
+séparé} pour les comptes rendus.
+
+\begin{quote}
+\textbf{Dans CREDIX (séance du 30 mai).} Les décisions
+d\textquotesingle architecture ont été prises point par point : quatre
+conteneurs Docker (API, base de données, suivi des modèles, service
+PDF), huit collections de données, des seuils de décision configurables
+depuis l\textquotesingle interface plutôt qu\textquotesingle écrits en
+dur, une promotion de modèle soumise à validation humaine.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{10. Étape 5 : le document de
+conception}\label{10-uxe9tape-5--le-document-de-conception}
+
+\subsubsection{10.1 Ce que contient le
+document}\label{101-ce-que-contient-le-document}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Contexte, objectifs, périmètre} ;
+\item
+  \textbf{Acteurs} et \textbf{cas d\textquotesingle utilisation}
+  (diagramme et descriptions) ;
+\item
+  \textbf{Modèle du domaine} : classes, associations, multiplicités ;
+\item
+  \textbf{Scénarios principaux} : diagrammes de séquence ;
+\item
+  \textbf{Architecture} : couches, composants, déploiement ;
+\item
+  \textbf{Données} : tables ou collections ;
+\item
+  \textbf{Interfaces} : routes de l\textquotesingle API, avec exemples
+  de requêtes et de réponses ;
+\item
+  \textbf{Critères d\textquotesingle acceptation} et \textbf{plan de
+  tests} ;
+\item
+  \textbf{Glossaire}.
+\end{enumerate}
+
+Pour que Claude Code puisse \textbf{lire} les diagrammes, on les écrit
+en \textbf{texte} avec \textbf{Mermaid}, qui s\textquotesingle affiche
+automatiquement sur GitHub. Un exemple complet est fourni dans le
+\textbf{guide 3} (le MVP).
+
+\textbf{Prompt 8 : rédiger la conception}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+À partir du cahier des charges et des décisions du projet, rédige le document
+de conception en Markdown avec les neuf sections suivantes : [copier la liste
+du paragraphe 10.1]. Diagrammes en Mermaid. Règles UML : pas d'attribut dont
+le type est une autre classe du diagramme (utiliser une association, avec
+multiplicités aux deux extrémités) ; les types énumérés portent le stéréotype
+<<enumeration>>. Chaque diagramme est précédé d'une phrase d'introduction et
+suivi d'une légende. Ne rien inventer qui ne découle pas des documents du projet.
+\end{Verbatim}
+
+\textbf{Prompt 9 : vérifier la cohérence entre documents}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Compare le cahier des charges et le document de conception. Liste : les
+exigences non couvertes par la conception, les éléments de conception sans
+exigence, les noms qui diffèrent d'un document à l'autre, les contradictions.
+\end{Verbatim}
+
+\begin{quote}
+\textbf{Dans CREDIX.} La conception suit les règles du cours de génie
+logiciel (UML : classes, séquences, cas d\textquotesingle utilisation,
+composants, déploiement), puis a été dessinée en schémas
+(\texttt{docs/\allowbreak{}diagrammes/\allowbreak{}}).
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{11. Étapes 6 et 7 : Claude Code, du plan au prototype
+testé}\label{11-uxe9tapes-6-et-7--claude-code-du-plan-au-prototype-testuxe9}
+
+\subsubsection{11.1 Étape 6 : le mode Plan et la
+TODO}\label{111-uxe9tape-6--le-mode-plan-et-la-todo}
+
+On ouvre le projet dans VS Code, on \textbf{dépose le document de
+conception} dans le dossier, et on passe Claude Code en \textbf{mode
+Plan} (guide 1, section 8).
+
+\textbf{Prompt 10 : produire le plan de réalisation}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+/plan Lis docs/conception.md et docs/cahier_des_charges.md.
+Propose un plan de réalisation en modules ordonnés (du plus indépendant au plus
+dépendant). Pour chaque module : son objectif, les fichiers à créer, les tests
+à écrire, le critère qui dit qu'il est terminé, et les dépendances. Ne crée
+aucun fichier pour l'instant. Signale les points du document de conception
+qui te paraissent ambigus.
+\end{Verbatim}
+
+Vous \textbf{relisez le plan}, l\textquotesingle annotez dans VS Code,
+le faites corriger, puis vous l\textquotesingle{}\textbf{approuvez}. Ce
+plan devient la \textbf{TODO} du projet.
+
+\CredixCapture{Claude Code en mode Plan : plan de réalisation}{../images/guides/02-04_plan_todo.png}
+
+\emph{Figure 4. Le plan produit à partir du document de conception.}
+
+\subsubsection{11.2 Étape 7 : un module à la fois, avec des
+tests}\label{112-uxe9tape-7--un-module-uxe0-la-fois-avec-des-tests}
+
+\textbf{Prompt 11 : réaliser un module}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Réalise le module [M2] du plan. Écris d'abord les tests, puis le code.
+Lance les tests et montre-moi le résultat. Ne touche à aucun autre module.
+Si tu dois modifier un fichier existant, dis-le avant.
+\end{Verbatim}
+
+\textbf{Prompt 12 : quand un test échoue}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Le test [nom] échoue avec ce message : [coller le message]. Avant de modifier
+quoi que ce soit, explique la cause probable et propose la correction la plus
+petite possible.
+\end{Verbatim}
+
+Chaque module est \textbf{validé avant de passer au suivant}.
+
+\subsubsection{11.3 Confier une mission à Claude Code : un exemple
+réel}\label{113-confier-une-mission-uxe0-claude-code--un-exemple-ruxe9el}
+
+Le prompt fixe \textbf{la mission, les règles et les livrables}. Voici
+sa structure, dans le prompt réellement utilisé pour la phase 2 de
+CREDIX.
+
+\textbf{Prompt (extrait réel)}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Tu travailles sur mon mémoire CREDIX (scoring de crédit). Le notebook est dans
+le workspace. Lis d'abord EN ENTIER le fichier HANDOVER_CLAUDE_CODE_PHASE2.md
+(contexte, règles absolues, variables disponibles) avant de coder.
+
+Ta mission : écrire les cellules de la Section 12.3+ qui démontrent [...].
+Ce n'est pas un concours d'outils.
+
+RÈGLES
+- On étend, on ne supprime pas. Nouvelles cellules en Section 12.3+ UNIQUEMENT.
+- Tu n'exécutes pas le notebook. Tu testes ta logique en local sur données
+  factices, puis tu livres le code prêt à coller.
+- Anti-fuite : tout ce qui s'apprend s'apprend sur le TRAIN.
+\end{Verbatim}
+
+Les \textbf{règles absolues} du document de passation associé : \emph{«
+On étend, on ne supprime pas »} ; \emph{« Aucun chiffre inventé : le
+code produit les chiffres ; on ne les anticipe jamais dans les
+commentaires ou les rapports »} ; et la \textbf{division du travail} :
+\textbf{Claude Code écrit et teste sur des données factices ;
+l\textquotesingle auteur exécute sur les vraies données et renvoie les
+sorties.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{12. Étape 8 : livrer, lancer, tester à la
+main}\label{12-uxe9tape-8--livrer-lancer-tester-uxe0-la-main}
+
+\textbf{Prompt 13 : préparer la livraison et le README}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Prépare la livraison du projet. 1) Vérifie que tous les tests passent.
+2) Rédige le README de lancement pour un débutant : prérequis, commandes
+exactes dans l'ordre, ce qu'on doit voir après chaque commande, et que faire
+en cas d'erreur. 3) Génère une archive ZIP du projet, sans les fichiers
+secrets ni les dossiers volumineux.
+\end{Verbatim}
+
+Puis, \textbf{vous} : dézippez dans un \textbf{dossier vide}, suivez le
+README \textbf{à la lettre}, notez \textbf{tout ce qui ne marche pas},
+et renvoyez ces constats à Claude.
+
+\begin{quote}
+\textbf{Dans CREDIX (séance du 30 mai).} Le backend a été livré sous
+forme d\textquotesingle une archive de 51 fichiers, avec
+l\textquotesingle{}\textbf{ordre de lancement exact} : copier le fichier
+de configuration, copier les fichiers du modèle, lancer les conteneurs,
+créer l\textquotesingle administrateur, générer les phrases
+d\textquotesingle explication, enregistrer le modèle, charger les
+clients de démonstration, vérifier le point de santé.
+
+\textbf{Pour ce dossier de remise}, le test du README sur une copie
+neuve a révélé que la \textbf{compilation de production du frontend
+n\textquotesingle avait jamais abouti} : quatre erreurs de types que le
+mode développement ne signalait pas. \textbf{Ce qui n\textquotesingle a
+jamais été testé de bout en bout n\textquotesingle est pas testé.}
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{13. Étape 9 : modifier, documenter,
+transmettre}\label{13-uxe9tape-9--modifier-documenter-transmettre}
+
+\textbf{Prompt 14 : ajouter une fonction (toujours en mode Plan)}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+/plan Je veux ajouter [fonction]. Analyse l'impact : quels fichiers sont
+concernés, quels tests existants risquent de casser, quelles nouvelles
+données sont nécessaires. Propose les étapes et les tests. Ne modifie rien
+avant mon accord.
+\end{Verbatim}
+
+Puis on boucle sur le cycle de session (section 3) : le travail est
+consigné, la passation écrite.
+
+\begin{quote}
+\textbf{Dans CREDIX.} Le frontend d\textquotesingle origine avait été
+généré à partir de maquettes. Il a été reconstruit (\texttt{credix-v2})
+avec Claude Code : cahier des charges de l\textquotesingle interface,
+système de design, puis réalisation \textbf{par phases} (fondations,
+espace Agent, espace Superviseur, espace Administrateur), \textbf{chaque
+phase vérifiée avant la suivante}.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{14. Les erreurs et les pièges
+réels}\label{14-les-erreurs-et-les-piuxe8ges-ruxe9els}
+
+\textbf{Claude se trompe, comme un humain.} La méthode ne
+l\textquotesingle empêche pas : elle \textbf{permet de le voir}. Voici
+des erreurs réelles de CREDIX, et la règle qui en est sortie.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3233}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3233}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3233}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Ce qui s\textquotesingle est passé
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Comment c\textquotesingle est apparu
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Règle qui en découle
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Un seuil de détection d\textquotesingle anomalie allait être calculé sur
+« les bons payeurs », c\textquotesingle est-à-dire avec la variable
+cible, dans un mécanisme \textbf{non supervisé} (fuite
+d\textquotesingle information) & L\textquotesingle auteur a relevé
+l\textquotesingle erreur ; les seuils ont été \textbf{chargés depuis les
+fichiers du modèle}, non recalculés & \textbf{Relire} chaque proposition
+avec ses contraintes de rigueur en tête \\
+Un argument disait que LightGBM « gagnait nettement sur le rappel » &
+Une comparaison mesurée a montré des écarts non significatifs entre
+LightGBM et XGBoost ; \textbf{l\textquotesingle argument a été rejeté},
+LightGBM gardé sur d\textquotesingle autres critères & Une décision «
+définitive » peut être révisée si un chiffre la contredit : \textbf{le
+registre garde la trace} \\
+Des documents externes donnaient un indicateur de 0,13 pour une variable
+& Vérifié contre l\textquotesingle exécution réelle : \textbf{0,0199} &
+\textbf{Vérifier tout chiffre reçu d\textquotesingle une source
+externe}, même si le raisonnement est juste \\
+Un défaut d\textquotesingle alignement dans le calcul de
+l\textquotesingle IV (section 8) & Contrôle cellule par cellule &
+\textbf{Vérifier les résultats étonnants}, y compris les résultats «
+trop faibles » \\
+Un test comparait « défaut des accordés avec anomalie » et « accordés
+sains » : hors sujet, car une anomalie n\textquotesingle est pas un
+défaut & Recentrage acté avec l\textquotesingle auteur & Demander :
+\emph{« ce test répond-il vraiment à mon objectif ? »} \\
+Un environnement installait une version trop ancienne
+d\textquotesingle une bibliothèque & Message d\textquotesingle erreur
+explicite & \textbf{Figer les versions} des bibliothèques \\
+La compilation de production du frontend n\textquotesingle avait jamais
+été lancée & Test sur copie neuve (ce dossier) & \textbf{Tester comme le
+fera l\textquotesingle utilisateur final} \\
+\end{longtable}
+
+\textbf{Les réflexes qui en découlent :} relire ; mesurer ; garder la
+trace ; refuser les chiffres non sourcés ; ne jamais présenter le
+système autrement qu\textquotesingle il n\textquotesingle est ; tester
+sur une machine neuve.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{15. Bibliothèque de
+prompts}\label{15-bibliothuxe8que-de-prompts}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0909}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1718}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.7073}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+N°
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Moment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Objet
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{S} & Début de session & Prompt de démarrage : ordre de lecture,
+attendre le feu vert (section 3.1) \\
+\textbf{F} & Fin de session & Rapport de passation (section 3.3) \\
+\textbf{0} & Étape 0 & Faire l\textquotesingle inventaire du projet \\
+\textbf{1} & Étape 1 & Cadrer le besoin en se faisant interroger \\
+\textbf{2} & Étape 1 & Rédiger le cahier des charges \\
+\textbf{3} & Étape 1 & Faire critiquer le cahier des charges \\
+\textbf{4} & Étape 2 & Balayer la littérature (recherche approfondie) \\
+\textbf{5} & Étape 2 & Interroger un article chargé \\
+\textbf{6} & Étape 3 & Produire une fiche de décision \\
+\textbf{7} & Étape 4 & Proposer une pile technologique \\
+\textbf{8} & Étape 5 & Rédiger le document de conception \\
+\textbf{9} & Étape 5 & Vérifier la cohérence entre documents \\
+\textbf{10} & Étape 6 & Produire le plan de réalisation (mode Plan) \\
+\textbf{11} & Étape 7 & Réaliser un module avec tests \\
+\textbf{12} & Étape 7 & Traiter un test qui échoue \\
+\textbf{13} & Étape 8 & Préparer la livraison et le README \\
+\textbf{14} & Étape 9 & Ajouter ou modifier une fonction (mode Plan) \\
+\end{longtable}
+
+Deux prompts utiles à toutes les étapes :
+
+\textbf{Prompt 15 : l\textquotesingle avocat du diable}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Donne-moi les cinq meilleures objections à [ce choix, ce plan, ce texte].
+Pour chacune : est-elle décisive ? comment la traiter ?
+\end{Verbatim}
+
+\textbf{Prompt 16 : la chasse aux chiffres non sourcés}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+Relis ce document. Liste chaque chiffre, chaque affirmation factuelle et chaque
+référence. Pour chacun : d'où vient-il (document du projet, calcul, littérature,
+ou nulle part) ? Signale tout ce qui n'a pas de source.
+\end{Verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{16. Modèles de documents}\label{16-moduxe8les-de-documents}
+
+\subsubsection{16.1 Fiche de décision}\label{161-fiche-de-duxe9cision}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+## Décision D-[n] : [titre]
+- **Date :** [jj/mm/aaaa]
+- **Contexte :** [le problème, les contraintes]
+- **Options comparées :** [A], [B], [C]
+- **Critères :** [explicabilité, coût, stabilité, ...]
+- **Décision :** [option retenue]
+- **Pourquoi :** [justification en quelques lignes]
+- **Alternatives écartées :** [option : raison]
+- **Niveau de preuve :** [I démontré / II littérature / III hypothèse assumée]
+- **Références :** [auteur, année] [à vérifier si besoin]
+- **Risques restants :** [...]
+- **Validée par :** [nom] le [date]
+\end{Verbatim}
+
+\subsubsection{16.2 Entrée du journal de bord (ajout
+seulement)}\label{162-entruxe9e-du-journal-de-bord-ajout-seulement}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+## Session [n] : [date]
+**Objectif :** [...]
+**Réalisé :** [liste]
+**Décisions prises :** [liste, avec renvoi vers le registre]
+**En attente / à faire à la prochaine session :** [liste ordonnée]
+\end{Verbatim}
+
+\subsubsection{16.3 Instructions du projet (six
+sections)}\label{163-instructions-du-projet-six-sections}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+# Instructions du projet Claude : [titre du projet]
+## Section 1 : Contexte
+## Section 2 : Ressources permanentes (liste classée, avec « consulter pour... »)
+## Section 3 : Décisions techniques figées
+## Section 4 : Consignes permanentes (langue, niveau, style, à faire, à ne pas faire)
+## Section 5 : Workflow de collaboration (début / pendant / fin de session)
+## Section 6 : État courant (mis à jour à chaque session)
+\end{Verbatim}
+
+\subsubsection{16.4 Document de
+passation}\label{164-document-de-passation}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+# Passation : [projet], [phase]
+## 1. Contexte minimal
+## 2. Règles absolues (non négociables)
+## 3. Où en est le projet (ce qui est fait : ne pas refaire)
+## 4. Ce qui reste (le travail demandé)
+## 5. Fichiers, variables, commandes disponibles
+\end{Verbatim}
+
+\subsubsection{16.5 Liste de pièges}\label{165-liste-de-piuxe8ges}
+
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize,frame=leftline,framerule=1.6pt,rulecolor=\color{credixblue},framesep=3mm,xleftmargin=2mm,xrightmargin=1mm]
+## Pièges déjà identifiés : à ne jamais reproduire
+- **[Sujet].** [Ce qui s'est passé] → [ce qu'il faut faire à la place].
+\end{Verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{17. Rejouer la méthode : le
+mini-exercice}\label{17-rejouer-la-muxe9thode--le-mini-exercice}
+
+Pour vérifier que la méthode fonctionne \textbf{sans connaître CREDIX},
+le \textbf{guide 3} fournit un document de conception réduit (MVP)
+d\textquotesingle un mini-système de scoring de crédit. Le protocole de
+test devant l\textquotesingle encadrant est dans la \textbf{fiche de
+démonstration}. En résumé :
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ouvrir un dossier vide dans VS Code et y déposer
+  \texttt{03\_\allowbreak{}conception\_\allowbreak{}MVP.\allowbreak{}md}.
+\item
+  Ouvrir Claude Code, passer en \textbf{mode Plan}, et donner le
+  \textbf{prompt 10}.
+\item
+  \textbf{Relire le plan} : est-il fidèle au document ? Les modules
+  sont-ils dans le bon ordre ?
+\item
+  Approuver, réaliser \textbf{un module} avec le \textbf{prompt 11}, et
+  vérifier que ses tests passent.
+\end{enumerate}
+
+Si le plan est cohérent et que le premier module passe ses tests,
+\textbf{la méthode est validée}.
+
+\end{document}

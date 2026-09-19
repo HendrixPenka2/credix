@@ -222,5 +222,5 @@ Que Claude écrit un système parfait en une passe. Elle cherche à prouver que 
 ### Après la séance
 
 - [ ] Noter les remarques et corrections de l'encadrant
-- [ ] Mettre à jour les documents concernés (le `.md` est la source, le PDF se régénère)
+- [ ] Mettre à jour les documents concernés (le `.md` est la source ; le `.tex` et le PDF se régénèrent avec `docs/build/build_all.sh`)
 - [ ] Enregistrer et envoyer les modifications avec Git (README, section 9)

@@ -47,3 +47,10 @@ stitch_credix_design_system/credix_system/*
 
 # Bibliothèque Mermaid (3,5 Mo, se retélécharge : voir docs/build/render_mermaid.js)
 docs/build/mermaid.min.js
+
+# Fichiers intermédiaires de compilation LaTeX (les .tex eux-mêmes sont versionnés)
+docs/tex/*.aux
+docs/tex/*.log
+docs/tex/*.out
+docs/tex/*.toc
+docs/tex/*.pdf
