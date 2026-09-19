@@ -65,3 +65,11 @@ pdfunite "$TMPD/sommaire.pdf" "${DOCS[@]}" "$P/00_Dossier_de_remise.pdf"
 echo "PDF regroupé : $P/00_Dossier_de_remise.pdf ($(pdfinfo "$P/00_Dossier_de_remise.pdf" | awk '/^Pages:/{print $2}') pages)"
 echo
 for f in "$P"/*.pdf; do printf '%-55s %3s pages  %s\n' "$f" "$(pdfinfo "$f" | awk '/^Pages:/{print $2}')" "$(du -h "$f" | cut -f1)"; done
+
+# Copie les deux fichiers à envoyer dans un dossier du Bureau, s'il existe (sinon rien n'est fait)
+ENVOI="${ENVOI_DIR:-$HOME/Bureau/A_ENVOYER_ENCADRANT}"
+if [ -d "$ENVOI" ]; then
+  cp "$P/00_Dossier_de_remise.pdf" "$ENVOI/1_Dossier_de_remise_CREDIX.pdf"
+  cp "$P/06_Guide4_Autres_fonctions_Claude.pdf" "$ENVOI/2_Guide4_Autres_fonctions_Claude.pdf"
+  echo "Copie à jour dans : $ENVOI"
+fi
