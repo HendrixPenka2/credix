@@ -25,6 +25,7 @@ Projet de fin d'études (ENSPY, Université de Yaoundé I). Dépôt GitHub : <ht
 ## Comment lire ce guide
 
 - **Si vous voulez seulement lancer le projet**, allez directement aux sections 3 à 7, dans l'ordre. Chaque étape suppose que la précédente a réussi.
+- **Vous êtes pressé et vous avez déjà lu ce guide une fois ?** Un seul fichier, `lancer.py`, enchaîne automatiquement toutes les commandes des sections 3 à 6 (section 11.4).
 - Les blocs gris sont des **commandes à copier-coller** dans un terminal, ou des **résultats** que vous devez voir à l'écran. Le texte « Résultat attendu » précède toujours ce que vous devez obtenir.
 - Pour chaque commande, le guide dit **ce qu'elle fait**, **ce qu'il faut voir**, et **quoi faire si ce n'est pas le cas**.
 - Ce guide est écrit et testé pour **Linux**. Windows (avec WSL 2 et Docker Desktop) et macOS peuvent fonctionner, mais n'ont pas été testés.
@@ -1179,3 +1180,29 @@ docker compose down -v   # tout effacer
 | [`docs/pdf/`](docs/pdf/) | Les mêmes documents en PDF, dont le dossier de remise complet (`00_Dossier_de_remise.pdf`) |
 | [`docs/tex/`](docs/tex/) | Le code LaTeX (`.tex`) de chaque document, à recompiler pour y insérer des images (voir `docs/tex/LISEZMOI.md`) |
 | [`docs/build/`](docs/build/) | Outils qui fabriquent les `.tex` et les PDF à partir des fichiers Markdown (guide 4, section 8) |
+
+### 11.4 Lancer tout en une seule commande (raccourci)
+
+Les sections 3 à 6 expliquent chaque étape en détail, pour comprendre ce qui se passe. Une fois que vous les avez lues (ou relues) une première fois, un seul fichier, [`lancer.py`](lancer.py), enchaîne automatiquement les mêmes commandes : préparer les fichiers `.env`, démarrer les conteneurs Docker, charger les données de démonstration (comptes, phrases d'explication, clients fictifs), puis démarrer le frontend.
+
+**Ce qu'il faut en plus :** uniquement **Python** (version 3.8 ou plus), qu'aucune autre partie du projet ne demande sur votre ordinateur (le Python du backend tourne uniquement *dans* le conteneur Docker).
+
+| Système | Vérifier | Si absent |
+|---|---|---|
+| Ubuntu / Debian | `python3 --version` | `sudo apt install python3` |
+| Windows | `python --version` (dans PowerShell) | Téléchargez-le sur [python.org](https://www.python.org/downloads/) et **cochez « Add python.exe to PATH »** pendant l'installation |
+
+**Utilisation**, depuis la racine du dépôt :
+
+```bash
+python3 lancer.py     # Ubuntu, macOS
+python lancer.py      # Windows (PowerShell ou invite de commandes)
+```
+
+Le script vérifie d'abord que Docker, Docker Compose, Node.js et npm sont bien installés, puis affiche chaque commande qu'il exécute, en direct (rien n'est caché). Le tout premier lancement prend le même temps que la méthode manuelle (jusqu'à 50 minutes, section 5.2) ; les suivants sont rapides. Une fois le frontend prêt, il occupe le terminal (comme `npm run start`) : `Ctrl+C` l'arrête proprement, **sans** arrêter le backend Docker (pour l'arrêter aussi : `docker compose down`, section 8).
+
+**Comptes créés automatiquement :** seulement `admin` (mot de passe `Demo12345`). Les comptes `agent.test` et `superviseur.test` restent à créer une fois, à la main, dans l'interface (section 7.2) — comme avec la méthode manuelle.
+
+**Si le port 3001 est déjà utilisé** (par exemple un autre `npm run dev` resté ouvert), le script s'arrête avec un message clair qui explique comment trouver et fermer le programme en cause, avant de relancer.
+
+> **Windows non testé.** Comme le reste de ce README (voir « Comment lire ce guide »), `lancer.py` est écrit pour fonctionner sous Windows, mais je n'ai pas pu le vérifier sur une vraie machine Windows. Testez-le une fois avant de vous en servir en démonstration ; en cas de problème, revenez aux commandes manuelles des sections 3 à 6.

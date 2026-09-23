@@ -70,6 +70,7 @@ L'encadrant veut vérifier **trois choses**, dans cet ordre :
 - Garder **votre propre pile en marche** (Docker et frontend) : elle sert de **plan B** si l'installation de l'encadrant n'est pas terminée.
 - Avoir sous la main : le lien du dépôt, le README en PDF, les guides en PDF, le journal et les documents de passation du projet, l'abonnement Claude.
 - Une connexion Internet stable.
+- **La veille**, vérifier rapidement que tout redémarre bien avec `python3 lancer.py` (README, section 11.4) : c'est le moyen le plus rapide de confirmer que rien n'a été cassé entre-temps.
 
 ### 2.5 Plan B
 
