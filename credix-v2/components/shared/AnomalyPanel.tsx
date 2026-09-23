@@ -1,5 +1,7 @@
 import { Icon } from "@/components/ui/icon";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogBody } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { labelFor, formatFeatureValue } from "@/lib/feature-labels";
 import type { AnomalyFields } from "@/lib/types";
 
 export interface AnomalyPanelProps {
@@ -79,7 +81,28 @@ export function AnomalyPanel({ data, className }: AnomalyPanelProps) {
                       err={f.erreur_reconstruction.toFixed(3)}
                     </span>
                   </div>
-                  <p className="font-mono text-[10px] text-outline mt-0.5">{f.feature}</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <p className="font-mono text-[10px] text-outline">{f.feature}</p>
+                    <Dialog>
+                      <DialogTrigger
+                        className="flex items-center justify-center rounded text-outline hover:text-secondary hover:bg-surface-container transition-colors"
+                        title="Voir la valeur brute saisie"
+                      >
+                        <Icon name="zoom_in" size={13} />
+                      </DialogTrigger>
+                      <DialogContent size="sm">
+                        <DialogHeader>
+                          <DialogTitle>{labelFor(f.feature)}</DialogTitle>
+                        </DialogHeader>
+                        <DialogBody className="text-center py-10">
+                          <p className="font-mono text-[11px] text-outline mb-3">{f.feature}</p>
+                          <p className="font-display-lg text-on-surface break-words">
+                            {formatFeatureValue(f.valeur_brute)}
+                          </p>
+                        </DialogBody>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                   <p className="font-body-sm text-on-surface-variant mt-1">{f.explication_naturelle}</p>
                 </div>
               ))}

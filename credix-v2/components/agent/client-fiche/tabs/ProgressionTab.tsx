@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { Card, CardTitle } from "@/components/ui/card";
 import { KpiCard } from "@/components/shared/KpiCard";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { InfoCallout } from "@/components/shared/InfoCallout";
 import { SkeletonStatCards } from "@/components/ui/skeleton";
 import { useApi } from "@/hooks/useApi";
 import { clientsRepository } from "@/lib/repositories/clients.repository";
@@ -30,7 +31,18 @@ export function ProgressionTab({ client }: { client: Client }) {
   }
 
   return (
-    <div className="space-y-6 max-w-3xl">
+    <div className="space-y-6">
+      <InfoCallout icon="trending_up" title="Comprendre cette page">
+        <p>
+          Cette page suit l&apos;évolution du score et de la couverture (ρc) de ce client entre son premier et son dernier
+          scoring — utile pour voir si son profil de risque s&apos;améliore ou se dégrade au fil du temps.
+        </p>
+        <p>
+          Si les scorings ont été faits avec les mêmes informations, le score ne bouge pas : &quot;+0 pts&quot; est normal,
+          pas une erreur.
+        </p>
+      </InfoCallout>
+
       <div className="grid sm:grid-cols-2 gap-4">
         <KpiCard
           label="Évolution du score"

@@ -100,8 +100,8 @@ def generer_phrase_shap(
             "valeur_brute": valeur_brute,
             "poids_pct": None,
             "explication_naturelle": (
-                f"Variable {feature} : ce facteur {direction_texte} "
-                f"le risque estimé (contribution : {shap_value:+.3f})."
+                f"Variable {feature}. Ce facteur {direction_texte} "
+                f"le risque de ce dossier (contribution : {shap_value:+.3f})."
             ),
         }
 
@@ -130,30 +130,31 @@ def generer_phrase_shap(
     else:
         intensite = "légèrement"
 
-    direction_complete = f"{intensite} {direction_texte}".strip()
+    direction_complete = f"{direction_texte} {intensite}".strip()
 
     # ── 4. Poids relatif (% de l'explication du modèle pour ce scoring) ───────
     poids_pct: Optional[float] = None
     poids_str = ""
     if total_shap_abs and total_shap_abs > 0:
         poids_pct = round(abs_shap / total_shap_abs * 100, 1)
-        poids_str = f" — {poids_pct}% de l'explication"
+        poids_str = f" ({poids_pct}% du poids de la décision)"
 
     # ── 5. Construction finale de la phrase ───────────────────────────────────
     if label and label != libelle and valeur_fmt != "N/A":
+        label_aff = label[0].lower() + label[1:]
         phrase = (
-            f"{libelle} : {label} ({valeur_fmt}) — "
-            f"ce facteur {direction_complete} le risque estimé{poids_str}."
+            f"{libelle} : {label_aff} ({valeur_fmt}). "
+            f"Ce facteur {direction_complete} le risque de ce dossier{poids_str}."
         )
     elif meta.get("type") == "categorical":
         phrase = (
-            f"{libelle} : {valeur_fmt} — "
-            f"ce facteur {direction_complete} le risque estimé{poids_str}."
+            f"{libelle} : {valeur_fmt}. "
+            f"Ce facteur {direction_complete} le risque de ce dossier{poids_str}."
         )
     else:
         phrase = (
-            f"{libelle} ({valeur_fmt}) — "
-            f"ce facteur {direction_complete} le risque estimé{poids_str}."
+            f"{libelle} ({valeur_fmt}). "
+            f"Ce facteur {direction_complete} le risque de ce dossier{poids_str}."
         )
 
     return {

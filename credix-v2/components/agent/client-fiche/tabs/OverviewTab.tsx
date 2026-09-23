@@ -3,6 +3,8 @@
 import { useCallback, useState } from "react";
 import Link from "next/link";
 import { Card, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogBody } from "@/components/ui/dialog";
 import { Icon } from "@/components/ui/icon";
 import { ScoreGauge } from "@/components/shared/ScoreGauge";
 import { CoverageRing } from "@/components/shared/CoverageRing";
@@ -41,7 +43,9 @@ export function OverviewTab({ client }: { client: Client }) {
           title="Aucun scoring encore réalisé"
           description="Lancez un premier scoring pour ce client depuis l'onglet « Nouveau scoring »."
         />
-        <ClientRawDataCard client={client} />
+        <div className="flex justify-center">
+          <ClientProfileModalButton client={client} />
+        </div>
       </div>
     );
   }
@@ -120,6 +124,52 @@ export function OverviewTab({ client }: { client: Client }) {
 }
 
 /**
+ * Client sans aucun scoring : pas d'accordéon inline (rien d'autre à montrer
+ * sur la page), juste un bouton ouvrant le profil complet dans une modal.
+ */
+function ClientProfileModalButton({ client }: { client: Client }) {
+  const [open, setOpen] = useState(false);
+  const nbFeatures = Object.keys(client.features ?? {}).length;
+
+  return (
+    <>
+      <Button variant="outline" onClick={() => setOpen(true)}>
+        <Icon name="data_object" size={18} />
+        Consulter le profil complet
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent size="lg">
+          <DialogHeader>
+            <DialogTitle>
+              Profil complet — {client.profile.prenom} {client.profile.nom}
+            </DialogTitle>
+          </DialogHeader>
+          <DialogBody>
+            <p className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2">
+              Profil déclaratif ({Object.keys(client.profile).length})
+            </p>
+            <RawFeaturesGrid data={client.profile} />
+
+            <div className="border-t border-outline-variant/40 my-4" />
+
+            <p className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2">
+              Variables du modèle ({nbFeatures})
+            </p>
+            {nbFeatures > 0 ? (
+              <RawFeaturesGrid data={client.features} />
+            ) : (
+              <p className="font-body-sm text-on-surface-variant italic">
+                Pas encore de variables calculées — un scoring est nécessaire.
+              </p>
+            )}
+          </DialogBody>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+/**
  * Profil complet + variables brutes du modèle pour ce client — vue en
  * lecture seule, distincte du formulaire "Modifier le profil" qui ne montre
  * que les champs modifiables. Répond au besoin de voir toutes les infos
@@ -127,20 +177,36 @@ export function OverviewTab({ client }: { client: Client }) {
  */
 function ClientRawDataCard({ client }: { client: Client }) {
   const [open, setOpen] = useState(false);
-  const merged = { ...client.profile, ...client.features };
+  const nbFeatures = Object.keys(client.features ?? {}).length;
 
   return (
     <Card className="p-card-padding">
       <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center justify-between">
         <span className="flex items-center gap-2 font-data-sm text-on-surface">
           <Icon name="data_object" size={18} />
-          Profil complet et variables brutes ({Object.keys(merged).length})
+          Profil complet et variables brutes
         </span>
         <Icon name="expand_more" size={18} className={cn("transition-transform text-on-surface-variant", open && "rotate-180")} />
       </button>
       {open && (
         <div className="mt-3">
-          <RawFeaturesGrid data={merged} />
+          <p className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2">
+            Profil déclaratif ({Object.keys(client.profile).length})
+          </p>
+          <RawFeaturesGrid data={client.profile} />
+
+          <div className="border-t border-outline-variant/40 my-4" />
+
+          <p className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2">
+            Variables du modèle ({nbFeatures})
+          </p>
+          {nbFeatures > 0 ? (
+            <RawFeaturesGrid data={client.features} />
+          ) : (
+            <p className="font-body-sm text-on-surface-variant italic">
+              Pas encore de variables calculées — un scoring est nécessaire.
+            </p>
+          )}
         </div>
       )}
     </Card>

@@ -1,5 +1,7 @@
 import { Icon } from "@/components/ui/icon";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogBody } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { labelFor, formatFeatureValue } from "@/lib/feature-labels";
 import type { ShapItem } from "@/lib/types";
 
 function barWidthPct(item: ShapItem, maxAbs: number): number {
@@ -31,7 +33,7 @@ export function ShapBlock({ items, className }: { items: ShapItem[]; className?:
                   isAggravant ? "bg-danger-rose/10 text-danger-rose" : "bg-success-emerald/10 text-success-emerald"
                 )}
               >
-                <Icon name={isAggravant ? "add" : "remove"} size={16} />
+                <Icon name={isAggravant ? "remove" : "add"} size={16} />
               </span>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
@@ -41,7 +43,28 @@ export function ShapBlock({ items, className }: { items: ShapItem[]; className?:
                     {item.poids_pct != null ? `${Math.round(Math.abs(item.poids_pct))}%` : Math.abs(item.shap_value).toFixed(2)}
                   </span>
                 </div>
-                <p className="font-mono text-[10px] text-outline mt-0.5">{item.feature}</p>
+                <div className="flex items-center gap-1 mt-0.5">
+                  <p className="font-mono text-[10px] text-outline">{item.feature}</p>
+                  <Dialog>
+                    <DialogTrigger
+                      className="flex items-center justify-center rounded text-outline hover:text-secondary hover:bg-surface-container transition-colors"
+                      title="Voir la valeur brute saisie"
+                    >
+                      <Icon name="zoom_in" size={13} />
+                    </DialogTrigger>
+                    <DialogContent size="sm">
+                      <DialogHeader>
+                        <DialogTitle>{labelFor(item.feature)}</DialogTitle>
+                      </DialogHeader>
+                      <DialogBody className="text-center py-10">
+                        <p className="font-mono text-[11px] text-outline mb-3">{item.feature}</p>
+                        <p className="font-display-lg text-on-surface break-words">
+                          {formatFeatureValue(item.valeur_brute)}
+                        </p>
+                      </DialogBody>
+                    </DialogContent>
+                  </Dialog>
+                </div>
                 <div className="h-1.5 w-full rounded-full bg-outline-variant/30 mt-2 overflow-hidden flex">
                   {!isAggravant && (
                     <div className="h-full rounded-full bg-success-emerald" style={{ width: `${width}%` }} />

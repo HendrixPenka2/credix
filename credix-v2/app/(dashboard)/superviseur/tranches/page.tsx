@@ -9,6 +9,7 @@ import { SkeletonCard, SkeletonTable } from "@/components/ui/skeleton";
 import { PeriodSelector, type Periode } from "@/components/agent/dashboard/PeriodSelector";
 import { CalibrationBanner } from "@/components/superviseur/tranches/CalibrationBanner";
 import { ScoreBandsTable } from "@/components/superviseur/tranches/ScoreBandsTable";
+import { InfoCallout } from "@/components/shared/InfoCallout";
 
 export default function TranchesPage() {
   const [periode, setPeriode] = useState<Periode>("30j");
@@ -37,6 +38,16 @@ export default function TranchesPage() {
         <>
           <CalibrationBanner bands={data} />
           <ScoreBandsTable tranches={data.tranches} />
+          <InfoCallout icon="insights" title="Comprendre cette page">
+            <p>
+              Cette page ne concerne pas un client en particulier : elle regroupe tous les dossiers scorés par tranche de
+              score (300-350, 350-400...) pour vérifier que le modèle reste cohérent sur l&apos;ensemble du portefeuille.
+            </p>
+            <p>
+              Principe de base : plus le score est élevé, plus le risque moyen (PD) doit être bas, tranche après tranche.
+              Le bandeau en haut vérifie automatiquement cette règle et alerte en cas d&apos;anomalie de calibration.
+            </p>
+          </InfoCallout>
         </>
       )}
     </div>

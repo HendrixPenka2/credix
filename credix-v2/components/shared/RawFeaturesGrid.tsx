@@ -13,7 +13,7 @@ export function RawFeaturesGrid({ data }: { data: Record<string, any> }) {
   if (rows.length === 0) return null;
 
   return (
-    <div className="grid sm:grid-cols-2 gap-x-6 gap-y-0 max-h-[32rem] overflow-y-auto custom-scrollbar p-1">
+    <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 max-h-[32rem] overflow-y-auto custom-scrollbar p-1">
       {rows.map((r) => (
         <div key={r.key} className="flex items-start justify-between gap-3 py-2 border-b border-outline-variant/30">
           <div className="min-w-0">

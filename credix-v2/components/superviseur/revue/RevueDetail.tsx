@@ -16,7 +16,7 @@ import { RevueFeaturesPanel } from "./RevueFeaturesPanel";
 import type { DecisionPendingReview } from "@/lib/types";
 
 export function RevueDetail({ dossier }: { dossier: DecisionPendingReview }) {
-  const [shapOpen, setShapOpen] = useState(true);
+  const [shapOpen, setShapOpen] = useState(false);
 
   return (
     <div className="space-y-6">

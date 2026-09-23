@@ -16,7 +16,7 @@ export function RoleGuard({ children }: { children: React.ReactNode }) {
 
   if (isLoading || !user || !role) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-surface">
+      <div className="flex h-screen w-full items-center justify-center bg-surface-container-lowest">
         <Icon name="progress_activity" size={32} className="animate-spin text-on-surface-variant" />
       </div>
     );

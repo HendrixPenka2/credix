@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -32,24 +33,14 @@ export default function LoginPage() {
     <div className="min-h-screen flex bg-surface text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
       {/* Panneau gauche — image immersive (masqué en mobile) */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-slate-900">
-        <div
-          className="absolute inset-0 opacity-80"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 20%, rgba(99,102,241,0.35), transparent 40%)," +
-              "radial-gradient(circle at 80% 30%, rgba(124,58,237,0.3), transparent 45%)," +
-              "radial-gradient(circle at 50% 90%, rgba(16,185,129,0.15), transparent 40%)",
-          }}
+        <Image
+          src="/login.png"
+          alt="Credix AI — Scoring de risque de crédit"
+          fill
+          className="object-cover object-center"
+          priority
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-slate-900/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/75 via-blue-950/60 to-slate-900/80" />
         <div className="relative z-10 flex flex-col justify-between p-margin-page h-full w-full">
           <div className="flex items-center gap-stack-sm text-slate-50">
             <Icon name="analytics" filled size={40} />

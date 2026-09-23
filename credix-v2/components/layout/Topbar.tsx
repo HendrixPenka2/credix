@@ -14,7 +14,7 @@ export function Topbar({ role }: { role: Role }) {
   const revuePath = role === "ADMIN" ? "/admin" : "/superviseur/revue";
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-4 border-b border-outline-variant/60 bg-surface/80 backdrop-blur-md px-gutter">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-4 border-b border-outline-variant/60 bg-surface-container-lowest/80 backdrop-blur-md px-gutter">
       <Breadcrumbs />
       <div className="flex items-center gap-3 flex-1 justify-end">
         <GlobalSearch />

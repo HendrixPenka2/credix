@@ -190,9 +190,10 @@
   --color-slate-800: #1e293b;
   --color-slate-900: #0f172a;
 
-  /* Typographie — Inter (chargée via next/font/google, var(--font-inter)),
+  /* Typographie — Inter (auto-hébergée via @fontsource-variable/inter,
+     importée dans layout.tsx — évite l'appel réseau à Google Fonts au build),
      échelle "data-first" du design system */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
 
   --text-display-lg: 48px;
   --text-display-lg--line-height: 56px;

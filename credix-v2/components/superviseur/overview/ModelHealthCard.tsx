@@ -7,6 +7,7 @@ import type { ModelDrift, ModelVersion } from "@/lib/types";
 export function ModelHealthCard({ drift, production }: { drift: ModelDrift; production?: ModelVersion }) {
   const psiStyle = drift.psi != null ? getPsiStyle(drift.statut) : null;
   const psiPct = drift.psi != null ? Math.min(100, (drift.psi / 0.4) * 100) : 0;
+  const echantillonFaible = (drift.nb_scores_reference ?? 0) < 50 || (drift.nb_scores_actuels ?? 0) < 50;
 
   return (
     <Link
@@ -29,6 +30,11 @@ export function ModelHealthCard({ drift, production }: { drift: ModelDrift; prod
             <div className="h-1.5 w-full rounded-full bg-slate-800 mt-3 overflow-hidden">
               <div className={psiStyle?.dot} style={{ width: `${psiPct}%`, height: "100%" }} />
             </div>
+            {echantillonFaible && (
+              <p className="font-body-sm text-slate-400 mt-2">
+                Échantillon réduit — le PSI peut ne pas refléter une dérive réelle tant que peu de nouveaux dossiers sont scorés.
+              </p>
+            )}
           </>
         ) : (
           <p className="font-body-sm text-slate-400">{drift.message}</p>
@@ -37,11 +43,15 @@ export function ModelHealthCard({ drift, production }: { drift: ModelDrift; prod
         <div className="grid grid-cols-2 gap-3 mt-4">
           <div className="rounded-lg bg-white/5 p-3">
             <p className="font-label-md text-slate-400 uppercase tracking-wider">AUC</p>
-            <p className="font-data-lg mt-1">{production?.metriques?.auc?.toFixed(3) ?? "—"}</p>
+            <p className="font-data-lg mt-1" title={production?.metriques?.auc == null ? "Non renseigné pour ce modèle" : undefined}>
+              {production?.metriques?.auc?.toFixed(3) ?? "—"}
+            </p>
           </div>
           <div className="rounded-lg bg-white/5 p-3">
             <p className="font-label-md text-slate-400 uppercase tracking-wider">Gini</p>
-            <p className="font-data-lg mt-1">{production?.metriques?.gini?.toFixed(3) ?? "—"}</p>
+            <p className="font-data-lg mt-1" title={production?.metriques?.gini == null ? "Non renseigné pour ce modèle" : undefined}>
+              {production?.metriques?.gini?.toFixed(3) ?? "—"}
+            </p>
           </div>
         </div>
         <span className="flex items-center gap-1 font-body-sm text-slate-400 mt-3">

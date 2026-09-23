@@ -11,7 +11,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   if (!role) return null;
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-surface-container-lowest">
       <Sidebar role={role} user={user} onLogout={logout} />
       <div className="lg:pl-[260px] flex min-h-screen flex-col">
         <Topbar role={role} />

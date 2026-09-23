@@ -65,7 +65,9 @@ export function HistTable({ historique }: { historique: ScoringHistoryItem[] }) 
         <div className="space-y-4 py-2">
           {h.declaratif && Object.keys(h.declaratif).length > 0 && (
             <div>
-              <p className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2">Données de la demande</p>
+              <p className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2">
+                Variables déclaratives de ce scoring ({Object.keys(h.declaratif).length})
+              </p>
               <RawFeaturesGrid data={h.declaratif} />
             </div>
           )}

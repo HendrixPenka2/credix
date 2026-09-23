@@ -21,7 +21,7 @@ export function RevueFeaturesPanel({ features, declaratif }: { features?: Record
       >
         <span className="flex items-center gap-2 font-data-sm text-on-surface">
           <Icon name="data_object" size={18} />
-          Variables brutes du modèle ({Object.keys(merged).length})
+          Variables du dossier scoré ({Object.keys(merged).length})
         </span>
         <Icon name="expand_more" size={18} className={cn("transition-transform", open && "rotate-180")} />
       </button>
